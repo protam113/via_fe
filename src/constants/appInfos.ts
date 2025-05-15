@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 
 export const appInfo = {
   logo: '/logo.svg', //web logo
-  title: 'App Name', //app name
+  title: 'VIA', //app name
   description: 'app description', //app description
   domain: 'app domain', //app domain
-  ogImage: '/og_logo.svg', //og image
+  ogImage: '/logo.svg', //og image
   themeColor: '#ffffff',
   keywords: [
     'keywords', //keywords
