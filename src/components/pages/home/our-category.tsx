@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import MainButton from '@/components/button/main.button';
 import Link from 'next/link';
+import Header from '@/components/design/header';
 
 export default function OurCategory() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
@@ -17,7 +18,7 @@ export default function OurCategory() {
   ];
 
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-white mb-16 ">
       <div className="container mx-auto px-4 mt-12">
         {/* Top Section */}
         <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -33,9 +34,7 @@ export default function OurCategory() {
           {/* Right - Title + Categories */}
           <div id="categories" className="space-y-8">
             <div>
-              <h1 className="text-4xl md:text-5xl font-light mb-4">
-                Reimagining Experiences
-              </h1>
+              <Header title=" Reimagining Experiences" />
               <p className="text-gray-700 max-w-lg">
                 From exhibitions to large-scale events, we craft experiences
                 that transform ordinary spaces into storytelling platforms.

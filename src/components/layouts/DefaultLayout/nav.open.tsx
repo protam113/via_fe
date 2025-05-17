@@ -5,6 +5,15 @@ import { X } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
+const menuItems = [
+  { label: 'Home', href: '/' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Via Art Fair', href: '/via-art-fair' },
+  { label: 'Via Atelier', href: '/via-atelier' },
+  { label: "Via Prive'", href: '/via-prive' },
+  { label: 'Contact', href: '/contact' },
+];
+
 export default function NavigationMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -72,21 +81,14 @@ export default function NavigationMenu() {
           {/* Main Navigation */}
           <div className="flex-1 flex flex-col justify-center md:justify-start md:pt-16">
             <nav className="space-y-6">
-              {[
-                'Home',
-                'About Us',
-                'Via Art Fair',
-                'Via Atelier',
-                "Via Prive'",
-                'Contact',
-              ].map((item) => (
-                <div key={item} className="overflow-hidden">
+              {menuItems.map(({ label, href }) => (
+                <div key={label} className="overflow-hidden">
                   <Link
-                    href={`/${item.toLowerCase()}`}
+                    href={href}
                     className="block text-4xl md:text-5xl font-medium text-black hover:underline transform transition-transform duration-300 hover:translate-x-2"
                     onClick={() => setIsOpen(false)}
                   >
-                    {item}
+                    {label}
                   </Link>
                 </div>
               ))}
@@ -95,7 +97,6 @@ export default function NavigationMenu() {
 
           {/* Contact and Social */}
           <div className="mt-auto md:mt-0 md:self-end flex flex-col items-start md:items-end space-y-8">
-            {/* Contact Information */}
             <div className="text-right">
               <h3 className="text-gray-400 mb-2 text-sm">Contact</h3>
               <p className="mb-1">tomuraleevn@gmail.com</p>
@@ -104,8 +105,7 @@ export default function NavigationMenu() {
               <p>Thu Duc, Ho Chi Minh</p>
             </div>
 
-            {/* Social Links */}
-            <div className="text-righ   t">
+            <div className="text-right">
               <h3 className="text-gray-400 mb-2 text-sm">Socials</h3>
               <div className="space-y-1">
                 {['Instagram', 'Twitter', 'LinkedIn'].map((social) => (

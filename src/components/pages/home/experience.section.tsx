@@ -1,6 +1,7 @@
 'use client';
 
 import Container from '@/components/container/container';
+import Header from '@/components/design/header';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import React, { useState, useEffect, useRef } from 'react';
@@ -136,10 +137,7 @@ export const ExperienceSection = () => {
           <div className="flex flex-col w-full lg:max-w-[800px] items-start gap-6 md:gap-[50px] relative">
             {/* Heading and Description */}
             <div className="flex flex-col items-start gap-3 md:gap-5 relative self-stretch w-full">
-              <h2 className="relative self-stretch mt-[-1.00px] font-light text-neutral-950 text-4xl md:text-5xl lg:text-[61.5px] tracking-[-1.92px] leading-tight md:leading-[64px]">
-                Experience
-              </h2>
-
+              <Header title="Experience" />
               <div className="relative self-stretch w-full">
                 <p className="font-light text-neutral-950 text-base md:text-xl tracking-[-0.20px] leading-snug md:leading-6">
                   Each event is a curated experience —{' '}

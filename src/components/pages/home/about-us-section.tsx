@@ -6,6 +6,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Container from '@/components/container/container';
 import MainButton from '@/components/button/main.button';
+import Header from '@/components/design/header';
 
 export default function AboutUsSection() {
   const controls = useAnimation();
@@ -68,25 +69,20 @@ export default function AboutUsSection() {
           animate={controls}
         >
           <motion.div
-            className="w-full md:w-1/2 mb-8 md:mb-0"
+            className="w-full mb-8 md:mb-0"
             variants={leftTextVariants}
           >
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-neutral-900">
-              About US
-            </h2>
+            <Header title="About Us" />
           </motion.div>
 
-          <motion.div
-            className="w-full md:w-1/2 max-w-xl"
-            variants={rightTextVariants}
-          >
+          <motion.div className="w-full  max-w-xl" variants={rightTextVariants}>
             <p className="text-lg md:text-xl text-neutral-800 mb-8 leading-relaxed">
               VIA specializes in modern architecture and real estate development
               that seamlessly integrates functionality, aesthetics, and
               sustainability. The studio brings a unique global perspective to
               every project. With a commitment to crafting timeless designs.
             </p>
-            <MainButton href="about-us" title="    MORE ABOUT US" />
+            <MainButton href="about" title="    MORE ABOUT US" />
           </motion.div>
         </motion.div>
       </Container>
