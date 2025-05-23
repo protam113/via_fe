@@ -1,4 +1,8 @@
-import { metadata as siteMetadata } from '@/constants/appInfos';
+import {
+  metadata as siteMetadata,
+  viewport as siteViewport,
+} from '@/constants/appInfos';
+
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -13,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = siteMetadata;
+export const viewport = siteViewport;
 
 export default function RootLayout({
   children,
@@ -22,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="mdl-js">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
       >
         {children}
       </body>

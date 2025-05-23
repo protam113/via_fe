@@ -29,11 +29,12 @@ export function CategoryCard({
   }, [delay]);
 
   return (
+    // Trong CategoryCard
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-none aspect-[3/4] group"
+      className="relative overflow-hidden rounded-none aspect-[3/4] group w-full" // Thêm w-full
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

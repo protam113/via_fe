@@ -255,7 +255,9 @@ export default function PremiumLoader({
         <img
           src={logoSrc || '/placeholder.svg'}
           alt="Logo"
-          className="w-32 h-32 object-contain"
+          width={350}
+          height={350}
+          className=" object-contain"
           style={{ filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))' }}
         />
       </motion.div>

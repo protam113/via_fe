@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 export const appInfo = {
   logo: '/logo.svg', //web logo
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     apple: appInfo.logo,
     shortcut: appInfo.logo,
   },
-  themeColor: appInfo.themeColor,
 
   openGraph: {
     type: 'website',
@@ -51,13 +50,6 @@ export const metadata: Metadata = {
     images: [`${appInfo.domain}${appInfo.ogImage}`],
     creator: '@ugc_creator',
     site: '@ugc_creator',
-  },
-
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
   },
 
   alternates: {
@@ -87,6 +79,15 @@ export const metadata: Metadata = {
   category: 'Marketing Agency',
   creator: '@ugc_creator',
   publisher: 'UGC Creator',
+};
+
+// Move themeColor to viewport export
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: appInfo.themeColor,
 };
 
 // Function to generate metadata for child pages

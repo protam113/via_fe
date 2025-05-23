@@ -1,7 +1,7 @@
 'use client';
 
 import DefaultLayout from '@/components/layouts/DefaultLayout/layout';
-import PremiumLoader from '@/components/loading/premium-loader';
+import LoadingScreen from '@/components/loading/loading-screen';
 import React, { useState } from 'react';
 
 export default function LayoutDefault({
@@ -11,9 +11,12 @@ export default function LayoutDefault({
 }>) {
   const [loading, setLoading] = useState(true);
 
+  const handleLoadingComplete = () => {
+    setLoading(false); // Chuyển trạng thái loading thành false khi loading hoàn tất
+  };
   return (
     <>
-      {loading && <PremiumLoader onLoadingComplete={() => setLoading(false)} />}
+      {loading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
       {!loading && (
         <DefaultLayout>
           <div>{children}</div>

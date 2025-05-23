@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import Container from '@/components/container/container';
 import MainButton from '@/components/button/main.button';
 import Header from '@/components/design/header';
@@ -59,7 +58,7 @@ export default function AboutUsSection() {
   };
 
   return (
-    <section ref={ref} className="relative w-full min-h-screen flex flex-col">
+    <section ref={ref} className="relative w-full flex flex-col">
       {/* Text Content - Split Layout */}
       <Container>
         <motion.div
@@ -86,35 +85,6 @@ export default function AboutUsSection() {
           </motion.div>
         </motion.div>
       </Container>
-      {/* Gallery Image Below */}
-      <motion.div
-        className="w-full h-[70vh]"
-        variants={imageVariants}
-        initial="hidden"
-        animate={controls}
-      >
-        <div className="relative w-full h-full overflow-hidden">
-          <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px] transition-all duration-1000 animate-reveal z-10"></div>
-          <Image
-            src="/img/hero1.png"
-            alt="Art gallery exhibition"
-            fill
-            priority
-            className="object-cover"
-            sizes="100vw"
-            onLoadingComplete={(image) => {
-              // Remove blur effect when image is loaded
-              const blurElement = image.parentElement?.querySelector(
-                '.backdrop-blur-[2px]'
-              );
-              if (blurElement) {
-                blurElement.classList.remove('backdrop-blur-[2px]');
-                blurElement.classList.add('backdrop-blur-0');
-              }
-            }}
-          />
-        </div>
-      </motion.div>
     </section>
   );
 }

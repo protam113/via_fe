@@ -23,8 +23,6 @@ export default function EnhancedHeroBanner({
   subheading,
 }: Hero) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [dotPosition, setDotPosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | undefined>(undefined);
   useEffect(() => {
@@ -35,61 +33,6 @@ export default function EnhancedHeroBanner({
 
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!heroRef.current) return;
-
-      const rect = heroRef.current.getBoundingClientRect();
-
-      // Check if mouse is inside hero section
-      if (
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
-      ) {
-        // Calculate position relative to hero section
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Smooth dot movement with optimized spring effect
-  useEffect(() => {
-    const smoothingFactor = 0.05; // Điều chỉnh giá trị này: 0.08 là tốc độ trung bình, mượt
-
-    const animateDot = () => {
-      setDotPosition((prev) => {
-        // Tính toán chuyển động mượt hơn với spring effect
-        const dx = mousePosition.x - prev.x;
-        const dy = mousePosition.y - prev.y;
-
-        return {
-          x: prev.x + dx * smoothingFactor,
-          y: prev.y + dy * smoothingFactor,
-        };
-      });
-
-      animationRef.current = requestAnimationFrame(animateDot);
-    };
-
-    // Bắt đầu animation
-    animationRef.current = requestAnimationFrame(animateDot);
-
-    // Dọn dẹp
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [mousePosition]);
 
   const scrollToContent = () => {
     window.scrollTo({
@@ -104,16 +47,6 @@ export default function EnhancedHeroBanner({
       className="relative w-full h-[800px] bg-white overflow-hidden"
     >
       {/* Cursor follower dot */}
-      <div
-        className={cn(
-          'absolute w-4 h-4 rounded-full bg-black transition-opacity duration-500',
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        )}
-        style={{
-          transform: `translate(${dotPosition.x}px, ${dotPosition.y}px)`,
-          // Loại bỏ transition từ CSS để tránh xung đột với animation frame
-        }}
-      />
 
       <div className="container mx-auto px-6 h-full flex flex-col justify-center">
         <div className="space-y-16 mb-16">
