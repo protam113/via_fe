@@ -10,7 +10,10 @@ import ContactBlackForm from '@/components/container/contact.-blackcontainer';
 
 const ViaAAuth = () => {
   return (
-    <main className="">
+    <Container className="mx-auto ">
+      <h1 className="mt-16 mb-10 font-sans text-white text-4xl font-bold uppercase tracking-tight sm:text-5xl md:text-6xl">
+        Explore our versatile co–working environments
+      </h1>
       <div className="relative w-full h-[600px]">
         <Image
           src="/img/hero1.png"
@@ -21,19 +24,15 @@ const ViaAAuth = () => {
         />
       </div>
       <Container>
-        <motion.h1
-          className="font-sans text-white text-4xl font-bold uppercase tracking-tight sm:text-5xl md:text-6xl"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Explore our versatile co–working environments
-        </motion.h1>
-        {/* Left Section - 5 columns */}
         {/* Headline */}
+        <p className="text-base leading-relaxed text-neutral-200 font-sans">
+          Skyline Nexus is a bold addition to Manchester's evolving cityscape,
+          redefining commercial architecture with its striking geometric form
+          and reflective glass façade. A landmark of modern design, it serves as
+          a hub for forward-thinking enterprises, offering a workspace that
+          embodies sophistication, efficiency, and the spirit of progress.
+        </p>
         <div className="mx-auto grid grid-cols-1 px-4 py-12 lg:grid-cols-12 lg:gap-x-12">
-          {' '}
-          {/* Exhibition Details */}
           <motion.div
             className="space-y-6 lg:col-span-5"
             initial={{ opacity: 0, y: 30 }}
@@ -72,19 +71,6 @@ const ViaAAuth = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Description */}
-            <motion.p
-              className="text-base leading-relaxed text-neutral-200 font-sans"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              Skyline Nexus is a bold addition to Manchester's evolving
-              cityscape, redefining commercial architecture with its striking
-              geometric form and reflective glass façade. A landmark of modern
-              design, it serves as a hub for forward-thinking enterprises,
-              offering a workspace that embodies sophistication, efficiency, and
-              the spirit of progress.
-            </motion.p>
 
             <motion.p
               className="text-sm text-neutral-300"
@@ -125,7 +111,7 @@ const ViaAAuth = () => {
           <ContactBlackForm />
         </section>
       </Container>
-    </main>
+    </Container>
   );
 };
 

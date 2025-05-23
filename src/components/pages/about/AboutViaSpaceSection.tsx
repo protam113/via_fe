@@ -2,10 +2,11 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import MainButton from '@/components/button/main.button';
 import Header from '@/components/design/header';
+import Container from '@/components/container/container';
 
 export default function AboutViaSpaceSection() {
   return (
-    <section className="container mx-auto py-16 px-4 md:px-6">
+    <Container className="mx-auto py-16 px-4 md:px-6">
       <div className="flex flex-col md:flex-row gap-6 md:gap-8">
         {/* Left Column - About Via Space */}
         <div className="w-full md:w-[30%] flex flex-col">
@@ -63,6 +64,6 @@ export default function AboutViaSpaceSection() {
           <MainButton href="/contact" title="Contact us" />
         </div>
       </div>
-    </section>
+    </Container>
   );
 }

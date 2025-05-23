@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import CustomImage from '../design/image.component';
 
 const BannerContainer = ({ image }: { image: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ const BannerContainer = ({ image }: { image: string }) => {
           y,
         }}
       >
-        <Image
+        <CustomImage
           src={image}
           alt="Art gallery exhibition"
           fill

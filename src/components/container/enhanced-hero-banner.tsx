@@ -10,6 +10,7 @@ import {
   Twitter,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Container from './container';
 
 interface Hero {
   title: string;
@@ -48,7 +49,7 @@ export default function EnhancedHeroBanner({
     >
       {/* Cursor follower dot */}
 
-      <div className="container mx-auto px-6 h-full flex flex-col justify-center">
+      <Container className="mx-auto px-6 h-full flex flex-col justify-center">
         <div className="space-y-16 mb-16">
           {/* Services label */}
           <div
@@ -87,43 +88,7 @@ export default function EnhancedHeroBanner({
 
         <div className="flex justify-between items-end">
           {/* Social icons */}
-          <div
-            className={cn(
-              'flex space-x-4 transform transition-all duration-1000 ease-out delay-300',
-              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            )}
-          >
-            <a
-              href="https://www.facebook.com/vietstrix"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full text-black border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-            >
-              <Facebook size={18} />
-            </a>
-            <a
-              href="https://x.com/Vietstrix"
-              target="_blank"
-              className="w-10 h-10 rounded-full text-black border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-            >
-              <Twitter size={18} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/hoangpham-strix/"
-              target="_blank"
-              className="w-10 h-10 rounded-full text-black border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-            >
-              <Linkedin size={18} />
-            </a>
-            <a
-              href="https://github.com/protam113"
-              target="_blank"
-              className="w-10 h-10 rounded-full text-black border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-            >
-              <Github size={18} />
-            </a>
-          </div>
-
+          <span></span>
           {/* Scroll to explore */}
           <button
             onClick={scrollToContent}
@@ -141,7 +106,7 @@ export default function EnhancedHeroBanner({
             />
           </button>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
