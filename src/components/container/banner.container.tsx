@@ -48,7 +48,7 @@ const BannerContainer = ({ image }: { image: string }) => {
           src={image}
           alt="Art gallery exhibition"
           fill
-          priority
+          loading="lazy"
           className="object-cover"
           sizes="100vw"
         />

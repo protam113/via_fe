@@ -33,19 +33,16 @@ export default function Hero() {
           title="VIA Art Fair"
           description="A serene architectural masterpiece blending natural elements with modern design principles."
           imageSrc="/img/banner4.jpg"
-          delay={0}
         />
         <CategoryCard
           title="VIA Atelier"
           description="Contemporary residential complex featuring distinctive arched facades and minimalist aesthetics."
           imageSrc="/img/hero1.png"
-          delay={200}
         />
         <CategoryCard
           title="VIA Prive'"
           description="Innovative geometric patterns create a stunning visual experience in this architectural landmark."
           imageSrc="/img/banner2.png"
-          delay={400}
         />
       </div>
     </Container>

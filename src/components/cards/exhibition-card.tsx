@@ -1,48 +1,38 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import CustomImage from '../design/image.component';
 
 interface ProjectCardProps {
   title: string;
   description: string;
   imageSrc: string;
-  delay?: number;
 }
 
 export function CategoryCard({
   title,
   description,
   imageSrc,
-  delay = 0,
 }: ProjectCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [delay]);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   return (
-    // Trong CategoryCard
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 50 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-none aspect-[3/4] group w-full" // Thêm w-full
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative overflow-hidden rounded-none aspect-[3/4] group w-full"
     >
       <div className="absolute inset-0">
-        <Image
+        <CustomImage
           src={imageSrc || '/placeholder.svg'}
           alt={title}
           fill
+          priority={isInView} // Load image early if it's in view
+          loading={isInView ? undefined : 'lazy'}
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
@@ -54,7 +44,7 @@ export function CategoryCard({
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isHovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.3 }}
           className="text-sm opacity-90"
         >

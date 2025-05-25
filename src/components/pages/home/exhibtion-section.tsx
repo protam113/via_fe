@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Header from '@/components/design/header';
+import CustomImage from '@/components/design/image.component';
 
 interface Award {
   id: number;
@@ -22,35 +23,35 @@ export default function ExhibitonsShowcase() {
     {
       id: 1,
       title: 'BEST RESIDENTIAL DESIGN',
-      organization: 'European Design Awards',
+      organization: 'Via Art Fair',
       year: '2024',
       image: '/img/hero1.png',
     },
     {
       id: 2,
       title: 'SUSTAINABLE ARCHITECTURE PRIZE',
-      organization: 'Green Building Council Awards',
+      organization: 'Via Art Fair',
       year: '2024',
       image: '/img/hero2.png',
     },
     {
       id: 3,
       title: 'EXCELLENCE IN TIMBER CONSTRUCTION',
-      organization: 'International Woodworks Conference',
+      organization: 'Via Atelier',
       year: '2023',
       image: '/img/banner3.jpg',
     },
     {
       id: 4,
       title: 'INNOVATIVE USE OF MATERIALS',
-      organization: 'ArchDaily Global Awards',
+      organization: "Via Prive'",
       year: '2022',
       image: '/img/banner4.jpg',
     },
     {
       id: 5,
       title: 'OUTSTANDING CONCEPT DESIGN',
-      organization: 'World Architecture Biennale',
+      organization: "Via Prive'",
       year: '2022',
       image: '/img/hero4.png',
     },
@@ -64,14 +65,14 @@ export default function ExhibitonsShowcase() {
     {
       id: 7,
       title: 'GREEN BUILDING AWARD',
-      organization: 'Global EcoDesign Forum',
+      organization: 'Via Atelier',
       year: '2020',
       image: '/img/hero2.png',
     },
     {
       id: 8,
       title: 'TOP PROJECT OF THE YEAR',
-      organization: 'Design Excellence Awards',
+      organization: "Via Prive'",
       year: '2019',
       image: '/img/hero2.png',
     },
@@ -154,10 +155,11 @@ export default function ExhibitonsShowcase() {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
               <div className="relative w-[300px] h-[400px]">
-                <Image
-                  src={award.image || '/placeholder.svg'}
-                  alt={`${award.title} preview`}
+                <CustomImage
+                  src={award.image || '/logo.svg'}
+                  alt="Art gallery exhibition"
                   fill
+                  loading="lazy"
                   className="object-cover"
                   sizes="300px"
                 />
