@@ -128,7 +128,7 @@ export default function ArchitecturePortfolio() {
         />
 
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/30" />
 
         {/* Navigation Arrows */}
         <button
