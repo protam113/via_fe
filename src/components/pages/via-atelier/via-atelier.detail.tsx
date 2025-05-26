@@ -8,7 +8,7 @@ import Image from 'next/image';
 const ViaA = () => {
   return (
     <Container className="mx-auto ">
-      <h1 className="mt-16 mb-10 font-sans text-white text-4xl font-bold uppercase tracking-tight sm:text-5xl md:text-6xl">
+      <h1 className="mt-30 mb-10 text-white text-4xl font-bold uppercase tracking-tight sm:text-5xl md:text-6xl">
         Explore our versatile co–working environments
       </h1>
       <div className="relative w-full h-[600px]">
@@ -20,7 +20,7 @@ const ViaA = () => {
           priority
         />
       </div>
-      <p className="text-base mt-10 leading-relaxed text-neutral-200 font-sans">
+      <p className="text-base mt-10 leading-relaxed text-neutral-200 ">
         Skyline Nexus is a bold addition to Manchester's evolving cityscape,
         redefining commercial architecture with its striking geometric form and
         reflective glass façade. A landmark of modern design, it serves as a hub
@@ -31,27 +31,25 @@ const ViaA = () => {
       <div className="mx-auto grid grid-cols-1 px-4 py-12 lg:grid-cols-12 lg:gap-x-12">
         {/* LEFT: HEADLINE + INFO */}
         <div className="space-y-6 lg:col-span-5">
-          <div className="space-y-6 text-sm text-neutral-300 font-mono uppercase">
-            <h3 className="text-neutral-400 tracking-widest">
-              Exhibition Details
-            </h3>
+          <div className="space-y-6 text-sm text-neutral-100  uppercase">
+            <h3 className="tracking-widest">Exhibition Details</h3>
 
             <div className="space-y-4 border-t border-neutral-700 pt-4">
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">(Category)</p>
-                <p className="text-white normal-case font-sans">Via Privé</p>
+                <p className="text-neutral-300 tracking-wide">(Category)</p>
+                <p className="text-white normal-case ">Via Privé</p>
               </div>
 
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">
+                <p className="text-neutral-300 tracking-wide">
                   (Start Date - End Date)
                 </p>
-                <p className="text-white normal-case font-sans">2025</p>
+                <p className="text-white normal-case ">2025</p>
               </div>
 
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">(Location)</p>
-                <p className="text-white normal-case font-sans">Seoul, KR</p>
+                <p className="text-neutral-300 tracking-wide">(Location)</p>
+                <p className="text-white normal-case ">Seoul, KR</p>
               </div>
             </div>
           </div>
@@ -59,36 +57,30 @@ const ViaA = () => {
 
         {/* RIGHT: DESCRIPTION + META */}
         <div className="space-y-8 lg:col-span-7">
-          <div className="space-y-6 text-sm text-neutral-300 font-mono uppercase">
-            <h3 className="text-neutral-400 tracking-widest">
-              Additional Info
-            </h3>
+          <div className="space-y-6 text-sm text-neutral-300 uppercase">
+            <h3 className="tracking-widest">Additional Info</h3>
 
             <div className="space-y-4 border-t border-neutral-700 pt-4">
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">(Price)</p>
-                <p className="text-white normal-case font-sans">Free Entry</p>
+                <p className="text-neutral-300 tracking-wide">(Price)</p>
+                <p className="text-white normal-case ">Free Entry</p>
               </div>
 
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">
+                <p className="text-neutral-300 tracking-wide">
                   (Participation)
                 </p>
-                <p className="text-white normal-case font-sans">
-                  Open Submission
-                </p>
+                <p className="text-white normal-case ">Open Submission</p>
               </div>
 
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">(Status)</p>
-                <p className="text-white normal-case font-sans">Ongoing</p>
+                <p className="text-neutral-300 tracking-wide">(Status)</p>
+                <p className="text-white normal-case ">Ongoing</p>
               </div>
 
               <div className="space-y-1 border-b border-neutral-700 pb-4">
-                <p className="text-neutral-500 tracking-wide">(Client)</p>
-                <p className="text-white normal-case font-sans">
-                  K-Art Foundation
-                </p>
+                <p className="text-neutral-300 tracking-wide">(Client)</p>
+                <p className="text-white normal-case ">K-Art Foundation</p>
               </div>
             </div>
           </div>
@@ -123,7 +115,7 @@ const ViaA = () => {
             height={800}
             className=" shadow-md w-full object-cover"
           />
-          <p className="text-sm  italic">
+          <p className="text-sm ">
             In “Resonance: Nature and Structure,” the artworks not only mimic
             but also imitate, creating a narrative about the influence of
             geography on cultural identity. Through their distinct materials and
@@ -140,7 +132,7 @@ const ViaA = () => {
             height={800}
             className=" shadow-md w-full object-cover"
           />
-          <p className="text-sm  italic">
+          <p className="text-sm ">
             The entire exhibition proposes a deeper examination of how cultural
             and spatial conditions affect our perception of space and place.
             Vanessa’s work, synthesized forms paired with saturated colorways,

@@ -43,9 +43,8 @@ const Page = () => {
       />
       <main className=" scroll-smooth">
         <EnhancedHeroBanner
-          heading="Curating Experiences. Connecting Culture."
-          subheading="We design and produce immersive exhibitions, exclusive events, and creative platforms that spark meaningful encounters."
-          title="VIA Art Fair"
+          heading="VIA Art Fair."
+          backgroundImage="/img/hero4.png"
         />
 
         {exhibitions.map((exhibition) => (

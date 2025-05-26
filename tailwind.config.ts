@@ -115,6 +115,7 @@ export default {
       },
       fontFamily: {
         logoFont: ['LogoFont', 'sans-serif'],
+        serif: ['var(--font-playfair)'],
       },
       borderRadius: {
         lg: 'var(--radius)',

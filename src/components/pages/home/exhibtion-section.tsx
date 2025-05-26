@@ -154,7 +154,7 @@ export default function ExhibitonsShowcase() {
               }}
               transition={{ duration: 0.4, ease: 'easeInOut' }}
             >
-              <div className="relative w-[300px] h-[400px]">
+              <div className="relative w-[400px] h-[250px]">
                 <CustomImage
                   src={award.image || '/logo.svg'}
                   alt="Art gallery exhibition"

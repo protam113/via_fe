@@ -69,17 +69,6 @@ export default function OurCategory() {
             </div>
           </div>
         </div>
-
-        {/* Bottom Section - Gallery */}
-        <div className="flex items-start gap-[43px] relative w-full overflow-hidden">
-          <div className="flex flex-col w-[422px] h-[470px] items-start gap-2.5 relative overflow-hidden">
-            <div className="self-stretch w-full h-[513.32px] bg-[url(/img/banner1.png)] relative bg-cover bg-[50%_50%]" />
-          </div>
-
-          <div className="inline-flex items-center gap-2.5 relative flex-1">
-            <div className="w-full h-[470px] bg-[url(/img/banner1.png)] relative bg-cover bg-[50%_50%]" />
-          </div>
-        </div>
       </div>
     </main>
   );

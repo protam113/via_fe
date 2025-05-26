@@ -2,6 +2,8 @@
 
 import React from 'react';
 import NavigationMenu from './nav.open';
+import Navbar from './nav';
+import Footer from './footer';
 
 export default function DefaultLayout({
   children,
@@ -10,8 +12,9 @@ export default function DefaultLayout({
 }>) {
   return (
     <div className="relative">
-      <NavigationMenu />
+      <Navbar />
       <main>{children}</main>
+      <Footer />
     </div>
   );
 }

@@ -16,9 +16,8 @@ const Page = () => {
       />
       <main>
         <EnhancedHeroBanner
-          heading="Curating Experiences. Connecting Culture."
-          subheading="We design and produce immersive exhibitions, exclusive events, and creative platforms that spark meaningful encounters."
-          title="Contact Us"
+          heading="Contact Us."
+          backgroundImage="/img/hero4.png"
         />
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

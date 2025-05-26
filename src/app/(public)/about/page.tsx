@@ -18,9 +18,8 @@ const Page = () => {
 
       <main>
         <EnhancedHeroBanner
-          heading="Curating Experiences. Connecting Culture."
-          subheading="We design and produce immersive exhibitions, exclusive events, and creative platforms that spark meaningful encounters."
-          title="Explore VIA"
+          heading="About Us"
+          backgroundImage="/img/hero1.png"
         />
         <AboutViaSpaceSection />
         <AboutUsSection />

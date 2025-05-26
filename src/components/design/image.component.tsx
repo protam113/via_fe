@@ -1,6 +1,7 @@
 import Image, { ImageProps } from 'next/image';
 
 interface CustomImageProps extends Omit<ImageProps, 'src' | 'alt'> {
+  imageKey?: string;
   src: ImageProps['src'];
   alt: string;
   width?: number;
@@ -13,6 +14,7 @@ interface CustomImageProps extends Omit<ImageProps, 'src' | 'alt'> {
 }
 
 export default function CustomImage({
+  imageKey,
   src,
   alt,
   width,
@@ -32,6 +34,7 @@ export default function CustomImage({
 
   return (
     <Image
+      key={imageKey}
       src={src}
       alt={alt}
       width={width}

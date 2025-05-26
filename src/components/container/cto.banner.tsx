@@ -41,14 +41,14 @@ const CtoBanner = () => {
 
               <div className="absolute w-[164px] h-[19px] top-6 left-[143px] overflow-hidden group">
                 <div className="font-light text-neutral-950 text-[15.4px] tracking-[-0.16px] leading-[19.2px] whitespace-nowrap">
-                  Info@aetherstudio.com
+                  Info@via.com
                 </div>
                 <div className="w-[164px] h-0.5 bg-neutral-950 mt-[17px] transform transition-transform duration-300 group-hover:translate-x-0" />
               </div>
 
               <div className="absolute w-[181px] h-[19px] top-12 left-[134px] overflow-hidden group">
                 <div className="font-light text-neutral-950 text-[15.5px] tracking-[-0.16px] leading-[19.2px] whitespace-nowrap">
-                  Instagram:@aetherStudio
+                  Instagram:@via
                 </div>
                 <div className="w-[181px] h-0.5 bg-neutral-950 mt-[17px] transform transition-transform duration-300 group-hover:translate-x-0" />
               </div>

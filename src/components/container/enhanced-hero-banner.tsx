@@ -1,31 +1,20 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Facebook,
-  Github,
-  Linkedin,
-  Twitter,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Container from './container';
+import Breadcrumb from '../design/breadcrumb';
 
 interface Hero {
-  title: string;
   heading?: string;
-  subheading?: string;
+  backgroundImage?: string;
 }
 
-export default function EnhancedHeroBanner({
-  title,
-  heading,
-  subheading,
-}: Hero) {
+export default function EnhancedHeroBanner({ heading, backgroundImage }: Hero) {
   const [isLoaded, setIsLoaded] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number | undefined>(undefined);
+
   useEffect(() => {
     // Fade-in animation on page load
     const timer = setTimeout(() => {
@@ -45,24 +34,15 @@ export default function EnhancedHeroBanner({
   return (
     <div
       ref={heroRef}
-      className="relative w-full h-[800px] bg-white overflow-hidden"
+      className="relative w-full h-[800px] bg-cover bg-center overflow-hidden"
+      style={{
+        backgroundImage: backgroundImage
+          ? `url(${backgroundImage})`
+          : undefined,
+      }}
     >
-      {/* Cursor follower dot */}
-
       <Container className="mx-auto px-6 h-full flex flex-col justify-center">
-        <div className="space-y-16 mb-16">
-          {/* Services label */}
-          <div
-            className={cn(
-              'transform transition-all duration-700 ease-out',
-              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            )}
-          >
-            <h2 className="text-2xl font-bold  uppercase mt-4 mb-4 flex items-center gap-2">
-              <ArrowUpRight size={40} strokeWidth={1.5} /> {title}
-            </h2>
-          </div>
-
+        <div className="space-y-16 mt-40">
           {/* Main heading */}
           <div
             className={cn(
@@ -70,25 +50,17 @@ export default function EnhancedHeroBanner({
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             )}
           >
-            <h1 className="text-5xl text-black md:text-6xl lg:text-7xl font-bold leading-tight">
+            <h1 className="text-5xl text-white md:text-6xl lg:text-7xl font-bold leading-tight">
               {heading}
             </h1>
-          </div>
-
-          {/* Description */}
-          <div
-            className={cn(
-              'max-w-2xl transform transition-all duration-1000 ease-out delay-200',
-              isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            )}
-          >
-            <p className="text-lg text-gray-500">{subheading}</p>
           </div>
         </div>
 
         <div className="flex justify-between items-end">
           {/* Social icons */}
-          <span></span>
+          <div>
+            <Breadcrumb />
+          </div>
           {/* Scroll to explore */}
           <button
             onClick={scrollToContent}
@@ -97,12 +69,12 @@ export default function EnhancedHeroBanner({
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             )}
           >
-            <span className="text-sm text-black font-medium tracking-wider uppercase">
+            <span className="text-sm text-white font-medium tracking-wider uppercase">
               Scroll to explore
             </span>
             <ArrowRight
               size={16}
-              className="transition-transform text-black group-hover:translate-x-1"
+              className="transition-transform text-white group-hover:translate-x-1"
             />
           </button>
         </div>
