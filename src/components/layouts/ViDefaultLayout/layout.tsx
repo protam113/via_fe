@@ -10,7 +10,7 @@ export default function ViDefaultLayout({
 }>) {
   return (
     <div className="relative">
-      <ViNavigationMenu />
+      {/* <ViNavigationMenu /> */}
       <main>{children}</main>
     </div>
   );
