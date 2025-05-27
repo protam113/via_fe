@@ -1,17 +1,18 @@
 'use client';
 
 import React from 'react';
-import ViNavigationMenu from './nav.open';
+import ViNavbar from './nav';
 
-export default function ViDefaultLayout({
+export default function DefaultLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <div className="relative">
-      {/* <ViNavigationMenu /> */}
+      <ViNavbar />
       <main>{children}</main>
+      {/* <Footer /> */}
     </div>
   );
 }

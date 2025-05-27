@@ -1,7 +1,5 @@
 'use client';
 
-import ScrollToTopButton from '@/components/button/scrolltotop.button';
-import DefaultLayout from '@/components/layouts/DefaultLayout/layout';
 import LoadingScreen from '@/components/loading/loading-screen';
 import React, { useState } from 'react';
 import { Playfair_Display } from 'next/font/google';
@@ -26,10 +24,9 @@ export default function LayoutDefault({
     <>
       {loading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
       {!loading && (
-        <DefaultLayout>
+        <main>
           <div className={`${playfair.variable} font-serif`}>{children}</div>
-          <ScrollToTopButton />
-        </DefaultLayout>
+        </main>
       )}
     </>
   );

@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import LangButton from '@/components/button/language.button';
+import ContactButton from '@/components/button/contact.button';
 
 const projects = [
   {
@@ -26,7 +28,35 @@ const projects = [
   },
 ];
 
-export default function ArchitecturePortfolio() {
+const categories = [
+  {
+    id: 1,
+    title: 'Giới Thiệu',
+    href: '/vi/about',
+  },
+  {
+    id: 2,
+    title: 'Via Art Fair',
+    href: '/vi/via-art-fair',
+  },
+  {
+    id: 3,
+    title: 'Via Atelier',
+    href: '/vi/via-atelier',
+  },
+  {
+    id: 4,
+    title: "Via Prive'",
+    href: '/vi/via-prive',
+  },
+  {
+    id: 5,
+    title: 'Liên Hệ',
+    href: '/vi/contact-us',
+  },
+];
+
+export default function Page() {
   const [currentProject, setCurrentProject] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -62,25 +92,29 @@ export default function ArchitecturePortfolio() {
   return (
     <div className="min-h-screen flex flex-col lg:flex-row overflow-hidden bg-white">
       {/* Left Panel - Static */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-between p-6 lg:p-12 relative order-2 lg:order-1">
+      <div className="w-full lg:w-1/3 flex flex-col justify-between p-6 lg:p-12 relative order-2 lg:order-1">
         {/* Header */}
         <div className="space-y-4 lg:space-y-8">
-          <div className="flex justify-between items-start">
-            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight text-black">
-              VietName International Artfair
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-2">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-black">
+              VietNam International Artfair
             </h1>
+            <div className="text-xs xl:text-sm text-gray-500 ">
+              {' '}
+              <LangButton />
+            </div>
           </div>
 
           {/* Projects Section */}
           <div className="space-y-4 lg:space-y-6">
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-500 ">
-                A place where creativity knows no bounds. Get transported into a
-                world where every stroke of a brush, every chiseled sculpture,
-                and every captured moment in a photo-graph speaks a unique
-                language. Our gallery curates a diverse and thought-provoking
-                collection, showcasing established masters and emerging talents
-                alike.
+              <span className="text-sm md:text-lg lg:text-xl text-gray-500 ">
+                Một nơi mà sự sáng tạo không có giới hạn. Hãy đến với một thế
+                giới mà mỗi nét cọ, mỗi tác phẩm điêu khắc được đục đẽo, và mỗi
+                khoảnh khắc được ghi lại trong một bức ảnh đều nói lên một ngôn
+                ngữ độc đáo. ngôn ngữ. Phòng trưng bày của chúng tôi tuyển chọn
+                một bộ sưu tập đa dạng và kích thích tư duy, được công nhận là
+                bậc thầy đã thành danh và những tài năng mới nổi như nhau.
               </span>
             </div>
           </div>
@@ -88,35 +122,23 @@ export default function ArchitecturePortfolio() {
 
         {/* Bottom Words */}
         <div className="space-y-2 flex flex-col items-start mt-6 lg:mt-0">
-          <Link
-            href="via-art-fair"
-            className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
+          {categories.map(({ id, title, href }) => (
+            <Link
+              key={id}
+              href={href}
+              className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
    after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
    hover:after:w-full"
-          >
-            Via Art Fair
-          </Link>
-          <Link
-            href="via-atelier"
-            className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
-   after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
-   hover:after:w-full"
-          >
-            Via Atelier
-          </Link>
-          <Link
-            href="via-prive"
-            className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
-            after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
-            hover:after:w-full"
-          >
-            Via Prive'
-          </Link>
+            >
+              {title}
+            </Link>
+          ))}
+          <div>{/* <ContactButton /> */}</div>
         </div>
       </div>
 
       {/* Right Panel - Dynamic */}
-      <div className="w-full lg:w-1/2 h-[80vh] lg:h-screen relative overflow-hidden order-1 lg:order-2">
+      <div className="w-full lg:w-2/3 h-[80vh] lg:h-screen relative overflow-hidden order-1 lg:order-2">
         {/* Background Image */}
         <div
           className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out ${
@@ -186,7 +208,7 @@ export default function ArchitecturePortfolio() {
                 /* Navigate to project detail */
               }}
             >
-              View Detail
+              Xem Chi Tiết{' '}
               <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>

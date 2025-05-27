@@ -1,6 +1,5 @@
 'use client';
 
-import ViDefaultLayout from '@/components/layouts/ViDefaultLayout/layout';
 import LoadingScreen from '@/components/loading/loading-screen';
 import React, { useState } from 'react';
 import { Playfair_Display } from 'next/font/google';
@@ -10,6 +9,7 @@ const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700'],
   variable: '--font-playfair',
 });
+
 export default function LayoutDefault({
   children,
 }: Readonly<{
@@ -24,9 +24,9 @@ export default function LayoutDefault({
     <>
       {loading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
       {!loading && (
-        <ViDefaultLayout>
+        <main>
           <div className={`${playfair.variable} font-serif`}>{children}</div>
-        </ViDefaultLayout>
+        </main>
       )}
     </>
   );

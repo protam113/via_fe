@@ -6,24 +6,23 @@ import LangButton from '@/components/button/language.button';
 import { X } from 'lucide-react';
 
 const navItems = [
-  { name: 'About Us', path: '/about' },
-  { name: 'Via Art Fair', path: '/via-art-fair' },
-  { name: 'Via Atelier', path: '/via-atelier' },
+  { name: 'Giới Thiệu', path: '/vi/about' },
+  { name: 'Via Art Fair', path: '/vi/via-art-fair' },
+  { name: 'Via Atelier', path: '/vi/via-atelier' },
 ];
 
 const navItemsMobile = [
-  { name: 'About Us', path: '/about' },
-  { name: 'Via Art Fair', path: '/via-art-fair' },
-  { name: 'Via Atelier', path: '/via-atelier' },
-  { name: "Via Prive'", path: '/via-prive' },
+  { name: 'Giới Thiệu', path: '/vi/about' },
+  { name: 'Via Art Fair', path: '/vi/via-art-fair' },
+  { name: 'Via Atelier', path: '/vi/via-atelier' },
+  { name: "Via Prive'", path: '/vi/via-prive' },
 ];
-
 const navItemsSec = [
   { name: "Via Prive'", path: '/via-prive' },
-  { name: 'Contact Us', path: '/contact-us' },
+  { name: 'Liên Hệ', path: '/vi/contact-us' },
 ];
 
-export function Navbar() {
+export function ViNavbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
@@ -87,7 +86,7 @@ export function Navbar() {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center">
+          <Link href="/vi" className="flex items-center">
             <div
               className={`relative  
                  ${
@@ -163,6 +162,12 @@ ${isScrolling ? 'text-black' : 'text-white '}
 
           {/* Mobile navigation links */}
           <div className="flex flex-col space-y-6">
+            <Link
+              href="/about-us"
+              className=" flex justify-center items-center gap-2"
+            >
+              About Us
+            </Link>
             {navItemsMobile.map((item) => (
               <Link
                 key={item.name}
@@ -186,7 +191,7 @@ ${isScrolling ? 'text-black' : 'text-white '}
             href="/contact-us"
             className="mt-12 flex justify-center items-center gap-2"
           >
-            Contact
+            Liên Hệ
           </Link>
         </div>
       )}
@@ -194,4 +199,4 @@ ${isScrolling ? 'text-black' : 'text-white '}
   );
 }
 
-export default Navbar;
+export default ViNavbar;
