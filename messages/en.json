@@ -1,0 +1,14 @@
+{
+  "HomePage": {
+    "title": "Hello world!",
+    "content": "A place where creativity knows no bounds. Get transported into a world where every stroke of a brush, every chiseled sculpture, and every captured moment in a photo-graph speaks a unique language. Our gallery curates a diverse and thought-provoking collection, showcasing established masters and emerging talents alike.",
+    "contact": "Contact us",
+    "about": "About us"
+  },
+
+  "ContactPage": {
+    "title": "Contact us!",
+    "email": "Email us at",
+    "phone": "Call us at"
+  }
+}

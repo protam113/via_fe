@@ -6,8 +6,11 @@ import EnhancedHeroBanner from '@/components/container/enhanced-hero-banner';
 import SEO from '@/components/SEO';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 const Page = () => {
+  const t = useTranslations('ContactPage');
+
   return (
     <>
       <SEO
@@ -16,7 +19,7 @@ const Page = () => {
       />
       <main>
         <EnhancedHeroBanner
-          heading="Contact Us."
+          heading={t('title')}
           backgroundImage="/img/hero4.png"
         />
         <Container>

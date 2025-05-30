@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import LangButton from '@/components/button/language.button';
-import ContactButton from '@/components/button/contact.button';
+import { useTranslations } from 'next-intl';
 
 const projects = [
   {
@@ -31,34 +31,25 @@ const projects = [
 const categories = [
   {
     id: 1,
-    title: 'Giới Thiệu',
-    href: '/vi/about',
+    title: 'Via Art Fair',
+    href: '/via-art-fair',
   },
   {
     id: 2,
-    title: 'Via Art Fair',
-    href: '/vi/via-art-fair',
+    title: 'Via Atelier',
+    href: '/via-atelier',
   },
   {
     id: 3,
-    title: 'Via Atelier',
-    href: '/vi/via-atelier',
-  },
-  {
-    id: 4,
     title: "Via Prive'",
-    href: '/vi/via-prive',
-  },
-  {
-    id: 5,
-    title: 'Liên Hệ',
-    href: '/vi/contact-us',
+    href: '/via-prive',
   },
 ];
 
 export default function Page() {
   const [currentProject, setCurrentProject] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const t = useTranslations('HomePage');
 
   const nextProject = () => {
     if (isTransitioning) return;
@@ -109,12 +100,7 @@ export default function Page() {
           <div className="space-y-4 lg:space-y-6">
             <div className="flex items-center space-x-4">
               <span className="text-sm md:text-lg lg:text-xl text-gray-500 ">
-                Một nơi mà sự sáng tạo không có giới hạn. Hãy đến với một thế
-                giới mà mỗi nét cọ, mỗi tác phẩm điêu khắc được đục đẽo, và mỗi
-                khoảnh khắc được ghi lại trong một bức ảnh đều nói lên một ngôn
-                ngữ độc đáo. ngôn ngữ. Phòng trưng bày của chúng tôi tuyển chọn
-                một bộ sưu tập đa dạng và kích thích tư duy, được công nhận là
-                bậc thầy đã thành danh và những tài năng mới nổi như nhau.
+                {t('content')}
               </span>
             </div>
           </div>
@@ -122,6 +108,14 @@ export default function Page() {
 
         {/* Bottom Words */}
         <div className="space-y-2 flex flex-col items-start mt-6 lg:mt-0">
+          <Link
+            href="/about"
+            className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
+   after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
+   hover:after:w-full"
+          >
+            {t('about')}
+          </Link>
           {categories.map(({ id, title, href }) => (
             <Link
               key={id}
@@ -133,6 +127,15 @@ export default function Page() {
               {title}
             </Link>
           ))}
+
+          <Link
+            href="/contact-us"
+            className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
+   after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
+   hover:after:w-full"
+          >
+            {t('contact')}
+          </Link>
           <div>{/* <ContactButton /> */}</div>
         </div>
       </div>
@@ -208,7 +211,7 @@ export default function Page() {
                 /* Navigate to project detail */
               }}
             >
-              Xem Chi Tiết{' '}
+              View Detail
               <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>

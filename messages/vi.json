@@ -1,0 +1,17 @@
+{
+  "HomePage": {
+    "title": "Chao !",
+    "content": "Một nơi mà sự sáng tạo không có giới hạn. Hãy đến với một thế giới mà mỗi nét cọ, mỗi tác phẩm điêu khắc được chạm trổ và mỗi khoảnh khắc được ghi lại trong một bức ảnh đều nói lên một ngôn ngữ độc đáo. Phòng trưng bày của chúng tôi tuyển chọn một bộ sưu tập đa dạng và kích thích tư duy, giới thiệu những bậc thầy đã thành danh và những tài năng mới nổi.",
+    "contact": "Liên Hệ",
+    "about": "Giới Thiệu"
+  },
+  "AboutPage": {
+    "title": "About",
+    "content": "This is the about page"
+  },
+  "ContactPage": {
+    "title": "Liên hệ với chúng tôi",
+    "email": "Email us at",
+    "phone": "Call us at"
+  }
+}

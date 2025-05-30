@@ -14,9 +14,8 @@ const compat = new FlatCompat({
 const env = process.env.NODE_ENV || 'development';
 
 const config = [
-  // Cấu hình từ Next.js core-web-vitals và typescript
+  // Base Next.js + TS rules
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  // Cấu hình Prettier
   {
     plugins: {
       prettier,
@@ -30,7 +29,7 @@ const config = [
       ],
     },
   },
-  // Rule tùy chỉnh cho no-console
+
   {
     rules: {
       'no-console': [
