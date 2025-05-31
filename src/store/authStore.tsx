@@ -1,471 +1,448 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
-import { baseURL, endpoints } from '@/api/api';
-import { toast } from 'sonner';
-import { logDebug, logError, logWarn } from '@/utils/logger';
-import { PersistedUserInfo, UserData } from '@/types/types';
+// import { create } from 'zustand';
+// import { persist, createJSONStorage } from 'zustand/middleware';
+// import { baseURL, endpoints } from '@/apis/api';
+// import { toast } from 'sonner';
+// import { logDebug, logError, logWarn } from '@/utils/logger';
+// import { AuthState, UserData } from '@/types/auth.type';
 
-// Define the complete state type with proper typing
-interface AuthState {
-  isAuthenticated: boolean;
-  loading: boolean;
-  error: string | null;
-  userInfo: UserData | null;
-  login: (username: string, password: string) => Promise<boolean>;
-  logout: () => Promise<void>;
-  fetchUserInfo: () => Promise<void>;
-  checkAuth: () => Promise<void>;
-  clearError: () => void;
-}
+// /**
+//  * ==========================
+//  * 📌 @CLASS AuthAPI
+//  * ==========================
+//  *
+//  * @desc Authentication API service responsible for user authentication operations such as login, logout, and fetching user details.
+//  * This class provides static methods to communicate with the authentication service.
+//  *
+//  * @method getHeaders - Constructs the necessary headers for API requests, including content type and API key.
+//  * @method login - Sends a login request with the provided username and password, returning authentication status.
+//  * @method getCurrentUser - Fetches details of the currently authenticated user.
+//  * @method logout - Logs the user out by invalidating their session on the server.
+//  *
+//  * @example
+//  * ```ts
+//  * const { response, data } = await AuthAPI.login("user@example.com", "password123");
+//  * if (response.ok) {
+//  *    console.log("Login successful", data);
+//  * } else {
+//  *    console.error("Login failed", data);
+//  * }
+//  * ```
+//  */
 
-/**
- * ==========================
- * 📌 @CLASS AuthAPI
- * ==========================
- *
- * @desc Authentication API service responsible for user authentication operations such as login, logout, and fetching user details.
- * This class provides static methods to communicate with the authentication service.
- *
- * @method getApiKey - Retrieves the API key from environment variables for authentication.
- * @method getHeaders - Constructs the necessary headers for API requests, including content type and API key.
- * @method login - Sends a login request with the provided username and password, returning authentication status.
- * @method getCurrentUser - Fetches details of the currently authenticated user.
- * @method logout - Logs the user out by invalidating their session on the server.
- *
- * @example
- * ```ts
- * const { response, data } = await AuthAPI.login("user@example.com", "password123");
- * if (response.ok) {
- *    console.log("Login successful", data);
- * } else {
- *    console.error("Login failed", data);
- * }
- * ```
- */
+// class AuthAPI {
+//   /**
+//    * Constructs the necessary headers for API requests.
+//    * @private
+//    * @returns {Headers} HTTP headers with Content-Type and API key.
+//    */
+//   private static getHeaders() {
+//     const headers = new Headers();
+//     headers.append('Content-Type', 'application/json');
+//     return headers;
+//   }
 
-class AuthAPI {
-  /**
-   * Retrieves the API key from environment variables.
-   * @private
-   * @returns {string} API key for authentication requests.
-   */
-  private static getApiKey() {
-    return process.env.NEXT_PUBLIC_API_KEY || '';
-  }
+//   /**
+//    * Authenticates a user with their username and password.
+//    * @static
+//    * @param {string} username - The username of the user.
+//    * @param {string} password - The password of the user.
+//    * @returns {Promise<{ response: Response, data: any }>} Response object and parsed data from API.
+//    */
+//   static async login(username: string, password: string) {
+//     const response = await fetch(`${baseURL}${endpoints.login}`, {
+//       method: 'POST',
+//       headers: this.getHeaders(),
+//       body: JSON.stringify({ username, password }),
+//       credentials: 'include',
+//     });
 
-  /**
-   * Constructs the necessary headers for API requests.
-   * @private
-   * @returns {Headers} HTTP headers with Content-Type and API key.
-   */
-  private static getHeaders() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('api-key', this.getApiKey());
-    return headers;
-  }
+//     const data = await response.json();
+//     return { response, data };
+//   }
 
-  /**
-   * Authenticates a user with their username and password.
-   * @static
-   * @param {string} username - The username of the user.
-   * @param {string} password - The password of the user.
-   * @returns {Promise<{ response: Response, data: any }>} Response object and parsed data from API.
-   */
-  static async login(username: string, password: string) {
-    const response = await fetch(`${baseURL}${endpoints.login}`, {
-      method: 'POST',
-      headers: this.getHeaders(),
-      body: JSON.stringify({ username, password }),
-      credentials: 'include',
-    });
+//   /**
+//    * Fetches the currently authenticated user's details.
+//    * @static
+//    * @returns {Promise<{ response: Response, data: any }>} Response object and user data.
+//    */
+//   static async getCurrentUser() {
+//     const response = await fetch(`${baseURL}${endpoints.currentUser}`, {
+//       method: 'GET',
+//       headers: this.getHeaders(),
+//       credentials: 'include',
+//     });
 
-    const data = await response.json();
-    return { response, data };
-  }
+//     const data = await response.json();
+//     return { response, data };
+//   }
 
-  /**
-   * Fetches the currently authenticated user's details.
-   * @static
-   * @returns {Promise<{ response: Response, data: any }>} Response object and user data.
-   */
-  static async getCurrentUser() {
-    const response = await fetch(`${baseURL}${endpoints.currentUser}`, {
-      method: 'GET',
-      headers: this.getHeaders(),
-      credentials: 'include',
-    });
+//   /**
+//    * Logs the user out by clearing their session.
+//    * @static
+//    * @returns {Promise<{ response: Response, data: any }>} Response object and API response data.
+//    */
+//   static async logout() {
+//     const response = await fetch(`${baseURL}${endpoints.logout}`, {
+//       method: 'POST',
+//       headers: this.getHeaders(),
+//       credentials: 'include',
+//     });
 
-    const data = await response.json();
-    return { response, data };
-  }
+//     const data = await response.json();
+//     return { response, data };
+//   }
+// }
 
-  /**
-   * Logs the user out by clearing their session.
-   * @static
-   * @returns {Promise<{ response: Response, data: any }>} Response object and API response data.
-   */
-  static async logout() {
-    const response = await fetch(`${baseURL}${endpoints.logout}`, {
-      method: 'POST',
-      headers: this.getHeaders(),
-      credentials: 'include',
-    });
+// // Cookie management helpers
+// class CookieManager {
+//   static set(
+//     name: string,
+//     value: string,
+//     options: {
+//       expires?: number;
+//       secure?: boolean;
+//       sameSite?: 'Strict' | 'Lax' | 'None';
+//     } = {}
+//   ) {
+//     let cookieString = `${name}=${encodeURIComponent(value)}`;
 
-    const data = await response.json();
-    return { response, data };
-  }
-}
+//     if (options.expires) {
+//       const date = new Date();
+//       date.setTime(date.getTime() + options.expires * 24 * 60 * 60 * 1000);
+//       cookieString += `; expires=${date.toUTCString()}`;
+//     }
 
-// Cookie management helpers
-class CookieManager {
-  static set(
-    name: string,
-    value: string,
-    options: {
-      expires?: number;
-      secure?: boolean;
-      sameSite?: 'Strict' | 'Lax' | 'None';
-    } = {}
-  ) {
-    let cookieString = `${name}=${encodeURIComponent(value)}`;
+//     cookieString += '; path=/';
 
-    if (options.expires) {
-      const date = new Date();
-      date.setTime(date.getTime() + options.expires * 24 * 60 * 60 * 1000);
-      cookieString += `; expires=${date.toUTCString()}`;
-    }
+//     if (options.secure && process.env.NODE_ENV === 'production')
+//       cookieString += '; Secure';
 
-    cookieString += '; path=/';
+//     if (options.sameSite) cookieString += `; SameSite=${options.sameSite}`;
 
-    if (options.secure && process.env.NODE_ENV === 'production')
-      cookieString += '; Secure';
+//     document.cookie = cookieString;
+//   }
 
-    if (options.sameSite) cookieString += `; SameSite=${options.sameSite}`;
+//   static delete(name: string) {
+//     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; ${
+//       process.env.NODE_ENV === 'production' ? 'Secure;' : ''
+//     } SameSite=Lax;`;
+//   }
 
-    document.cookie = cookieString;
-  }
+//   static check(name: string): boolean {
+//     return document.cookie.includes(`${name}=true`);
+//   }
+// }
 
-  static delete(name: string) {
-    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; ${
-      process.env.NODE_ENV === 'production' ? 'Secure;' : ''
-    } SameSite=Lax;`;
-  }
+// // Centralized error handling
+// const handleAuthError = (error: unknown): string => {
+//   if (error instanceof Error) {
+//     return error.message;
+//   }
+//   return 'An unknown error occurred';
+// };
 
-  static check(name: string): boolean {
-    return document.cookie.includes(`${name}=true`);
-  }
-}
+// // Zustand store with correct typing and performance optimizations
+// export const useAuthStore = create<AuthState>()(
+//   persist(
+//     (set, get) => ({
+//       isAuthenticated: false,
+//       loading: false,
+//       error: null,
+//       userInfo: null,
 
-// Centralized error handling
-const handleAuthError = (error: unknown): string => {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return 'An unknown error occurred';
-};
+//       clearError: () => set({ error: null }),
 
-// Zustand store with correct typing and performance optimizations
-export const useAuthStore = create<AuthState>()(
-  persist(
-    (set, get) => ({
-      isAuthenticated: false,
-      loading: false,
-      error: null,
-      userInfo: null,
+//       /**
+//        * ==========================
+//        * 📌 @HOOK useLoginAuthStore
+//        * ==========================
+//        *
+//        * @desc Custom hook for managing user authentication.
+//        * It provides login functionality, authentication state, and error handling.
+//        *
+//        * @returns {Object} Authentication store
+//        * @returns {boolean} return.isAuthenticated - Whether the user is authenticated.
+//        * @returns {User | null} return.userInfo - The currently logged-in user.
+//        * @returns {boolean} return.loading - Indicates if a login request is in progress.
+//        * @returns {string | null} return.error - Stores the error message if login fails.
+//        * @returns {(username: string, password: string) => Promise<boolean>} return.login - Handles user login.
+//        * @returns {() => Promise<void>} return.checkAuth - Validates user authentication status.
+//        */
 
-      clearError: () => set({ error: null }),
+//       login: async (username: string, password: string): Promise<boolean> => {
+//         try {
+//           set({ loading: true, error: null });
 
-      /**
-       * ==========================
-       * 📌 @HOOK useLoginAuthStore
-       * ==========================
-       *
-       * @desc Custom hook for managing user authentication.
-       * It provides login functionality, authentication state, and error handling.
-       *
-       * @returns {Object} Authentication store
-       * @returns {boolean} return.isAuthenticated - Whether the user is authenticated.
-       * @returns {User | null} return.userInfo - The currently logged-in user.
-       * @returns {boolean} return.loading - Indicates if a login request is in progress.
-       * @returns {string | null} return.error - Stores the error message if login fails.
-       * @returns {(username: string, password: string) => Promise<boolean>} return.login - Handles user login.
-       * @returns {() => Promise<void>} return.checkAuth - Validates user authentication status.
-       */
+//           const { response, data } = await AuthAPI.login(username, password);
 
-      login: async (username: string, password: string): Promise<boolean> => {
-        try {
-          set({ loading: true, error: null });
+//           if (!response.ok) {
+//             if (response.status === 401 || response.status === 400) {
+//               throw new Error(
+//                 'Incorrect login information, please check your account and password'
+//               );
+//             }
+//             throw new Error(data.message || 'Login failed');
+//           }
 
-          const { response, data } = await AuthAPI.login(username, password);
+//           if (data.status === 'success') {
+//             CookieManager.set('isAuthenticated', 'true', {
+//               expires: 7,
+//               secure: true,
+//               sameSite: 'Lax',
+//             });
 
-          if (!response.ok) {
-            if (response.status === 401 || response.status === 400) {
-              throw new Error(
-                'Incorrect login information, please check your account and password'
-              );
-            }
-            throw new Error(data.message || 'Login failed');
-          }
+//             // Only call checkAuth on successful login
+//             await get().checkAuth();
+//             // Fetch user info after successful login
+//             logDebug('User info fetched successfully');
+//             toast.success('Login successful! Redirecting to home page..');
+//             return true;
+//           } else {
+//             throw new Error(data.message || 'Login failed');
+//           }
+//         } catch (error) {
+//           const errorMessage = handleAuthError(error);
 
-          if (data.status === 'success') {
-            CookieManager.set('isAuthenticated', 'true', {
-              expires: 7,
-              secure: true,
-              sameSite: 'Lax',
-            });
+//           // Atomically update state to prevent multiple renders
+//           set({
+//             isAuthenticated: false,
+//             userInfo: null,
+//             loading: false,
+//             error: errorMessage,
+//           });
 
-            // Only call checkAuth on successful login
-            await get().checkAuth();
-            // Fetch user info after successful login
-            logDebug('User info fetched successfully');
-            toast.success('Login successful! Redirecting to home page..');
-            return true;
-          } else {
-            throw new Error(data.message || 'Login failed');
-          }
-        } catch (error) {
-          const errorMessage = handleAuthError(error);
+//           CookieManager.delete('isAuthenticated');
+//           localStorage.removeItem('auth-storage');
+//           toast.error(errorMessage);
+//           return false;
+//         }
+//       },
 
-          // Atomically update state to prevent multiple renders
-          set({
-            isAuthenticated: false,
-            userInfo: null,
-            loading: false,
-            error: errorMessage,
-          });
+//       /**
+//        * ==========================
+//        * 📌 @HOOK useFetchUserInfo
+//        * ==========================
+//        *
+//        * @desc Custom hook for fetching user information.
+//        *
+//        * @returns {Object} User information store
+//        * @returns {User | null} return.userInfo - The currently logged-in user.
+//        * **/
+//       fetchUserInfo: async () => {
+//         if (!get().isAuthenticated) return;
 
-          CookieManager.delete('isAuthenticated');
-          localStorage.removeItem('auth-storage');
-          toast.error(errorMessage);
-          return false;
-        }
-      },
+//         try {
+//           set({ loading: true });
 
-      /**
-       * ==========================
-       * 📌 @HOOK useFetchUserInfo
-       * ==========================
-       *
-       * @desc Custom hook for fetching user information.
-       *
-       * @returns {Object} User information store
-       * @returns {User | null} return.userInfo - The currently logged-in user.
-       * **/
-      fetchUserInfo: async () => {
-        if (!get().isAuthenticated) return;
+//           const { response, data } = await AuthAPI.getCurrentUser();
 
-        try {
-          set({ loading: true });
+//           if (!response.ok) {
+//             throw new Error('Failed to fetch user info');
+//           }
 
-          const { response, data } = await AuthAPI.getCurrentUser();
+//           if (data.status === 'success' && data.data) {
+//             set({ userInfo: data.data, loading: false });
+//           } else {
+//             throw new Error('Invalid user data received');
+//           }
+//         } catch (error) {
+//           const errorMessage = handleAuthError(error);
+//           set({ loading: false, error: errorMessage });
+//           toast.error(errorMessage);
+//         }
+//       },
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch user info');
-          }
+//       /**
+//        * ==========================
+//        * 📌 @HOOK logout
+//        * ==========================
+//        *
+//        * @desc Custom hook for handling user logout.
+//        *
+//        * @returns {Object} Logout store
+//        * @returns {() => Promise<void>} return.logout - Handles user logout.
+//        **/
+//       logout: async () => {
+//         try {
+//           set({ loading: true });
 
-          if (data.status === 'success' && data.data) {
-            set({ userInfo: data.data, loading: false });
-          } else {
-            throw new Error('Invalid user data received');
-          }
-        } catch (error) {
-          const errorMessage = handleAuthError(error);
-          set({ loading: false, error: errorMessage });
-          toast.error(errorMessage);
-        }
-      },
+//           // Try server logout but don't depend on it for local logout
+//           try {
+//             const { response } = await AuthAPI.logout();
 
-      /**
-       * ==========================
-       * 📌 @HOOK logout
-       * ==========================
-       *
-       * @desc Custom hook for handling user logout.
-       *
-       * @returns {Object} Logout store
-       * @returns {() => Promise<void>} return.logout - Handles user logout.
-       **/
-      logout: async () => {
-        try {
-          set({ loading: true });
+//             if (!response.ok) {
+//               console.warn(
+//                 'Server logout failed, continuing with local logout'
+//               );
+//             }
+//           } catch (error) {
+//             // Log but proceed with local logout even if server logout fails
+//             logWarn('Server logout error:', error);
+//           }
 
-          // Try server logout but don't depend on it for local logout
-          try {
-            const { response } = await AuthAPI.logout();
+//           // Always perform local logout
+//           CookieManager.delete('isAuthenticated');
+//           localStorage.removeItem('auth-storage');
 
-            if (!response.ok) {
-              console.warn(
-                'Server logout failed, continuing with local logout'
-              );
-            }
-          } catch (error) {
-            // Log but proceed with local logout even if server logout fails
-            logWarn('Server logout error:', error);
-          }
+//           set({
+//             isAuthenticated: false,
+//             userInfo: null,
+//             loading: false,
+//             error: null,
+//           });
 
-          // Always perform local logout
-          CookieManager.delete('isAuthenticated');
-          localStorage.removeItem('auth-storage');
+//           toast.success('Log out successfully!');
+//           window.location.href = '/login';
+//         } catch (error) {
+//           // This catch block should rarely be hit due to the try/catch in the server logout
+//           logError('Catastrophic error during logout:', error);
 
-          set({
-            isAuthenticated: false,
-            userInfo: null,
-            loading: false,
-            error: null,
-          });
+//           // Force logout anyway
+//           CookieManager.delete('isAuthenticated');
+//           localStorage.removeItem('auth-storage');
 
-          toast.success('Log out successfully!');
-          window.location.href = '/login';
-        } catch (error) {
-          // This catch block should rarely be hit due to the try/catch in the server logout
-          logError('Catastrophic error during logout:', error);
+//           set({
+//             isAuthenticated: false,
+//             userInfo: null,
+//             loading: false,
+//             error: handleAuthError(error),
+//           });
 
-          // Force logout anyway
-          CookieManager.delete('isAuthenticated');
-          localStorage.removeItem('auth-storage');
+//           window.location.href = '/login';
+//         }
+//       },
 
-          set({
-            isAuthenticated: false,
-            userInfo: null,
-            loading: false,
-            error: handleAuthError(error),
-          });
+//       /**
+//        * ==========================
+//        * 📌 @HOOK useCheckAuthStore
+//        * ==========================
+//        *
+//        * @desc Custom hook for checking user authentication status.
+//        *
+//        * @returns {Object} Authentication status store
+//        * @returns {boolean} return.isAuthenticated - Whether the user is authenticated.
+//        * @returns {() => Promise<void>} return.checkAuth - Validates user authentication status.
+//        * */
 
-          window.location.href = '/login';
-        }
-      },
+//       checkAuth: async () => {
+//         if (!CookieManager.check('isAuthenticated')) {
+//           set({ isAuthenticated: false, userInfo: null, loading: false });
+//           localStorage.removeItem('auth-storage');
+//           return;
+//         }
 
-      /**
-       * ==========================
-       * 📌 @HOOK useCheckAuthStore
-       * ==========================
-       *
-       * @desc Custom hook for checking user authentication status.
-       *
-       * @returns {Object} Authentication status store
-       * @returns {boolean} return.isAuthenticated - Whether the user is authenticated.
-       * @returns {() => Promise<void>} return.checkAuth - Validates user authentication status.
-       * */
+//         try {
+//           set((state) => ({ ...state, loading: true }));
 
-      checkAuth: async () => {
-        if (!CookieManager.check('isAuthenticated')) {
-          set({ isAuthenticated: false, userInfo: null, loading: false });
-          localStorage.removeItem('auth-storage');
-          return;
-        }
+//           const { response, data } = await AuthAPI.getCurrentUser();
 
-        try {
-          set((state) => ({ ...state, loading: true }));
+//           if (!response.ok) {
+//             throw new Error('Failed to fetch user data');
+//           }
 
-          const { response, data } = await AuthAPI.getCurrentUser();
+//           if (data.status === 'success' && data.data) {
+//             const userRole = data.data.role.slug;
+//             const allowedRoles = ['admin', 'manager'];
 
-          if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-          }
+//             if (!allowedRoles.includes(userRole)) {
+//               logWarn(`Unauthorized role: ${userRole}. Logging out...`);
+//               toast.error('You do not have access. Logging out...');
 
-          if (data.status === 'success' && data.data) {
-            const userRole = data.data.role;
-            const allowedRoles = ['admin', 'manager'];
+//               CookieManager.delete('isAuthenticated');
+//               localStorage.removeItem('auth-storage');
 
-            if (!allowedRoles.includes(userRole)) {
-              logWarn(`Unauthorized role: ${userRole}. Logging out...`);
-              toast.error('You do not have access. Logging out...');
+//               set({
+//                 isAuthenticated: false,
+//                 userInfo: null,
+//                 loading: false,
+//                 error: null,
+//               });
 
-              CookieManager.delete('isAuthenticated');
-              localStorage.removeItem('auth-storage');
+//               window.location.href = '/login';
+//               return;
+//             }
 
-              set({
-                isAuthenticated: false,
-                userInfo: null,
-                loading: false,
-                error: null,
-              });
+//             CookieManager.set('isAuthenticated', 'true', {
+//               expires: 7,
+//               secure: true,
+//               sameSite: 'Lax',
+//             });
 
-              window.location.href = '/login';
-              return;
-            }
+//             set({
+//               isAuthenticated: true,
+//               userInfo: data.data,
+//               loading: false,
+//             });
+//           } else {
+//             throw new Error('Invalid user data received');
+//           }
+//         } catch (error) {
+//           logError('checkAuth error:', error);
 
-            CookieManager.set('isAuthenticated', 'true', {
-              expires: 7,
-              secure: true,
-              sameSite: 'Lax',
-            });
+//           CookieManager.delete('isAuthenticated');
+//           localStorage.removeItem('auth-storage');
 
-            set({
-              isAuthenticated: true,
-              userInfo: data.data,
-              loading: false,
-            });
-          } else {
-            throw new Error('Invalid user data received');
-          }
-        } catch (error) {
-          logError('checkAuth error:', error);
+//           set({
+//             isAuthenticated: false,
+//             userInfo: null,
+//             loading: false,
+//             error: null,
+//           });
 
-          CookieManager.delete('isAuthenticated');
-          localStorage.removeItem('auth-storage');
+//           window.location.href = '/login';
+//         }
+//       },
+//     }),
+//     {
+//       name: 'auth-storage',
+//       storage:
+//         typeof window !== 'undefined'
+//           ? createJSONStorage(() => localStorage)
+//           : undefined,
+//       partialize: (
+//         state: AuthState
+//       ): { isAuthenticated: boolean; userInfo: UserData | null } => ({
+//         isAuthenticated: state.isAuthenticated,
+//         userInfo: state.userInfo
+//           ? {
+//               data: {
+//                 id: state.userInfo.data.id,
+//                 role: state.userInfo.data.role,
+//                 name: state.userInfo.data.name,
+//                 email: state.userInfo.data.email,
+//                 username: state.userInfo.data.username,
+//               },
+//             }
+//           : null,
+//       }),
+//     }
+//   )
+// );
 
-          set({
-            isAuthenticated: false,
-            userInfo: null,
-            loading: false,
-            error: null,
-          });
+// // Utility function for making authenticated requests with better error handling
+// export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
+//   // Ensure a single function is used for building headers
+//   const headers = new Headers(options.headers);
 
-          window.location.href = '/login';
-        }
-      },
-    }),
-    {
-      name: 'auth-storage',
-      storage:
-        typeof window !== 'undefined'
-          ? createJSONStorage(() => localStorage)
-          : undefined,
-      partialize: (
-        state: AuthState
-      ): { isAuthenticated: boolean; userInfo: PersistedUserInfo | null } => ({
-        isAuthenticated: state.isAuthenticated,
-        userInfo: state.userInfo
-          ? {
-              _id: state.userInfo._id,
-              role: state.userInfo.role,
-              name: state.userInfo.name,
-              email: state.userInfo.email,
-              username: state.userInfo.username,
-            }
-          : null,
-      }),
-    }
-  )
-);
+//   // Add auth headers
+//   headers.append('Content-Type', 'application/json');
 
-// Utility function for making authenticated requests with better error handling
-export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
-  // Ensure a single function is used for building headers
-  const headers = new Headers(options.headers);
+//   try {
+//     const response = await fetch(url, {
+//       ...options,
+//       headers,
+//       credentials: 'include',
+//     });
 
-  // Add auth headers
-  headers.append('Content-Type', 'application/json');
-  headers.append('api-key', process.env.NEXT_PUBLIC_API_KEY || '');
+//     // Logout on authentication failure
+//     if (response.status === 401) {
+//       useAuthStore.getState().logout();
+//       return null;
+//     }
 
-  try {
-    const response = await fetch(url, {
-      ...options,
-      headers,
-      credentials: 'include',
-    });
-
-    // Logout on authentication failure
-    if (response.status === 401) {
-      useAuthStore.getState().logout();
-      return null;
-    }
-
-    return response;
-  } catch (error) {
-    console.error('API error:', error);
-    throw error;
-  }
-};
+//     return response;
+//   } catch (error) {
+//     console.error('API error:', error);
+//     throw error;
+//   }
+// };

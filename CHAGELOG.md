@@ -50,25 +50,24 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.4] - 2025-03-20
+## [1.0.4] - 2025-05-31
 
 ### Added
 
-- Design a new NoResults components
-- Add category list of documentation
-- Add Documentation page
-- Add Api for category & documentation
+- Create admin layout
+- Created Admin layout permissions and security
+- Optiomized i18n for multi-language support
+- Decentralized authStore for easy maintenance and upgrade
 
 ### Changed
 
-- Refactored `authstore` to optimize authentication and authorization, with added descriptive notes for hooks.
-- Optimized constants to improve metadata handling.
-- Split the products table and products page
+- Setup i18n for multi-language support
+- Optimized i18n for multi-language support
+- Deleted vi layout and change to i18n
 
 ### Fixed
 
-- Fixed server-side rendering issues.
-- Fix loading & error design for show products pages.
+- Fixed authStor
 
 ---
 

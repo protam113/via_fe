@@ -1,0 +1,75 @@
+// Định nghĩa biến animation time, easing để dùng chung
+$anim-duration: 0.8s;
+$anim-ease: ease-out;
+$anim-fill-mode: forwards;
+
+// Keyframes
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Mixin tái sử dụng animation
+@mixin animate($name) {
+  animation: #{$name} $anim-duration $anim-ease $anim-fill-mode;
+}
+
+// Class animation dùng mixin
+.animate-fade-in-slide-up {
+  @include animate(fadeInSlideUp);
+}
+
+.animate-fade-in-slide-right {
+  @include animate(fadeInSlideRight);
+}
+
+.animate-fade-in {
+  @include animate(fadeIn);
+}
+
+// Media query vẫn giữ nguyên
+@media (max-width: 1024px) {
+  .touch-pan-y {
+    touch-action: pan-y;
+  }
+
+  .touch-pan-x {
+    touch-action: pan-x;
+  }
+}
+
+// Ví dụ keyframe mới
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

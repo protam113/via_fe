@@ -2,10 +2,6 @@ import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
 import { baseURL } from './api';
 import { logDebug } from '@/utils/logger';
 
-const getApiKey = () => process.env.NEXT_PUBLIC_API_KEY || '';
-
-const apiKey = getApiKey();
-
 /**
  * ==========================
  * 📌 @API Auth API
@@ -16,9 +12,7 @@ const apiKey = getApiKey();
 const authApi = () => {
   return axios.create({
     baseURL: baseURL,
-    headers: {
-      'api-key': `${apiKey}`,
-    },
+    headers: {},
     withCredentials: true,
     timeout: 15000, // 15 seconds timeout
   });

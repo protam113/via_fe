@@ -1,12 +1,10 @@
-import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from '@/lib/getMessages';
 import { Playfair_Display } from 'next/font/google';
 import DelayedLoading from '@/components/loading/DelayedLoading';
 import { Toaster } from 'sonner';
 import Script from 'next/script';
-import ReactQueryProvider from '../ReactQueryProvider';
+import ReactQueryProvider from '../../provider/ReactQueryProvider';
 import {
   metadata as siteMetadata,
   viewport as siteViewport,
@@ -30,11 +28,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
-  if (!hasLocale(routing.locales, locale)) {
-    notFound();
-  }
-
   const messages = await getMessages(locale);
 
   return (
