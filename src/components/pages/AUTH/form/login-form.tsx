@@ -37,14 +37,6 @@ export default function LoginForm() {
     }
   };
 
-  if (isSubmitting) {
-    return (
-      <div>
-        <LoaderCircle className="animate-spin text-black" />
-      </div>
-    );
-  }
-
   return (
     <div className="w-full max-w-sm space-y-8">
       <div className="text-center">
@@ -60,7 +52,7 @@ export default function LoginForm() {
           </label>
           <Input
             id="username"
-            placeholder="Hust4l account"
+            placeholder="VIA account"
             className="w-full p-2 border rounded"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -85,7 +77,7 @@ export default function LoginForm() {
           className="w-full font-bold text-xl bg-black hover:bg-gray-600 text-white"
           disabled={isSubmitting}
         >
-          Login
+          {isSubmitting ? 'Loading...' : 'Login'}
         </Button>
       </form>
     </div>

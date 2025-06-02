@@ -30,7 +30,7 @@ const data = {
   navAdmin: [
     {
       title: 'User',
-      url: '/admin/user',
+      url: '/admin/users',
       icon: ComponentsIcons.LayoutDashboard,
     },
     {
@@ -41,22 +41,22 @@ const data = {
   ],
   navService: [
     {
-      title: 'Thể Loại',
+      title: 'Categories ',
       url: '/admin/category',
       icon: ComponentsIcons.ChartBarStacked,
     },
     {
-      title: 'Bài Viết',
+      title: 'VIA Art Fair',
       url: '/admin/blog',
       icon: ComponentsIcons.List,
     },
     {
-      title: 'Sản Phẩm',
+      title: 'Via Atelier',
       url: '/admin/product',
       icon: ComponentsIcons.Package,
     },
     {
-      title: 'Dịch Vụ',
+      title: "Via Prive'",
       url: '/admin/service',
       icon: ComponentsIcons.Package,
     },
@@ -68,8 +68,8 @@ const data = {
   ],
   navSupport: [
     {
-      title: 'Liên Hệ',
-      url: '/admin/contact',
+      title: 'Contacts',
+      url: '/admin/contacts',
       icon: ComponentsIcons.Contact,
     },
   ],

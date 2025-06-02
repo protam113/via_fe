@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import MainButton from '@/components/button/main.button';
+import { useTranslations } from 'next-intl';
 
 const socialLinks = [
   { id: 1, label: 'Instagram', href: 'https://instagram.com' }, // Fixed placeholder URL
@@ -9,6 +10,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const t = useTranslations('Footer');
+
   return (
     <footer className="bg-gray-100 text-black">
       <div className="container mx-auto px-4 py-12">
@@ -29,12 +32,7 @@ export default function Footer() {
                 </h2>
               </div>
             </div>
-            <p className="max-w-md">
-              VIA specializes in modern architecture and real estate development
-              that seamlessly integrates functionality, aesthetics, and
-              sustainability. The studio brings a unique global perspective to
-              every project. With a commitment to crafting timeless designs.
-            </p>
+            <p className="max-w-md">{t('introduction')}</p>
           </div>
 
           {/* Main Pages */}

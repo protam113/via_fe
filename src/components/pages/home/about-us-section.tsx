@@ -6,11 +6,13 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import Container from '@/components/container/container';
 import MainButton from '@/components/button/main.button';
 import Header from '@/components/design/header';
+import { useTranslations } from 'next-intl';
 
 export default function AboutUsSection() {
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const t = useTranslations('AboutPage');
 
   useEffect(() => {
     if (isInView) {
@@ -47,16 +49,6 @@ export default function AboutUsSection() {
     },
   };
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
-
   return (
     <section ref={ref} className="relative w-full flex flex-col">
       {/* Text Content - Split Layout */}
@@ -76,10 +68,7 @@ export default function AboutUsSection() {
 
           <motion.div className="w-full  max-w-xl" variants={rightTextVariants}>
             <p className="text-lg md:text-xl text-neutral-800 mb-8 leading-relaxed">
-              VIA specializes in modern architecture and real estate development
-              that seamlessly integrates functionality, aesthetics, and
-              sustainability. The studio brings a unique global perspective to
-              every project. With a commitment to crafting timeless designs.
+              {t('introduction')}
             </p>
             <MainButton href="about" title="    MORE ABOUT US" />
           </motion.div>

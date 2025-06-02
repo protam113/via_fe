@@ -34,15 +34,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.5] - 2025-03-21
+## [1.0.5] - 2025-06-02
 
 ### Added
 
-- Design a new NoResults components
-- Add document page
-- Add documentation page layout
-- Add logic for this documentation page
-- Add documentation detail page
+- Create category page
+- Created contact page
+- Create User page
+- Create SEO page
+- Add vi language for about page
 
 ### Changed
 

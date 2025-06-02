@@ -3,5 +3,16 @@
     "content": "Hello world!",
     "about": "Giới Thiệu",
     "contact": "Liên Hệ"
+  },
+
+  "AboutPage": {
+    "title": "Về Chúng Tôi",
+    "content": "Tomura Gallery là một phòng tranh lâu đời tại Nhật Bản, được thành lập vào năm 1989 tại Ginza và chuyển về Kyobashi vào năm 2006, với hơn 35 năm kinh nghiệm hoạt động trong lĩnh vực phòng tranh quy mô lớn và nghệ thuật thị giác. Năm 2019, phối hợp cùng A-Cube Gallery tại Seoul, Hàn Quốc (thành lập từ năm 2009), Tomura Gallery mở rộng không gian mới tại TP. Hồ Chí Minh với tên gọi TomuraLee Gallery – sự kết hợp độc đáo giữa hai phòng tranh Nhật – Hàn.",
+    "description": "Mang phong cách tự do và mới mẻ, TomuraLee Gallery tập trung chủ yếu vào nghệ thuật đương đại. Đồng thời, chúng tôi tổ chức các triển lãm nhằm quảng bá tác phẩm của những nghệ sĩ trẻ đến từ nhiều quốc gia như Nhật Bản, Hàn Quốc, Trung Quốc,… đến với giới sưu tập, bảo tàng và công chúng yêu nghệ thuật. Sau thời gian nghiên cứu, TomuraLee chính thức có mặt tại TP. Hồ Chí Minh, Việt Nam, với khát vọng đồng hành cùng Mỹ thuật Việt trên hành trình vươn ra thế giới và thúc đẩy sự giao thoa giữa các nền văn hóa. Chúng tôi hướng tới việc đưa những nghệ sĩ tài năng đến TP. Hồ Chí Minh để chia sẻ tác phẩm của nghệ sĩ Việt Nam với cộng đồng nghệ thuật địa phương, đồng thời khám phá và nâng tầm các nghệ sĩ Đông Nam Á mới nổi trên sân khấu nghệ thuật quốc tế. Đội ngũ nghệ sĩ của chúng tôi có xuất thân nghệ thuật đa dạng, đến từ nhiều nền văn hóa khác nhau, sáng tác với nhiều chất liệu phong phú và mang trong mình những trải nghiệm sống đa chiều. Họ sở hữu tư duy nghệ thuật đầy tính khái niệm và thử thách, được hiện thực hóa thông qua các hình thức không ngừng đổi mới – điều mà chúng tôi luôn nỗ lực nuôi dưỡng thông qua kết nối và hợp tác với các không gian nghệ thuật khác tại châu Á và hơn thế nữa. TomuraLee không ngừng hoàn thiện mỗi ngày để xây dựng một cây cầu vững chắc giữa nghệ sĩ với đối tác, khách hàng và cộng đồng yêu nghệ thuật.",
+    "introduction": "Khác với phần lớn không gian trưng bày truyền thống thường sử dụng màu tối và ánh sáng tập trung, TomuraLee sở hữu hai không gian triển lãm với tông trắng chủ đạo, tạo cảm giác rộng rãi, tinh tế và tôn vinh trọn vẹn giá trị nghệ thuật của tác phẩm."
+  },
+
+  "Footer": {
+    "introduction": "VIA chuyên về kiến ​​trúc hiện đại và phát triển bất động sản tích hợp liền mạch chức năng, thẩm mỹ và tính bền vững. Studio mang đến góc nhìn toàn cầu độc đáo cho mọi dự án. Với cam kết tạo ra những thiết kế vượt thời gian."
   }
 }

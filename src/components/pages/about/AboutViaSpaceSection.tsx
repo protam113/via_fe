@@ -3,18 +3,18 @@ import Image from 'next/image';
 import MainButton from '@/components/button/main.button';
 import Header from '@/components/design/header';
 import Container from '@/components/container/container';
+import { useTranslations } from 'next-intl';
 
 export default function AboutViaSpaceSection() {
+  const t = useTranslations('AboutPage');
+
   return (
     <Container className="mx-auto py-16 px-4 md:px-6">
       <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center ">
         <div className="mb-12 lg:mb-0">
-          <Header title="About Us" />
+          <Header title={t('title')} />
           <p className="text-lg text-gray-600 leading-relaxed">
-            VIA specializes in modern architecture and real estate development
-            that seamlessly integrates functionality, aesthetics, and
-            sustainability. The studio brings a unique global perspective to
-            every project. With a commitment to crafting timeless designs.
+            {t('content')}
           </p>
 
           <div className="mt-8">

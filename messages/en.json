@@ -3,5 +3,16 @@
     "content": "content! ádads",
     "about": "About",
     "contact": "Contact us"
+  },
+
+  "AboutPage": {
+    "title": "About Us",
+    "content": "Tomura Gallery is a long-standing gallery in Japan, founded in 1989 in Ginza and moved to Kyobashi in 2006, with more than 35 years of experience operating in large galleries and visual arts. In 2019, in conjunction with A-Cube Gallery in Seoul, Korea (established in 2009), Tomura Gallery expanded to a new space in Ho Chi Minh City named TomuraLee Gallery, which is a combination of Japanese and Korean galleries.",
+    "description": "With a liberal and new style, TomuraLee Gallery focuses mainly on contemporary art. At the same time, we also organize exhibitions to promote the works of young artists from countries around the world such as Japan, Korea, and China, to collectors, museums, and the art-loving public. After a period of research, TomuraLee was present in Ho Chi Minh, Vietnam, with the ambition to accompany Vietnamese Fine Arts on the path to reaching out to the world and promoting the interaction between cultures. We aim to bring talented artists to Ho Chi Minh City to share the work of Vietnamese artists with the local art scene while working to discover and promote emerging Southeast Asian artists on the international art scene. Our artists come from diverse artistic backgrounds and cultures, work in a variety of mediums, and have a wide range of life experiences. They have strong conceptual and challenging visions, realized in ever-evolving forms that we strive to foster by creating networks and collaborating with other art spaces in Asia and beyond. TomuraLee is constantly improving every day to build a solid bridge between our artists and our partners, customers, and the art-loving community.",
+    "introduction": "Unlike most common display spaces, instead of the familiar dark colors and light focusing on the work, TomuraLee has 2 display spaces, using the main white tone, creating a feeling of spaciousness. Sophisticated and directs complete focus on works of art."
+  },
+
+  "Footer": {
+    "introduction": "VIA specializes in modern architecture and real estate development that seamlessly integrates functionality, aesthetics, and sustainability. The studio brings a unique global perspective to every project. With a commitment to crafting timeless designs"
   }
 }

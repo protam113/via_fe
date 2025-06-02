@@ -4,7 +4,11 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { useInView } from 'framer-motion';
 
+import { useTranslations } from 'next-intl';
+
 export default function ArtGalleryLayout() {
+  const t = useTranslations('AboutPage');
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sticky Text Panel */}
@@ -14,22 +18,7 @@ export default function ArtGalleryLayout() {
             Vietnam International Artfair in Pictures
           </h1>
           <p className="text-gray-700 leading-relaxed mb-4">
-            Welcome to Social Square's visual showcase, a curated gallery
-            capturing the essence of our creative space. Our collection of
-            images transports you to a world where work and inspiration
-            seamlessly intertwine.
-          </p>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            Explore our thoughtfully designed workspaces, discover the faces of
-            our diverse community, and witness the vibrant energy of our events.
-            Whether you're seeking a tranquil retreat bathed in natural light or
-            the dynamic atmosphere of networking sessions, our gallery offers a
-            glimpse into the versatility and vibrancy of Social Space.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            Get inspired, and see why we're the preferred choice for
-            professionals and creatives looking for a co-working experience that
-            transcends the ordinary.
+            {t('description')}
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import '../assets/styles/globals.css';
+import '../../assets/styles/globals.css';
 
 export default function NotFound() {
   return (

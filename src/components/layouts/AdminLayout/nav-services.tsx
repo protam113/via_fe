@@ -30,7 +30,10 @@ export function NavService({
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <Link href={item.url}>
-                  <SidebarMenuButton tooltip={item.title}>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    className="rounded-none"
+                  >
                     {item.icon && <item.icon className="text-lg" />}
 
                     <span className="text-lg">{item.title}</span>

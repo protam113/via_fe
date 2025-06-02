@@ -10,6 +10,7 @@ import {
   viewport as siteViewport,
 } from '@/constants/appInfos';
 import '../../assets/styles/globals.css';
+import CheckLocale from '@/components/CheckLocale';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -33,6 +34,7 @@ export default async function LocaleLayout({
   return (
     <>
       <DelayedLoading duration={3000} />
+      <CheckLocale locale={locale} />
       <html lang={locale} className="mdl-js">
         <body className="antialiased scroll-smooth">
           <div className={`${playfair.variable} font-serif`}>

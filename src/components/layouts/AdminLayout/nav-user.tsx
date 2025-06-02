@@ -38,7 +38,7 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-black"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-black rounded-none"
             >
               {/* <AvatarFallback className="rounded-lg">CN</AvatarFallback> */}
               <div className="grid flex-1 text-left data-[state=open]:text-black text-sm leading-tight">
@@ -49,7 +49,7 @@ export function NavUser({
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-none"
             side={isMobile ? 'bottom' : 'right'}
             align="end"
             sideOffset={4}
@@ -62,8 +62,8 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuSeparator /> */}
+            {/* <DropdownMenuGroup>
               <Link href="/admin/profile">
                 <DropdownMenuItem>
                   <ComponentsIcons.CircleUserRound />
@@ -79,7 +79,7 @@ export function NavUser({
                   Change password
                 </DropdownMenuItem>
               </Link>
-            </DropdownMenuGroup>
+            </DropdownMenuGroup> */}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
               <ComponentsIcons.LogOut />
