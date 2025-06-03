@@ -1,5 +1,6 @@
 'use client';
 
+import SelectCountriesSimple from '@/components/common/options/select.option';
 import { RichTextEditorDemo } from '@/components/tiptap/rich-text-editor';
 import { useAuthStore } from '@/store/auth/store.auth';
 import React from 'react';
@@ -13,6 +14,7 @@ const Page = () => {
 
       <main className="flex-grow container mx-auto px-4 py-8" id="editor">
         {/* <RichTextEditorDemo className="w-full rounded-xl" /> */}
+        <SelectCountriesSimple />
       </main>
     </div>
   );

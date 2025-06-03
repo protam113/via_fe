@@ -4,10 +4,6 @@
 
 :root {
   --primary: oklch(0.205 0 0);
-  --warning: #edb95e;
-  --approved: #82dd55;
-  --rejected: #e23636;
-  --info: #4a90e2;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -39,6 +35,22 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+}
+
+@theme {
+  --color-main: #f69429;
+  --color-main-50: #fde0ab;
+  --color-main-100: #fef1d6;
+  --color-main-200: #fde0ab;
+  --color-main-300: #fbc976;
+  --color-main-400: #f8a73f;
+  --color-main-600: #e67110;
+  --color-main-700: #bf560f;
+  --color-main-800: #984414;
+  --color-warning: #edb95e;
+  --color-approved: #82dd55;
+  --color-rejected: #e23636;
+  --color-info: #4a90e2;
 }
 
 @theme inline {

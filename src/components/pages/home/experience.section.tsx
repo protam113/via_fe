@@ -1,7 +1,7 @@
 'use client';
 
 import Container from '@/components/container/container';
-import Header from '@/components/design/header';
+import Header from '@/components/common/design/header';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import React, { useState, useEffect, useRef } from 'react';

@@ -1,6 +1,6 @@
 'use client';
 
-import SEO from '@/components/SEO';
+import SEO from '@/components/core/SEO';
 import React from 'react';
 import ViaA from '@/components/pages/via-atelier/via-atelier.detail';
 

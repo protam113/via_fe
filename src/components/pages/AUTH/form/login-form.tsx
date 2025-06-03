@@ -53,7 +53,7 @@ export default function LoginForm() {
           <Input
             id="username"
             placeholder="VIA account"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded-none"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -67,14 +67,14 @@ export default function LoginForm() {
             id="password"
             type="password"
             placeholder="password"
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded-none"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
         <Button
-          className="w-full font-bold text-xl bg-black hover:bg-gray-600 text-white"
+          className="w-full font-bold rounded-none text-xl bg-black hover:bg-gray-600 text-white"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Loading...' : 'Login'}

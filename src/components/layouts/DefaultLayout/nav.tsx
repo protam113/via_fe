@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import CustomImage from '@/components/design/image.component';
-import LangButton from '@/components/button/language.button';
+import CustomImage from '@/components/common/design/image.component';
+import LangButton from '@/components/common/button/language.button';
 import { X } from 'lucide-react';
 
 const navItems = [

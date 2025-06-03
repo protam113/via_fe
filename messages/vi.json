@@ -14,5 +14,23 @@
 
   "Footer": {
     "introduction": "VIA chuyên về kiến ​​trúc hiện đại và phát triển bất động sản tích hợp liền mạch chức năng, thẩm mỹ và tính bền vững. Studio mang đến góc nhìn toàn cầu độc đáo cho mọi dự án. Với cam kết tạo ra những thiết kế vượt thời gian."
+  },
+
+  "ContactPage": {
+    "title": "Contact Us",
+    "content": "If you have any questions or inquiries, please feel free to contact us using the form below:",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send"
+  },
+
+  "ContactForm": {
+    "name": "Tên",
+    "email": "Email",
+    "message": "Lời Nhắn",
+    "send": "Gửi",
+    "phone_number": "Số Điện Thoại",
+    "nation": "Quốc Gia"
   }
 }

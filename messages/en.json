@@ -14,5 +14,23 @@
 
   "Footer": {
     "introduction": "VIA specializes in modern architecture and real estate development that seamlessly integrates functionality, aesthetics, and sustainability. The studio brings a unique global perspective to every project. With a commitment to crafting timeless designs"
+  },
+
+  "ContactPage": {
+    "title": "Contact Us",
+    "content": "If you have any questions or inquiries, please feel free to contact us using the form below:",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send"
+  },
+
+  "ContactForm": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "phone_number": "Phone Number",
+    "nation": "Nation"
   }
 }

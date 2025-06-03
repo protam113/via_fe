@@ -1,7 +1,3 @@
-// import logoV from './icons/V_Logo.svg';
-// import logoNameB from './icons/LogoName.svg';
-// import logoNameW from './icons/LogoName_white.svg';
-
 import {
   BadgeCheck,
   Bell,
@@ -46,12 +42,6 @@ import {
   List,
 } from 'lucide-react';
 import { Box, ShoppingBag, ClipboardList } from 'lucide-react';
-
-// export const LogoIcons = {
-//   logoV,
-//   logoNameB,
-//   logoNameW,
-// };
 
 export const Icons = {};
 

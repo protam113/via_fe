@@ -6,9 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Multi-language support for the website.
-- "Get a Quote & Order" page with smooth animations.
-- Integration of a new API for authentication.
+- Create `MEDIA` hook for upload media.
 
 ### Fixed
 
@@ -19,11 +17,11 @@ All notable changes to this project will be documented in this file.
 
 - Removed `moment.js`, replaced with `date-fns` to reduce bundle size.
 
-## [1.0.6] - 2025-03-22
+## [1.0.6] - 2025-06-03
 
 ### Added
 
-- Add blog page
+- Add Countries data
 - Add blog page layout
 - Add logic for this blog page
 - Add hook for get blog by category, blogs , blog

@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import BackButton from '@/components/button/BackButton';
+import BackButton from '@/components/common/button/back-admin.button';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CreateManagerData } from '@/types/types';
 import { toast } from 'sonner';
-import Heading from '@/components/design/Heading';
+import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/container/admin.container';
 import { useCreateManager } from '@/hooks/users/useUser';
 

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Eye, ArrowDown } from 'lucide-react';
 import Image from 'next/image';
-import ContactBlackForm from '@/components/container/contact.-blackcontainer';
+import ContactBlackForm from '@/components/container/contact.-black.container';
 
 const ViaAAuth = () => {
   return (

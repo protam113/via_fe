@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import Container from '@/components/container/container';
-import MainButton from '@/components/button/main.button';
-import Header from '@/components/design/header';
+import MainButton from '@/components/common/button/main.button';
+import Header from '@/components/common/design/header';
 import { useTranslations } from 'next-intl';
 
 export default function AboutUsSection() {

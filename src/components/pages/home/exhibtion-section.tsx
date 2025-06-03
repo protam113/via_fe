@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import Header from '@/components/design/header';
-import CustomImage from '@/components/design/image.component';
+import Header from '@/components/common/design/header';
+import CustomImage from '@/components/common/design/image.component';
 
 interface Award {
   id: number;

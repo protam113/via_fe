@@ -4,8 +4,8 @@ import type React from 'react';
 import { useState } from 'react';
 
 //Components
-import { RefreshButton } from '@/components/button/RefreshButton';
-import { CustomPagination } from '@/components/design/pagination';
+import { RefreshButton } from '@/components/common/button/refresh.button';
+import { CustomPagination } from '@/components/common/design/pagination';
 import {
   Select,
   SelectTrigger,
@@ -15,9 +15,9 @@ import {
 } from '@/components/ui/select';
 
 import { CategoryList } from '@/lib/responses/categoriesLib';
-import Heading from '@/components/design/Heading';
+import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/container/admin.container';
-import { CategoryTable } from '@/components/tables/CategoryTable';
+import { CategoryTable } from '@/components/common/tables/category.table';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 

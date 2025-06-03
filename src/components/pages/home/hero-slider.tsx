@@ -1,6 +1,6 @@
 'use client';
 
-import CustomImage from '@/components/design/image.component';
+import CustomImage from '@/components/common/design/image.component';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, EyeIcon } from 'lucide-react';

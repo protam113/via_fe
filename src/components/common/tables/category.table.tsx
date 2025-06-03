@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/table';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import NoResultsFound from '@/components/design/NoResultsFound';
+import NoResultsFound from '@/components/common/design/NoResultsFound';
 
 import { CategoryTableProps } from '@/types/props.types';
 import { CategoryColumns } from '@/types/colums.types';

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import MainButton from '@/components/button/main.button';
+import MainButton from '@/components/common/button/main.button';
 import { useTranslations } from 'next-intl';
 
 const socialLinks = [
@@ -25,7 +25,9 @@ export default function Footer() {
                 width={60}
                 height={60}
                 className="object-contain"
+                style={{ height: 'auto' }} // hoặc width: "auto" nếu bạn muốn cố định height
               />
+
               <div className="ml-2 col ">
                 <h2 className="text-xl font-bold">
                   Vietnam International ArtFair

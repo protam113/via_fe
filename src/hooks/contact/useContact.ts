@@ -1,4 +1,3 @@
-'use client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endpoints } from '@/apis/api';
 import {
@@ -80,24 +79,12 @@ Create role
  **/
 
 const CreateContact = async (newContact: CreateContactItem) => {
-  const formData = new FormData();
-
-  for (const key in newContact) {
-    if (Object.prototype.hasOwnProperty.call(newContact, key)) {
-      const value = newContact[key as keyof CreateContactItem];
-
-      if (Array.isArray(value)) {
-        // If the value is an array, append each element
-        value.forEach((v) => formData.append(key, v));
-      } else if (typeof value === 'string') {
-        // If the value is a string, append to FormData
-        formData.append(key, value);
-      }
-    }
-  }
-
   try {
-    const response = await handleAPI(`${endpoints.contacts}`, 'POST', formData);
+    const response = await handleAPI(
+      `${endpoints.contacts}`,
+      'POST',
+      newContact
+    );
     return response.data;
   } catch (error: any) {
     console.error('Error creating contact:', error.response?.data);

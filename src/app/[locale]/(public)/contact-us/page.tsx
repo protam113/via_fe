@@ -3,7 +3,7 @@
 import ContactForm from '@/components/container/contact.container';
 import Container from '@/components/container/container';
 import EnhancedHeroBanner from '@/components/container/enhanced-hero-banner';
-import SEO from '@/components/SEO';
+import SEO from '@/components/core/SEO';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import React from 'react';
 import { useTranslations } from 'next-intl';

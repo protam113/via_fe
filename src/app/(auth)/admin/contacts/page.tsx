@@ -5,8 +5,8 @@ import { useState } from 'react';
 //UI components
 
 //Components
-import { RefreshButton } from '@/components/button/RefreshButton';
-import { CustomPagination } from '@/components/design/pagination';
+import { RefreshButton } from '@/components/common/button/refresh.button';
+import { CustomPagination } from '@/components/common/design/pagination';
 import {
   Select,
   SelectTrigger,
@@ -17,10 +17,10 @@ import {
 import { ContactList } from '@/lib/responses/contactLib';
 import { useDeleteContact } from '@/hooks/contact/useContact';
 // import ConfirmDialog from '@/components/design/Dialog';
-import Heading from '@/components/design/Heading';
+import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/container/admin.container';
 import SelectStatus from '@/components/pages/AUTH/contact/selectStatus';
-import { ContactTable } from '@/components/tables/ContactTable';
+import { ContactTable } from '@/components/common/tables/contact.table';
 
 export default function ProductManager() {
   const [selectedStatus, setSelectedStatus] = useState<string>();

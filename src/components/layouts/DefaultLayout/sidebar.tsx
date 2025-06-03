@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react';
 import { useSidebar } from '@/hooks/use-sidebar';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import LangButton from '@/components/button/language.button';
+import LangButton from '@/components/common/button/language.button';
 
 export function Sidebar() {
   const { isOpen, closeSidebar } = useSidebar();

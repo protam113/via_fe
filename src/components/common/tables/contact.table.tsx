@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
-import NoResultsFound from '@/components/design/NoResultsFound';
+import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Hooks & Utils
 import { toast } from 'sonner';
 // import { useUpdateStatus } from '@/hooks/contact/useContact';
@@ -204,6 +204,10 @@ export const ContactTable: React.FC<ContactTableProps> = ({
                             </div>
                           </div>
                           <div>
+                            <div>
+                              <span className="font-medium">Location:</span>{' '}
+                              {contact.location}
+                            </div>
                             <h4 className="text-sm font-medium mb-2">
                               Lời Nhắn
                             </h4>

@@ -10,7 +10,7 @@ import {
   viewport as siteViewport,
 } from '@/constants/appInfos';
 import '../../assets/styles/globals.css';
-import CheckLocale from '@/components/CheckLocale';
+import CheckLocale from '@/components/core/CheckLocale';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],

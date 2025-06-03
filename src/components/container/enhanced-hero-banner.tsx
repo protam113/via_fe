@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Container from './container';
-import Breadcrumb from '../design/breadcrumb';
+import Breadcrumb from '../common/design/breadcrumb';
 
 interface Hero {
   heading?: string;

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
-import MainButton from '@/components/button/main.button';
+import MainButton from '@/components/common/button/main.button';
 import Link from 'next/link';
-import Header from '@/components/design/header';
+import Header from '@/components/common/design/header';
 
 export default function OurCategory() {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);

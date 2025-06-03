@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import LangButton from '@/components/button/language.button';
+import LangButton from '@/components/common/button/language.button';
 
 const menuItems = [
   { label: 'Home', href: '/' },

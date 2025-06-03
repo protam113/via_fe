@@ -186,3 +186,26 @@ export interface FetchCategoryDetailResponse {
 // ========================
 // End Category
 // ========================
+
+/**
+ * ==========================
+ *  @COUNTRY
+ * ==========================
+ */
+
+interface Flag {
+  svg: string;
+}
+
+interface CountryName {
+  common: string;
+  official: string;
+}
+
+export interface FetchCountryItem {
+  flags: Flag;
+  name: CountryName;
+  cca2: string;
+}
+
+export type FetchCountryResponse = FetchCountryItem[];

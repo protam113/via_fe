@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import LangButton from '@/components/button/language.button';
+import LangButton from '@/components/common/button/language.button';
 import { useTranslations } from 'next-intl';
 
 const projects = [

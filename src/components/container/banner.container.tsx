@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import CustomImage from '../design/image.component';
+import CustomImage from '../common/design/image.component';
 
 const BannerContainer = ({ image }: { image: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);

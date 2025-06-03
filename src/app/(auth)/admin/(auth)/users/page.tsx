@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Loader, Trash2, Filter, Plus, Search } from 'lucide-react';
-import { RefreshButton } from '@/components/button/RefreshButton';
+import { RefreshButton } from '@/components/common/button/refresh.button';
 import {
   Select,
   SelectTrigger,
@@ -20,13 +20,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { AlertCircle } from 'lucide-react';
-import { CustomPagination } from '@/components/design/pagination';
+import { CustomPagination } from '@/components/common/design/pagination';
 import AdminContainer from '@/components/container/admin.container';
 import { UserList } from '@/lib/responses/userLib';
 // import { useDeleteManager } from '@/hooks/auth/useManager';
 // import ConfirmDialog from '@/components/design/Dialog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Heading from '@/components/design/Heading';
+import Heading from '@/components/common/design/Heading';
 import { RoleList } from '@/lib/responses/roleLib';
 import { Input } from '@/components/ui/input';
 

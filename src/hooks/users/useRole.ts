@@ -1,9 +1,7 @@
-'use client';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { endpoints } from '@/apis/api';
 import { FetchRoleListResponse, Filters, RoleDetail } from '@/types/types';
 import { handleAPI } from '@/apis/axiosClient';
-import { logDebug } from '@/utils/logger';
 
 /**
  * ==========================
