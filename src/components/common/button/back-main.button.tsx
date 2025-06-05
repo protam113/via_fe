@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { ArrowIcons } from '@/assets/icons/icons';
 
 const BackMainButton = ({ title, href }: { title: string; href: string }) => {
   const item = {
@@ -16,7 +16,7 @@ const BackMainButton = ({ title, href }: { title: string; href: string }) => {
         href={`${href}`}
         className="inline-flex items-center text-sm font-mono text-muted-foreground hover:text-foreground transition-colors"
       >
-        <ArrowLeft className="mr-2 h-4 w-4" />
+        <ArrowIcons.ArrowLeft className="mr-2 h-4 w-4" />
         {title}
       </Link>
     </motion.div>

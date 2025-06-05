@@ -36,14 +36,26 @@ import {
   MessageCircleQuestion,
   SquareChartGantt,
   Package,
+  Facebook,
   TrainTrack,
   Search,
   ChartBarStacked,
   List,
+  ArrowUp,
+  RefreshCcwDot,
+  ArrowRight,
 } from 'lucide-react';
 import { Box, ShoppingBag, ClipboardList } from 'lucide-react';
 
-export const Icons = {};
+export const Icons = {
+  RefreshCcwDot,
+};
+
+export const ArrowIcons = {
+  ArrowUp,
+  ArrowLeft,
+  ArrowRight,
+};
 
 export const ComponentsIcons = {
   Search,
@@ -83,11 +95,15 @@ export const ComponentsIcons = {
   Users,
   GroupIcon,
   Logs,
-  ArrowLeft,
+
   ShieldBan,
   List,
   SquareChartGantt,
   Package,
   TrainTrack,
   ChartBarStacked,
+};
+
+export const SocialMediaIcon = {
+  Facebook,
 };

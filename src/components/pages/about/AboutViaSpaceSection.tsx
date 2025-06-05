@@ -1,9 +1,10 @@
 'use client';
-import Image from 'next/image';
+
 import MainButton from '@/components/common/button/main.button';
 import Header from '@/components/common/design/header';
 import Container from '@/components/container/container';
 import { useTranslations } from 'next-intl';
+import CustomImage from '@/components/common/design/image.component';
 
 export default function AboutViaSpaceSection() {
   const t = useTranslations('AboutPage');
@@ -23,7 +24,7 @@ export default function AboutViaSpaceSection() {
         </div>
         <div className="relative group">
           <div className="relative overflow-hidden transform transition-transform duration-300 group-hover:scale-105">
-            <Image
+            <CustomImage
               src="/img/via_home.jpg"
               alt="Team meeting"
               width={500}

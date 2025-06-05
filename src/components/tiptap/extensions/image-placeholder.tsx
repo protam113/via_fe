@@ -16,15 +16,12 @@ import {
   mergeAttributes,
 } from '@tiptap/react';
 import { Image, Link, Upload, Loader2, X } from 'lucide-react';
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import { useImageUpload } from '@/hooks/tiptap/use-image-upload';
-
-export interface ImagePlaceholderOptions {
-  HTMLAttributes: Record<string, any>;
-  onUpload?: (url: string) => void;
-  onError?: (error: string) => void;
-}
+import { usePresignMedia, useSubmitMedia } from '@/hooks/media/useMedia';
+import { ImagePlaceholderOptions } from '@/types/props.type';
+import { UploadState } from '@/types/types.types';
+import { SubmitItem } from '@/types/types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -83,28 +80,180 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
   const [altText, setAltText] = useState('');
   const [urlError, setUrlError] = useState(false);
   const [isDragActive, setIsDragActive] = useState(false);
+  const [submitItem, setSubmitItem] = useState<SubmitItem | null>(null);
 
-  const {
-    previewUrl,
-    fileInputRef,
-    handleFileChange,
-    handleRemove,
-    uploading,
-    error,
-  } = useImageUpload({
-    onUpload: (imageUrl) => {
-      editor
-        .chain()
-        .focus()
-        .setImage({
-          src: imageUrl,
-          alt: altText || fileInputRef.current?.files?.[0]?.name,
-        })
-        .run();
-      handleRemove();
-      setIsExpanded(false);
-    },
+  const [uploadState, setUploadState] = useState<UploadState>({
+    id: null,
+    uploadUrl: null,
+    previewUrl: null,
+    file: null,
+    uploading: false,
+    error: null,
   });
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // API hooks
+  const { mutate: presignMedia } = usePresignMedia();
+  const { mutate: submitMedia } = useSubmitMedia();
+
+  const resetUploadState = () => {
+    setUploadState({
+      id: null,
+      uploadUrl: null,
+      previewUrl: null,
+      file: null,
+      uploading: false,
+      error: null,
+    });
+  };
+
+  const handleFileSelect = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      setUploadState((prev) => ({
+        ...prev,
+        error: 'Please select a valid image file',
+      }));
+      return;
+    }
+
+    // Create preview URL
+    const previewUrl = URL.createObjectURL(file);
+
+    setUploadState((prev) => ({
+      ...prev,
+      file,
+      previewUrl,
+      error: null,
+    }));
+
+    // Start presign process
+    presignMedia(
+      {
+        name: file.name,
+        type: 'image',
+      },
+      {
+        onSuccess: (data) => {
+          setUploadState((prev) => ({
+            ...prev,
+            id: data.id,
+            uploadUrl: data.upload_url,
+          }));
+
+          setSubmitItem({
+            name: file.name,
+            type: 'image',
+          });
+        },
+        onError: (error) => {
+          setUploadState((prev) => ({
+            ...prev,
+            error: 'Failed to prepare upload. Please try again.',
+          }));
+          console.error('Presign error:', error);
+        },
+      }
+    );
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFileSelect(file);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!uploadState.file || !uploadState.uploadUrl || !uploadState.id) {
+      setUploadState((prev) => ({
+        ...prev,
+        error:
+          'Missing required upload data. Please try selecting the file again.',
+      }));
+      return;
+    }
+
+    setUploadState((prev) => ({ ...prev, uploading: true, error: null }));
+
+    try {
+      // Upload file to presigned URL
+      const uploadResponse = await fetch(uploadState.uploadUrl, {
+        method: 'PUT',
+        body: uploadState.file,
+        headers: {
+          'Content-Type': uploadState.file.type,
+        },
+      });
+
+      if (uploadResponse.status === 201 || uploadResponse.status === 200) {
+        submitMedia(
+          {
+            id: uploadState.id!,
+            submitItem: submitItem!,
+          },
+
+          {
+            onSuccess: (data) => {
+              // Insert image into editor
+              editor
+                .chain()
+                .focus()
+                .setImage({
+                  src: data?.url || uploadState.previewUrl!,
+                  alt: altText || uploadState.file?.name,
+                })
+                .run();
+
+              // Clean up and close
+              if (uploadState.previewUrl) {
+                URL.revokeObjectURL(uploadState.previewUrl);
+              }
+              resetUploadState();
+              setIsExpanded(false);
+              setAltText('');
+            },
+            onError: (error) => {
+              console.error('Submit media error:', error);
+              setUploadState((prev) => ({
+                ...prev,
+                uploading: false,
+                error: `Failed to confirm upload: ${
+                  error?.message || 'Unknown error'
+                }`,
+              }));
+            },
+          }
+        );
+      } else {
+        const errorText = await uploadResponse
+          .text()
+          .catch(() => 'Unknown error');
+        throw new Error(
+          `Upload failed with status: ${uploadResponse.status}. ${errorText}`
+        );
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      setUploadState((prev) => ({
+        ...prev,
+        uploading: false,
+        error: `Upload failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`,
+      }));
+    }
+  };
+
+  const handleRemove = () => {
+    if (uploadState.previewUrl) {
+      URL.revokeObjectURL(uploadState.previewUrl);
+    }
+    resetUploadState();
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -130,13 +279,7 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
 
     const file = e.dataTransfer.files[0];
     if (file) {
-      const input = fileInputRef.current;
-      if (input) {
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        input.files = dataTransfer.files;
-        handleFileChange({ target: input } as any);
-      }
+      handleFileSelect(file);
     }
   };
 
@@ -155,6 +298,16 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
     }
   };
 
+  const handleClose = () => {
+    if (uploadState.previewUrl) {
+      URL.revokeObjectURL(uploadState.previewUrl);
+    }
+    resetUploadState();
+    setIsExpanded(false);
+    setUrl('');
+    setAltText('');
+  };
+
   return (
     <NodeViewWrapper className="w-full">
       <div className="relative">
@@ -165,7 +318,7 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
               'group relative flex cursor-pointer flex-col items-center gap-4 rounded-lg border-2 border-dashed p-8 transition-all hover:bg-accent',
               selected && 'border-primary bg-primary/5',
               isDragActive && 'border-primary bg-primary/5',
-              error && 'border-destructive bg-destructive/5'
+              uploadState.error && 'border-destructive bg-destructive/5'
             )}
           >
             <div className="rounded-full bg-background p-4 shadow-sm transition-colors group-hover:bg-accent">
@@ -184,11 +337,7 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
           <div className="rounded-lg border bg-card p-4 shadow-sm">
             <div className="mb-4 flex items-center justify-between">
               <h3 className="text-lg font-semibold">Add Image</h3>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsExpanded(false)}
-              >
+              <Button variant="ghost" size="icon" onClick={handleClose}>
                 <X className="h-4 w-4" />
               </Button>
             </div>
@@ -218,13 +367,13 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
                   className={cn(
                     'my-4 rounded-lg border-2 border-dashed p-8 text-center transition-colors',
                     isDragActive && 'border-primary bg-primary/10',
-                    error && 'border-destructive bg-destructive/10'
+                    uploadState.error && 'border-destructive bg-destructive/10'
                   )}
                 >
-                  {previewUrl ? (
+                  {uploadState.previewUrl ? (
                     <div className="space-y-4">
                       <img
-                        src={previewUrl}
+                        src={uploadState.previewUrl}
                         alt="Preview"
                         className="mx-auto max-h-[200px] rounded-lg object-cover"
                       />
@@ -233,20 +382,26 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
                           value={altText}
                           onChange={(e) => setAltText(e.target.value)}
                           placeholder="Alt text (optional)"
+                          disabled={uploadState.uploading}
                         />
                         <div className="flex justify-end gap-2">
                           <Button
                             variant="outline"
                             onClick={handleRemove}
-                            disabled={uploading}
+                            disabled={uploadState.uploading}
                           >
                             Remove
                           </Button>
-                          <Button disabled={uploading}>
-                            {uploading && (
+                          <Button
+                            onClick={handleUpload}
+                            disabled={
+                              uploadState.uploading || !uploadState.uploadUrl
+                            }
+                          >
+                            {uploadState.uploading && (
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                             )}
-                            Upload
+                            {uploadState.uploading ? 'Uploading...' : 'Upload'}
                           </Button>
                         </div>
                       </div>
@@ -277,8 +432,10 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
                       </label>
                     </>
                   )}
-                  {error && (
-                    <p className="mt-2 text-sm text-destructive">{error}</p>
+                  {uploadState.error && (
+                    <p className="mt-2 text-sm text-destructive">
+                      {uploadState.error}
+                    </p>
                   )}
                 </div>
               </TabsContent>

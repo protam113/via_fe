@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import LangButton from '@/components/common/button/language.button';
 import { useTranslations } from 'next-intl';
+import { categories } from '@/lib/routes/navigation.routes';
 
 const projects = [
   {
@@ -25,24 +26,6 @@ const projects = [
     name: 'Residenza Urbana',
     location: 'Francia',
     image: '/img/hero4.png',
-  },
-];
-
-const categories = [
-  {
-    id: 1,
-    title: 'Via Art Fair',
-    href: '/via-art-fair',
-  },
-  {
-    id: 2,
-    title: 'Via Atelier',
-    href: '/via-atelier',
-  },
-  {
-    id: 3,
-    title: "Via Prive'",
-    href: '/via-prive',
   },
 ];
 
@@ -116,15 +99,15 @@ export default function Page() {
           >
             {t('about')}
           </Link>
-          {categories.map(({ id, title, href }) => (
+          {categories.map(({ id, name, path }) => (
             <Link
               key={id}
-              href={href}
+              href={path}
               className="relative px-3 py-1 text-2xl md:text-4xl lg:text-6xl font-bold leading-none transition-all duration-300 ease-in-out text-black
    after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
    hover:after:w-full"
             >
-              {title}
+              {name}
             </Link>
           ))}
 

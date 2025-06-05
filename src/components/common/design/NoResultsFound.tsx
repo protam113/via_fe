@@ -1,11 +1,7 @@
 'use client';
 
+import { NoResultsFoundProps } from '@/types/props.type';
 import { Frown } from 'lucide-react';
-
-interface NoResultsFoundProps {
-  title?: string;
-  message?: string;
-}
 
 export default function NoResultsFound({
   title = 'Whoops, không có kết quả',

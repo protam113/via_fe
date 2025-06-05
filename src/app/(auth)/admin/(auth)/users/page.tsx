@@ -29,6 +29,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Heading from '@/components/common/design/Heading';
 import { RoleList } from '@/lib/responses/roleLib';
 import { Input } from '@/components/ui/input';
+import PushButton from '@/components/common/button/push.button';
+import { ROUTES } from '@/lib/routes/routes';
+import SearchFilterBar from '@/components/pages/AUTH/user/search_filter.user';
 
 const Page = () => {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -152,91 +155,21 @@ const Page = () => {
           </CardHeader>
           <CardContent>
             {/* Search and Filter Bar - Fixed with proper spacing */}
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 relative z-10">
-              <div className="relative w-full md:w-64">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Search name (Press Enter)"
-                  className="pl-10 pr-8 rounded-none"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleSearchKeyDown}
-                />
-                {/* Clear search button */}
-                {searchQuery && (
-                  <button
-                    onClick={handleClearSearch}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  >
-                    ✕
-                  </button>
-                )}
-              </div>
-
-              <div className="flex items-center gap-4 w-full md:w-auto">
-                <RefreshButton onClick={handleRefresh} />
-
-                {/* Fixed Select component with proper z-index and portal */}
-                <div className="relative">
-                  <Select
-                    onValueChange={(value) =>
-                      setSelectedRole(value === 'all' ? undefined : value)
-                    }
-                    value={selectedRole || 'all'}
-                  >
-                    <SelectTrigger className="w-40 relative z-20 rounded-none">
-                      <div className="flex items-center gap-2 rounded-none">
-                        <Filter className="h-4 w-4" />
-                        <SelectValue placeholder="All Roles" />
-                      </div>
-                    </SelectTrigger>
-
-                    {/* Fixed SelectContent with portal and proper positioning */}
-                    <SelectContent
-                      className="z-50 min-w-[160px] rounded-none"
-                      position="popper"
-                      side="bottom"
-                      align="start"
-                      sideOffset={4}
-                    >
-                      <SelectItem value="all" className="rounded-none">
-                        All Roles
-                      </SelectItem>
-
-                      {isRoleLoading && (
-                        <div className="px-4 py-2 text-sm">Loading...</div>
-                      )}
-                      {isRoleError && (
-                        <div className="px-4 py-2 text-sm text-red-500">
-                          Failed to load roles
-                        </div>
-                      )}
-
-                      {roles?.map((role) => (
-                        <SelectItem
-                          key={role.id}
-                          value={role.id}
-                          className="rounded-none"
-                        >
-                          {role.title.charAt(0).toUpperCase() +
-                            role.title.slice(1)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <Button
-                  onClick={() =>
-                    (window.location.href = '/admin/users/create_manager')
-                  }
-                  className="gap-2 rounded-none"
-                >
-                  <Plus className="h-4 w-4" />
-                  Create Manager
-                </Button>
-              </div>
-            </div>
+            <SearchFilterBar
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              onSearchEnter={handleSearchKeyDown}
+              onClearSearch={handleClearSearch}
+              selectedRole={selectedRole}
+              onRoleChange={(value) => {
+                setSelectedRole(value);
+                setCurrentPage(1); // Reset về trang 1 khi filter
+              }}
+              roles={roles}
+              isRoleLoading={isRoleLoading}
+              isRoleError={isRoleError}
+              onRefresh={handleRefresh}
+            />
 
             {/* Table Section - Added min-height to prevent jumping */}
             <div className="border overflow-hidden min-h-[400px]">

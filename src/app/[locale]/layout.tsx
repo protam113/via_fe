@@ -1,5 +1,4 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from '@/lib/getMessages';
 import { Playfair_Display } from 'next/font/google';
 import DelayedLoading from '@/components/loading/DelayedLoading';
 import { Toaster } from 'sonner';
@@ -29,7 +28,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const messages = await getMessages(locale);
 
   return (
     <>
@@ -38,7 +36,7 @@ export default async function LocaleLayout({
       <html lang={locale} className="mdl-js">
         <body className="antialiased scroll-smooth">
           <div className={`${playfair.variable} font-serif`}>
-            <NextIntlClientProvider locale={locale} messages={messages}>
+            <NextIntlClientProvider locale={locale}>
               <ReactQueryProvider>
                 {children}
                 <Toaster position="top-right" richColors />

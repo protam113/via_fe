@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 import { useInView } from 'framer-motion';
 
 import { useTranslations } from 'next-intl';
+import CustomImage from '@/components/common/design/image.component';
 
 export default function ArtGalleryLayout() {
   const t = useTranslations('AboutPage');
@@ -80,7 +80,7 @@ function GalleryImage({
       }}
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden">
-        <Image
+        <CustomImage
           src={src || '/placeholder.svg'}
           alt={alt}
           fill

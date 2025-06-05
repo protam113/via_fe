@@ -26,8 +26,8 @@ import { toast } from 'sonner';
 // import { useUpdateStatus } from '@/hooks/contact/useContact';
 import { formatSmartDate } from '@/utils/formatTimeAgo';
 // Types
-import { ContactTableProps } from '@/types/props.types';
-import { ContactColumns } from '@/types/colums.types';
+import { ContactTableProps } from '@/types/props.type';
+import { ContactColumns } from '@/types/colums.type';
 
 const statusColors = {
   approved: 'text-green-600 bg-green-100',

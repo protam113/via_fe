@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Create `MEDIA` hook for upload media.
+-
 
 ### Fixed
 
@@ -16,6 +16,24 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 - Removed `moment.js`, replaced with `date-fns` to reduce bundle size.
+
+## [1.1.0] - 2025-06-05
+
+### Added
+
+- Add Routes for all app
+- Created icons components
+- Create `MEDIA` hook for upload media.
+- Created Image upload components
+- Created image upload in richtext
+
+### Changed
+
+- Optimized routes for all app
+
+### Fixed
+
+---
 
 ## [1.0.6] - 2025-06-03
 

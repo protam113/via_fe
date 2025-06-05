@@ -2,11 +2,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import MainButton from '@/components/common/button/main.button';
 import { useTranslations } from 'next-intl';
+import { SocialMedia } from '@/lib/data';
 
 const socialLinks = [
-  { id: 1, label: 'Instagram', href: 'https://instagram.com' }, // Fixed placeholder URL
-  { id: 2, label: 'Instagram', href: 'https://instagram.com' },
-  { id: 3, label: 'Twitter', href: 'https://twitter.com' },
+  { id: 1, label: SocialMedia.FB.label, href: SocialMedia.FB.url }, // Fixed placeholder URL
+  { id: 2, label: SocialMedia.IG.label, href: SocialMedia.IG.url },
+  { id: 3, label: SocialMedia.Twitter.label, href: SocialMedia.Twitter.url },
 ];
 
 export default function Footer() {

@@ -4,24 +4,11 @@ import { usePathname } from 'next/navigation';
 import CustomImage from '@/components/common/design/image.component';
 import LangButton from '@/components/common/button/language.button';
 import { X } from 'lucide-react';
-
-const navItems = [
-  { name: 'About Us', path: '/about' },
-  { name: 'Via Art Fair', path: '/via-art-fair' },
-  { name: 'Via Atelier', path: '/via-atelier' },
-];
-
-const navItemsMobile = [
-  { name: 'About Us', path: '/about' },
-  { name: 'Via Art Fair', path: '/via-art-fair' },
-  { name: 'Via Atelier', path: '/via-atelier' },
-  { name: "Via Prive'", path: '/via-prive' },
-];
-
-const navItemsSec = [
-  { name: "Via Prive'", path: '/via-prive' },
-  { name: 'Contact Us', path: '/contact-us' },
-];
+import {
+  navItems,
+  navItemsMobile,
+  navItemsSec,
+} from '@/lib/routes/navigation.routes';
 
 export function Navbar() {
   const pathname = usePathname();

@@ -1,14 +1,9 @@
 // components/Loading.tsx
 import React from 'react';
 import { Loader2 } from 'lucide-react'; // Optional, swap with your favorite spinner
+import { AdminLoadingProps } from '@/types/props.type';
 
-interface LoadingProps {
-  size?: number;
-  message?: string;
-  className?: string;
-}
-
-const AdminLoading: React.FC<LoadingProps> = ({
+const AdminLoading: React.FC<AdminLoadingProps> = ({
   size = 32,
   message = 'Loading...',
   className = '',

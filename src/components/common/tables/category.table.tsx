@@ -17,8 +17,8 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import NoResultsFound from '@/components/common/design/NoResultsFound';
 
-import { CategoryTableProps } from '@/types/props.types';
-import { CategoryColumns } from '@/types/colums.types';
+import { CategoryTableProps } from '@/types/props.type';
+import { CategoryColumns } from '@/types/colums.type';
 
 export const CategoryTable: React.FC<CategoryTableProps> = ({
   categories,

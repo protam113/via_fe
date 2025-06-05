@@ -1,9 +1,9 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ArrowIcons } from '@/assets/icons/icons';
 
 const MainButton = ({ href, title }: { href: string; title: string }) => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const MainButton = ({ href, title }: { href: string; title: string }) => {
       onClick={onClick}
     >
       {title}
-      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+      <ArrowIcons.ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
     </motion.button>
   );
 };

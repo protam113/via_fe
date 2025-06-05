@@ -47,7 +47,8 @@ const endpoints = {
   seo: process.env.NEXT_PUBLIC_SEO,
 
   // Media
-  media: process.env.NEXT_PUBLIC_MEDIA,
+  presign: process.env.NEXT_PUBLIC_PRESIGN,
+  submit: process.env.NEXT_PUBLIC_SUBMIT,
 
   //   Exhibition
   exhibitions: process.env.NEXT_PUBLIC_EXHIBITIONS,

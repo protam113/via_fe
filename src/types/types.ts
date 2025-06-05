@@ -209,3 +209,19 @@ export interface FetchCountryItem {
 }
 
 export type FetchCountryResponse = FetchCountryItem[];
+
+/**
+ * ==========================
+ *  @MEDIA
+ * ==========================
+ */
+
+export interface PresignItem {
+  name: string;
+  type: string;
+}
+
+export interface SubmitItem {
+  name: string;
+  type: string;
+}

@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { UpdateSeo } from '@/types/types';
 import { useUpdateSeo } from '@/hooks/seo/useSeo';
+import AdminLoading from '@/components/loading/loading.components';
 
 export function SeoSettingsForm() {
   const [seoData, setSeoData] = useState<UpdateSeo>({
@@ -86,7 +87,7 @@ export function SeoSettingsForm() {
   };
 
   if (isLoading) {
-    return <div className="text-center py-10">Loading SEO settings...</div>;
+    return <AdminLoading message="Loading.." />;
   }
 
   if (isError) {

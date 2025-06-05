@@ -1,5 +1,6 @@
 // components/button/RefreshButton.tsx
 
+import { Icons } from '@/assets/icons/icons';
 import { Button } from '@/components/ui/button';
 import { RefreshCcwDot } from 'lucide-react';
 
@@ -17,7 +18,7 @@ export const RefreshButton: React.FC<RefreshButtonProps> = ({
       onClick={onClick}
       className={`group ml-2 bg-black rounded-none text-white hover:bg-main-400 transition-all duration-300 ${className}`}
     >
-      <RefreshCcwDot className="mr-2 transition-transform duration-300 group-hover:rotate-180" />
+      <Icons.RefreshCcwDot className="mr-2 transition-transform duration-300 group-hover:rotate-180" />
       Refresh
     </Button>
   );

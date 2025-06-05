@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Container from './container';
 import Breadcrumb from '../common/design/breadcrumb';
+import { ArrowIcons } from '@/assets/icons/icons';
 
 interface Hero {
   heading?: string;
@@ -72,7 +72,7 @@ export default function EnhancedHeroBanner({ heading, backgroundImage }: Hero) {
             <span className="text-sm text-white font-medium tracking-wider uppercase">
               Scroll to explore
             </span>
-            <ArrowRight
+            <ArrowIcons.ArrowRight
               size={16}
               className="transition-transform text-white group-hover:translate-x-1"
             />
