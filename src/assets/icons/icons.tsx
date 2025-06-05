@@ -44,17 +44,25 @@ import {
   ArrowUp,
   RefreshCcwDot,
   ArrowRight,
+  Pencil,
+  ChevronDown,
+  ChevronRight,
+  Trash,
 } from 'lucide-react';
 import { Box, ShoppingBag, ClipboardList } from 'lucide-react';
 
 export const Icons = {
   RefreshCcwDot,
+  Pencil,
+  Trash,
 };
 
 export const ArrowIcons = {
   ArrowUp,
   ArrowLeft,
   ArrowRight,
+  ChevronDown,
+  ChevronRight,
 };
 
 export const ComponentsIcons = {

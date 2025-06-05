@@ -12,3 +12,12 @@ export interface UploadState {
   uploading: boolean;
   error: string | null;
 }
+
+export const initialUploadState: UploadState = {
+  id: null,
+  uploadUrl: null,
+  previewUrl: null,
+  file: null,
+  uploading: false,
+  error: null,
+};

@@ -16,7 +16,7 @@ const Page = () => {
       <main className="flex-grow container mx-auto px-4 py-8" id="editor">
         <SelectCountriesSimple />
         {/* <RichTextEditorDemo className="w-full rounded-xl" /> */}
-        {/* <ImageUploadPreview /> */}
+        <ImageUploadPreview type="thumbnail" />
       </main>
     </div>
   );

@@ -23,6 +23,18 @@ interface Pagination {
 
 /**
  * ==========================
+ *  @THUMBNAIL
+ * ==========================
+ */
+
+interface thumbnail {
+  id: string;
+  type: string;
+  url: string;
+}
+
+/**
+ * ==========================
  *  @SEO
  * ==========================
  */
@@ -150,19 +162,13 @@ export interface Category {
   id: string;
   title: string;
   slug: string;
-  thumbnail: string;
+  thumbnail: thumbnail | null;
   description: string;
 }
 
 export interface FetchCategoryListResponse {
   pagination: Pagination;
   result: Category[];
-}
-
-export interface CreateCategoryItem {
-  name: string;
-  type: string;
-  status?: string;
 }
 
 /*

@@ -3,10 +3,10 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Image, Loader2, X } from 'lucide-react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { usePresignMedia, useSubmitMedia } from '@/hooks/media/useMedia';
-import { UploadState } from '@/types/types.types';
+import { initialUploadState, UploadState } from '@/types/types.types';
 import { SubmitItem } from '@/types/types';
 import { ImageUploadPreviewProps } from '@/types/props.type';
 
@@ -16,14 +16,8 @@ export default function ImageUploadPreview({
 }: ImageUploadPreviewProps) {
   const [isDragActive, setIsDragActive] = useState(false);
   const [submitItem, setSubmitItem] = useState<SubmitItem | null>(null);
-  const [uploadState, setUploadState] = useState<UploadState>({
-    id: null,
-    uploadUrl: null,
-    previewUrl: null,
-    file: null,
-    uploading: false,
-    error: null,
-  });
+  const [uploadState, setUploadState] =
+    useState<UploadState>(initialUploadState);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,17 +25,18 @@ export default function ImageUploadPreview({
   const { mutate: presignMedia } = usePresignMedia();
   const { mutate: submitMedia } = useSubmitMedia();
 
-  const resetUploadState = () => {
-    setUploadState({
-      id: null,
-      uploadUrl: null,
-      previewUrl: null,
-      file: null,
-      uploading: false,
-      error: null,
-    });
+  const resetUploadState = useCallback(() => {
+    setUploadState(initialUploadState);
     setSubmitItem(null);
-  };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (uploadState.previewUrl) {
+        URL.revokeObjectURL(uploadState.previewUrl);
+      }
+    };
+  }, [uploadState.previewUrl]);
 
   const handleFileSelect = (file: File) => {
     if (!file.type.startsWith('image/')) {

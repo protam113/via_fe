@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 // UI Components
-import { ChevronDown, ChevronRight, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -28,6 +27,7 @@ import { formatSmartDate } from '@/utils/formatTimeAgo';
 // Types
 import { ContactTableProps } from '@/types/props.type';
 import { ContactColumns } from '@/types/colums.type';
+import { ArrowIcons, Icons } from '@/assets/icons/icons';
 
 const statusColors = {
   approved: 'text-green-600 bg-green-100',
@@ -111,9 +111,9 @@ export const ContactTable: React.FC<ContactTableProps> = ({
                           className="h-8 w-8"
                         >
                           {expandedRows[contact._id] ? (
-                            <ChevronDown className="h-4 w-4" />
+                            <ArrowIcons.ArrowLeft className="h-4 w-4" />
                           ) : (
-                            <ChevronRight className="h-4 w-4" />
+                            <ArrowIcons.ChevronRight className="h-4 w-4" />
                           )}
                         </Button>
                       )}
@@ -163,7 +163,7 @@ export const ContactTable: React.FC<ContactTableProps> = ({
                       onClick={() => onDelete(contact._id)}
                       className="bg-red-500 hover:bg-red-600"
                     >
-                      <Trash className="h-4 w-4 text-white" />
+                      <Icons.Trash className="h-4 w-4 text-white" />
                     </Button>
                   </TableCell>
                 </TableRow>

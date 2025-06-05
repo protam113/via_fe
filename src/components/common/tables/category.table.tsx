@@ -2,7 +2,6 @@
 
 import type React from 'react';
 //UI components
-import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 import {
@@ -19,6 +18,8 @@ import NoResultsFound from '@/components/common/design/NoResultsFound';
 
 import { CategoryTableProps } from '@/types/props.type';
 import { CategoryColumns } from '@/types/colums.type';
+import CustomImage from '../design/image.component';
+import { Icons } from '@/assets/icons/icons';
 
 export const CategoryTable: React.FC<CategoryTableProps> = ({
   categories,
@@ -64,24 +65,41 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({
             ) : categories && categories.length > 0 ? (
               categories.map((category) => (
                 <TableRow key={category.id}>
-                  {CategoryColumns.map((col) => (
-                    <TableCell key={col.key} className={col.className}>
-                      {col.key === 'id'
-                        ? category.id.substring(0, 8) + '...'
-                        : ''}
-                      {col.key === 'title' ? category.title : ''}
-                      {col.key === 'description' ? category.description : ''}
+                  {CategoryColumns.map((col) => {
+                    if (col.key === 'thumbnail') {
+                      console.log('thumbnail :', category.thumbnail?.url);
+                    }
+                    console.log('category :', category);
 
-                      {col.key === 'actions' ? (
-                        <div className="flex justify-end gap-2">
-                          <Button variant="outline" size="icon">
-                            <Pencil className="h-4 w-4" />
-                            <span className="sr-only">Edit</span>
-                          </Button>
-                        </div>
-                      ) : null}
-                    </TableCell>
-                  ))}
+                    return (
+                      <TableCell key={col.key} className={col.className}>
+                        {col.key === 'id'
+                          ? category.id.substring(0, 8) + '...'
+                          : ''}
+                        {col.key === 'thumbnail' ? (
+                          <div>
+                            <CustomImage
+                              src={category.thumbnail?.url || '/logo.svg'}
+                              alt={category.title}
+                              width={128}
+                              height={128}
+                            />
+                          </div>
+                        ) : null}
+
+                        {col.key === 'title' ? category.title : ''}
+                        {col.key === 'description' ? category.description : ''}
+                        {col.key === 'actions' ? (
+                          <div className="flex justify-end gap-2">
+                            <Button variant="outline" size="icon">
+                              <Icons.Pencil className="h-4 w-4" />
+                              <span className="sr-only">Edit</span>
+                            </Button>
+                          </div>
+                        ) : null}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (

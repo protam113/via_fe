@@ -30,6 +30,8 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Optimized routes for all app
+- Updated Category Table
+- Updated Contacts icons table.
 
 ### Fixed
 
