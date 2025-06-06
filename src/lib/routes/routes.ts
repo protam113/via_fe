@@ -1,4 +1,5 @@
-import { VIA_SECTIONS, ENV } from '@/lib';
+import { ENV } from '../env';
+import { VIA_SECTIONS } from './via';
 
 function deepFreeze<T>(obj: T): T {
   Object.getOwnPropertyNames(obj).forEach((key) => {

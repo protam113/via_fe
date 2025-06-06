@@ -1,5 +1,5 @@
 import { ComponentsIcons } from '@/assets/icons/icons';
-import { ROUTES } from '@/lib';
+import { ROUTES } from '@/lib/routes/routes';
 
 export const Name = {
   // Public Name

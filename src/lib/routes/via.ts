@@ -1,5 +1,6 @@
 // constants/via.ts
-import { ENV } from '@/lib';
+
+import { ENV } from '../env';
 
 export const VIA_SECTIONS = {
   ART_FAIR: {

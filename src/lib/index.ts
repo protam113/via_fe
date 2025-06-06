@@ -63,5 +63,5 @@ export * from './data';
  * ==========================
  */
 
-export * from './i18n/request';
-export * from './i18n/routing';
+export * from '../i18n/request';
+export * from '../i18n/routing';
