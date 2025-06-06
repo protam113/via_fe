@@ -1,48 +1,8 @@
-/**
- * ==========================
- * 📌 @props ContactTableProps
- * ==========================
- */
-
-import { Category } from './types';
-
-export interface ContactTableProps {
-  contacts: any[];
-  isLoading: boolean;
-  isError: boolean;
-  onDelete: (id: string) => void;
-}
-
-/**
- * ==========================
- * 📌 @props CategoryTableProps
- * ==========================
- */
-
-export interface CategoryTableProps {
-  categories: Category[];
-  isLoading: boolean;
-  isError: boolean;
-}
-
-export interface ImagePlaceholderOptions {
-  HTMLAttributes: Record<string, any>;
-  onUpload?: (url: string) => void;
-  onError?: (error: string) => void;
-}
+import { ReactNode } from 'react';
 
 export interface NoResultsFoundProps {
   title?: string;
   message?: string;
-}
-
-/**
- * ==========================
- * @PushButtonProps
- * ==========================
- */ export interface PushButtonProps {
-  href: string;
-  label: string;
 }
 
 export interface AdminUserProps {
@@ -67,7 +27,62 @@ export interface AdminLoadingProps {
   className?: string;
 }
 
+export interface LoadingScreenProps {
+  onLoadingComplete: () => void;
+}
+
+/**
+ * ==========================
+ *  @BUTTON PROPS
+ *  @DESCRIPTION : This file exports all the button props used in the application.
+ *  @VERSION 1.0.0
+ * ==========================
+ */
+
+export interface IGetStartedButtonProps {
+  text: string;
+  className?: string;
+  url: string;
+}
+
+export interface RefreshButtonProps {
+  onClick: () => void;
+  className?: string;
+}
+
+export interface PushButtonProps {
+  href: string;
+  label: string;
+}
+
+/**
+ * ==========================
+ *  @MEDIA PROPS
+ *  @DESCRIPTION : This file exports all the media props used in the application.
+ *  @VERSION 1.0.0
+ * ==========================
+ */
+
+export interface ImagePlaceholderOptions {
+  HTMLAttributes: Record<string, any>;
+  onUpload?: (url: string) => void;
+  onError?: (error: string) => void;
+}
+
 export interface ImageUploadPreviewProps {
   onImageUploaded?: (imageUrl: string, imageId: string) => void;
   type?: string;
+}
+
+/**
+ * ==========================
+ *  @CONTAINER_PROPS
+ *  @DESCRIPTION : This file exports the container props used in the application.
+ *  @VERSION 1.0.0
+ * ==========================
+ */
+
+export interface ContainerProps {
+  children: ReactNode;
+  className?: string;
 }

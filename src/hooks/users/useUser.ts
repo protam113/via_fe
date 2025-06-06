@@ -1,13 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { endpoints } from '@/apis/api';
-import {
-  FetchManagerListResponse,
-  Filters,
-  CreateManagerData,
-} from '@/types/types';
-import { handleAPI } from '@/apis/axiosClient';
+import { endpoints, handleAPI } from '@/apis';
+import { FetchManagerListResponse, CreateManagerData, Filters } from '@/types';
 import { toast } from 'sonner';
-import { logDebug } from '@/utils/logger';
+import { logDebug } from '@/utils';
 
 /**
  * ==========================

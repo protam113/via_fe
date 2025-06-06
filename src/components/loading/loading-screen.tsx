@@ -2,10 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-
-interface LoadingScreenProps {
-  onLoadingComplete: () => void;
-}
+import { LoadingScreenProps } from '@/types';
 
 export default function LoadingScreen({
   onLoadingComplete,

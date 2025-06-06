@@ -2,12 +2,8 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { SEOProps } from '@/types';
 import { PageMetadata } from '@/constants/appInfos';
-
-interface SEOProps {
-  title: string;
-  description?: string;
-}
 
 export default function SEO({ title, description }: SEOProps) {
   const pathname = usePathname();

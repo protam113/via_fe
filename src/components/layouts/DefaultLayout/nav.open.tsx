@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import LangButton from '@/components/common/button/language.button';

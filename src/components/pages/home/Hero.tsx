@@ -1,7 +1,7 @@
 'use client';
 
 import { IntroduceCard } from '@/components/common/cards/exhibition-card';
-import Container from '@/components/container/container';
+import Container from '@/components/wrappers/container';
 import Header from '@/components/common/design/header';
 
 export default function Hero() {

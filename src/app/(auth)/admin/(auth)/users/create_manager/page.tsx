@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { CreateManagerData } from '@/types/types';
 import { toast } from 'sonner';
 import Heading from '@/components/common/design/Heading';
-import AdminContainer from '@/components/container/admin.container';
+import AdminContainer from '@/components/wrappers/admin.container';
 import { useCreateManager } from '@/hooks/users/useUser';
 
 const Page = () => {

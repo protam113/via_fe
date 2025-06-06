@@ -1,15 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils';
+import { Hero } from '@/types';
+
 import Container from './container';
 import Breadcrumb from '../common/design/breadcrumb';
 import { ArrowIcons } from '@/assets/icons/icons';
-
-interface Hero {
-  heading?: string;
-  backgroundImage?: string;
-}
 
 export default function EnhancedHeroBanner({ heading, backgroundImage }: Hero) {
   const [isLoaded, setIsLoaded] = useState(false);

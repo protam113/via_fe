@@ -1,14 +1,16 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Image, Loader2, X } from 'lucide-react';
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import { usePresignMedia, useSubmitMedia } from '@/hooks/media/useMedia';
-import { initialUploadState, UploadState } from '@/types/types.types';
-import { SubmitItem } from '@/types/types';
-import { ImageUploadPreviewProps } from '@/types/props.type';
+import { cn } from '@/utils';
+import { usePresignMedia, useSubmitMedia } from '@/hooks';
+import {
+  initialUploadState,
+  UploadState,
+  ImageUploadPreviewProps,
+  SubmitItem,
+} from '@/types';
 
 export default function ImageUploadPreview({
   onImageUploaded,

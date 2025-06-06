@@ -16,7 +16,7 @@ import {
 
 import { CategoryList } from '@/lib/responses/categoriesLib';
 import Heading from '@/components/common/design/Heading';
-import AdminContainer from '@/components/container/admin.container';
+import AdminContainer from '@/components/wrappers/admin.container';
 import { CategoryTable } from '@/components/common/tables/category.table';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';

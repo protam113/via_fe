@@ -2,7 +2,7 @@ import { Toaster } from 'sonner';
 import Script from 'next/script';
 import ReactQueryProvider from '../../provider/ReactQueryProvider';
 import '../../assets/styles/globals.css';
-import { adminMetadata, adminViewport } from '@/constants/adminInfo';
+import { adminMetadata, adminViewport } from '@/constants';
 
 export const metadata = adminMetadata;
 export const viewport = adminViewport;

@@ -17,7 +17,7 @@ import {
 } from '@tiptap/react';
 import { Image, Link, Upload, Loader2, X } from 'lucide-react';
 import { type FormEvent, useState, useRef } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import { usePresignMedia, useSubmitMedia } from '@/hooks/media/useMedia';
 import { ImagePlaceholderOptions } from '@/types/props.type';
 import { UploadState } from '@/types/types.types';

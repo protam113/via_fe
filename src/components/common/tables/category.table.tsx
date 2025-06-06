@@ -16,8 +16,7 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import NoResultsFound from '@/components/common/design/NoResultsFound';
 
-import { CategoryTableProps } from '@/types/props.type';
-import { CategoryColumns } from '@/types/colums.type';
+import { CategoryColumns, CategoryTableProps } from '@/types';
 import CustomImage from '../design/image.component';
 import { Icons } from '@/assets/icons/icons';
 

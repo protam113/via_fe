@@ -1,7 +1,6 @@
 'use client';
 
 import SEO from '@/components/core/SEO';
-import React from 'react';
 import ViaAAuth from '@/components/pages/via-atelier/via-atelier-auth.detail';
 
 const Page = () => {

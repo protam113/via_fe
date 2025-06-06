@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { endpoints } from '@/apis/api';
-import { SubmitItem, PresignItem } from '@/types/types';
-import { handleAPI } from '@/apis/axiosClient';
+import { SubmitItem, PresignItem } from '@/types';
 import { toast } from 'sonner';
+import { endpoints, handleAPI } from '@/apis';
 
 /**
  * ==========================

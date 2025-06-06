@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select';
 import { AlertCircle } from 'lucide-react';
 import { CustomPagination } from '@/components/common/design/pagination';
-import AdminContainer from '@/components/container/admin.container';
+import AdminContainer from '@/components/wrappers/admin.container';
 import { UserList } from '@/lib/responses/userLib';
 // import { useDeleteManager } from '@/hooks/auth/useManager';
 // import ConfirmDialog from '@/components/design/Dialog';

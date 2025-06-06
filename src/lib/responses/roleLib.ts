@@ -1,7 +1,5 @@
-'use client';
-
-import { useRoleList } from '@/hooks/users/useRole';
-import { Filters } from '@/types/types';
+import { useRoleList } from '@/hooks';
+import { Filters } from '@/types';
 
 export const RoleList = (
   currentPage: number,

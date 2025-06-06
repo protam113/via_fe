@@ -1,6 +1,6 @@
 'use client';
-import { useCategoryList } from '@/hooks/category/useCategory';
-import { Filters } from '@/types/types';
+import { useCategoryList } from '@/hooks';
+import { Filters } from '@/types';
 
 // CategoryList.ts
 export const CategoryList = (

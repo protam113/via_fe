@@ -2,16 +2,16 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { useInView } from 'framer-motion';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 import {
+  Input,
+  Textarea,
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components';
 
 export default function ContactBlackForm() {
   const formRef = useRef(null);

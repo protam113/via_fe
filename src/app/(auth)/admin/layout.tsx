@@ -1,8 +1,8 @@
 'use client';
 
-import AdminLayout from '@/components/layouts/AdminLayout/AdminLayout';
-import DelayedLoading from '@/components/loading/DelayedLoading';
-import { useAuthStore } from '@/store/auth/store.auth';
+import { DelayedLoading, AdminLayout } from '@/components';
+
+import { useAuthStore } from '@/store';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -63,6 +63,4 @@ export default function AuthProtectedLayout({
       <AdminLayout>{children}</AdminLayout>;;
     </>
   ) : null;
-
-  //    ?
 }

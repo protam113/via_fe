@@ -1,13 +1,10 @@
 // ==============================================
 // 📁 store/auth/api.auth.ts - OPTIMIZED VERSION
 // ==============================================
-import { baseURL, endpoints } from '@/apis/api';
-import { logDebug, logError } from '@/utils/logger';
 
-interface AuthResponse<T = any> {
-  response: Response;
-  data: T;
-}
+import { baseURL, endpoints } from '@/apis';
+import { AuthResponse } from '@/types';
+import { logDebug, logError } from '@/utils/logger';
 
 // 🔧 FIX: Convert class to object with methods for better compatibility
 export const AuthAPI = {

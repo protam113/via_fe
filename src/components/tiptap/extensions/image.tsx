@@ -32,7 +32,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import { useImageUpload } from '@/hooks/tiptap/use-image-upload';
 
 export const ImageExtension = Image.extend({

@@ -1,8 +1,7 @@
 'use client';
 
 import SEO from '@/components/core/SEO';
-import React from 'react';
-import EnhancedHeroBanner from '@/components/container/enhanced-hero-banner';
+import EnhancedHeroBanner from '@/components/wrappers/enhanced-hero-banner';
 import Exhibition from '@/components/common/cards/exhibition';
 
 const Page = () => {

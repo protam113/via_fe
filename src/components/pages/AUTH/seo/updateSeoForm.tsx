@@ -1,18 +1,21 @@
 'use client';
 
-import { SeoList } from '@/lib/responses/seoLib';
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { PlusCircle, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { UpdateSeo } from '@/types/types';
-import { useUpdateSeo } from '@/hooks/seo/useSeo';
+import { SeoList } from '@/lib';
+import React, { useEffect, useState } from 'react';
+import {
+  Input,
+  Label,
+  Textarea,
+  Badge,
+  Card,
+  CardContent,
+  CardFooter,
+  Button,
+} from '@/components';
+import { UpdateSeo } from '@/types';
+import { useUpdateSeo } from '@/hooks';
 import AdminLoading from '@/components/loading/loading.components';
+import { Icons } from '@/assets/icons/icons';
 
 export function SeoSettingsForm() {
   const [seoData, setSeoData] = useState<UpdateSeo>({
@@ -158,7 +161,7 @@ export function SeoSettingsForm() {
                     className="ml-1 rounded-full hover:bg-muted"
                     aria-label={`Remove ${keyword}`}
                   >
-                    <X className="h-3 w-3" />
+                    <Icons.X className="h-3 w-3" />
                   </button>
                 </Badge>
               ))}
@@ -179,7 +182,7 @@ export function SeoSettingsForm() {
                 size="icon"
                 aria-label="Add keyword"
               >
-                <PlusCircle className="h-4 w-4 rounded-none" />
+                <Icons.PlusCircle className="h-4 w-4 rounded-none" />
               </Button>
             </div>
           </div>

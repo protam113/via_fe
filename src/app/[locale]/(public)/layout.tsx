@@ -1,7 +1,6 @@
 'use client';
 
-import ScrollToTopButton from '@/components/common/button/scrolltotop.button';
-import DefaultLayout from '@/components/layouts/DefaultLayout/layout';
+import { DefaultLayout, ScrollToTopButton } from '@/components';
 
 export default function LayoutDefault({
   children,

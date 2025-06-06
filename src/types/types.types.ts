@@ -4,20 +4,7 @@ export type CountryType = {
   iso2: string;
 };
 
-export interface UploadState {
-  id: string | null;
-  uploadUrl: string | null;
-  previewUrl: string | null;
-  file: File | null;
-  uploading: boolean;
-  error: string | null;
+export interface Hero {
+  heading?: string;
+  backgroundImage?: string;
 }
-
-export const initialUploadState: UploadState = {
-  id: null,
-  uploadUrl: null,
-  previewUrl: null,
-  file: null,
-  uploading: false,
-  error: null,
-};

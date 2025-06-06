@@ -1,4 +1,4 @@
-import { AuthState } from '@/types/auth.type';
+import { AuthState } from '@/types/auth/auth.type';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { create } from 'zustand';
 import { AuthAPI } from './api.auth';

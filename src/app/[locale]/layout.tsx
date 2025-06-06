@@ -7,7 +7,7 @@ import ReactQueryProvider from '../../provider/ReactQueryProvider';
 import {
   metadata as siteMetadata,
   viewport as siteViewport,
-} from '@/constants/appInfos';
+} from '@/constants';
 import '../../assets/styles/globals.css';
 import CheckLocale from '@/components/core/CheckLocale';
 

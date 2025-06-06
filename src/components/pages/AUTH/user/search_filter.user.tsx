@@ -1,19 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Input } from '@/components/ui/input';
-import { RefreshButton } from '@/components/common/button/refresh.button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Search, Filter } from 'lucide-react';
-import PushButton from '@/components/common/button/push.button';
-import { ROUTES } from '@/lib/routes/routes';
-import { AdminUserProps } from '@/types/props.type';
+  Input,
+  PushButton,
+  RefreshButton,
+} from '@/components';
+import { ROUTES } from '@/lib';
+import { AdminUserProps } from '@/types';
+import { Icons } from '@/assets/icons/icons';
 
 const SearchFilterBar: React.FC<AdminUserProps> = ({
   searchQuery,
@@ -31,7 +31,7 @@ const SearchFilterBar: React.FC<AdminUserProps> = ({
     <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 relative z-10">
       {/* Search */}
       <div className="relative w-full md:w-64">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+        <Icons.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
         <Input
           placeholder="Search name (Press Enter)"
           className="pl-10 pr-8 rounded-none"
@@ -62,7 +62,7 @@ const SearchFilterBar: React.FC<AdminUserProps> = ({
           >
             <SelectTrigger className="w-40 relative z-20 rounded-none">
               <div className="flex items-center gap-2 rounded-none">
-                <Filter className="h-4 w-4" />
+                <Icons.Filter className="h-4 w-4" />
                 <SelectValue placeholder="All Roles" />
               </div>
             </SelectTrigger>

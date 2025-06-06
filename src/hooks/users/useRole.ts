@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { endpoints } from '@/apis/api';
-import { FetchRoleListResponse, Filters, RoleDetail } from '@/types/types';
-import { handleAPI } from '@/apis/axiosClient';
+import { FetchRoleListResponse, RoleDetail, Filters } from '@/types';
+import { endpoints, handleAPI } from '@/apis';
 
 /**
  * ==========================

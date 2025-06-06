@@ -1,7 +1,8 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
+// eslint.config.mjs
+
 import { FlatCompat } from '@eslint/eslintrc';
-import prettier from 'eslint-plugin-prettier';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,27 +11,39 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-// Xác định môi trường từ biến môi trường hoặc mặc định là 'development'
 const env = process.env.NODE_ENV || 'development';
 
-const config = [
-  // Base Next.js + TS rules
+/** @type {import("eslint").Linter.FlatConfig[]} */
+export default [
+  // Next.js & TypeScript recommended rules
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  {
-    plugins: {
-      prettier,
-    },
-    rules: {
-      'prettier/prettier': [
-        'error',
-        {
-          endOfLine: 'auto',
-        },
-      ],
-    },
-  },
 
   {
+    // ✅ Xác định môi trường ngôn ngữ
+    languageOptions: {
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json',
+        tsconfigRootDir: __dirname,
+        sourceType: 'module',
+        ecmaVersion: 'latest',
+        ecmaFeatures: {
+          jsx: true, // Cho phép JSX
+        },
+      },
+    },
+
+    settings: {
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json',
+        },
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+      },
+    },
+
     rules: {
       'no-console': [
         'error',
@@ -38,9 +51,19 @@ const config = [
           allow: env === 'development' ? ['log', 'warn', 'error'] : [],
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'off', // Cho phép sử dụng any
+
+      '@typescript-eslint/no-explicit-any': 'off', // Need to check before production
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/consistent-type-imports': 'error',
+      'import/no-default-export': 'error',
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ];
-
-export default config;

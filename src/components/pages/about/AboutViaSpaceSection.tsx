@@ -2,7 +2,7 @@
 
 import MainButton from '@/components/common/button/main.button';
 import Header from '@/components/common/design/header';
-import Container from '@/components/container/container';
+import Container from '@/components/wrappers/container';
 import { useTranslations } from 'next-intl';
 import CustomImage from '@/components/common/design/image.component';
 

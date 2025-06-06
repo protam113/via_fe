@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import { useToolbar } from './toolbar-provider';
 import { MobileToolbarGroup, MobileToolbarItem } from './mobile-toolbar-group';
 import { useMediaQuery } from '@/hooks/tiptap/use-media-querry';

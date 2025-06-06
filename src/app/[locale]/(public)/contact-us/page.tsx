@@ -1,12 +1,11 @@
 'use client';
 
-import ContactForm from '@/components/container/contact.container';
-import Container from '@/components/container/container';
-import EnhancedHeroBanner from '@/components/container/enhanced-hero-banner';
+import ContactForm from '@/components/wrappers/contact.container';
+import { Container } from '@/components';
+import EnhancedHeroBanner from '@/components/wrappers/enhanced-hero-banner';
 import SEO from '@/components/core/SEO';
-import { Clock, Mail, MapPin, Phone } from 'lucide-react';
-import React from 'react';
 import { useTranslations } from 'next-intl';
+import { ComponentsIcons } from '@/assets/icons/icons';
 
 const Page = () => {
   const t = useTranslations('ContactPage');
@@ -26,7 +25,7 @@ const Page = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {/* Email */}
             <div className="flex items-start gap-3">
-              <Mail className="h-5 w-5 text-gray-500 mt-0.5" />
+              <ComponentsIcons.Mail className="h-5 w-5 text-gray-500 mt-0.5" />
               <div>
                 <p className="font-medium">Email</p>
                 <p className="text-sm text-gray-500">info@hanhsocial.com</p>
@@ -35,7 +34,7 @@ const Page = () => {
 
             {/* Phone */}
             <div className="flex items-start gap-3">
-              <Phone className="h-5 w-5 text-gray-500 mt-0.5" />
+              <ComponentsIcons.Phone className="h-5 w-5 text-gray-500 mt-0.5" />
               <div>
                 <p className="font-medium">Phone</p>
                 <p className="text-sm text-gray-500">+84 (800) 123-4567</p>
@@ -45,7 +44,7 @@ const Page = () => {
 
             {/* Address */}
             <div className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
+              <ComponentsIcons.MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
               <div>
                 <p className="font-medium">Address</p>
                 <p className="text-sm text-gray-500">
@@ -56,7 +55,7 @@ const Page = () => {
 
             {/* Business Hours */}
             <div className="flex items-start gap-3">
-              <Clock className="h-5 w-5 text-gray-500 mt-0.5" />
+              <ComponentsIcons.Clock className="h-5 w-5 text-gray-500 mt-0.5" />
               <div>
                 <p className="font-medium">Business Hours</p>
                 <div className="grid grid-cols-2 text-sm text-gray-500">

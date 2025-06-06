@@ -2,13 +2,8 @@
 // 📁 store/auth/cookie.auth.ts - OPTIMIZED VERSION
 // ==============================================
 
+import { CookieOptions } from '@/types';
 import { logDebug } from '@/utils/logger';
-
-interface CookieOptions {
-  expires?: number;
-  secure?: boolean;
-  sameSite?: 'Strict' | 'Lax' | 'None';
-}
 
 export const CookieManager = {
   /**

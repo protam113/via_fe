@@ -1,9 +1,11 @@
 'use client';
-import './tiptap.css';
-import { cn } from '@/lib/utils';
-import { ImageExtension } from '@/components/tiptap/extensions/image';
-import { ImagePlaceholder } from '@/components/tiptap/extensions/image-placeholder';
-import SearchAndReplace from '@/components/tiptap/extensions/search-and-replace';
+
+import '../../assets/styles/tiptap.css';
+import { cn } from '@/utils';
+import { EditorContent, type Extension, useEditor } from '@tiptap/react';
+import { content } from '@/lib/content';
+
+// Extensions
 import Highlight from '@tiptap/extension-highlight';
 import Link from '@tiptap/extension-link';
 import Subscript from '@tiptap/extension-subscript';
@@ -12,13 +14,16 @@ import TextAlign from '@tiptap/extension-text-align';
 import TextStyle from '@tiptap/extension-text-style';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
-import { EditorContent, type Extension, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
+
+// Custom Extensions
+import { ImageExtension } from '@/components/tiptap/extensions/image';
+import { ImagePlaceholder } from '@/components/tiptap/extensions/image-placeholder';
+import SearchAndReplace from '@/components/tiptap/extensions/search-and-replace';
 import { TipTapFloatingMenu } from '@/components/tiptap/extensions/floating-menu';
 import { FloatingToolbar } from '@/components/tiptap/extensions/floating-toolbar';
 import { EditorToolbar } from './toolbars/editor-toolbar';
-import Placeholder from '@tiptap/extension-placeholder';
-import { content } from '@/lib/content';
 
 const extensions = [
   StarterKit.configure({

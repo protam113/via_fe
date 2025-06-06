@@ -1,12 +1,10 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+import { Textarea, Input, Button } from '@/components';
 import SelectCountriesCombo from '@/components/common/options/contact_country.option';
-import { CreateContactItem } from '@/types/types';
-import { useCreateContact } from '@/hooks/contact/useContact';
+import { CreateContactItem } from '@/types';
+import { useCreateContact } from '@/hooks';
 import { useTranslations } from 'next-intl';
 
 export default function ContactForm() {

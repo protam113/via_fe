@@ -1,6 +1,4 @@
-'use client';
-
-import { NoResultsFoundProps } from '@/types/props.type';
+import { NoResultsFoundProps } from '@/types';
 import { Frown } from 'lucide-react';
 
 export default function NoResultsFound({

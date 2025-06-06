@@ -23,7 +23,7 @@ import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Hooks & Utils
 import { toast } from 'sonner';
 // import { useUpdateStatus } from '@/hooks/contact/useContact';
-import { formatSmartDate } from '@/utils/formatTimeAgo';
+import { formatSmartDate } from '@/utils/formatters/format_time.utils';
 // Types
 import { ContactTableProps } from '@/types/props.type';
 import { ContactColumns } from '@/types/colums.type';

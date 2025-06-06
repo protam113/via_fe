@@ -18,7 +18,7 @@ import { ContactList } from '@/lib/responses/contactLib';
 import { useDeleteContact } from '@/hooks/contact/useContact';
 // import ConfirmDialog from '@/components/design/Dialog';
 import Heading from '@/components/common/design/Heading';
-import AdminContainer from '@/components/container/admin.container';
+import AdminContainer from '@/components/wrappers/admin.container';
 import SelectStatus from '@/components/pages/AUTH/contact/selectStatus';
 import { ContactTable } from '@/components/common/tables/contact.table';
 

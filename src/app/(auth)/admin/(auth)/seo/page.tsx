@@ -1,4 +1,4 @@
-import AdminContainer from '@/components/container/admin.container';
+import AdminContainer from '@/components/wrappers/admin.container';
 import Heading from '@/components/common/design/Heading';
 import { SeoSettingsForm } from '@/components/pages/AUTH/seo/updateSeoForm';
 

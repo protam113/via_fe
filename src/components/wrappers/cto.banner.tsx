@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent } from '../ui/card';
-import Image from 'next/image';
+import { Card, CardContent } from '@/components';
+import CustomImage from '../common/design/image.component';
 
 const CtoBanner = () => {
   return (
@@ -28,7 +28,7 @@ const CtoBanner = () => {
 
             <div className="relative w-[161px] h-[190px]">
               <div className="absolute w-[161px] h-[157px] top-4 left-0 bg-[url(/clip-path-group-1.png)] bg-[100%_100%]" />
-              <Image src="/logo.svg" alt="VIA Logo" fill />
+              <CustomImage src="/logo.svg" alt="VIA Logo" fill />
             </div>
 
             <div className="relative w-full h-[67.61px]">

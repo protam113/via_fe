@@ -1,7 +1,5 @@
-'use client';
-
-import { useUserList } from '@/hooks/users/useUser';
-import { Filters } from '@/types/types';
+import { useUserList } from '@/hooks';
+import { Filters } from '@/types';
 
 export const UserList = (
   currentPage: number,

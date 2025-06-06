@@ -1,7 +1,6 @@
 // components/Loading.tsx
-import React from 'react';
-import { Loader2 } from 'lucide-react'; // Optional, swap with your favorite spinner
-import { AdminLoadingProps } from '@/types/props.type';
+import { Loader2 } from 'lucide-react';
+import { AdminLoadingProps } from '@/types';
 
 const AdminLoading: React.FC<AdminLoadingProps> = ({
   size = 32,

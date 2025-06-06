@@ -1,17 +1,5 @@
-import Image, { ImageProps } from 'next/image';
-
-interface CustomImageProps extends Omit<ImageProps, 'src' | 'alt'> {
-  imageKey?: string;
-  src: ImageProps['src'];
-  alt: string;
-  width?: number;
-  height?: number;
-  sizes?: string;
-  loading?: 'lazy' | 'eager';
-  quality?: number;
-  priority?: boolean;
-  className?: string;
-}
+import { CustomImageProps } from '@/types';
+import Image from 'next/image';
 
 export default function CustomImage({
   imageKey,

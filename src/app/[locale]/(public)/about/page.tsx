@@ -1,12 +1,9 @@
-// app/(public)/services/page.tsx
-
-import Container from '@/components/container/container';
-import EnhancedHeroBanner from '@/components/container/enhanced-hero-banner';
+import { Container } from '@/components';
+import EnhancedHeroBanner from '@/components/wrappers/enhanced-hero-banner';
 import AboutViaSpaceSection from '@/components/pages/about/AboutViaSpaceSection';
 import ArtGalleryLayout from '@/components/pages/about/show.section';
 import AboutUsSection from '@/components/pages/home/about-us-section';
 import SEO from '@/components/core/SEO';
-import React from 'react';
 
 const Page = () => {
   return (

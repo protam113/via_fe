@@ -6,7 +6,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import { useToolbar } from './toolbar-provider';
 import { Undo2 } from 'lucide-react';
 import React from 'react';

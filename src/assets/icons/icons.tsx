@@ -47,14 +47,28 @@ import {
   Pencil,
   ChevronDown,
   ChevronRight,
+  ChevronLeft,
+  PlusCircle,
+  X,
+  Filter,
+  Box,
+  ShoppingBag,
+  ClipboardList,
   Trash,
+  Clock,
+  Mail,
+  MapPin,
+  Phone,
 } from 'lucide-react';
-import { Box, ShoppingBag, ClipboardList } from 'lucide-react';
 
 export const Icons = {
   RefreshCcwDot,
   Pencil,
   Trash,
+  X,
+  PlusCircle,
+  Filter,
+  Search,
 };
 
 export const ArrowIcons = {
@@ -63,6 +77,7 @@ export const ArrowIcons = {
   ArrowRight,
   ChevronDown,
   ChevronRight,
+  ChevronLeft,
 };
 
 export const ComponentsIcons = {
@@ -103,7 +118,10 @@ export const ComponentsIcons = {
   Users,
   GroupIcon,
   Logs,
-
+  Clock,
+  Mail,
+  MapPin,
+  Phone,
   ShieldBan,
   List,
   SquareChartGantt,

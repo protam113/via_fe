@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import BackMainButton from '@/components/common/button/back-main.button';
-import Container from '@/components/container/container';
+import Container from '@/components/wrappers/container';
 
 export default function ExhibitionDetail() {
   const container = {

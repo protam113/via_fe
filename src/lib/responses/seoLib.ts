@@ -1,7 +1,5 @@
-'use client';
-
-import { useSeoData } from '@/hooks/seo/useSeo';
-import { SeoData } from '@/types/types';
+import { useSeoData } from '@/hooks';
+import { SeoData } from '@/types';
 
 export const SeoList = (refreshKey: number) => {
   const { data, isLoading, isError } = useSeoData(refreshKey);

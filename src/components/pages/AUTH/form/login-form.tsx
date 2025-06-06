@@ -1,10 +1,7 @@
 'use client';
 
-import DelayedLoading from '@/components/loading/DelayedLoading';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { useAuthStore } from '@/store/auth/store.auth';
-import { LoaderCircle } from 'lucide-react';
+import { Button, Input } from '@/components';
+import { useAuthStore } from '@/store';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 

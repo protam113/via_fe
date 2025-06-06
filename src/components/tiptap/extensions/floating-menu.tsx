@@ -26,7 +26,7 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import type { Editor } from '@tiptap/core';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useDebounce } from '@/hooks/tiptap/use-debounce';

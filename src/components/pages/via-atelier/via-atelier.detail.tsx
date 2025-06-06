@@ -1,6 +1,6 @@
 'use client';
 
-import Container from '@/components/container/container';
+import Container from '@/components/wrappers/container';
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

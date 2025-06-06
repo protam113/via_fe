@@ -1,7 +1,5 @@
-'use client';
-
-import { Filters } from '@/types/types';
-import { useContactList } from '@/hooks/contact/useContact';
+import { Filters } from '@/types';
+import { useContactList } from '@/hooks';
 import { logDebug } from '@/utils/logger';
 
 // ContactList.ts

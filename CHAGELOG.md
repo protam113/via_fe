@@ -6,16 +6,23 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
--
+- Create 3 Via admin page
 
 ### Fixed
 
-- Improved page load performance by optimizing React Query.
-- Fixed login issue when using OAuth.
-
 ### Removed
 
-- Removed `moment.js`, replaced with `date-fns` to reduce bundle size.
+## [1.1.0] - 2025-06-06
+
+### Added
+
+### Changed
+
+- Reorganize project layout
+
+### Fixed
+
+---
 
 ## [1.1.0] - 2025-06-05
 

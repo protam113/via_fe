@@ -1,21 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-
-interface ExhibitionProps {
-  exhibition: {
-    id: number;
-    title: string;
-    date: string;
-    description: string;
-    image: string;
-    link: string;
-  };
-}
+import { ArrowIcons } from '@/assets/icons/icons';
+import { ExhibitionProps } from '@/types';
+import CustomImage from '../design/image.component';
 
 export default function Exhibition({ exhibition }: ExhibitionProps) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -48,7 +38,7 @@ export default function Exhibition({ exhibition }: ExhibitionProps) {
             className="relative w-full h-full"
             style={{ y: parallaxY }}
           >
-            <Image
+            <CustomImage
               src={exhibition.image || '/placeholder.svg'}
               alt={exhibition.title}
               fill
@@ -83,7 +73,7 @@ export default function Exhibition({ exhibition }: ExhibitionProps) {
             whileHover={{ x: 5 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
-            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            <ArrowIcons.ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </motion.span>
         </Link>
       </motion.div>

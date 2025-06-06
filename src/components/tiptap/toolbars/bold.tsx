@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import { useToolbar } from './toolbar-provider';
 // import type { Extension } from "@tiptap/core";
 // import type { StarterKitOptions } from "@tiptap/starter-kit";

@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import LangButton from '@/components/common/button/language.button';
+import { LangButton, Button } from '@/components';
 import { useTranslations } from 'next-intl';
-import { categories } from '@/lib/routes/navigation.routes';
+import { categories } from '@/lib';
+import { ArrowIcons } from '@/assets/icons/icons';
 
 const projects = [
   {
@@ -144,7 +143,7 @@ export default function Page() {
           className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 group"
           disabled={isTransitioning}
         >
-          <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 group-hover:-translate-x-0.5 transition-transform" />
+          <ArrowIcons.ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
 
         <button
@@ -152,7 +151,7 @@ export default function Page() {
           className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-12 lg:h-12 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300 group"
           disabled={isTransitioning}
         >
-          <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-x-0.5 transition-transform" />
+          <ArrowIcons.ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
         {/* Project Info Card */}
@@ -176,14 +175,14 @@ export default function Page() {
                   className="w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center text-gray-400 hover:text-black transition-colors"
                   disabled={isTransitioning}
                 >
-                  <ChevronLeft className="w-3 h-3 lg:w-4 lg:h-4" />
+                  <ArrowIcons.ChevronLeft className="w-3 h-3 lg:w-4 lg:h-4" />
                 </button>
                 <button
                   onClick={nextProject}
                   className="w-6 h-6 lg:w-8 lg:h-8 flex items-center justify-center text-gray-400 hover:text-black transition-colors"
                   disabled={isTransitioning}
                 >
-                  <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4" />
+                  <ArrowIcons.ChevronRight className="w-3 h-3 lg:w-4 lg:h-4" />
                 </button>
               </div>
             </div>
@@ -195,7 +194,7 @@ export default function Page() {
               }}
             >
               View Detail
-              <ChevronRight className="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowIcons.ChevronRight className="w-3 h-3 lg:w-4 lg:h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>

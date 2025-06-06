@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/helpers/utils';
 import MainButton from '@/components/common/button/main.button';
 import Link from 'next/link';
 import Header from '@/components/common/design/header';

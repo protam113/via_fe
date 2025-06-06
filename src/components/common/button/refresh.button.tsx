@@ -2,12 +2,7 @@
 
 import { Icons } from '@/assets/icons/icons';
 import { Button } from '@/components/ui/button';
-import { RefreshCcwDot } from 'lucide-react';
-
-interface RefreshButtonProps {
-  onClick: () => void;
-  className?: string;
-}
+import { RefreshButtonProps } from '@/types';
 
 export const RefreshButton: React.FC<RefreshButtonProps> = ({
   onClick,

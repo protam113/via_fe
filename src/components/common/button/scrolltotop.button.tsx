@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowIcons, SocialMediaIcon } from '@/assets/icons/icons';
-import { SocialMedia } from '@/lib/data';
+import { SocialMedia } from '@/lib';
 import { useState, useEffect } from 'react';
 
 const ScrollToTopButton: React.FC = () => {
