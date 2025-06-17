@@ -15,6 +15,7 @@ function deepFreeze<T>(obj: T): T {
 type RouteMap = {
   readonly HOME: string;
   readonly ABOUT: string;
+  readonly NEWS: string;
   readonly VIA_ART_FAIR: {
     readonly ROOT: string;
     readonly DETAIL: (slug: string) => string;
@@ -65,6 +66,7 @@ type RouteMap = {
 export const ROUTES: Readonly<RouteMap> = deepFreeze({
   HOME: '/',
   ABOUT: '/about',
+  NEWS: '/news',
   VIA_ART_FAIR: {
     ROOT: VIA_SECTIONS.ART_FAIR.ROOT,
     DETAIL: (slug: string) => `/via-art-fair/${slug}`,

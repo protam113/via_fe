@@ -51,6 +51,7 @@
   --color-approved: #82dd55;
   --color-rejected: #e23636;
   --color-info: #4a90e2;
+  --color-red-main: #d61f26;
 }
 
 @theme inline {

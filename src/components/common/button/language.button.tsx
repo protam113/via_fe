@@ -33,7 +33,9 @@ const LangButton = () => {
       <span
         onClick={() => handleLangChange('en')}
         className={`cursor-pointer ${
-          !isVietnamese ? 'text-black border-b-2 border-black' : 'text-gray-400'
+          !isVietnamese
+            ? 'text-red-main border-b-2 border-red-main'
+            : 'text-black'
         }`}
       >
         EN
@@ -42,7 +44,9 @@ const LangButton = () => {
       <span
         onClick={() => handleLangChange('vi')}
         className={`cursor-pointer ${
-          isVietnamese ? 'text-black border-b-2 border-black' : 'text-gray-400'
+          isVietnamese
+            ? 'text-red-main border-b-2 border-red-main'
+            : 'text-black'
         }`}
       >
         VN

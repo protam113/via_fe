@@ -9,6 +9,7 @@ import {
   navItemsMobile,
   navItemsSec,
 } from '@/lib/routes/navigation.routes';
+import NewsDropdown from './news.nav';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -30,7 +31,7 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all  duration-300 font-serif ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all  duration-300 ${
         isScrolling
           ? 'lg:bg-white bg-white shadow-lg lg:min-h-[120px] min-h-[80px]'
           : 'lg:bg-transparent lg:min-h-[120px] min-h-[80px]'
@@ -39,25 +40,30 @@ export function Navbar() {
       <div className="max-w-7xl w-full mx-auto py-2 ">
         <div className="flex items-center w-full max-w-7xl justify-between min-h-[80px] lg:min-h-[120px] h-full">
           <div className="hidden md:hidden lg:flex items-center justify-center gap-2 mr-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.path}
-                className={`
-   relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out text-black
-   after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
-   hover:after:w-full
-   ${
-     pathname === item.path
-       ? 'font-semibold scale-105 after:w-full after:text-black'
-       : 'hover:scale-105'
-   }
-   ${isScrolling ? 'text-black' : 'text-white '}
- `}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const currentPath = pathname.replace(/^\/(en|vi)/, '') || '/'; // remove '/en' hoặc '/vi'
+
+              const isActive = currentPath === item.path;
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  className={`
+        relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out
+        ${
+          isActive
+            ? 'text-red-main font-semibold scale-105 after:w-full'
+            : 'text-black hover:scale-105'
+        }
+        after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-red-main after:transition-all after:duration-300 hover:after:w-full
+      `}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
+            <NewsDropdown />
           </div>
 
           {/* Mobile Menu Button */}
@@ -86,7 +92,7 @@ export function Navbar() {
               `}
             >
               <CustomImage
-                src="/icons/Logo_noTitle.svg"
+                src="/icons/Logo_nav.svg"
                 alt="Logo"
                 fill
                 priority
@@ -97,25 +103,25 @@ export function Navbar() {
 
           {/* Social Icons & Button */}
           <div className="hidden lg:flex items-center gap-2 mr-4">
-            {navItemsSec.map((item) => (
-              <Link
-                key={item.name}
-                href={item.path}
-                className={`
-relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out text-black
-after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:w-0 after:transition-all after:duration-300
-hover:after:w-full
-${
-  pathname === item.path
-    ? 'font-semibold scale-105 after:w-full after:text-black'
-    : 'hover:scale-105'
-}
-${isScrolling ? 'text-black' : 'text-white '}
-`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItemsSec.map((item) => {
+              const currentPath = pathname.replace(/^\/(en|vi)/, '') || '/';
+              const isActive = currentPath === item.path;
+
+              return (
+                <Link
+                  key={item.name}
+                  href={item.path}
+                  className={`
+        relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out
+        text-black hover:scale-105 hover:after:w-full
+        after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:transition-all after:duration-300
+        ${isActive ? 'font-semibold scale-105 text-black after:w-full' : ''}
+      `}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
 
             <div className="ml-8">
               <LangButton />
@@ -167,6 +173,20 @@ ${isScrolling ? 'text-black' : 'text-white '}
                 {item.name}
               </Link>
             ))}
+            <Link
+              href="/news"
+              className={`
+        py-2 px-4 text-sm font-medium w-full text-center
+        ${
+          pathname === '/news'
+            ? 'bg-gray-200 text-lg text-black'
+            : 'hover:bg-gray-200'
+        }
+      `}
+              onClick={toggleMobileMenu}
+            >
+              News
+            </Link>
           </div>
           {/* Mobile contact button */}
           <Link

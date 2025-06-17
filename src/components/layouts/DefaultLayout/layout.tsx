@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import NavigationMenu from './nav.open';
 import Navbar from './nav';
 import Footer from './footer';
 
@@ -11,9 +10,10 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative">
+    <div className="relative flex flex-col min-h-screen">
       <Navbar />
-      <main>{children}</main>
+      <main className="flex-1 pt-[120px]">{children}</main>
+
       <Footer />
     </div>
   );

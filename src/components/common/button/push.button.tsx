@@ -1,3 +1,5 @@
+'use client';
+
 // components/button/PushButton.tsx
 import { useRouter } from 'next/navigation';
 import { PushButtonProps } from '@/types';

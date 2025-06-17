@@ -1,75 +1,63 @@
-'use client';
-
-import { useState } from 'react';
-import { cn } from '@/utils/helpers/utils';
-import MainButton from '@/components/common/button/main.button';
+// components/FeaturedSection.tsx
+import CustomImage from '@/components/common/design/image.component';
+import { Separator } from '@/components';
+import Image from 'next/image';
 import Link from 'next/link';
-import Header from '@/components/common/design/header';
 
-export default function OurCategory() {
-  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
+type FeaturedItem = {
+  title: string;
+  image: string;
+  href: string;
+};
 
-  const categories = [
-    { id: 1, name: 'VIA ART FAIR', href: '/via-art-fair' },
-    { id: 2, name: 'VIA ATELIER', href: '/via-art-fair' },
-    { id: 3, name: "VIA PRIVE'", href: '/via-art-fair' },
-  ];
+const featuredItems: FeaturedItem[] = [
+  {
+    title: 'VIA ARTFAIR',
+    image: '/img/hero1.png',
+    href: '/via-artfair',
+  },
+  {
+    title: 'VIA ATELIER',
+    image: '/img/hero1.png',
+    href: '/via-atelier',
+  },
+  {
+    title: "VIA PRIVE'",
+    image: '/img/hero1.png',
+    href: '/via-prive',
+  },
+];
 
+export default function FeaturedSection() {
   return (
-    <main className="bg-white mb-16 ">
-      <div className="container mx-auto px-4 mt-12">
-        {/* Top Section */}
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          {/* Left - Text + Button */}
-          <div className="space-y-6">
-            <p className="text-sm text-gray-800 leading-relaxed max-w-xs">
-              We create immersive environments that connect ideas, people, and
-              culture — redefining the way experiences are felt.
-            </p>
-            <MainButton href="#gallery" title="OUR CATEGORY" />
-          </div>
+    <section className="w-full py-8 px-4">
+      <h2 className="text-sm  text-gray-500 uppercase mb-6 pb-2">Featured</h2>
+      <Separator className="mb-4 bg-gray-600" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {featuredItems.map((item, index) => (
+          <Link key={index} href={item.href} className="block w-full">
+            <div className="group w-full flex items-center justify-between rounded-lg p-4 transition-all duration-200 hover:shadow-md">
+              {/* Image wrapper */}
+              <div className="relative aspect-square w-full max-w-[100px] rounded-md overflow-hidden">
+                {/* Image */}
+                <CustomImage
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
 
-          {/* Right - Title + Categories */}
-          <div id="categories" className="space-y-8">
-            <div>
-              <Header title=" Reimagining Experiences" />
-              <p className="text-gray-700 max-w-lg">
-                From exhibitions to large-scale events, we craft experiences
-                that transform ordinary spaces into storytelling platforms.
+              {/* Text */}
+              <p className="text-[16px]  text-gray-800 transition-all duration-300 group-hover:text-red-600 group-hover:text-[18px]">
+                {item.title}
               </p>
             </div>
-
-            <div className="space-y-0">
-              {categories.map((category, index) => (
-                <div
-                  key={category.id}
-                  className="border-t border-b border-gray-200"
-                >
-                  <Link href={category.href}>
-                    <div
-                      className="py-6 flex items-center cursor-pointer group"
-                      onMouseEnter={() => setHoveredCategory(index)}
-                      onMouseLeave={() => setHoveredCategory(null)}
-                    >
-                      <span className="text-xs text-gray-400 mr-4">
-                        {category.id}.
-                      </span>
-                      <span
-                        className={cn(
-                          'text-xl transition-transform duration-300',
-                          hoveredCategory === index ? 'translate-x-2' : ''
-                        )}
-                      >
-                        {category.name}
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+          </Link>
+        ))}
       </div>
-    </main>
+    </section>
   );
 }

@@ -9,7 +9,7 @@ import { logDebug } from '@/utils/logger';
  *
  * @desc Auth API Request
  */
-const authApi = () => {
+const serviceApi = () => {
   return axios.create({
     baseURL: baseURL,
     headers: {},
@@ -39,7 +39,7 @@ export const handleAPI = async <T = any>(
   });
 
   try {
-    const apiInstance = authApi();
+    const apiInstance = serviceApi();
     const config: AxiosRequestConfig = {
       url,
       method,

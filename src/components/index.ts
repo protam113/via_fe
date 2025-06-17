@@ -79,7 +79,6 @@ export * from './loading/loading.components';
 export { default as PushButton } from './common/button/push.button';
 export * from './common/button/push.button';
 export * from './common/button/back-admin.button';
-export * from './common/button/back-main.button';
 
 export { default as LangButton } from './common/button/language.button';
 export { default as MainButton } from './common/button/main.button';

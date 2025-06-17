@@ -16,5 +16,9 @@ export const routing = defineRouting({
       en: '/contact-us',
       vi: '/lien-he',
     },
+    '/news': {
+      en: '/news',
+      vi: '/tin-tuc',
+    },
   },
 });

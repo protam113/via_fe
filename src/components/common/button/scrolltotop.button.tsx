@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowIcons, SocialMediaIcon } from '@/assets/icons/icons';
+import { ArrowIcons, Icons, SocialMediaIcon } from '@/assets/icons/icons';
 import { SocialMedia } from '@/lib';
 import { useState, useEffect } from 'react';
 
@@ -26,21 +26,19 @@ const ScrollToTopButton: React.FC = () => {
         href={`${SocialMedia.FB.url}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-12 h-12 bg-[#1877F2] text-white rounded-full shadow-md hover:bg-[#145DBF] flex items-center justify-center transition duration-300"
+        className="w-12 h-12 bg-black text-white rounded-full shadow-md hover:bg-gray-700 flex items-center justify-center transition duration-300 animate-glow"
         aria-label="Facebook Messenger"
       >
-        <SocialMediaIcon.Facebook size={20} />
+        <SocialMediaIcon.FaFacebookMessenger size={20} />
       </a>
 
-      {/* <a
-        href="https://www.linkedin.com/in/hoangpham-strix/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-12 h-12 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 flex items-center justify-center transition duration-300"
-        aria-label="Zalo"
+      <a
+        href="tel:0912345678"
+        className="w-12 h-12 bg-black text-white rounded-full shadow-md hover:bg-gray-700 flex items-center justify-center transition duration-300 animate-glow"
+        aria-label="Gọi ngay"
       >
-        <FaLinkedin size={20} />
-      </a> */}
+        <Icons.PhoneCall size={20} />
+      </a>
 
       {isVisible && (
         <button

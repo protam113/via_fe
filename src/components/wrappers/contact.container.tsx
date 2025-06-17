@@ -6,6 +6,7 @@ import SelectCountriesCombo from '@/components/common/options/contact_country.op
 import { CreateContactItem } from '@/types';
 import { useCreateContact } from '@/hooks';
 import { useTranslations } from 'next-intl';
+import { ComponentsIcons } from '@/assets/icons/icons';
 
 export default function ContactForm() {
   const t = useTranslations('ContactForm');
@@ -89,16 +90,50 @@ export default function ContactForm() {
     <div ref={formRef} className="grid md:grid-cols-2 gap-8 mb-16 mx-auto">
       {/* Left side - Map and Contact Info */}
       <div className="space-y-6">
-        <div className="h-[450px] w-full overflow-hidden border border-gray-200">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.95923013567335!2d106.73027138947603!3d10.784660643747342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175250f3894da1d%3A0x73d02581cf89c552!2sTomuraLee%20Gallery!5e0!3m2!1sen!2s!4v1747469332976!5m2!1sen!2s"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+        <div className="grid grid-col  gap-12">
+          {/* Address */}
+
+          <div className="flex items-start gap-3">
+            <ComponentsIcons.MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
+            <div>
+              <p className="font-medium">LOCATION</p>
+              <p className="text-sm text-gray-500">
+                Ho Chi Minh City, VietNam, 90001
+              </p>
+            </div>
+          </div>
+
+          {/* Phone */}
+          <div className="flex items-start gap-3">
+            <ComponentsIcons.Phone className="h-5 w-5 text-gray-500 mt-0.5" />
+            <div>
+              <p className="font-medium">HOTLIE</p>
+              <p className="text-sm text-gray-500">+84 (969) 121-006</p>
+            </div>
+          </div>
+
+          {/* Email */}
+          <div className="flex items-start gap-3">
+            <ComponentsIcons.Mail className="h-5 w-5 text-gray-500 mt-0.5" />
+            <div>
+              <p className="font-medium">EMAIL</p>
+              <p className="text-sm text-gray-500">
+                vietnaminternationalartfair@gmail.com
+              </p>
+            </div>
+          </div>
+
+          {/* Business Hours */}
+          <div className="flex items-start gap-3">
+            <ComponentsIcons.Clock className="h-5 w-5 text-gray-500 mt-0.5" />
+            <div>
+              <p className="font-medium">OPEN HOURS</p>
+              <div className="grid grid-cols-2 text-sm text-gray-500">
+                <p>9:30 AM – 6:30 PM (Tue -Sat)</p>
+                <p>9:30 AM – 5:00 PM(Sun)</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

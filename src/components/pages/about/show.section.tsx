@@ -12,19 +12,24 @@ export default function ArtGalleryLayout() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Sticky Text Panel */}
-      <div className="w-full lg:w-2/5 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start p-8 lg:p-16 bg-white">
-        <div className="max-w-md mx-auto lg:mx-0">
-          <h1 className="text-2xl md:text-3xl  tracking-tight uppercase mb-6">
-            Vietnam International Artfair in Pictures
-          </h1>
-          <p className="text-gray-700 leading-relaxed mb-4">
-            {t('description')}
-          </p>
-        </div>
+      <div className="w-full lg:w-2/5 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start p-8 lg:p-16 ">
+        <CustomImage
+          src={'/img/via_banner.png'}
+          alt="VIA HOME"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 60vw"
+        />
       </div>
 
       {/* Scrollable Image Gallery */}
-      <div className="w-full lg:w-3/5 p-4 lg:p-8 bg-white">
+      <div className="w-full lg:w-3/5 p-4 lg:p-8 ">
+        <div className=" lg:mx-0">
+          <h1 className="text-2xl md:text-3xl  tracking-tight uppercase mb-6">
+            Vietnam International Artfair in Pictures
+          </h1>
+          <p className="text-gray-700  mb-4">{t('description')}</p>
+        </div>
         <div className="space-y-12 md:space-y-16">
           <GalleryImage
             src="/img/banner1.png?height=500&width=700"

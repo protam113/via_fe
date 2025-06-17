@@ -59,7 +59,11 @@ import {
   Mail,
   MapPin,
   Phone,
+  Instagram,
+  PhoneCall,
 } from 'lucide-react';
+import Tiktok from './tiktok.svg';
+import { FaFacebookMessenger, FaTiktok } from 'react-icons/fa';
 
 export const Icons = {
   RefreshCcwDot,
@@ -69,6 +73,7 @@ export const Icons = {
   PlusCircle,
   Filter,
   Search,
+  PhoneCall,
 };
 
 export const ArrowIcons = {
@@ -132,4 +137,7 @@ export const ComponentsIcons = {
 
 export const SocialMediaIcon = {
   Facebook,
+  Instagram,
+  FaFacebookMessenger,
+  FaTiktok,
 };
