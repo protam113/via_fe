@@ -20,7 +20,9 @@ export const Name = {
   ADMIN_VIA_PRIVE: "Via Prive'",
 };
 
-export const navItems = [{ name: Name.ABOUT_US, path: ROUTES.ABOUT }];
+export const navItems = [
+  { name: Name.ABOUT_US, path: ROUTES.ABOUT, routeKey: 'about' },
+];
 
 export const navItemsMobile = [
   { name: Name.ABOUT_US, path: ROUTES.ABOUT },
@@ -29,7 +31,9 @@ export const navItemsMobile = [
   { name: Name.VIA_PRIVE, path: ROUTES.VIA_PRIVE.ROOT },
 ];
 
-export const navItemsSec = [{ name: Name.CONTACT, path: ROUTES.CONTACT }];
+export const navItemsSec = [
+  { name: Name.CONTACT, path: ROUTES.CONTACT, routeKey: 'contact' },
+];
 
 export const AdminSidebar = {
   navMain: [

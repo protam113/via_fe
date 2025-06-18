@@ -10,6 +10,7 @@ import {
   navItemsSec,
 } from '@/lib/routes/navigation.routes';
 import NewsDropdown from './news.nav';
+import { routeMap } from '@/lib/routes/routeMap.routes';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -29,6 +30,8 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const currentRouteKey = routeMap[pathname] || '';
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all  duration-300 ${
@@ -41,9 +44,7 @@ export function Navbar() {
         <div className="flex items-center w-full max-w-7xl justify-between min-h-[80px] lg:min-h-[120px] h-full">
           <div className="hidden md:hidden lg:flex items-center justify-center gap-2 mr-4">
             {navItems.map((item) => {
-              const currentPath = pathname.replace(/^\/(en|vi)/, '') || '/'; // remove '/en' hoặc '/vi'
-
-              const isActive = currentPath === item.path;
+              const isActive = item.routeKey === currentRouteKey;
 
               return (
                 <Link
@@ -104,18 +105,20 @@ export function Navbar() {
           {/* Social Icons & Button */}
           <div className="hidden lg:flex items-center gap-2 mr-4">
             {navItemsSec.map((item) => {
-              const currentPath = pathname.replace(/^\/(en|vi)/, '') || '/';
-              const isActive = currentPath === item.path;
+              const isActive = item.routeKey === currentRouteKey;
 
               return (
                 <Link
                   key={item.name}
                   href={item.path}
                   className={`
-        relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out
-        text-black hover:scale-105 hover:after:w-full
-        after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-black after:transition-all after:duration-300
-        ${isActive ? 'font-semibold scale-105 text-black after:w-full' : ''}
+         relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out
+        ${
+          isActive
+            ? 'text-red-main font-semibold scale-105 after:w-full'
+            : 'text-black hover:scale-105'
+        }
+        after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1px] after:bg-red-main after:transition-all after:duration-300 hover:after:w-full
       `}
                 >
                   {item.name}

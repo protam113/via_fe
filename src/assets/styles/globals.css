@@ -52,6 +52,8 @@
   --color-rejected: #e23636;
   --color-info: #4a90e2;
   --color-red-main: #d61f26;
+  --color-social-mess: #0866ff;
+  --color-social-phone: #0cc143;
 }
 
 @theme inline {

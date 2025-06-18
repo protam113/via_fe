@@ -9,7 +9,7 @@ export default function Page() {
     <Container className="flex flex-col  overflow-hidden bg-white">
       {/* Left Panel - Static */}
       <HeroComponent />
-
+      {/* Featured Card */}
       <FeaturedSection />
     </Container>
   );

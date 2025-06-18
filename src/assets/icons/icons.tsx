@@ -63,7 +63,13 @@ import {
   PhoneCall,
 } from 'lucide-react';
 import Tiktok from './tiktok.svg';
-import { FaFacebookMessenger, FaTiktok } from 'react-icons/fa';
+import {
+  FaFacebookMessenger,
+  FaTiktok,
+  FaInstagram,
+  FaFacebookF,
+} from 'react-icons/fa';
+import { TbWorld } from 'react-icons/tb';
 
 export const Icons = {
   RefreshCcwDot,
@@ -140,4 +146,7 @@ export const SocialMediaIcon = {
   Instagram,
   FaFacebookMessenger,
   FaTiktok,
+  FaInstagram,
+  FaFacebookF,
+  TbWorld,
 };

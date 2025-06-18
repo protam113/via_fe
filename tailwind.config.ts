@@ -53,6 +53,9 @@ export default {
         },
       },
       fontSize: {
+        body: '16px',
+        title: '24px',
+        subtitle: '20px',
         '10': '10px',
         '12': '12px',
         '14': '14px',

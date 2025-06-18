@@ -31,8 +31,10 @@ const featuredItems: FeaturedItem[] = [
 export default function FeaturedSection() {
   return (
     <section className="w-full py-8 px-4">
-      <h2 className="text-sm  text-gray-500 uppercase mb-6 pb-2">Featured</h2>
-      <Separator className="mb-4 bg-gray-600" />
+      <div className="mb-4">
+        <h2 className="text-sm  text-gray-500 uppercase mb-6 pb-2">Featured</h2>
+        <Separator className=" bg-gray-600" />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {featuredItems.map((item, index) => (
           <Link key={index} href={item.href} className="block w-full">

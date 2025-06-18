@@ -51,7 +51,7 @@ export default function GradientBanner() {
   return (
     <div className="w-full mx-auto">
       <div
-        className="relative w-full h-80 md:h-96 rounded-nsone overflow-hidden group cursor-pointer"
+        className="relative w-full h-80 md:h-100 rounded-nsone overflow-hidden group cursor-pointer"
         style={{
           backgroundImage: `url(${currentSlideData.file})`,
           backgroundSize: 'cover',

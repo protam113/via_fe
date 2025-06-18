@@ -2,12 +2,46 @@
 
 import { useRef } from 'react';
 import { useInView } from 'framer-motion';
-
 import { useTranslations } from 'next-intl';
 import CustomImage from '@/components/common/design/image.component';
 
 export default function ArtGalleryLayout() {
   const t = useTranslations('AboutPage');
+  const bullets1 = [
+    t('introduction.section1.bullets.0'),
+    t('introduction.section1.bullets.1'),
+    t('introduction.section1.bullets.2'),
+    t('introduction.section1.bullets.3'),
+    t('introduction.section1.bullets.4'),
+  ];
+
+  const bullets2 = [
+    t('introduction.section2.bullets.0'),
+    t('introduction.section2.bullets.1'),
+    t('introduction.section2.bullets.2'),
+    t('introduction.section2.bullets.3'),
+  ];
+
+  const bullets3 = [
+    t('introduction.section3.bullets.0'),
+    t('introduction.section3.bullets.1'),
+    t('introduction.section3.bullets.2'),
+    t('introduction.section3.bullets.3'),
+    t('introduction.section3.bullets.4'),
+  ];
+
+  const bullets4 = [
+    t('introduction.section4.bullets.0'),
+    t('introduction.section4.bullets.1'),
+    t('introduction.section4.bullets.2'),
+    t('introduction.section4.bullets.3'),
+  ];
+
+  const closing = [
+    t('introduction.closing.0'),
+    t('introduction.closing.1'),
+    t('introduction.closing.2'),
+  ];
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -24,11 +58,68 @@ export default function ArtGalleryLayout() {
 
       {/* Scrollable Image Gallery */}
       <div className="w-full lg:w-3/5 p-4 lg:p-8 ">
-        <div className=" lg:mx-0">
-          <h1 className="text-2xl md:text-3xl  tracking-tight uppercase mb-6">
-            Vietnam International Artfair in Pictures
+        <div className="lg:mx-0 mb-8">
+          <h1 className="text-2xl md:text-24 tracking-tight uppercase mb-6">
+            {t('title')}
           </h1>
-          <p className="text-gray-700  mb-4">{t('description')}</p>
+          <div className="space-y-10">
+            {/* Section 1 */}
+            <div>
+              <h3 className="font-bold text-xl">
+                {t('introduction.section1.title')}
+              </h3>
+              <ul className="mt-2 text-sm list-none space-y-1">
+                {bullets1.map((item: string, i: number) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Section 2 */}
+            <div>
+              <h3 className="font-bold text-xl">
+                {t('introduction.section2.title')}
+              </h3>
+              <ul className="mt-2 text-sm list-none space-y-1">
+                {bullets2.map((item: string, i: number) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Section 3 */}
+            <div>
+              <h3 className="font-bold text-xl">
+                {t('introduction.section3.title')}
+              </h3>
+              <ul className="mt-2 text-sm list-none space-y-1">
+                {bullets3.map((item: string, i: number) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Section 4 */}
+            <div>
+              <h3 className="font-bold text-xl">
+                {t('introduction.section4.title')}
+              </h3>
+              <ul className="mt-2 text-sm list-none space-y-1">
+                {bullets4.map((item: string, i: number) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Closing */}
+            <div>
+              <ul className="mt-2 text-sm list-none space-y-1">
+                {closing.map((item: string, i: number) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
         <div className="space-y-12 md:space-y-16">
           <GalleryImage

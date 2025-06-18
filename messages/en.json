@@ -1,19 +1,51 @@
 {
-  "HomePage": {
-    "content": "content! ádads",
-    "about": "About",
-    "contact": "Contact us"
-  },
-
   "AboutPage": {
-    "title": "About Us",
-    "content": "Tomura Gallery is a long-standing gallery in Japan, founded in 1989 in Ginza and moved to Kyobashi in 2006, with more than 35 years of experience operating in large galleries and visual arts. In 2019, in conjunction with A-Cube Gallery in Seoul, Korea (established in 2009), Tomura Gallery expanded to a new space in Ho Chi Minh City named TomuraLee Gallery, which is a combination of Japanese and Korean galleries.",
-    "description": "With a liberal and new style, TomuraLee Gallery focuses mainly on contemporary art. At the same time, we also organize exhibitions to promote the works of young artists from countries around the world such as Japan, Korea, and China, to collectors, museums, and the art-loving public. After a period of research, TomuraLee was present in Ho Chi Minh, Vietnam, with the ambition to accompany Vietnamese Fine Arts on the path to reaching out to the world and promoting the interaction between cultures. We aim to bring talented artists to Ho Chi Minh City to share the work of Vietnamese artists with the local art scene while working to discover and promote emerging Southeast Asian artists on the international art scene. Our artists come from diverse artistic backgrounds and cultures, work in a variety of mediums, and have a wide range of life experiences. They have strong conceptual and challenging visions, realized in ever-evolving forms that we strive to foster by creating networks and collaborating with other art spaces in Asia and beyond. TomuraLee is constantly improving every day to build a solid bridge between our artists and our partners, customers, and the art-loving community.",
-    "introduction": "Unlike most common display spaces, instead of the familiar dark colors and light focusing on the work, TomuraLee has 2 display spaces, using the main white tone, creating a feeling of spaciousness. Sophisticated and directs complete focus on works of art."
-  },
-
-  "Footer": {
-    "introduction": "VIA specializes in modern architecture and real estate development that seamlessly integrates functionality, aesthetics, and sustainability. The studio brings a unique global perspective to every project. With a commitment to crafting timeless designs"
+    "title": "About VIA (Vietnam International Art Fair)",
+    "introduction": {
+      "section1": {
+        "title": "1. What Makes VIA Different?",
+        "bullets": {
+          "0": "\"Anyone can host an event. But not everyone can build an ecosystem.\" VIA is not just an art fair - it is a platform that defines and shapes the identity of contemporary Vietnamese art.",
+          "1": "At VIA, quality takes precedence over quantity.",
+          "2": "• A structure that grows both locel and international galleries & artists",
+          "3": "• A balance between local cultural roots and global networks",
+          "4": "• A focus beyond sales - embracing content, dialogue, and community. This is why VIA is not just another event. It is a brand that cannot be imitated."
+        }
+      },
+      "section2": {
+        "title": "2. A Vision, Not Just a Venue",
+        "bullets": {
+          "0": "VIA is more than a space.",
+          "1": "It is an answer to the question.",
+          "2": "\"Why Vietnam, and why now?\"",
+          "3": "We are a bridge between generations of collectors and the artists who will define the next era. While others consume the present, VIA is designing the future."
+        }
+      },
+      "section3": {
+        "title": "3. Curated with Purpose",
+        "bullets": {
+          "0": "Every gallery and artist is carefully selected through our curatorial committee.",
+          "1": "At VIA, quality takes precedence over quantity.",
+          "2": "• Inclusion is not automatic – it is earned through artistic merit",
+          "3": "• Focus on artists who understand local contexts and communicate globally",
+          "4": "• Exhibitions built around stories, messages, and intentional narratives"
+        }
+      },
+      "section4": {
+        "title": "4. Trusted by Galleries. Loved by Collectors",
+        "bullets": {
+          "0": "VIA has gained the trust of both Vietnamese collectors and international institutions.",
+          "1": "• 92% re-participation rate from previous galleries",
+          "2": "• International VIP pre-acquisition programs",
+          "3": "• Strong media partnerships with leading art publications"
+        }
+      },
+      "closing": {
+        "0": "The market has spoken – and it has chosen VIA.",
+        "1": "VIA is not just Vietnam’s art fair.",
+        "2": "VIA is the benchmark for Vietnam’s art market."
+      }
+    }
   },
 
   "ContactPage": {
@@ -32,5 +64,9 @@
     "send": "Send",
     "phone_number": "Phone Number",
     "nation": "Nation"
+  },
+
+  "NewsPage": {
+    "title": "News"
   }
 }

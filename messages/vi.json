@@ -6,10 +6,52 @@
   },
 
   "AboutPage": {
-    "title": "Về Chúng Tôi",
-    "content": "Tomura Gallery là một phòng tranh lâu đời tại Nhật Bản, được thành lập vào năm 1989 tại Ginza và chuyển về Kyobashi vào năm 2006, với hơn 35 năm kinh nghiệm hoạt động trong lĩnh vực phòng tranh quy mô lớn và nghệ thuật thị giác. Năm 2019, phối hợp cùng A-Cube Gallery tại Seoul, Hàn Quốc (thành lập từ năm 2009), Tomura Gallery mở rộng không gian mới tại TP. Hồ Chí Minh với tên gọi TomuraLee Gallery – sự kết hợp độc đáo giữa hai phòng tranh Nhật – Hàn.",
-    "description": "Mang phong cách tự do và mới mẻ, TomuraLee Gallery tập trung chủ yếu vào nghệ thuật đương đại. Đồng thời, chúng tôi tổ chức các triển lãm nhằm quảng bá tác phẩm của những nghệ sĩ trẻ đến từ nhiều quốc gia như Nhật Bản, Hàn Quốc, Trung Quốc,… đến với giới sưu tập, bảo tàng và công chúng yêu nghệ thuật. Sau thời gian nghiên cứu, TomuraLee chính thức có mặt tại TP. Hồ Chí Minh, Việt Nam, với khát vọng đồng hành cùng Mỹ thuật Việt trên hành trình vươn ra thế giới và thúc đẩy sự giao thoa giữa các nền văn hóa. Chúng tôi hướng tới việc đưa những nghệ sĩ tài năng đến TP. Hồ Chí Minh để chia sẻ tác phẩm của nghệ sĩ Việt Nam với cộng đồng nghệ thuật địa phương, đồng thời khám phá và nâng tầm các nghệ sĩ Đông Nam Á mới nổi trên sân khấu nghệ thuật quốc tế. Đội ngũ nghệ sĩ của chúng tôi có xuất thân nghệ thuật đa dạng, đến từ nhiều nền văn hóa khác nhau, sáng tác với nhiều chất liệu phong phú và mang trong mình những trải nghiệm sống đa chiều. Họ sở hữu tư duy nghệ thuật đầy tính khái niệm và thử thách, được hiện thực hóa thông qua các hình thức không ngừng đổi mới – điều mà chúng tôi luôn nỗ lực nuôi dưỡng thông qua kết nối và hợp tác với các không gian nghệ thuật khác tại châu Á và hơn thế nữa. TomuraLee không ngừng hoàn thiện mỗi ngày để xây dựng một cây cầu vững chắc giữa nghệ sĩ với đối tác, khách hàng và cộng đồng yêu nghệ thuật.",
-    "introduction": "Khác với phần lớn không gian trưng bày truyền thống thường sử dụng màu tối và ánh sáng tập trung, TomuraLee sở hữu hai không gian triển lãm với tông trắng chủ đạo, tạo cảm giác rộng rãi, tinh tế và tôn vinh trọn vẹn giá trị nghệ thuật của tác phẩm."
+    "title": "Giới Thiệu VIA (Vietnam International Art Fair)",
+    "introduction": {
+      "section1": {
+        "title": "1. Điều Gì Khiến VIA Khác Biệt?",
+        "bullets": {
+          "0": "\"Ai cũng có thể tổ chức một sự kiện. Nhưng không phải ai cũng xây dựng được một hệ sinh thái.\" VIA không chỉ là một hội chợ nghệ thuật - mà còn là nền tảng định hình và phát triển bản sắc nghệ thuật đương đại Việt Nam.",
+          "1": "Tại VIA, chất lượng được đặt lên hàng đầu hơn số lượng.",
+          "2": "• Một cấu trúc phát triển cả các phòng trưng bày và nghệ sĩ trong nước lẫn quốc tế",
+          "3": "• Cân bằng giữa nguồn cội văn hóa địa phương và mạng lưới toàn cầu",
+          "4": "• Tập trung vượt ra ngoài doanh số - bao gồm nội dung, đối thoại và cộng đồng. Đây là lý do VIA không chỉ là một sự kiện thông thường. Đây là thương hiệu không thể bị bắt chước."
+        }
+      },
+      "section2": {
+        "title": "2. Tầm Nhìn, Không Chỉ Là Không Gian",
+        "bullets": {
+          "0": "VIA không chỉ là một không gian.",
+          "1": "Nó là câu trả lời cho câu hỏi.",
+          "2": "\"Tại sao là Việt Nam, và tại sao là bây giờ?\"",
+          "3": "Chúng tôi là cầu nối giữa các thế hệ nhà sưu tập và các nghệ sĩ sẽ định nghĩa kỷ nguyên tiếp theo. Trong khi người khác chỉ tận hưởng hiện tại, VIA đang thiết kế tương lai."
+        }
+      },
+      "section3": {
+        "title": "3. Lựa Chọn Với Mục Đích",
+        "bullets": {
+          "0": "Mỗi phòng trưng bày và nghệ sĩ đều được tuyển chọn kỹ lưỡng qua ủy ban chuyên môn của chúng tôi.",
+          "1": "Tại VIA, chất lượng được ưu tiên hơn số lượng.",
+          "2": "• Việc tham gia không phải là tự động – mà được công nhận dựa trên giá trị nghệ thuật",
+          "3": "• Tập trung vào các nghệ sĩ hiểu được bối cảnh địa phương và giao tiếp toàn cầu",
+          "4": "• Triển lãm được xây dựng dựa trên câu chuyện, thông điệp và chủ đề có chủ ý"
+        }
+      },
+      "section4": {
+        "title": "4. Được Phòng Trưng Bày Tin Tưởng. Được Nhà Sưu Tập Yêu Mến",
+        "bullets": {
+          "0": "VIA đã nhận được sự tin tưởng từ cả các nhà sưu tập Việt Nam và các tổ chức quốc tế.",
+          "1": "• Tỷ lệ tham gia lại 92% từ các phòng trưng bày trước đó",
+          "2": "• Các chương trình mua trước dành cho VIP quốc tế",
+          "3": "• Quan hệ đối tác truyền thông mạnh mẽ với các ấn phẩm nghệ thuật hàng đầu"
+        }
+      },
+      "closing": {
+        "0": "Thị trường đã lên tiếng – và đã chọn VIA.",
+        "1": "VIA không chỉ là hội chợ nghệ thuật của Việt Nam.",
+        "2": "VIA là chuẩn mực cho thị trường nghệ thuật Việt Nam."
+      }
+    }
   },
 
   "Footer": {
@@ -32,5 +74,9 @@
     "send": "Gửi",
     "phone_number": "Số Điện Thoại",
     "nation": "Quốc Gia"
+  },
+
+  "NewsPage": {
+    "title": "Tin Tức"
   }
 }

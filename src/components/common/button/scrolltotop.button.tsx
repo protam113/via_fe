@@ -26,7 +26,7 @@ const ScrollToTopButton: React.FC = () => {
         href={`${SocialMedia.FB.url}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-12 h-12 bg-black text-white rounded-full shadow-md hover:bg-gray-700 flex items-center justify-center transition duration-300 animate-glow"
+        className="w-12 h-12 bg-social-mess text-white rounded-full shadow-md hover:bg-gray-700 flex items-center justify-center transition duration-300 animate-glow"
         aria-label="Facebook Messenger"
       >
         <SocialMediaIcon.FaFacebookMessenger size={20} />
@@ -34,7 +34,7 @@ const ScrollToTopButton: React.FC = () => {
 
       <a
         href="tel:0912345678"
-        className="w-12 h-12 bg-black text-white rounded-full shadow-md hover:bg-gray-700 flex items-center justify-center transition duration-300 animate-glow"
+        className="w-12 h-12 bg-social-phone text-white rounded-full shadow-md hover:bg-gray-700 flex items-center justify-center transition duration-300 animate-glow"
         aria-label="Gọi ngay"
       >
         <Icons.PhoneCall size={20} />
