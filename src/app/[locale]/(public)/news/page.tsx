@@ -2,22 +2,14 @@
 
 import { Icons, SocialMediaIcon } from '@/assets/icons/icons';
 import { Badge, Container } from '@/components';
-import React, { JSX, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
 import { NewsList } from '@/lib';
-
-type UrlType = 'fb' | 'global' | 'ig' | 'tiktok';
-
-const iconMap: Record<UrlType, JSX.Element> = {
-  fb: <SocialMediaIcon.FaFacebookF />,
-  global: <SocialMediaIcon.TbWorld />,
-  ig: <SocialMediaIcon.FaInstagram />,
-  tiktok: <SocialMediaIcon.FaTiktok />,
-};
-
-const isValidUrlType = (type: string): type is UrlType =>
-  ['fb', 'global', 'ig', 'tiktok'].includes(type);
+import {
+  iconMap,
+  isValidUrlType,
+  UrlType,
+} from '@/components/common/options/news_icons';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
@@ -95,12 +87,9 @@ const Page = () => {
         </h3>
 
         <div className="divide-y divide-gray-200">
-          {accumulatedNews.map((item, index) => (
-            <a href={item.url} target="_blank" rel="noopener noreferrer">
-              <div
-                key={index}
-                className="flex items-center gap-3 py-3 px-4 transition-all duration-200 hover:bg-gray-100 hover:shadow-sm hover:scale-[1.01] cursor-pointer"
-              >
+          {accumulatedNews.map((item) => (
+            <a key={item.id} target="_blank" rel="noopener noreferrer">
+              <div className="flex items-center gap-3 py-3 px-4 transition-all duration-200 hover:bg-gray-100 hover:shadow-sm hover:scale-[1.01] cursor-pointer">
                 <span className="text-gray-600">•</span>
 
                 <span className="cursor-pointer">

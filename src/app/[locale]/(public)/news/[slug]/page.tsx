@@ -2,26 +2,20 @@
 
 import { Icons, SocialMediaIcon } from '@/assets/icons/icons';
 import { Badge, Container } from '@/components';
-import React, { JSX, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { NewsList } from '@/lib';
-
-type UrlType = 'fb' | 'global' | 'ig' | 'tiktok';
-
-const iconMap: Record<UrlType, JSX.Element> = {
-  fb: <SocialMediaIcon.FaFacebookF />,
-  global: <SocialMediaIcon.TbWorld />,
-  ig: <SocialMediaIcon.FaInstagram />,
-  tiktok: <SocialMediaIcon.FaTiktok />,
-};
-
-const isValidUrlType = (type: string): type is UrlType =>
-  ['fb', 'global', 'ig', 'tiktok'].includes(type);
+import {
+  iconMap,
+  isValidUrlType,
+  UrlType,
+} from '@/components/common/options/news_icons';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
   const { slug } = useParams();
+
   const newsSlug = Array.isArray(slug) ? slug[0] : slug || '';
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -29,7 +23,7 @@ const Page = () => {
   const [accumulatedNews, setAccumulatedNews] = useState<any[]>([]);
 
   const params = {
-    category_id: newsSlug,
+    category_slug: newsSlug,
     page_size: 20,
   };
 
@@ -92,9 +86,9 @@ const Page = () => {
         </h3>
 
         <div className="divide-y divide-gray-200">
-          {accumulatedNews.map((item, index) => (
+          {accumulatedNews.map((item) => (
             <a
-              key={index}
+              key={item.id}
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"

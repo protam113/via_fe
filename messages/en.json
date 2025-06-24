@@ -50,14 +50,10 @@
 
   "ContactPage": {
     "title": "Contact Us",
-    "content": "If you have any questions or inquiries, please feel free to contact us using the form below:",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "send": "Send"
-  },
-
-  "ContactForm": {
+    "location": "Location",
+    "address": "24 Street No.1, An Khanh Ward, Thu Duc,Ho Chi Minh City, Vietnam",
+    "contact": "HotLine",
+    "hours": "Open Hours",
     "name": "Name",
     "email": "Email",
     "message": "Message",

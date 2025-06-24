@@ -9,23 +9,20 @@ export default function ViaLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      <Container>
-        <div className="flex flex-col md:flex-row gap-4">
-          {/* Sidebar or Topbar (CategoryCard) */}
-          <div className="order-1 md:order-none w-full md:basis-1/5 md:min-w-[150px] md:max-w-[200px] flex flex-col justify-between">
-            {/* Optional: top content */}
-            <div>{/* Sidebar Top Area */}</div>
-            <div className="ml-8">
-              <CategoryCard />
-            </div>
+    <main className="min-h-screen flex items-start">
+      <Container className="flex flex-col md:flex-row gap-4 w-full">
+        {/* Sidebar */}
+        <aside className="order-1 md:order-none w-full md:basis-1/5 md:min-w-[150px] md:max-w-[200px] flex flex-col justify-end">
+          {/* Optional: top content */}
+          <div className="ml-8">
+            <CategoryCard />
           </div>
+        </aside>
 
-          {/* Main content */}
-          <div className="order-2 md:order-none w-full md:flex-1">
-            {children}
-          </div>
-        </div>
+        {/* Main content */}
+        <section className="order-2 md:order-none w-full md:flex-1">
+          {children}
+        </section>
       </Container>
     </main>
   );

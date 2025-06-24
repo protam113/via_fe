@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { ComponentsIcons } from '@/assets/icons/icons';
 
 export default function ContactForm() {
-  const t = useTranslations('ContactForm');
+  const t = useTranslations('ContactPage');
   const formRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [contactData, setContactData] = useState<CreateContactItem>({
@@ -96,10 +96,8 @@ export default function ContactForm() {
           <div className="flex items-start gap-3">
             <ComponentsIcons.MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
             <div>
-              <p className="font-medium">LOCATION</p>
-              <p className="text-sm text-gray-500">
-                Ho Chi Minh City, VietNam, 90001
-              </p>
+              <p className="font-medium"> {t('location')}</p>
+              <p className="text-sm text-gray-500">{t('address')}</p>
             </div>
           </div>
 
@@ -107,7 +105,7 @@ export default function ContactForm() {
           <div className="flex items-start gap-3">
             <ComponentsIcons.Phone className="h-5 w-5 text-gray-500 mt-0.5" />
             <div>
-              <p className="font-medium">HOTLIE</p>
+              <p className="font-medium"> {t('contact')}</p>
               <p className="text-sm text-gray-500">+84 (969) 121-006</p>
             </div>
           </div>
@@ -127,9 +125,10 @@ export default function ContactForm() {
           <div className="flex items-start gap-3">
             <ComponentsIcons.Clock className="h-5 w-5 text-gray-500 mt-0.5" />
             <div>
-              <p className="font-medium">OPEN HOURS</p>
+              <p className="font-medium">{t('hours')}</p>
               <div className="grid grid-cols-2 text-sm text-gray-500">
                 <p>9:30 AM – 6:30 PM (Tue -Sat)</p>
+                <br />
                 <p>9:30 AM – 5:00 PM(Sun)</p>
               </div>
             </div>

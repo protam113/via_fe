@@ -2,19 +2,14 @@
 
 import ContactForm from '@/components/wrappers/contact.container';
 import { Container } from '@/components';
-import EnhancedHeroBanner from '@/components/wrappers/enhanced-hero-banner';
 import SEO from '@/components/core/SEO';
-import { useTranslations } from 'next-intl';
-import { ComponentsIcons } from '@/assets/icons/icons';
 
 const Page = () => {
-  const t = useTranslations('ContactPage');
-
   return (
     <>
       <SEO
         title="Contact us"
-        description="Hust4L brings cutting-edge web design and development services. Fast, sleek, and built for the future!"
+        description="VIA brings cutting-edge web design and development services. Fast, sleek, and built for the future!"
       />
       <main>
         <Container>

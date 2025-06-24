@@ -1,10 +1,4 @@
 {
-  "HomePage": {
-    "content": "Hello world!",
-    "about": "Giới Thiệu",
-    "contact": "Liên Hệ"
-  },
-
   "AboutPage": {
     "title": "Giới Thiệu VIA (Vietnam International Art Fair)",
     "introduction": {
@@ -54,20 +48,12 @@
     }
   },
 
-  "Footer": {
-    "introduction": "VIA chuyên về kiến ​​trúc hiện đại và phát triển bất động sản tích hợp liền mạch chức năng, thẩm mỹ và tính bền vững. Studio mang đến góc nhìn toàn cầu độc đáo cho mọi dự án. Với cam kết tạo ra những thiết kế vượt thời gian."
-  },
-
   "ContactPage": {
-    "title": "Contact Us",
-    "content": "If you have any questions or inquiries, please feel free to contact us using the form below:",
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "send": "Send"
-  },
-
-  "ContactForm": {
+    "title": "Liên Hệ Chúng Tôi",
+    "location": "Địa Chỉ",
+    "address": "24 Đường số 1, Phường An Khánh, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam",
+    "contact": "Liên Hệ",
+    "hours": "Giờ Làm Việc",
     "name": "Tên",
     "email": "Email",
     "message": "Lời Nhắn",
