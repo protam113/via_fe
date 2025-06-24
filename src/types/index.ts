@@ -13,9 +13,11 @@ export * from './auth/auth.type';
 export * from './contact/contact.type';
 export * from './exhibitions/category.type';
 export * from './seo/seo.type';
+export * from './website/website.type';
 export * from './types.types';
 export * from './news/news.type';
 export * from './news/news_category.type';
+export * from './exhibitions/exhibition.type';
 
 /**
  * ==========================

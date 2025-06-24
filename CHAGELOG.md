@@ -12,6 +12,30 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+## [1.2.0] - 2025-06-24
+
+### Added
+
+- Added News Apis , News Category Apis
+- Added Webiste Apis
+- Added News Pages , News Slug Pages
+- Added Rich text apis
+- Added News, Website apis hooks
+
+### Changed
+
+- Reorganize project layout
+- Update news Structure
+- Update footer with api
+- Update Featured with api
+- Updated news VIA layout
+
+### Fixed
+
+- Fixed Category card in VIA layout
+
+---
+
 ## [1.1.0] - 2025-06-06
 
 ### Added

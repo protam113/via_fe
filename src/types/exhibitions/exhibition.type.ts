@@ -1,3 +1,6 @@
+import { Pagination } from '../base/base.type';
+import { Thumbnail } from '../media/media.type';
+
 export interface Companies {
   name: string;
   url: string;
@@ -22,4 +25,21 @@ export interface ExhibitionData {
   category_id: string;
   companies: Companies[];
   translations: Translations[];
+}
+
+export interface ExhibitionListData {
+  id: string;
+  slug: string;
+  description: string;
+  thumbnail: Thumbnail;
+  start_date: string | Date;
+  end_date: string | Date;
+  status: string;
+  companies: Companies[];
+  translations: [];
+}
+
+export interface FetchExhibitionListResponse {
+  pagination: Pagination;
+  result: ExhibitionListData[];
 }

@@ -36,7 +36,7 @@ const Page = () => {
       />
       <main>
         <div
-          className="space-y-4 max-h-[656px] overflow-y-auto"
+          className="space-y-4 min-h-screen overflow-y-auto"
           style={{
             scrollbarWidth: 'none', // Firefox
             msOverflowStyle: 'none', // IE

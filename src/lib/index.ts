@@ -28,6 +28,9 @@ export * from './responses/newsLib';
 // newCategoryLib.ts
 export * from './responses/newsCategoryLib';
 
+// WebsiteLib.ts
+export * from './responses/websiteLib';
+
 /**
  * ==========================
  *  @ROUTES

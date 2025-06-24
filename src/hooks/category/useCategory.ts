@@ -37,8 +37,6 @@ const fetchCategoriesList = async (
       'GET',
       null
     );
-    logDebug('detail :', response);
-    logDebug('dta :', response.data);
 
     return response.data;
   } catch (error) {

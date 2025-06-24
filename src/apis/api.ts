@@ -98,6 +98,9 @@ const endpoints: Record<string, string | undefined> = {
 
   // === Static ===
   rankStatic: process.env.NEXT_PUBLIC_STATICALS_RANKING,
+
+  // === Via Art Fair ===
+  website: process.env.NEXT_PUBLIC_WEBSITE,
 };
 
 export { baseURL, endpoints };

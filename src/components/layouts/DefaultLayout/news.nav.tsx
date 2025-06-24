@@ -44,7 +44,7 @@ export default function NewsDropdown() {
       {/* Dropdown Menu */}
       <div
         className={`
-          absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-none
+          absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-none shadow-xl
           transition-all duration-300 ease-in-out z-50
           ${
             isHovered

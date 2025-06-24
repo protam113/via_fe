@@ -1,5 +1,6 @@
 import { ComponentsIcons } from '@/assets/icons/icons';
 import { ROUTES } from '@/lib/routes/routes';
+import { ENV } from '../env';
 
 export const Name = {
   // Public Name
@@ -34,6 +35,12 @@ export const navItemsMobile = [
 
 export const navItemsSec = [
   { name: Name.CONTACT, path: ROUTES.CONTACT, routeKey: 'contact' },
+];
+
+export const navItemsFeatured = [
+  { id: ENV.VIA_ART_FAIR_ID, path: ROUTES.VIA_ART_FAIR.ROOT },
+  { id: ENV.VIA_ATELIER_ID, path: ROUTES.VIA_ATELIER.ROOT },
+  { id: ENV.VIA_PRIVE_ID, path: ROUTES.VIA_PRIVE.ROOT },
 ];
 
 export const AdminSidebar = {

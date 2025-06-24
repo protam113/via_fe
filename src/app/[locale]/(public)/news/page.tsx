@@ -68,7 +68,7 @@ const Page = () => {
   if (isError) {
     return (
       <Container>
-        <p className="text-red-600">Oops! Failed to load news.</p>
+        <p className="text-red-main">Oops! Failed to load news.</p>
       </Container>
     );
   }

@@ -19,3 +19,6 @@ export * from './seo/useSeo';
 // NEWS
 export * from './news/useNewsCategory';
 export * from './news/useNews';
+
+// Website
+export * from './website/useWebsite';
