@@ -87,7 +87,6 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({
                         ) : null}
 
                         {col.key === 'title' ? category.title : ''}
-                        {col.key === 'description' ? category.description : ''}
                         {col.key === 'actions' ? (
                           <div className="flex justify-end gap-2">
                             <Button variant="outline" size="icon">

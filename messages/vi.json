@@ -77,6 +77,7 @@
   },
 
   "NewsPage": {
-    "title": "Tin Tức"
+    "title": "Tin Tức",
+    "button": "Tải Thêm"
   }
 }

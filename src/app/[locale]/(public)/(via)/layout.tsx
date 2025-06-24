@@ -11,12 +11,20 @@ export default function ViaLayout({
   return (
     <main>
       <Container>
-        <div className="flex gap-4">
-          <div className="basis-1/8 min-w-[150px] max-w-[200px] flex flex-col justify-between h-[80vh]">
-            <div>{/* Có thể thêm phần trên của sidebar ở đây, nếu cần */}</div>
-            <CategoryCard /> {/* Nằm dưới cùng */}
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Sidebar or Topbar (CategoryCard) */}
+          <div className="order-1 md:order-none w-full md:basis-1/5 md:min-w-[150px] md:max-w-[200px] flex flex-col justify-between">
+            {/* Optional: top content */}
+            <div>{/* Sidebar Top Area */}</div>
+            <div className="ml-8">
+              <CategoryCard />
+            </div>
           </div>
-          <div className="basis-7/8 flex-1">{children}</div>
+
+          {/* Main content */}
+          <div className="order-2 md:order-none w-full md:flex-1">
+            {children}
+          </div>
         </div>
       </Container>
     </main>

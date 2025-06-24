@@ -41,7 +41,6 @@ export default function CategoryManager() {
     params,
     refreshKey
   );
-  console.log(categories);
   const handlePageSizeChange = (value: string) => {
     const newSize = parseInt(value, 10);
     setPageSize(newSize);
@@ -129,26 +128,6 @@ export default function CategoryManager() {
                   </SelectItem>
                   <SelectItem value="50" className="rounded-none">
                     50
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <span className="text-16 font-semibold">Language :</span>
-              <Select onValueChange={handleTypeChange}>
-                <SelectTrigger className="w-[120px] rounded-none ">
-                  <SelectValue placeholder="all" />
-                </SelectTrigger>
-                <SelectContent className="rounded-none">
-                  <SelectItem value="all" className="rounded-none">
-                    All
-                  </SelectItem>
-                  <SelectItem value="en" className="rounded-none">
-                    English
-                  </SelectItem>
-                  <SelectItem value="vi" className="rounded-none">
-                    Vietnamese
                   </SelectItem>
                 </SelectContent>
               </Select>

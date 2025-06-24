@@ -10,6 +10,5 @@ export const CategoryColumns = [
     className: 'font-medium w-40', // 10rem = 160px
   },
   { key: 'title', label: 'Title', className: 'font-medium' },
-  { key: 'description', label: 'Description', className: 'font-medium' },
   { key: 'actions', label: 'Actions', className: 'text-right' },
 ];

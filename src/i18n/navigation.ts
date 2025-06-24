@@ -1,9 +1,9 @@
-// // i18n/navigation.ts
+// i18n/navigation.ts
 
-// import { createNavigation } from 'next-intl/navigation';
-// import { routing } from './routing';
+import { createNavigation } from 'next-intl/navigation';
+import { routing } from './routing';
 
-// // Lightweight wrappers around Next.js' navigation
-// // APIs that consider the routing configuration
-// export const { Link, redirect, usePathname, useRouter, getPathname } =
-//   createNavigation(routing);
+// Lightweight wrappers around Next.js' navigation
+// APIs that consider the routing configuration
+export const { Link, redirect, usePathname, useRouter, getPathname } =
+  createNavigation(routing);

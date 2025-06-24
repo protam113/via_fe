@@ -14,6 +14,8 @@ export * from './contact/contact.type';
 export * from './exhibitions/category.type';
 export * from './seo/seo.type';
 export * from './types.types';
+export * from './news/news.type';
+export * from './news/news_category.type';
 
 /**
  * ==========================
@@ -24,6 +26,8 @@ export * from './types.types';
  */
 export * from './contact/contact.colum';
 export * from './exhibitions/category.colum';
+export * from './news/news_category.colum';
+export * from './news/news.colum';
 
 /**
  * ==========================
@@ -39,3 +43,5 @@ export * from './contact/contact.prop';
 export * from './media/media.prop';
 export * from './base/base.prop';
 export * from './seo/seo.prop';
+export * from './news/news_category.prob';
+export * from './news/news.prob';

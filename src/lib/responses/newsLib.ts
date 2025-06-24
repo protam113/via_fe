@@ -1,13 +1,13 @@
-import { useCategoryList } from '@/hooks';
+import { useNewsList } from '@/hooks';
 import { Filters } from '@/types';
 
-// CategoryList.ts
-export const CategoryList = (
+// NewsList.ts
+export const NewsList = (
   currentPage: number,
   filters: Filters,
   refreshKey: number
 ) => {
-  const { data, isLoading, isError } = useCategoryList(
+  const { data, isLoading, isError } = useNewsList(
     currentPage,
     filters,
     refreshKey
@@ -18,10 +18,10 @@ export const CategoryList = (
 
   // Tính toán nextPage
 
-  const categories = data?.result ?? [];
+  const news = data?.result ?? [];
 
   return {
-    categories,
+    news,
     isLoading,
     isError,
     pagination,

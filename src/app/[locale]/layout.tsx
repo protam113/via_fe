@@ -10,6 +10,7 @@ import {
 } from '@/constants';
 import '../../assets/styles/globals.css';
 import CheckLocale from '@/components/core/CheckLocale';
+import LocaleGate from '@/components/core/LocaleGate';
 
 const tektur = Tektur({
   subsets: ['latin'],
@@ -37,7 +38,7 @@ export default async function LocaleLayout({
           <div className={`${tektur.className} font-serif`}>
             <NextIntlClientProvider locale={locale}>
               <ReactQueryProvider>
-                {children}
+                <LocaleGate>{children}</LocaleGate>
                 <Toaster position="top-right" richColors />
               </ReactQueryProvider>
             </NextIntlClientProvider>

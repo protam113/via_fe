@@ -18,6 +18,7 @@ export const Name = {
   ADMIN_VIA_ART_FAIR: 'Via Art Fair',
   ADMIN_VIA_ATELIER: 'Via Atelier',
   ADMIN_VIA_PRIVE: "Via Prive'",
+  ADMIN_NEWS: 'News',
 };
 
 export const navItems = [
@@ -52,6 +53,13 @@ export const AdminSidebar = {
     {
       title: Name.ADMIN_SEO,
       url: ROUTES.ADMIN_SEO,
+      icon: ComponentsIcons.Search,
+    },
+  ],
+  navNews: [
+    {
+      title: Name.ADMIN_NEWS,
+      url: ROUTES.ADMIN_NEWS,
       icon: ComponentsIcons.Search,
     },
   ],

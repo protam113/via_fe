@@ -22,6 +22,12 @@ export * from './responses/userLib';
 // seoLib.ts
 export * from './responses/seoLib';
 
+// newLib.ts
+export * from './responses/newsLib';
+
+// newCategoryLib.ts
+export * from './responses/newsCategoryLib';
+
 /**
  * ==========================
  *  @ROUTES

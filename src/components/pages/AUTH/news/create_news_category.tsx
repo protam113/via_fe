@@ -1,0 +1,126 @@
+'use client';
+
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+} from '@/components';
+import { Loader2 } from 'lucide-react';
+import { Icons } from '@/assets/icons/icons';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useCreateNewsCategory } from '@/hooks';
+import { CreateNewsCategoryData } from '@/types';
+
+const formSchema = z.object({
+  title: z.string().min(1, 'title is required'),
+});
+
+interface CreateNewsCategoryDialogProps {
+  open: boolean;
+  setOpen: (val: boolean) => void;
+  onSuccess?: () => void;
+}
+
+export default function CreateNewsCategoryDialog({
+  open,
+  setOpen,
+  onSuccess,
+}: CreateNewsCategoryDialogProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: '',
+    },
+  });
+
+  const { mutate: createNewsCategory } = useCreateNewsCategory();
+
+  const handleCreateCategory = (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+
+    const categoryData: CreateNewsCategoryData = {
+      title: values.title,
+    };
+
+    createNewsCategory(categoryData, {
+      onSuccess: () => {
+        onSuccess?.();
+        setOpen(false);
+        form.reset();
+      },
+      onError: (error: any) => {
+        form.setError('root', {
+          type: 'manual',
+          message:
+            error.message ||
+            'Failed to create news category. Please try again.',
+        });
+        setIsSubmitting(false);
+      },
+    });
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button className="rounded-none">
+          <Icons.Plus className="mr-2 h-4 w-4" />
+          Create New Category
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px] rounded-none bg-white">
+        <DialogHeader>
+          <DialogTitle>Create New Category</DialogTitle>
+          <DialogDescription>
+            Fill in the details for the new category.
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleCreateCategory)}>
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter news category title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <DialogFooter>
+              <div className="flex mt-6 gap-4">
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting && (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  {isSubmitting ? 'Creating...' : 'Create New'}
+                </Button>
+              </div>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}

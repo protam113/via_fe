@@ -67,6 +67,7 @@
   },
 
   "NewsPage": {
-    "title": "News"
+    "title": "News",
+    "button": "Load More"
   }
 }

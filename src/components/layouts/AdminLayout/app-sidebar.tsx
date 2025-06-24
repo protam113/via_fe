@@ -17,6 +17,7 @@ import { NavSupport } from './nav-support';
 import { NavAdmin } from './nav-admin';
 import { useAuthStore } from '@/store/auth/store.auth';
 import { AdminSidebar } from '@/lib/routes/navigation.routes';
+import { NavNews } from './nav-news';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const userInfo = useAuthStore((state) => state.userInfo);
@@ -32,6 +33,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {userInfo?.role.slug === 'admin' && (
           <NavAdmin items={AdminSidebar.navAdmin} />
         )}
+        <SidebarSeparator />
+        <NavNews items={AdminSidebar.navNews} />
         <SidebarSeparator />
         <NavService items={AdminSidebar.navService} />
         <SidebarSeparator />

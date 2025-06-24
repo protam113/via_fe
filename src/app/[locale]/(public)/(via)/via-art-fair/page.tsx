@@ -1,9 +1,31 @@
 'use client';
 
 import { Container } from '@/components';
+import ViaCard from '@/components/common/cards/via-card';
 import SEO from '@/components/core/SEO';
-import ViaA from '@/components/pages/via-atelier/via-atelier.detail';
-import Image from 'next/image';
+
+const viaCardData = [
+  {
+    id: 1,
+    image: '/img/hero1.png?height=320&width=600',
+    alt: 'Atelier 2026 Main Banner',
+  },
+  {
+    id: 2,
+    image: '/img/hero2.png?height=320&width=600',
+    alt: 'Summer Project 2025',
+  },
+  {
+    id: 3,
+    image: '/img/hero3.png?height=320&width=600',
+    alt: 'Winter Vibes',
+  },
+  {
+    id: 4,
+    image: '/img/hero4.png?height=320&width=600',
+    alt: 'Next Level Studio',
+  },
+];
 
 const Page = () => {
   return (
@@ -12,30 +34,25 @@ const Page = () => {
         title="VIA Atelier"
         description="VIA brings cutting-edge web design and development services. Fast, sleek, and built for the future!"
       />
-      <Container>
-        {/* Right Main Banner */}
-        <div className="flex-1">
-          <div className="group relative h-80 rounded-lg overflow-hidden cursor-pointer">
-            {/* Main Image */}
-            <Image
-              src="/img/hero1.png?height=320&width=600"
-              alt="Atelier 2026 Main Banner"
-              width={600}
-              height={320}
-              className="w-full h-full object-cover"
-            />
+      <main>
+        <div
+          className="space-y-4 max-h-[656px] overflow-y-auto"
+          style={{
+            scrollbarWidth: 'none', // Firefox
+            msOverflowStyle: 'none', // IE
+          }}
+        >
+          <style jsx>{`
+            div::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
 
-            {/* Hover Overlay */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <div className="text-center">
-                <button className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors duration-200">
-                  Learn more
-                </button>
-              </div>
-            </div>
-          </div>
+          {viaCardData.map((item) => (
+            <ViaCard key={item.id} image={item.image} alt={item.alt} />
+          ))}
         </div>
-      </Container>
+      </main>
     </>
   );
 };

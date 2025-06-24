@@ -39,6 +39,8 @@ type RouteMap = {
   readonly ADMIN_CATEGORY: string;
   readonly ADMIN_CONTACT: string;
   readonly ADMIN_SEO: string;
+  readonly ADMIN_NEWS: string;
+
   readonly ADMIN_USERS: {
     readonly ROOT: string;
     readonly CREATE_USER: string;
@@ -91,6 +93,8 @@ export const ROUTES: Readonly<RouteMap> = deepFreeze({
   ADMIN_CATEGORY: '/admin/category',
   ADMIN_CONTACT: '/admin/contacts',
   ADMIN_SEO: '/admin/seo',
+  ADMIN_NEWS: '/admin/news',
+
   ADMIN_USERS: {
     ROOT: '/admin/users',
     CREATE_USER: '/admin/users/create_manager',

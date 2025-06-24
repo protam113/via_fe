@@ -76,6 +76,16 @@ const endpoints: Record<string, string | undefined> = {
   presign: process.env.NEXT_PUBLIC_PRESIGN,
   submit: process.env.NEXT_PUBLIC_SUBMIT,
 
+  // === News Category ===
+  news_categories: process.env.NEXT_PUBLIC_NEWS_CATEGORIES,
+  news_category: process.env.NEXT_PUBLIC_NEWS_CATEGORY,
+  news_category_bulk: process.env.NEXT_PUBLIC_NEWS_CATEGORY_BULK,
+
+  // === News ===
+  news_list: process.env.NEXT_PUBLIC_NEWS_LIST,
+  news: process.env.NEXT_PUBLIC_NEWS,
+  news_bulk: process.env.NEXT_PUBLIC_NEWS_BULK,
+
   // === Exhibition ===
   exhibitions: process.env.NEXT_PUBLIC_EXHIBITIONS,
   exhibition: process.env.NEXT_PUBLIC_EXHIBITION,

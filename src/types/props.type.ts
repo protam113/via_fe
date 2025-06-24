@@ -86,3 +86,7 @@ export interface ContainerProps {
   children: ReactNode;
   className?: string;
 }
+
+export interface CategoryCardProps {
+  onCategorySelect?: (categoryId: string | null) => void;
+}

@@ -1,15 +1,34 @@
 import type { Metadata, Viewport } from 'next';
 
 export const appInfo = {
-  logo: '/logo.svg', //web logo
-  title: 'VIA', //app name
-  description: 'app description', //app description
-  domain: 'app domain', //app domain
-  ogImage: '/logo.svg', //og image
+  // Đường dẫn tới logo chính của app (hiển thị favicon, sharing, PWA...)
+  logo: '/logo.svg',
+
+  // Tiêu đề của ứng dụng, nên ngắn gọn và chứa từ khóa chính thương hiệu
+  title: 'VIA',
+
+  // Mô tả ngắn gọn về ứng dụng, nên chứa keyword SEO chính. Dưới 160 ký tự để hiển thị đẹp trên Google.
+  description: 'app description',
+
+  // Domain chính thức của web app, dùng cho canonical URL, meta tag...
+  domain: 'app domain',
+
+  // Ảnh mặc định khi share link lên mạng xã hội (Open Graph image)
+  ogImage: '/logo.svg',
+
+  // Màu chủ đạo cho trình duyệt, ảnh hưởng đến màu status bar trên mobile (PWA)
   themeColor: '#ffffff',
+
+  // Danh sách keyword giúp tăng độ phủ SEO. Ưu tiên viết đúng chính tả, có cả phiên bản viết hoa - viết thường - dấu/không dấu nếu cần.
   keywords: [
-    'keywords', //keywords
-    // ...
+    'VietNam International Art Fair',
+    'VIA',
+    'VIA ART FAIR',
+    'VIA PRIVE',
+    'VIA ATELIER',
+    'Exhibitions',
+    'VietName',
+    'VietNamese',
   ],
 };
 
@@ -48,8 +67,8 @@ export const metadata: Metadata = {
     title: appInfo.title,
     description: appInfo.description,
     images: [`${appInfo.domain}${appInfo.ogImage}`],
-    creator: '@ugc_creator',
-    site: '@ugc_creator',
+    creator: '@via',
+    site: '@via',
   },
 
   alternates: {
@@ -76,12 +95,11 @@ export const metadata: Metadata = {
     yandex: 'verification_token',
   },
 
-  category: 'Marketing Agency',
-  creator: '@ugc_creator',
-  publisher: 'UGC Creator',
+  category: 'VietNam International Art Fair',
+  creator: '@via',
+  publisher: 'VIA',
 };
 
-// Move themeColor to viewport export
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -90,7 +108,6 @@ export const viewport: Viewport = {
   themeColor: appInfo.themeColor,
 };
 
-// Function to generate metadata for child pages
 export function PageMetadata(
   pageTitle: string,
   pageDescription?: string

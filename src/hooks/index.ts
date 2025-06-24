@@ -15,3 +15,7 @@ export * from './media/useMedia';
 
 // SEO
 export * from './seo/useSeo';
+
+// NEWS
+export * from './news/useNewsCategory';
+export * from './news/useNews';
