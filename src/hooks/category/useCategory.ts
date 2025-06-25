@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { endpoints, handleAPI } from '@/apis';
 import { FetchCategoryListResponse, Filters } from '@/types';
-import { toast } from 'sonner';
-import { logDebug } from '@/utils';
+
+import { CategoryError } from '@/constants';
 
 /**
- * ==========================s
+ * ==========================
  * 📌 @HOOK useCategoryList
  * ==========================
  *
@@ -40,7 +40,7 @@ const fetchCategoriesList = async (
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching categories list:', error);
+    console.error(CategoryError.ERROR_FETCHING_CATEGORY_LIST, error);
     throw error;
   }
 };

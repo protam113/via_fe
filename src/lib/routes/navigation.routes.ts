@@ -10,8 +10,9 @@ export const Name = {
   VIA_PRIVE: "Via Prive'",
   CONTACT: 'Contact US',
 
-  // Privar Name
+  // Private Name
   ADMIN_CONTACT: 'Contacts',
+  ADMIN_WEBSITE: 'Website',
   ADMIN_SEO: 'SEO',
   ADMIN_CATEGORY: 'Categories',
   ADMIN: 'Dashboard',
@@ -60,6 +61,11 @@ export const AdminSidebar = {
     {
       title: Name.ADMIN_SEO,
       url: ROUTES.ADMIN_SEO,
+      icon: ComponentsIcons.Search,
+    },
+    {
+      title: Name.ADMIN_WEBSITE,
+      url: ROUTES.ADMIN_WEBSITE,
       icon: ComponentsIcons.Search,
     },
   ],

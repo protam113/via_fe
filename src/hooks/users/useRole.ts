@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { FetchRoleListResponse, RoleDetail, Filters } from '@/types';
 import { endpoints, handleAPI } from '@/apis';
+import { RoleError } from '@/constants';
 
 /**
  * ==========================
- * 📌 @HOOK useEmployeeList
+ * 📌 @HOOK useRoleList
  * ==========================
  *
- * @desc Custom hook to get list of employee
- * @returns {Employee} List of employee
+ * @desc Custom hook to get list of roles
+ * @returns {Role[]} List of roles
  */
 
 const fetchRoleList = async (
@@ -22,7 +23,6 @@ const fetchRoleList = async (
       )
     );
 
-    // Tạo query string từ filters
     const queryString = new URLSearchParams({
       page: pageParam.toString(),
       ...validFilters,
@@ -35,7 +35,7 @@ const fetchRoleList = async (
     );
     return response.data;
   } catch (error) {
-    console.error('Error fetching user list:', error);
+    console.error(RoleError.ERROR_FETCHING_ROLE_LIST, error);
     throw error;
   }
 };
@@ -55,15 +55,12 @@ const useRoleList = (
 
 const fetchRoleDetail = async (slug: string): Promise<RoleDetail> => {
   try {
-    // Check if slug is valid
     if (!slug) {
-      throw new Error('Slug is required');
+      throw new Error(RoleError.SLUG_REQUIRED);
     }
-    // Check if endpoint is valid
     if (!endpoints.role) {
       throw null;
     }
-    // Call API
     const response = await handleAPI(
       `${endpoints.role.replace(':slug', slug)}`,
       'GET',
@@ -71,7 +68,7 @@ const fetchRoleDetail = async (slug: string): Promise<RoleDetail> => {
     );
     return response;
   } catch (error) {
-    console.error('Error fetching role detail:', error);
+    console.error(RoleError.ERROR_FETCHING_ROLE_DETAIL, error);
     throw error;
   }
 };

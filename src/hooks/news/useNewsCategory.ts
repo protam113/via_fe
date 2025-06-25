@@ -5,10 +5,11 @@ import {
   Filters,
   FetchNewsCategoryListResponse,
   CreateNewsCategoryData,
+  DeleteNewsCategoryData,
 } from '@/types';
 import { handleAPI, endpoints } from '@/apis';
 import { toast } from 'sonner';
-import { logDebug } from '@/utils/logger';
+import { NewsCategoryError, NewsCategorySuccess } from '@/constants';
 
 /**
  * ==========================s
@@ -46,7 +47,7 @@ const fetchNewsCategoriesList = async (
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching news categories list:', error);
+    console.error(NewsCategoryError.ERROR_FETCHING_CATEGORY_LIST, error);
     throw error;
   }
 };
@@ -75,7 +76,6 @@ const useNewsCategoryList = (
  * ==========================
  * 📌 @HOOK useCreateCategory
  * ==========================
-Create role
  **/
 
 const CreateCategory = async (newNewsCategory: CreateNewsCategoryData) => {
@@ -101,9 +101,9 @@ const CreateCategory = async (newNewsCategory: CreateNewsCategoryData) => {
     );
     return response.data;
   } catch (error: any) {
-    console.error('Error creating news category:', error.response?.data);
+    console.error(NewsCategoryError.ERROR_CREATING_CATEGORY, error);
     throw new Error(
-      error.response?.data?.message || 'Failed to create news category'
+      error.response?.data?.message || NewsCategoryError.ERROR_CREATING_CATEGORY
     );
   }
 };
@@ -116,11 +116,11 @@ const useCreateNewsCategory = () => {
       return CreateCategory(newNewsCategory);
     },
     onSuccess: () => {
-      toast.success('News Category created successfully!');
+      toast.success(NewsCategorySuccess.CREATED_NEWS_CATEGORY);
       queryClient.invalidateQueries({ queryKey: ['newsCategoryList'] });
     },
     onError: (error: any) => {
-      console.error(error.message || 'Failed to create  category.');
+      console.error(error.message || NewsCategoryError.ERROR_CREATING_CATEGORY);
     },
   });
 };
@@ -129,34 +129,18 @@ const EditNewsCategory = async (
   updateNewsCategory: CreateNewsCategoryData,
   postId: string
 ) => {
-  const formData = new FormData();
-
-  for (const key in updateNewsCategory) {
-    if (Object.prototype.hasOwnProperty.call(updateNewsCategory, key)) {
-      const value = updateNewsCategory[key as keyof CreateNewsCategoryData];
-
-      if (Array.isArray(value)) {
-        // If the value is an array, append each element
-        value.forEach((v) => formData.append(key, v));
-      } else if (typeof value === 'string') {
-        // If the value is a string, append to FormData
-        formData.append(key, value);
-      }
-    }
-  }
-
   try {
-    if (!endpoints.categoryStatus) {
+    if (!endpoints.news_category) {
       throw null;
     }
 
-    const url = endpoints.categoryStatus.replace(':id', postId);
+    const url = endpoints.news_category.replace(':id', postId);
 
-    const response = await handleAPI(url, 'PATCH', formData);
+    const response = await handleAPI(url, 'PATCH', updateNewsCategory);
     return response.data;
   } catch (error: any) {
     throw new Error(
-      error.response?.data?.message || 'Failed to update service'
+      error.response?.data?.message || NewsCategoryError.ERROR_UPDATING_CATEGORY
     );
   }
 };
@@ -175,7 +159,7 @@ const useUpdateNewsCategory = () => {
       return EditNewsCategory(updateNewsCategory, postId);
     },
     onSuccess: () => {
-      toast.success('Update news category successfully!');
+      toast.success(NewsCategorySuccess.UPDATED_NEWS_CATEGORY);
       queryClient.invalidateQueries({ queryKey: ['newsCategoryList'] });
     },
   });
@@ -185,40 +169,35 @@ const useUpdateNewsCategory = () => {
  * ========== END OF @HOOK useCreateCategory ==========
  */
 
-const DeleteCategory = async (categoryId: string) => {
+const DeleteNewsCategory = async (categoryIds: DeleteNewsCategoryData) => {
   try {
-    if (!endpoints.categoryEdit) {
-      throw new Error('Contact endpoint is not defined.');
-    }
-
     const response = await handleAPI(
-      `${endpoints.categoryEdit.replace(':id', categoryId)}`,
-      'DELETE'
+      `${endpoints.news_category_bulk}`,
+      'DELETE',
+      categoryIds
     );
     return response.data;
   } catch (error: any) {
-    console.error(
-      'Error deleting Category:',
-      error?.response?.data || error.message
-    );
     throw new Error(
-      error?.response?.data?.message || 'Failed to delete Category'
+      error?.response?.data?.message ||
+        NewsCategoryError.FAILED_DELETE_NEWS_CATEGORY
     );
   }
 };
 
-const useDeleteCategory = () => {
+const useDeleteNewsCategory = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: DeleteCategory, // Directly pass the function
+    mutationFn: DeleteNewsCategory, // Directly pass the function
     onSuccess: () => {
-      toast.success('Delete Category Success!');
+      toast.success(NewsCategorySuccess.DELETED_NEWS_CATEGORY);
       queryClient.invalidateQueries({ queryKey: ['newsCategoryList'] });
     },
     onError: (error: any) => {
-      console.error(error.message || 'Failed to delete Category.');
-      toast.error(error.message || 'Failed to delete Category.');
+      toast.error(
+        error.message || NewsCategoryError.FAILED_DELETE_NEWS_CATEGORY
+      );
     },
   });
 };
@@ -226,6 +205,6 @@ const useDeleteCategory = () => {
 export {
   useNewsCategoryList,
   useCreateNewsCategory,
-  useDeleteCategory,
+  useDeleteNewsCategory,
   useUpdateNewsCategory,
 };

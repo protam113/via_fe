@@ -6,7 +6,7 @@ import type { Pagination } from '@/types';
  * ==========================
  */
 
-interface ContactList {
+export interface ContactList {
   id: string;
   name: string;
   email: string;
@@ -28,4 +28,9 @@ export interface CreateContactItem {
   message: string;
   location: string;
   exhibition_id?: string;
+}
+
+export interface ApprovedContact {
+  status: string;
+  ids: string[];
 }

@@ -29,6 +29,8 @@ export * from './ui/input';
 export * from './ui/form';
 export * from './ui/dropdown-menu';
 export * from './ui/drawer';
+export * from './ui/checkbox';
+export * from './ui/alert-dialog';
 
 /**
  * ==========================

@@ -26,3 +26,7 @@ export interface FetchNewsCategoryListResponse {
 export interface CreateNewsCategoryData {
   title: string;
 }
+
+export interface DeleteNewsCategoryData {
+  ids: string[];
+}

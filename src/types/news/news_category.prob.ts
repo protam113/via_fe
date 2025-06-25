@@ -10,5 +10,17 @@ export interface NewsCategoryTableProps {
   news: NewsCategoryList[];
   isLoading: boolean;
   isError: boolean;
-  onDelete: (id: string) => void;
+}
+
+export interface CreateNewsCategoryDialogProps {
+  open: boolean;
+  setOpen: (val: boolean) => void;
+  onSuccess?: () => void;
+}
+
+export interface UpdateNewsCategoryDialogProps {
+  news_category: NewsCategoryList;
+  open: boolean;
+  setOpen: (val: boolean) => void;
+  onSuccess?: () => void;
 }

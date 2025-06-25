@@ -1,10 +1,5 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import {
   Button,
   Dialog,
@@ -26,44 +21,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components';
-
 import { Loader2 } from 'lucide-react';
-import { useCreateNews } from '@/hooks';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useUpdateNews } from '@/hooks';
+import { UpdateNewsData, UpdateNewsDialogProps } from '@/types';
+import { NewsCategoryError } from '@/constants';
+import { updateNewsFormSchema } from '@/utils';
 import { NewsCategoryList } from '@/lib';
-import { newsFormSchema } from '@/utils';
-import { NewsError } from '@/constants';
-import { CreateNewsCategoryDialogProps, CreateNewsData } from '@/types';
 
-export default function CreateNewsDialog({
+export default function UpdateNewsDialog({
+  news,
   open,
   setOpen,
   onSuccess,
-}: CreateNewsCategoryDialogProps) {
+}: UpdateNewsDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const { newsCategories, isLoading, isError } = NewsCategoryList(
     1,
     { limit: 20 },
     0
   );
-
-  const form = useForm<z.infer<typeof newsFormSchema>>({
-    resolver: zodResolver(newsFormSchema),
+  const form = useForm<z.infer<typeof updateNewsFormSchema>>({
+    resolver: zodResolver(updateNewsFormSchema),
     defaultValues: {
-      title: '',
-      url: '',
-      url_type: '',
-      type: '',
-      category_id: '',
+      title: news.title || '',
+      url: news.url || '',
+      url_type: news.url_type || '',
+      type: news.type || '',
+      category_id: news.category.id || '',
     },
   });
+  const isDirty = form.formState.isDirty;
 
-  const { mutate: createNews } = useCreateNews();
+  useEffect(() => {
+    if (news) {
+      form.reset({
+        title: news.title || '',
+        url: news.url || '',
+        url_type: news.url_type || '',
+        type: news.type || '',
+        category_id: news.category.id || '',
+      });
+    }
+  }, [news, form]);
 
-  const handleCreateCategory = (values: z.infer<typeof newsFormSchema>) => {
+  const { mutate: updateNews } = useUpdateNews();
+
+  const handleUpdateNews = (values: z.infer<typeof updateNewsFormSchema>) => {
     setIsSubmitting(true);
 
-    const newsData: CreateNewsData = {
+    const newsData: UpdateNewsData = {
       title: values.title,
       url: values.url,
       url_type: values.url_type,
@@ -71,41 +81,37 @@ export default function CreateNewsDialog({
       category_id: values.category_id,
     };
 
-    createNews(newsData, {
-      onSuccess: () => {
-        onSuccess?.();
-        setOpen(false);
-        form.reset();
-      },
-      onError: (error: any) => {
-        form.setError('root', {
-          type: 'manual',
-          message: error.message || NewsError.FAILED_CREATE_NEWS_FORM,
-        });
-        setIsSubmitting(false);
-      },
-    });
+    updateNews(
+      { updateNews: newsData, postId: news.id },
+      {
+        onSuccess: () => {
+          onSuccess?.();
+          setOpen(false);
+          form.reset();
+        },
+        onError: (error: any) => {
+          form.setError('root', {
+            type: 'manual',
+            message:
+              error.message || NewsCategoryError.FAILED_UPDATE_NEWS_CATEGORY,
+          });
+          setIsSubmitting(false);
+        },
+      }
+    );
   };
-
-  useEffect(() => {
-    if (!open) {
-      form.reset();
-      form.clearErrors();
-      setIsSubmitting(false);
-    }
-  }, [open]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px] rounded-none bg-white">
         <DialogHeader>
-          <DialogTitle>Create New Category</DialogTitle>
+          <DialogTitle>Update News Category</DialogTitle>
           <DialogDescription>
-            Fill in the details for the new category.
+            Fill in the details for the news category.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleCreateCategory)}>
+          <form onSubmit={form.handleSubmit(handleUpdateNews)}>
             <FormField
               control={form.control}
               name="title"
@@ -124,7 +130,7 @@ export default function CreateNewsDialog({
               name="url"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL</FormLabel>
+                  <FormLabel>URL </FormLabel>
                   <FormControl>
                     <Input placeholder="Enter URL" {...field} />
                   </FormControl>
@@ -141,7 +147,7 @@ export default function CreateNewsDialog({
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select URL type" />
+                        <SelectValue placeholder="Select url type" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -185,11 +191,11 @@ export default function CreateNewsDialog({
                   <Select
                     value={field.value}
                     onValueChange={field.onChange}
-                    disabled={isLoading || isError}
+                    disabled={isLoading || isError} // disable khi loading hoặc lỗi
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
+                        <SelectValue placeholder="Select category type" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -214,14 +220,13 @@ export default function CreateNewsDialog({
                 </FormItem>
               )}
             />
-
             <DialogFooter>
               <div className="flex mt-6 gap-4">
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  {isSubmitting ? 'Creating...' : 'Create News'}
+                  {isSubmitting ? 'Updating...' : 'Update News'}
                 </Button>
               </div>
             </DialogFooter>

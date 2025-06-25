@@ -7,17 +7,26 @@ import { CreateContactItem } from '@/types';
 import { useCreateContact } from '@/hooks';
 import { useTranslations } from 'next-intl';
 import { ComponentsIcons } from '@/assets/icons/icons';
+import { contactSentFormSchema } from '@/utils';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ContactError } from '@/constants';
 
 export default function ContactForm() {
   const t = useTranslations('ContactPage');
   const formRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [contactData, setContactData] = useState<CreateContactItem>({
-    name: '',
-    email: '',
-    phone_number: '',
-    message: '',
-    location: '',
+
+  const form = useForm<z.infer<typeof contactSentFormSchema>>({
+    resolver: zodResolver(contactSentFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone_number: '',
+      message: '',
+      location: '',
+    },
   });
 
   const [selectedCountry, setSelectedCountry] = useState<{
@@ -28,62 +37,39 @@ export default function ContactForm() {
 
   const { mutate: createContact } = useCreateContact();
 
-  const handleSentContact = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSentContact = (values: z.infer<typeof contactSentFormSchema>) => {
     setIsLoading(true);
 
-    try {
-      if (contactData.name.trim() === '') {
-        alert('Name is required');
+    const contactData: CreateContactItem = {
+      name: values.name,
+      email: values.email,
+      phone_number: values.phone_number,
+      message: values.message,
+      location: values.location,
+    };
+
+    createContact(contactData, {
+      onSuccess: () => {
+        form.reset({
+          name: '',
+          email: '',
+          phone_number: '',
+          message: '',
+          location: '',
+        });
+        setSelectedCountry(null);
         setIsLoading(false);
-        return;
-      }
 
-      if (contactData.email.trim() === '') {
-        alert('Email is required');
+        form.clearErrors();
+      },
+      onError: (error: any) => {
+        form.setError('root', {
+          type: 'manual',
+          message: error.message || ContactError.FAILED_SENT_CONTACT,
+        });
         setIsLoading(false);
-        return;
-      }
-
-      // Kiểm tra selectedCountry thay vì contactData.location
-      if (!selectedCountry) {
-        alert('Please select a country');
-        setIsLoading(false);
-        return;
-      }
-
-      if (contactData.message.trim() === '') {
-        alert('Message is required');
-        setIsLoading(false);
-        return;
-      }
-
-      // Đảm bảo location được set từ selectedCountry
-      const productDataToSend: CreateContactItem = {
-        ...contactData,
-        location: selectedCountry.name, // Lấy từ selectedCountry
-      };
-
-      createContact(productDataToSend);
-
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Reset form
-      setContactData({
-        name: '',
-        email: '',
-        phone_number: '',
-        message: '',
-        location: '',
-      });
-      setSelectedCountry(null);
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Có lỗi xảy ra khi gửi form');
-    } finally {
-      setIsLoading(false);
-    }
+      },
+    });
   };
 
   return (
@@ -138,7 +124,10 @@ export default function ContactForm() {
 
       {/* Right side - Contact Form */}
       <div className="space-y-6">
-        <form className="space-y-4" onSubmit={handleSentContact}>
+        <form
+          className="space-y-4"
+          onSubmit={form.handleSubmit(handleSentContact)}
+        >
           <div className="space-y-2">
             <label htmlFor="name" className="text-sm font-medium">
               {t('name')}
@@ -146,10 +135,7 @@ export default function ContactForm() {
             <Input
               id="name"
               placeholder="Enter your name"
-              value={contactData.name}
-              onChange={(e) =>
-                setContactData((prev) => ({ ...prev, name: e.target.value }))
-              }
+              {...form.register('name')}
             />
           </div>
 
@@ -162,10 +148,7 @@ export default function ContactForm() {
                 selectedCountryId={selectedCountry?.id || null}
                 onChange={(country) => {
                   setSelectedCountry(country);
-                  setContactData((prev) => ({
-                    ...prev,
-                    location: country ? country.name : '',
-                  }));
+                  form.setValue('location', country?.name || '');
                 }}
               />
             </div>
@@ -178,13 +161,7 @@ export default function ContactForm() {
                 id="phone"
                 type="tel"
                 placeholder="Enter your phone number"
-                value={contactData.phone_number}
-                onChange={(e) =>
-                  setContactData((prev) => ({
-                    ...prev,
-                    phone_number: e.target.value,
-                  }))
-                }
+                {...form.register('phone_number')}
               />
             </div>
           </div>
@@ -197,10 +174,7 @@ export default function ContactForm() {
               id="email"
               type="email"
               placeholder="example@mail.com"
-              value={contactData.email}
-              onChange={(e) =>
-                setContactData((prev) => ({ ...prev, email: e.target.value }))
-              }
+              {...form.register('email')}
             />
           </div>
 
@@ -211,10 +185,7 @@ export default function ContactForm() {
             <Textarea
               id="message"
               placeholder="Type your message here"
-              value={contactData.message}
-              onChange={(e) =>
-                setContactData((prev) => ({ ...prev, message: e.target.value }))
-              }
+              {...form.register('message')}
             />
           </div>
 

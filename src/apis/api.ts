@@ -84,7 +84,6 @@ const endpoints: Record<string, string | undefined> = {
   // === News ===
   news_list: process.env.NEXT_PUBLIC_NEWS_LIST,
   news: process.env.NEXT_PUBLIC_NEWS,
-  news_bulk: process.env.NEXT_PUBLIC_NEWS_BULK,
 
   // === Exhibition ===
   exhibitions: process.env.NEXT_PUBLIC_EXHIBITIONS,

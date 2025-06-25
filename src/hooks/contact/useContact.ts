@@ -1,8 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endpoints, handleAPI } from '@/apis';
-import { FetchContactListResponse, CreateContactItem, Filters } from '@/types';
+import {
+  FetchContactListResponse,
+  CreateContactItem,
+  Filters,
+  ApprovedContact,
+} from '@/types';
 import { toast } from 'sonner';
-import { logDebug } from '@/utils';
+import { ContactError, ContactSuccess } from '@/constants';
 
 /**
  * ==========================
@@ -11,7 +16,6 @@ import { logDebug } from '@/utils';
  *
  * @desc Custom hook to get list of contacts.
  * @returns {Contacts[]} List of contacts.
-/
  */
 
 const fetchContactList = async (
@@ -38,11 +42,10 @@ const fetchContactList = async (
       'GET',
       null
     );
-    logDebug(handleAPI);
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching categories list:', error);
+    console.error(ContactError.ERROR_FETCHING_CONTACT_LIST, error);
     throw error;
   }
 };
@@ -82,10 +85,8 @@ const CreateContact = async (newContact: CreateContactItem) => {
     );
     return response.data;
   } catch (error: any) {
-    console.error('Error creating contact:', error.response?.data);
-    logDebug('🐞 Data:', error.response?.data);
     throw new Error(
-      error.response?.data?.message || 'Failed to create contact'
+      error.response?.data?.message || ContactError.FAILED_CREATE_CONTACT
     );
   }
 };
@@ -98,12 +99,11 @@ const useCreateContact = () => {
       return CreateContact(newContact);
     },
     onSuccess: () => {
-      toast.success(' Contact sent successfully!');
+      toast.success(ContactSuccess.SENDED_CONTACT);
       queryClient.invalidateQueries({ queryKey: ['contactList'] });
     },
     onError: (error: any) => {
-      console.error(error.message || 'Failed to create  contact.');
-      logDebug('🐞 Data:', error.message);
+      console.error(error.message || ContactError.FAILED_CREATE_CONTACT);
     },
   });
 };
@@ -112,42 +112,43 @@ const useCreateContact = () => {
  * ========== END OF @HOOK useCreateContact ==========
  */
 
-const DeleteContact = async (contactId: string) => {
-  try {
-    if (!endpoints.contact) {
-      throw new Error('Contact endpoint is not defined.');
-    }
+/** * ==========================
+ * 📌 @HOOK useUpdateContact
+ * ==========================
+ */
 
+const ApprovedContactList = async (contactIds: ApprovedContact) => {
+  try {
     const response = await handleAPI(
-      `${endpoints.contact.replace(':id', contactId)}`,
-      'DELETE'
+      `${endpoints.contact}`,
+      'POST',
+      contactIds
     );
     return response.data;
   } catch (error: any) {
-    console.error(
-      'Error deleting Contact:',
-      error?.response?.data || error.message
-    );
     throw new Error(
-      error?.response?.data?.message || 'Failed to delete Contact'
+      error?.response?.data?.message || ContactError.FAILED_UPDATE_CONTACT
     );
   }
 };
 
-const useDeleteContact = () => {
+const useUpdateContact = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: DeleteContact, // Directly pass the function
+    mutationFn: ApprovedContactList,
     onSuccess: () => {
-      toast.success('Delete Contact Success!');
+      toast.success(ContactSuccess.UPDATED_CONTACT);
       queryClient.invalidateQueries({ queryKey: ['contactList'] });
     },
     onError: (error: any) => {
-      console.error(error.message || 'Failed to delete Contact.');
-      toast.error(error.message || 'Failed to delete Contact.');
+      toast.error(error.message || ContactError.FAILED_UPDATE_CONTACT);
     },
   });
 };
 
-export { useContactList, useCreateContact, useDeleteContact };
+/**
+ * ========== END OF @HOOK useUpdateContact ==========
+ */
+
+export { useContactList, useCreateContact, useUpdateContact };

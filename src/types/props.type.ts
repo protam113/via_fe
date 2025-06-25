@@ -90,3 +90,13 @@ export interface ContainerProps {
 export interface CategoryCardProps {
   onCategorySelect?: (categoryId: string | null) => void;
 }
+
+export type ConfirmDialogProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  title: string;
+  description: string;
+  onConfirm: () => void;
+  confirmText?: string;
+  cancelText?: string;
+};

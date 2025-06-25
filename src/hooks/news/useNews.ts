@@ -1,10 +1,15 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Filters, FetchNewsListResponse, CreateNewsData } from '@/types';
+import {
+  Filters,
+  FetchNewsListResponse,
+  CreateNewsData,
+  UpdateNewsData,
+} from '@/types';
 import { handleAPI, endpoints } from '@/apis';
 import { toast } from 'sonner';
-import { logDebug } from '@/utils/logger';
+import { NewsError, NewsSuccess, NewsWarning } from '@/constants';
 
 /**
  * ==========================s
@@ -79,9 +84,8 @@ const CreateNews = async (newNews: CreateNewsData) => {
     const response = await handleAPI(`${endpoints.news_list}`, 'POST', newNews);
     return response.data;
   } catch (error: any) {
-    console.error('Error creating news category:', error.response?.data);
     throw new Error(
-      error.response?.data?.message || 'Failed to create news category'
+      error.response?.data?.message || NewsError.FAILED_CREATE_NEWS
     );
   }
 };
@@ -90,36 +94,20 @@ const useCreateNews = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (newNewsCategory: CreateNewsData) => {
-      return CreateNews(newNewsCategory);
+    mutationFn: async (newNews: CreateNewsData) => {
+      return CreateNews(newNews);
     },
     onSuccess: () => {
-      toast.success('News created successfully!');
+      toast.success(NewsSuccess.CREATED_NEWS);
       queryClient.invalidateQueries({ queryKey: ['newsList'] });
     },
     onError: (error: any) => {
-      console.error(error.message || 'Failed to create  category.');
+      console.error(error.message || NewsError.FAILED_CREATE_NEWS);
     },
   });
 };
 
-const EditNewsCategory = async (updateNews: CreateNewsData, postId: string) => {
-  const formData = new FormData();
-
-  for (const key in updateNews) {
-    if (Object.prototype.hasOwnProperty.call(updateNews, key)) {
-      const value = updateNews[key as keyof CreateNewsData];
-
-      if (Array.isArray(value)) {
-        // If the value is an array, append each element
-        value.forEach((v) => formData.append(key, v));
-      } else if (typeof value === 'string') {
-        // If the value is a string, append to FormData
-        formData.append(key, value);
-      }
-    }
-  }
-
+const EditNews = async (updateNews: UpdateNewsData, postId: string) => {
   try {
     if (!endpoints.news) {
       throw null;
@@ -127,10 +115,12 @@ const EditNewsCategory = async (updateNews: CreateNewsData, postId: string) => {
 
     const url = endpoints.news.replace(':id', postId);
 
-    const response = await handleAPI(url, 'PATCH', formData);
+    const response = await handleAPI(url, 'PATCH', updateNews);
     return response.data;
   } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Failed to update news');
+    throw new Error(
+      error.response?.data?.message || NewsError.FAILED_UPDATE_NEWS
+    );
   }
 };
 
@@ -142,13 +132,13 @@ const useUpdateNews = () => {
       updateNews,
       postId,
     }: {
-      updateNews: CreateNewsData;
+      updateNews: UpdateNewsData;
       postId: string;
     }) => {
-      return EditNewsCategory(updateNews, postId);
+      return EditNews(updateNews, postId);
     },
     onSuccess: () => {
-      toast.success('Update news successfully!');
+      toast.success(NewsSuccess.UPDATED_NEWS);
       queryClient.invalidateQueries({ queryKey: ['newsList'] });
     },
   });
@@ -158,23 +148,21 @@ const useUpdateNews = () => {
  * ========== END OF @HOOK useCreateCategory ==========
  */
 
-const DeleteCategory = async (categoryId: string) => {
+const DeleteNews = async (newsId: string) => {
   try {
-    if (!endpoints.categoryEdit) {
-      throw new Error('Contact endpoint is not defined.');
+    if (!endpoints.news) {
+      throw new Error(NewsWarning.NEWS_ENDPOINT_NOT_DEFINED);
     }
 
     const response = await handleAPI(
-      `${endpoints.categoryEdit.replace(':id', categoryId)}`,
+      `${endpoints.news.replace(':id', newsId)}`,
       'DELETE'
     );
     return response.data;
   } catch (error: any) {
-    console.error(
-      'Error deleting Category:',
-      error?.response?.data || error.message
+    throw new Error(
+      error?.response?.data?.message || NewsError.FAILED_DELETE_NEWS
     );
-    throw new Error(error?.response?.data?.message || 'Failed to delete News');
   }
 };
 
@@ -182,14 +170,13 @@ const useDeleteNews = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: DeleteCategory, // Directly pass the function
+    mutationFn: DeleteNews,
     onSuccess: () => {
-      toast.success('Delete News Success!');
+      toast.success(NewsSuccess.DELETED_NEWS);
       queryClient.invalidateQueries({ queryKey: ['newsList'] });
     },
     onError: (error: any) => {
-      console.error(error.message || 'Failed to delete News.');
-      toast.error(error.message || 'Failed to delete News.');
+      toast.error(error.message || NewsError.FAILED_DELETE_NEWS);
     },
   });
 };

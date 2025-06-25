@@ -1,6 +1,6 @@
 /**
  * ==========================
- * 📌 @props ContactTableProps
+ * 📌 @props NewsTableProps
  * ==========================
  */
 
@@ -10,10 +10,16 @@ export interface NewsTableProps {
   news: NewsList[];
   isLoading: boolean;
   isError: boolean;
-  onDelete: (id: string) => void;
 }
 
-export interface CreateNewsCategoryDialogProps {
+export interface CreateNewsDialogProps {
+  open: boolean;
+  setOpen: (val: boolean) => void;
+  onSuccess?: () => void;
+}
+
+export interface UpdateNewsDialogProps {
+  news: NewsList;
   open: boolean;
   setOpen: (val: boolean) => void;
   onSuccess?: () => void;

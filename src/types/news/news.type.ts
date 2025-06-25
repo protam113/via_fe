@@ -29,3 +29,11 @@ export interface CreateNewsData {
   type: string;
   category_id: string;
 }
+
+export interface UpdateNewsData {
+  title?: string;
+  url?: string;
+  url_type?: string;
+  type?: string;
+  category_id?: string;
+}

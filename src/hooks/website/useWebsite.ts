@@ -3,6 +3,7 @@ import { endpoints, handleAPI } from '@/apis';
 import { toast } from 'sonner';
 import { logDebug } from '@/utils';
 import { WebsiteData, UpdateWebsite } from '@/types';
+import { WebsiteError, WebsiteSuccess } from '@/constants';
 
 /**
  * ==========================
@@ -21,7 +22,7 @@ const fetchWebsiteData = async (): Promise<WebsiteData> => {
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching website data:', error);
+    console.error(WebsiteError.ERROR_FETCHING_WEBSITE_DATA, error);
     throw error;
   }
 };
@@ -38,7 +39,7 @@ const useWebsiteData = (refreshKey: number) => {
 };
 
 /**
- * ========== END OF @HOOK useCategoriesList ==========
+ * ========== END OF @HOOK useWebsiteData ==========
  */
 
 const UpdateWebsiteData = async (updateWebsite: UpdateWebsite) => {
@@ -51,7 +52,7 @@ const UpdateWebsiteData = async (updateWebsite: UpdateWebsite) => {
     return response.data;
   } catch (error: any) {
     throw new Error(
-      error.response?.data?.message || 'Failed to update website'
+      error.response?.data?.message || WebsiteError.FAILED_UPDATE_WEBSITE
     );
   }
 };
@@ -64,7 +65,7 @@ const useUpdateWebsite = () => {
       return UpdateWebsiteData(updateWebsite);
     },
     onSuccess: () => {
-      toast.success('Update website successfully!');
+      toast.success(WebsiteSuccess.UPDATED_WEBSITE);
       queryClient.invalidateQueries({ queryKey: ['websiteData'] });
     },
   });

@@ -3,14 +3,15 @@ import { endpoints, handleAPI } from '@/apis';
 import { toast } from 'sonner';
 import { logDebug } from '@/utils';
 import { SeoData, UpdateSeo } from '@/types';
+import { SeoError, SeoSuccess } from '@/constants';
 
 /**
- * ==========================s
- * 📌 @HOOK useCategoryList
+ * ==========================
+ * 📌 @HOOK useSeoData
  * ==========================
  *
- * @desc Custom hook to get list of categories
- * @returns {Category[]} List of categories
+ * @desc Custom hook to get SEO data
+ * @returns {SeoData} SEO data
  */
 
 const fetchSeoData = async (): Promise<SeoData> => {
@@ -21,13 +22,13 @@ const fetchSeoData = async (): Promise<SeoData> => {
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching seo data:', error);
+    console.error(SeoError.ERROR_FETCHING_SEO_DATA, error);
     throw error;
   }
 };
 
 /**
- * Custom hook to get list of categories using React Query.
+ * Custom hook to get SEO data using React Query.
  */
 const useSeoData = (refreshKey: number) => {
   return useQuery<SeoData, Error>({
@@ -38,7 +39,7 @@ const useSeoData = (refreshKey: number) => {
 };
 
 /**
- * ========== END OF @HOOK useCategoriesList ==========
+ * ========== END OF @HOOK useSeoData ==========
  */
 
 const UpdateSeoData = async (updateSeo: UpdateSeo) => {
@@ -47,7 +48,7 @@ const UpdateSeoData = async (updateSeo: UpdateSeo) => {
     return response.data;
   } catch (error: any) {
     throw new Error(
-      error.response?.data?.message || 'Failed to update contact'
+      error.response?.data?.message || SeoError.FAILED_UPDATE_SEO
     );
   }
 };
@@ -60,7 +61,7 @@ const useUpdateSeo = () => {
       return UpdateSeoData(updateSeo);
     },
     onSuccess: () => {
-      toast.success('Update seo successfully!');
+      toast.success(SeoSuccess.UPDATED_SEO);
       queryClient.invalidateQueries({ queryKey: ['seoData'] });
     },
   });

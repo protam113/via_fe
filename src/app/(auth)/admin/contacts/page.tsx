@@ -1,50 +1,31 @@
 'use client';
 
-import type React from 'react';
 import { useState } from 'react';
 //UI components
-
-//Components
-import { RefreshButton } from '@/components/common/button/refresh.button';
-import { CustomPagination } from '@/components/common/design/pagination';
 import {
   Select,
   SelectTrigger,
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/components/ui/select';
-import { ContactList } from '@/lib/responses/contactLib';
-import { useDeleteContact } from '@/hooks/contact/useContact';
-// import ConfirmDialog from '@/components/design/Dialog';
+} from '@/components';
+
+// Data fetching
+import { ContactList } from '@/lib';
+
+// Design components
+import { RefreshButton } from '@/components/common/button/refresh.button';
+import { CustomPagination } from '@/components/common/design/pagination';
 import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/wrappers/admin.container';
 import SelectStatus from '@/components/pages/AUTH/contact/selectStatus';
 import { ContactTable } from '@/components/common/tables/contact.table';
 
-export default function ProductManager() {
+export default function ContactManager() {
   const [selectedStatus, setSelectedStatus] = useState<string>();
-  const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
+  const [refreshKey, setRefreshKey] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [selectedContact, setSelectedContact] = useState<string>();
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
-  const { mutate: deleteContact } = useDeleteContact();
-
-  const handleDeleteClick = (id: string) => {
-    setSelectedContact(id); // Chọn contact cần xóa
-    setDeleteDialogOpen(true); // Mở dialog xác nhận xóa
-  };
-
-  const handleDeleteConfirm = () => {
-    if (selectedContact) {
-      deleteContact(selectedContact);
-      setSelectedContact(undefined);
-      setDeleteDialogOpen(false);
-      setRefreshKey((prev) => prev + 1);
-    }
-  };
 
   const params = {
     ...(selectedStatus !== 'all' && { status: selectedStatus }),
@@ -57,12 +38,10 @@ export default function ProductManager() {
     refreshKey
   );
 
-  // const { mutate: createProduct } = useCreateProduct();
-
   const handlePageSizeChange = (value: string) => {
     const newSize = parseInt(value, 10);
     setPageSize(newSize);
-    setCurrentPage(1); // Reset về trang đầu tiên khi đổi số lượng
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page: number) => {
@@ -73,7 +52,6 @@ export default function ProductManager() {
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
-    setRefreshKey((prev) => prev + 1); // Refresh data manually
   };
 
   return (
@@ -121,7 +99,6 @@ export default function ProductManager() {
             contacts={contacts}
             isLoading={isLoading}
             isError={isError}
-            onDelete={handleDeleteClick}
           />
         </div>
         <CustomPagination
@@ -130,13 +107,6 @@ export default function ProductManager() {
           onPageChange={handlePageChange}
         />
       </AdminContainer>
-      {/* <ConfirmDialog
-        open={deleteDialogOpen}
-        onOpenChange={setDeleteDialogOpen}
-        question="Are you sure"
-        description="This action cannot be undone. This will permanently delete the contact."
-        onConfirm={handleDeleteConfirm}
-      /> */}
     </>
   );
 }

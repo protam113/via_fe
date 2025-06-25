@@ -3,6 +3,7 @@ import { endpoints, handleAPI } from '@/apis';
 import { FetchManagerListResponse, CreateManagerData, Filters } from '@/types';
 import { toast } from 'sonner';
 import { logDebug } from '@/utils';
+import { EmployeeError, EmployeeSuccess } from '@/constants';
 
 /**
  * ==========================
@@ -24,20 +25,18 @@ const fetchUserList = async (
       )
     );
 
-    // Tạo query string từ filters
     const queryString = new URLSearchParams({
       page: pageParam.toString(),
       ...validFilters,
     }).toString();
 
-    // Gọi API
     const response = await handleAPI(
       `${endpoints.users}${queryString ? `?${queryString}` : ''}`,
       'GET'
     );
     return response.data;
   } catch (error) {
-    console.error('Error fetching employee list:', error);
+    console.error(EmployeeError.ERROR_FETCHING_EMPLOYEE_LIST, error);
     throw error;
   }
 };
@@ -50,7 +49,7 @@ const useUserList = (
   return useQuery<FetchManagerListResponse, Error>({
     queryKey: ['userList', page, filters, refreshKey],
     queryFn: () => fetchUserList(page, filters),
-    enabled: page > 0, // Bật query nếu page hợp lệ
+    enabled: page > 0,
     staleTime: 60000,
   });
 };
@@ -76,11 +75,8 @@ const createManager = async (managerData: CreateManagerData) => {
       managerData
     );
 
-    logDebug('Manager Data:', response.data);
     return response.data;
   } catch (error: any) {
-    console.error('Error creating manager:', error.response?.data);
-
     // Extract error messages from response
     const errorMessages = error.response?.data?.message;
     let errorMessage = 'Failed to create manager';
@@ -104,55 +100,52 @@ const useCreateManager = () => {
       return createManager(newManage);
     },
     onSuccess: () => {
-      toast.success('Create Employee Success!');
+      toast.success(EmployeeSuccess.CREATED_EMPLOYEE);
       queryClient.invalidateQueries({ queryKey: ['userList'] });
     },
     onError: (error: any) => {
-      toast.error(error.message || 'Failed to create employee.');
-      console.error(error.message || 'Failed to create employee.');
+      toast.error(error.message || EmployeeError.FAILED_CREATE_EMPLOYEE);
+      console.error(error.message || EmployeeError.FAILED_CREATE_EMPLOYEE);
     },
   });
 };
+
 // /**
 //  * ========== END OF @HOOK useCreateEmployee ==========
 //  */
 
-// const DeleteManager = async (userID: string) => {
-//   try {
-//     if (!endpoints.manager) {
-//       throw new Error('Manager endpoint is not defined.');
-//     }
+const DeleteUser = async (userID: string) => {
+  try {
+    if (!endpoints.userDetail) {
+      throw new Error(EmployeeError.USER_ENDPOINT_NOT_DEFINED);
+    }
 
-//     const response = await handleAPI(
-//       `${endpoints.manager.replace(':id', userID)}`,
-//       'DELETE'
-//     );
-//     return response.data;
-//   } catch (error: any) {
-//     console.error(
-//       'Error deleting Manager:',
-//       error?.response?.data || error.message
-//     );
-//     throw new Error(
-//       error?.response?.data?.message || 'Failed to delete Manager'
-//     );
-//   }
-// };
+    const response = await handleAPI(
+      `${endpoints.userDetail.replace(':id', userID)}`,
+      'DELETE'
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error?.response?.data?.message || EmployeeError.FAILED_DELETE_USER
+    );
+  }
+};
 
-// const useDeleteManager = () => {
-//   const queryClient = useQueryClient();
+const useDeleteUser = () => {
+  const queryClient = useQueryClient();
 
-//   return useMutation({
-//     mutationFn: DeleteManager, // Directly pass the function
-//     onSuccess: () => {
-//       toast.success('Delete Manager Success!');
-//       queryClient.invalidateQueries({ queryKey: ['userList'] });
-//     },
-//     onError: (error: any) => {
-//       console.error(error.message || 'Failed to delete Manager.');
-//       toast.error(error.message || 'Failed to delete Manager.');
-//     },
-//   });
-// };
+  return useMutation({
+    mutationFn: DeleteUser,
+    onSuccess: () => {
+      toast.success(EmployeeSuccess.DELETED_EMPLOYEE);
+      queryClient.invalidateQueries({ queryKey: ['userList'] });
+    },
+    onError: (error: any) => {
+      console.error(error.message || EmployeeError.FAILED_DELETE_USER);
+      toast.error(error.message || EmployeeError.FAILED_DELETE_USER);
+    },
+  });
+};
 
-export { useUserList, useCreateManager };
+export { useUserList, useCreateManager, useDeleteUser };

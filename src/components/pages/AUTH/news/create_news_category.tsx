@@ -24,17 +24,9 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateNewsCategory } from '@/hooks';
-import { CreateNewsCategoryData } from '@/types';
-
-const formSchema = z.object({
-  title: z.string().min(1, 'title is required'),
-});
-
-interface CreateNewsCategoryDialogProps {
-  open: boolean;
-  setOpen: (val: boolean) => void;
-  onSuccess?: () => void;
-}
+import { CreateNewsCategoryData, CreateNewsCategoryDialogProps } from '@/types';
+import { NewsCategoryError } from '@/constants';
+import { newsCategoryFormSchema } from '@/utils';
 
 export default function CreateNewsCategoryDialog({
   open,
@@ -43,8 +35,8 @@ export default function CreateNewsCategoryDialog({
 }: CreateNewsCategoryDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof newsCategoryFormSchema>>({
+    resolver: zodResolver(newsCategoryFormSchema),
     defaultValues: {
       title: '',
     },
@@ -52,7 +44,9 @@ export default function CreateNewsCategoryDialog({
 
   const { mutate: createNewsCategory } = useCreateNewsCategory();
 
-  const handleCreateCategory = (values: z.infer<typeof formSchema>) => {
+  const handleCreateCategory = (
+    values: z.infer<typeof newsCategoryFormSchema>
+  ) => {
     setIsSubmitting(true);
 
     const categoryData: CreateNewsCategoryData = {
@@ -69,8 +63,7 @@ export default function CreateNewsCategoryDialog({
         form.setError('root', {
           type: 'manual',
           message:
-            error.message ||
-            'Failed to create news category. Please try again.',
+            error.message || NewsCategoryError.FAILED_CREATE_NEWS_CATEGORY,
         });
         setIsSubmitting(false);
       },

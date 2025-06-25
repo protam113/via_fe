@@ -12,6 +12,30 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
+---
+
+## [1.2.1] - 2025-06-25
+
+### Added
+
+- Added Contact update status Apis
+- Added Update news category
+- Added Constant log for project
+- Added Update news , delete news
+- Added update website pages
+- Create delete manager hooks
+
+### Changed
+
+- Update contact table for admin , and update contact apis
+- Update project used form validator
+
+### Fixed
+
+- Fixed Category card in VIA layout
+
+---
+
 ## [1.2.0] - 2025-06-24
 
 ### Added

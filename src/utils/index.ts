@@ -27,9 +27,9 @@ export * from './formatters/format_time.utils';
  * ==========================
  */
 export * from './validators/client.validator';
-export * from './validators/email.validator';
 export * from './validators/empty.validator';
 export * from './validators/passsword.validator';
+export * from './validators/form.validator';
 
 /**
  * ==========================
