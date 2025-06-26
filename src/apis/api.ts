@@ -75,14 +75,16 @@ const endpoints: Record<string, string | undefined> = {
   // === Media ===
   presign: process.env.NEXT_PUBLIC_PRESIGN,
   submit: process.env.NEXT_PUBLIC_SUBMIT,
+  submitRichtext: process.env.NEXT_PUBLIC_RICH_TEXT,
+  media: process.env.NEXT_PUBLIC_RICH_TEXT_MEDIA,
 
   // === News Category ===
-  news_categories: process.env.NEXT_PUBLIC_NEWS_CATEGORIES,
-  news_category: process.env.NEXT_PUBLIC_NEWS_CATEGORY,
-  news_category_bulk: process.env.NEXT_PUBLIC_NEWS_CATEGORY_BULK,
+  newsCategories: process.env.NEXT_PUBLIC_NEWS_CATEGORIES,
+  newsCategory: process.env.NEXT_PUBLIC_NEWS_CATEGORY,
+  newsCategoryBulk: process.env.NEXT_PUBLIC_NEWS_CATEGORY_BULK,
 
   // === News ===
-  news_list: process.env.NEXT_PUBLIC_NEWS_LIST,
+  newsList: process.env.NEXT_PUBLIC_NEWS_LIST,
   news: process.env.NEXT_PUBLIC_NEWS,
 
   // === Exhibition ===

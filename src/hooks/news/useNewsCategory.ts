@@ -40,7 +40,7 @@ const fetchNewsCategoriesList = async (
 
     // Call API
     const response = await handleAPI(
-      `${endpoints.news_categories}${queryString ? `?${queryString}` : ''}`,
+      `${endpoints.newsCategories}${queryString ? `?${queryString}` : ''}`,
       'GET',
       null
     );
@@ -95,7 +95,7 @@ const CreateCategory = async (newNewsCategory: CreateNewsCategoryData) => {
 
   try {
     const response = await handleAPI(
-      `${endpoints.news_categories}`,
+      `${endpoints.newsCategories}`,
       'POST',
       formData
     );
@@ -130,11 +130,11 @@ const EditNewsCategory = async (
   postId: string
 ) => {
   try {
-    if (!endpoints.news_category) {
+    if (!endpoints.newsCategory) {
       throw null;
     }
 
-    const url = endpoints.news_category.replace(':id', postId);
+    const url = endpoints.newsCategory.replace(':id', postId);
 
     const response = await handleAPI(url, 'PATCH', updateNewsCategory);
     return response.data;

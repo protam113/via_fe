@@ -2,8 +2,8 @@ import { NoResultsFoundProps } from '@/types';
 import { Frown } from 'lucide-react';
 
 export default function NoResultsFound({
-  title = 'Whoops, không có kết quả',
-  message = 'Chúng tôi không thể tìm thấy bất kỳ kết quả tìm kiếm nào. Hãy thử lại lần sau',
+  title = 'Whoops, no results',
+  message = 'We could not find any search results. Please try again later.',
 }: NoResultsFoundProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4 text-center max-w-md mx-auto">

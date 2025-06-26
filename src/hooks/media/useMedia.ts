@@ -87,8 +87,43 @@ const useSubmitMedia = () => {
   });
 };
 
+const SubmitRichText = async (id: string) => {
+  try {
+    if (!endpoints.submitRichtext) {
+      throw new Error(EndpointsError.MEDIA_SUBMIT_DEFINED);
+    }
+
+    const response = await handleAPI(
+      `${endpoints.submitRichtext.replace(':id', id)}`,
+      'POST'
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || MediaError.FAILED_SUBMIT_MEDIA
+    );
+  }
+};
+
+const useSubmitRichText = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id }: { id: string }) => {
+      return SubmitRichText(id);
+    },
+    onSuccess: () => {
+      toast.success(MediaSuccess.SUBMITTED_MEDIA);
+      queryClient.invalidateQueries({ queryKey: ['richtextSubmit'] });
+    },
+    onError: (error: any) => {
+      console.error(error.message || MediaError.FAILED_SUBMIT_MEDIA);
+    },
+  });
+};
+
 /**
  * ========== END OF @HOOK usePresignMedia ==========
  */
 
-export { usePresignMedia, useSubmitMedia };
+export { usePresignMedia, useSubmitMedia, useSubmitRichText };

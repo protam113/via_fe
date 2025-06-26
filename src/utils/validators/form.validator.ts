@@ -1,27 +1,28 @@
 import {
+  CategoryWarning,
   ContactWarning,
+  EmployeeWarning,
+  ExhibitionWarning,
   NewsCategoryWarning,
   NewsWarning,
+  SEOWarning,
   WebsiteWarning,
 } from '@/constants';
 import { z } from 'zod';
+import { zodIsNotEmptyString } from './empty.validator';
 
-// This schema is used for updating contact status
+// =======================  NEWS SCHEMA =======================
 
-export const newsCategoryFormSchema = z.object({
-  title: z.string().min(1, NewsCategoryWarning.WARNING_TITLE),
-});
-
-// This schema is used for creating or updating news categories
-
+//  Schema: Create or Update News Item
 export const newsFormSchema = z.object({
-  title: z.string().min(1, NewsWarning.WARNING_TITLE),
-  url: z.string().min(1, NewsWarning.WARNING_URL),
-  url_type: z.string().min(1, NewsWarning.WARNING_URL_TYPE),
-  type: z.string().min(1, NewsWarning.WARNING_TYPE),
-  category_id: z.string().min(1, NewsWarning.WARNING_CATEGORY),
+  title: zodIsNotEmptyString(NewsWarning.WARNING_TITLE),
+  url: zodIsNotEmptyString(NewsWarning.WARNING_URL),
+  url_type: zodIsNotEmptyString(NewsWarning.WARNING_URL_TYPE),
+  type: zodIsNotEmptyString(NewsWarning.WARNING_TYPE),
+  category_id: zodIsNotEmptyString(NewsWarning.WARNING_CATEGORY),
 });
 
+//  Schema: Update News Item (all fields optional)
 export const updateNewsFormSchema = z.object({
   title: z.string().min(1, NewsWarning.WARNING_TITLE).optional(),
   url: z.string().min(1, NewsWarning.WARNING_URL).optional(),
@@ -30,11 +31,13 @@ export const updateNewsFormSchema = z.object({
   category_id: z.string().min(1, NewsWarning.WARNING_CATEGORY).optional(),
 });
 
-// This schema is used for updating contact status
+// ======================= ✅ END NEWS SCHEMA =======================
 
-export const contactFormSchema = z.object({
-  status: z.string().min(1, ContactWarning.STATUS_REQUIRED),
-  ids: z.array(z.string()).min(1, ContactWarning.IDS_REQUIRED),
+// ====================  NEWS CATEGORY SCHEMA ====================
+
+// ✅ Schema: Create or Update News Category
+export const newsCategoryFormSchema = z.object({
+  title: zodIsNotEmptyString(NewsCategoryWarning.WARNING_TITLE),
 });
 
 // This schema is used for deleting news categories
@@ -42,6 +45,18 @@ export const contactFormSchema = z.object({
 export const newsCategoryDeleteFormSchema = z.object({
   ids: z.array(z.string()).min(1, NewsCategoryWarning.IDS_REQUIRED),
 });
+
+// ==================== ✅ END NEWS CATEGORY SCHEMA ====================
+
+// ====================  CONTACT SCHEMA ====================
+
+// ✅ Schema: Update Contact Status
+export const contactFormSchema = z.object({
+  status: zodIsNotEmptyString(ContactWarning.STATUS_REQUIRED),
+  ids: z.array(z.string()).min(1, ContactWarning.IDS_REQUIRED),
+});
+
+// ==================== ✅ END CONTACT SCHEMA ====================
 
 // This schema is used for updateting website information
 export const updateWebsiteFormSchema = z.object({
@@ -66,16 +81,85 @@ export const updateWebsiteFormSchema = z.object({
 
 // This schema is used for sending contact form
 export const contactSentFormSchema = z.object({
-  name: z.string().min(1, ContactWarning.NAME_REQUIRED),
+  name: zodIsNotEmptyString(ContactWarning.NAME_REQUIRED),
 
   email: z
     .string()
     .min(1, ContactWarning.EMAIL_REQUIRED)
     .email('Invalid email format'),
 
-  phone_number: z.string().min(1, ContactWarning.PHONE_NUMBER_REQUIRED),
+  phone_number: zodIsNotEmptyString(ContactWarning.PHONE_NUMBER_REQUIRED),
 
-  message: z.string().min(1, ContactWarning.MESSAGE_REQUIRED),
+  message: zodIsNotEmptyString(ContactWarning.MESSAGE_REQUIRED),
 
-  location: z.string().min(1, ContactWarning.LOCATION_REQUIRED),
+  location: zodIsNotEmptyString(ContactWarning.LOCATION_REQUIRED),
+});
+
+// This schema is used for SEO form validation
+export const SEOFormSchema = z.object({
+  site_title: zodIsNotEmptyString(SEOWarning.WARNING_SEO_SITE_TITLE),
+  site_description: zodIsNotEmptyString(
+    SEOWarning.WARNING_SEO_SITE_DESCRIPTION
+  ),
+  domain: zodIsNotEmptyString(SEOWarning.WARNING_SEO_DOMAIN),
+  keywords: z
+    .array(zodIsNotEmptyString(SEOWarning.WARNING_SEO_KEYWORDS))
+    .min(1, SEOWarning.WARNING_SEO_KEYWORDS),
+  google_analytics_id: zodIsNotEmptyString(SEOWarning.WARNING_SEO_GOOGLE_ID),
+  gtm_id: zodIsNotEmptyString(SEOWarning.WARNING_SEO_GTM_ID),
+  facebook_pixel_id: zodIsNotEmptyString(SEOWarning.WARNING_SEO_FACEBOOK_ID),
+  search_console_verification: zodIsNotEmptyString(
+    SEOWarning.WARNING_SEO_SEARCH_ID
+  ),
+});
+
+// ======================= EMPLOYEE SCHEMA =======================
+
+// This schema is used for employee form validation
+export const employeeFormSchema = z.object({
+  username: zodIsNotEmptyString(EmployeeWarning.WARNING_EMPLOYEE_USERNAME),
+  email: zodIsNotEmptyString(EmployeeWarning.WARNING_EMPLOYEE_EMAIL),
+  name: zodIsNotEmptyString(EmployeeWarning.WARNING_EMPLOYEE_NAME),
+  password: zodIsNotEmptyString(EmployeeWarning.WARNING_EMPLOYEE_PASSWORD),
+});
+
+// This schema is used for employee form validation with confirm password
+export const employeeFormWithConfirmSchema = employeeFormSchema
+  .extend({
+    confirmPassword: zodIsNotEmptyString('Confirm password is required'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
+
+// ======================= END EMPLOYEE SCHEMA =======================
+
+export const loginFormSchema = z.object({
+  username: zodIsNotEmptyString(EmployeeWarning.WARNING_EMPLOYEE_USERNAME),
+
+  password: zodIsNotEmptyString(
+    EmployeeWarning.WARNING_EMPLOYEE_PASSWORD
+  ).refine((val) => val.length >= 8, {}),
+});
+
+// This schema is used for category form validation
+export const categoryFormSchema = z.object({
+  thumbnail_id: zodIsNotEmptyString(CategoryWarning.WARNING_ID),
+});
+
+export const exhibitionFormSchema = z.object({
+  title: zodIsNotEmptyString(ExhibitionWarning.WARNING_EXHIBITION_TITLE),
+  description: zodIsNotEmptyString(
+    ExhibitionWarning.WARNING_EXHIBITION_DESCRIPTION
+  ),
+  thumbnail_id: zodIsNotEmptyString(
+    ExhibitionWarning.WARNING_EXHIBITION_THUMBNAIL
+  ),
+  banner_id: zodIsNotEmptyString(ExhibitionWarning.WARNING_EXHIBITION_BANNER),
+
+  category_id: zodIsNotEmptyString(
+    ExhibitionWarning.WARNING_EXHIBITION_CATEGORY
+  ),
+  status: zodIsNotEmptyString(ExhibitionWarning.WARNING_EXHIBITION_STATUS),
 });

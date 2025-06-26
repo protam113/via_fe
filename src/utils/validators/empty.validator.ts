@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 /**
  * Check if a value is considered "empty"
  * - undefined, null
@@ -19,3 +21,14 @@ export function isEmpty(value: any): boolean {
 
   return false;
 }
+
+/**
+ * Zod schema to validate a non-empty string
+ * - Trims whitespace
+ * - Ensures the string is not empty after trimming
+ */
+export const zodIsNotEmptyString = (message: string) =>
+  z
+    .string()
+    .trim()
+    .refine((val) => val.length > 0, { message });

@@ -12,3 +12,11 @@ export interface CustomImageProps extends Omit<ImageProps, 'src' | 'alt'> {
   priority?: boolean;
   className?: string;
 }
+
+export interface ImageViewerProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  className?: string;
+}

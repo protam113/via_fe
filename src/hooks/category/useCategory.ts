@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endpoints, handleAPI } from '@/apis';
-import { FetchCategoryListResponse, Filters } from '@/types';
+import { FetchCategoryListResponse, Filters, UpdateThumbnail } from '@/types';
 
-import { CategoryError } from '@/constants';
+import { CategoryError, CategorySuccess } from '@/constants';
+import { toast } from 'sonner';
 
 /**
  * ==========================
@@ -65,4 +66,41 @@ const useCategoryList = (
  * ========== END OF @HOOK useCategoriesList ==========
  */
 
-export { useCategoryList };
+const EditCategory = async (updateCategory: UpdateThumbnail, id: string) => {
+  try {
+    if (!endpoints.categoryEdit) {
+      throw null;
+    }
+
+    const url = endpoints.categoryEdit.replace(':id', id);
+
+    const response = await handleAPI(url, 'PATCH', updateCategory);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || CategoryError.ERROR_UPDATING_CATEGORY
+    );
+  }
+};
+
+const useUpdateCategory = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      updateCategory,
+      id,
+    }: {
+      updateCategory: UpdateThumbnail;
+      id: string;
+    }) => {
+      return EditCategory(updateCategory, id);
+    },
+    onSuccess: () => {
+      toast.success(CategorySuccess.UPDATED_NEWS_CATEGORY);
+      queryClient.invalidateQueries({ queryKey: ['newsCategoryList'] });
+    },
+  });
+};
+
+export { useCategoryList, useUpdateCategory };

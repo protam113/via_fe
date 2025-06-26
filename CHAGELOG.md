@@ -14,6 +14,27 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.2.2] - 2025-06-26
+
+### Added
+
+- Added Contact update status Apis
+- Added Image Viewers
+- Added update thumbnail category
+- Added 3 page VIA
+- Create VIA table response
+
+### Changed
+
+- Changed Create manager to zod and react hook form
+- Changed update SEO to zod and react hook form
+
+### Fixed
+
+- Fixed Category card in VIA layout
+
+---
+
 ## [1.2.1] - 2025-06-25
 
 ### Added

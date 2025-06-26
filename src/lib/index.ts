@@ -31,6 +31,9 @@ export * from './responses/newsCategoryLib';
 // WebsiteLib.ts
 export * from './responses/websiteLib';
 
+// ExhibitionLib.ts
+export * from './responses/exhibitionLib';
+
 /**
  * ==========================
  *  @ROUTES

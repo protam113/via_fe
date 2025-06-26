@@ -17,29 +17,49 @@ import { useUpdateSeo } from '@/hooks';
 import AdminLoading from '@/components/loading/loading.components';
 import { Icons } from '@/assets/icons/icons';
 
-export function SeoSettingsForm() {
-  const [seoData, setSeoData] = useState<UpdateSeo>({
-    site_title: '',
-    site_description: '',
-    domain: 'via.com',
-    keywords: [],
-    google_analytics_id: '',
-    gtm_id: '',
-    facebook_pixel_id: '',
-    search_console_verification: '',
-  });
+// Form validation schema
+import { SEOFormSchema } from '@/utils';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
+export function SeoSettingsForm() {
   const { seo, isLoading, isError } = SeoList(0);
   const { mutate: updateSeo } = useUpdateSeo();
   const [newKeyword, setNewKeyword] = useState('');
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    setValue,
+    watch,
+    clearErrors,
+    formState: { isSubmitting, errors },
+  } = useForm<z.infer<typeof SEOFormSchema>>({
+    resolver: zodResolver(SEOFormSchema),
+    defaultValues: {
+      site_title: '',
+      site_description: '',
+      domain: '',
+      keywords: [],
+      google_analytics_id: '',
+      gtm_id: '',
+      facebook_pixel_id: '',
+      search_console_verification: '',
+    },
+  });
+
+  const keywords = watch('keywords');
+
   useEffect(() => {
-    if (seo && JSON.stringify(seo) !== JSON.stringify(seoData)) {
+    if (seo) {
       const safeSeo = seo as UpdateSeo;
-      setSeoData({
+      reset({
         site_title: safeSeo.site_title || '',
         site_description: safeSeo.site_description || '',
-        domain: safeSeo.domain || 'via.com',
+        domain: safeSeo.domain || '',
         keywords: safeSeo.keywords || [],
         google_analytics_id: safeSeo.google_analytics_id || '',
         gtm_id: safeSeo.gtm_id || '',
@@ -47,34 +67,20 @@ export function SeoSettingsForm() {
         search_console_verification: safeSeo.search_console_verification || '',
       });
     }
-  }, [seo]);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setSeoData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  }, [seo, reset]);
 
   const addKeyword = () => {
-    if (newKeyword.trim() === '') return;
-    setSeoData((prev) => ({
-      ...prev,
-      keywords: [...(prev.keywords ?? []), newKeyword.trim()],
-    }));
+    const trimmed = newKeyword.trim();
+    if (!trimmed || keywords.includes(trimmed)) return;
+    setValue('keywords', [...keywords, trimmed]);
     setNewKeyword('');
   };
 
   const removeKeyword = (keywordToRemove: string) => {
-    setSeoData((prev) => ({
-      ...prev,
-      keywords: (prev.keywords ?? []).filter(
-        (keyword) => keyword !== keywordToRemove
-      ),
-    }));
+    setValue(
+      'keywords',
+      keywords.filter((k) => k !== keywordToRemove)
+    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -84,25 +90,31 @@ export function SeoSettingsForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateSeo({ updateSeo: seoData });
+  const onSubmit = (values: z.infer<typeof SEOFormSchema>) => {
+    updateSeo(
+      { updateSeo: values },
+      {
+        onSuccess: () => clearErrors(),
+        onError: (error: any) => {
+          setError('root', {
+            type: 'manual',
+            message: error.message || 'Update failed',
+          });
+        },
+      }
+    );
   };
 
-  if (isLoading) {
-    return <AdminLoading message="Loading.." />;
-  }
-
-  if (isError) {
+  if (isLoading) return <AdminLoading message="Loading.." />;
+  if (isError)
     return (
       <div className="text-center text-red-500 py-10">
         Failed to load SEO settings.
       </div>
     );
-  }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Card className="w-full rounded-none">
         <CardContent className="space-y-6">
           <div className="space-y-4">
@@ -112,43 +124,49 @@ export function SeoSettingsForm() {
                 <Label htmlFor="site_title">Site Title</Label>
                 <Input
                   id="site_title"
-                  name="site_title"
-                  value={seoData.site_title}
-                  onChange={handleChange}
-                  required
+                  {...register('site_title')}
                   className="rounded-none"
                 />
+                {errors.site_title && (
+                  <p className="text-red-500 text-sm">
+                    {errors.site_title.message}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="domain">Domain</Label>
                 <Input
                   id="domain"
-                  name="domain"
-                  value={seoData.domain}
-                  onChange={handleChange}
-                  required
+                  {...register('domain')}
                   className="rounded-none"
                 />
+                {errors.domain && (
+                  <p className="text-red-500 text-sm">
+                    {errors.domain.message}
+                  </p>
+                )}
               </div>
             </div>
             <div className="space-y-2">
               <Label htmlFor="site_description">Site Description</Label>
               <Textarea
                 id="site_description"
-                name="site_description"
-                value={seoData.site_description}
-                onChange={handleChange}
+                {...register('site_description')}
                 rows={3}
-                required
                 className="rounded-none"
               />
+              {errors.site_description && (
+                <p className="text-red-500 text-sm">
+                  {errors.site_description.message}
+                </p>
+              )}
             </div>
           </div>
 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Keywords</h3>
             <div className="flex flex-wrap gap-2 mb-2">
-              {seoData.keywords?.map((keyword, index) => (
+              {keywords?.map((keyword, index) => (
                 <Badge
                   key={index}
                   variant="secondary"
@@ -182,9 +200,12 @@ export function SeoSettingsForm() {
                 size="icon"
                 aria-label="Add keyword"
               >
-                <Icons.PlusCircle className="h-4 w-4 rounded-none" />
+                <Icons.PlusCircle className="h-4 w-4" />
               </Button>
             </div>
+            {errors.keywords && (
+              <p className="text-red-500 text-sm">{errors.keywords.message}</p>
+            )}
           </div>
 
           <div className="space-y-4">
@@ -194,31 +215,40 @@ export function SeoSettingsForm() {
                 <Label htmlFor="google_analytics_id">Google Analytics ID</Label>
                 <Input
                   id="google_analytics_id"
-                  name="google_analytics_id"
-                  value={seoData.google_analytics_id}
-                  onChange={handleChange}
+                  {...register('google_analytics_id')}
                   className="rounded-none"
                 />
+                {errors.google_analytics_id && (
+                  <p className="text-red-500 text-sm">
+                    {errors.google_analytics_id.message}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="gtm_id">Google Tag Manager ID</Label>
                 <Input
                   id="gtm_id"
-                  name="gtm_id"
+                  {...register('gtm_id')}
                   className="rounded-none"
-                  value={seoData.gtm_id}
-                  onChange={handleChange}
                 />
+                {errors.gtm_id && (
+                  <p className="text-red-500 text-sm">
+                    {errors.gtm_id.message}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="facebook_pixel_id">Facebook Pixel ID</Label>
                 <Input
                   id="facebook_pixel_id"
-                  name="facebook_pixel_id"
-                  value={seoData.facebook_pixel_id}
-                  onChange={handleChange}
+                  {...register('facebook_pixel_id')}
                   className="rounded-none"
                 />
+                {errors.facebook_pixel_id && (
+                  <p className="text-red-500 text-sm">
+                    {errors.facebook_pixel_id.message}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="search_console_verification">
@@ -226,11 +256,14 @@ export function SeoSettingsForm() {
                 </Label>
                 <Input
                   id="search_console_verification"
-                  name="search_console_verification"
-                  value={seoData.search_console_verification}
-                  onChange={handleChange}
+                  {...register('search_console_verification')}
                   className="rounded-none"
                 />
+                {errors.search_console_verification && (
+                  <p className="text-red-500 text-sm">
+                    {errors.search_console_verification.message}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -238,9 +271,10 @@ export function SeoSettingsForm() {
         <CardFooter>
           <Button
             type="submit"
+            disabled={isSubmitting}
             className="ml-auto bg-blue-500 hover:bg-blue-700 rounded-none"
           >
-            Save changes
+            {isSubmitting ? 'Saving...' : 'Save changes'}
           </Button>
         </CardFooter>
       </Card>

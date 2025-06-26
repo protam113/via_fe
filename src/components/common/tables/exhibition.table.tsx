@@ -12,33 +12,35 @@ import {
   TableRow,
   Button,
 } from '@/components';
-
+import { Skeleton } from '@/components/ui/skeleton';
 import NoResultsFound from '@/components/common/design/NoResultsFound';
-import { CategoryColumns, CategoryTableProps } from '@/types';
+
+import { ExhibitionColumns, ExhibitionTableProps } from '@/types';
 import { Icons } from '@/assets/icons/icons';
 import { truncateText } from '@/utils/helpers/truncate_text.helper';
-import { Skeleton } from '@/components/ui/skeleton';
 import ImageViewer from '@/components/features/image_viewer';
 import { useState } from 'react';
 import UpdateCategoryDialog from '@/components/pages/AUTH/form/category_update.form';
+import { formatSmartDate } from '@/utils';
+import { ExhibitionStatusLog } from '@/constants';
 
-export const CategoryTable: React.FC<CategoryTableProps> = ({
-  categories,
+export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
+  exhibitions,
   isLoading,
   isError,
 }) => {
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [editingCategory, setEditingCAtegory] = useState<
-    (typeof categories)[0] | null
+    (typeof exhibitions)[0] | null
   >(null);
 
   return (
     <>
-      <div className="border">
-        <Table>
-          <TableHeader>
+      <div className="border max-h-[500px] overflow-auto">
+        <Table className="w-full border-separate border-spacing-0">
+          <TableHeader className="sticky top-0 z-10 bg-gray-200">
             <TableRow>
-              {CategoryColumns.map((col) => (
+              {ExhibitionColumns.map((col) => (
                 <TableHead key={col.key} className={col.className}>
                   {col.label}
                 </TableHead>
@@ -49,7 +51,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({
             {isError ? (
               <TableRow>
                 <TableCell
-                  colSpan={CategoryColumns.length + 1}
+                  colSpan={ExhibitionColumns.length + 1}
                   className="text-center"
                 >
                   <NoResultsFound />
@@ -61,41 +63,77 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({
                   <TableCell>
                     <Skeleton className="h-4 w-4 rounded" />
                   </TableCell>
-                  {CategoryColumns.map((col) => (
+                  {ExhibitionColumns.map((col) => (
                     <TableCell key={col.key} className={col.className}>
                       <Skeleton className="h-4 w-full" />
                     </TableCell>
                   ))}
                 </TableRow>
               ))
-            ) : categories && categories.length > 0 ? (
-              categories.map((category) => (
-                <TableRow key={category.id}>
-                  {CategoryColumns.map((col) => {
+            ) : exhibitions && exhibitions.length > 0 ? (
+              exhibitions.map((exhibition) => (
+                <TableRow key={exhibition.id}>
+                  {ExhibitionColumns.map((col) => {
                     return (
                       <TableCell key={col.key} className={col.className}>
-                        {col.key === 'id' ? truncateText(category.id, 8) : ''}
+                        {col.key === 'id' ? truncateText(exhibition.id, 8) : ''}
 
                         {col.key === 'thumbnail' ? (
-                          <div>
+                          <div className="max-w-[384px] w-full h-auto flex items-center justify-center overflow-hidden">
                             <ImageViewer
-                              src={category.thumbnail?.url || '/logo.svg'}
+                              src={exhibition.thumbnail?.url || '/logo.svg'}
                               alt="Sample Image 1"
-                              width={600}
-                              height={400}
-                              className=""
+                              width={384}
+                              height={256}
+                              className="w-full h-auto object-contain"
                             />
                           </div>
                         ) : null}
 
-                        {col.key === 'title' ? category.title : ''}
+                        {/* Thay bang title */}
+                        {col.key === 'title' ? (
+                          <div className="truncate max-w-[160px]">
+                            {exhibition.description}
+                          </div>
+                        ) : null}
+                        {col.key === 'start_date'
+                          ? formatSmartDate(exhibition.start_date)
+                          : ''}
+
+                        {col.key === 'end_date'
+                          ? formatSmartDate(exhibition.end_date)
+                          : ''}
+
+                        {col.key === 'status' && (
+                          <span
+                            className={`px-2 py-1 rounded-none text-2xs font-medium
+                              ${
+                                exhibition.status ===
+                                ExhibitionStatusLog.Upcoming
+                                  ? 'bg-yellow-100 text-yellow-800'
+                                  : exhibition.status ===
+                                    ExhibitionStatusLog.Finished
+                                  ? 'bg-green-200 text-green-800'
+                                  : 'bg-red-100 text-red-800'
+                              }
+                            `}
+                          >
+                            {exhibition.status === ExhibitionStatusLog.Upcoming
+                              ? 'Pending'
+                              : exhibition.status ===
+                                ExhibitionStatusLog.Finished
+                              ? 'Approved'
+                              : 'Rejected'}
+                          </span>
+                        )}
+
                         {col.key === 'actions' ? (
                           <div className="flex justify-end gap-2">
                             <Button
                               variant="outline"
                               size="icon"
                               onClick={() => {
-                                setEditingCAtegory(category);
+                                setEditingCAtegory(exhibition);
                                 setIsUpdateDialogOpen(true);
                               }}
                             >
@@ -112,7 +150,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={CategoryColumns.length + 1}
+                  colSpan={ExhibitionColumns.length + 1}
                   className="text-center text-gray-500"
                 >
                   <NoResultsFound />

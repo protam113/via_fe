@@ -40,6 +40,15 @@ export interface FetchCategoryDetailResponse {
   data: CategoryDetail;
 }
 
+export interface UpdateThumbnail {
+  thumbnail_id: string;
+}
+
+export interface CategoryData {
+  id: string;
+  thumbnail: Thumbnail | null;
+}
+
 // ========================
 // End Category
 // ========================

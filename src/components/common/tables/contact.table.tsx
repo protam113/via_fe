@@ -125,7 +125,7 @@ export const ContactTable: React.FC<ContactTableProps> = ({
 
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-gray-300">
               {ContactColumns.map((col) => (
                 <TableHead key={col.key} className={col.className}>
                   {col.label}
@@ -135,6 +135,7 @@ export const ContactTable: React.FC<ContactTableProps> = ({
                 <div className="flex items-center gap-2">
                   <p className="mr-2">Select All</p>
                   <Checkbox
+                    className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 border-gray-600 text-white"
                     ref={(el) => {
                       if (el && 'indeterminate' in el) {
                         el.indeterminate =
@@ -229,6 +230,7 @@ export const ContactTable: React.FC<ContactTableProps> = ({
                     <TableCell>
                       {contact.status === StatusLog.PENDING ? (
                         <Checkbox
+                          className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 border-gray-600 text-white"
                           checked={selectedIds.includes(contact.id)}
                           onCheckedChange={(checked) => {
                             setSelectedIds((prev) =>

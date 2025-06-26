@@ -30,6 +30,7 @@ export * from './contact/contact.colum';
 export * from './exhibitions/category.colum';
 export * from './news/news_category.colum';
 export * from './news/news.colum';
+export * from './exhibitions/exhibition.colum';
 
 /**
  * ==========================

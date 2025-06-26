@@ -41,6 +41,7 @@ export enum CategoryError {
   INVALID_STATUS = 'INVALID_STATUS',
   NAME_REQUIRED = 'NAME_REQUIRED',
   CATEGORY_ALREADY_EXISTS = 'CATEGORY_ALREADY_EXISTS',
+  ERROR_UPDATING_CATEGORY = 'Failed to update category',
 }
 
 /**

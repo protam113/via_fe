@@ -63,6 +63,8 @@ import {
   PhoneCall,
   Loader2,
   EyeIcon,
+  Eye,
+  EyeOff,
   Plus,
 } from 'lucide-react';
 import Tiktok from './tiktok.svg';
@@ -86,6 +88,8 @@ export const Icons = {
   EyeIcon,
   Loader2,
   Plus,
+  Eye,
+  EyeOff,
 };
 
 export const ArrowIcons = {

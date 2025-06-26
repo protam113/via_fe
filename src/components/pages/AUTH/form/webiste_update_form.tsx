@@ -26,7 +26,6 @@ export function WebsiteUpdateForm() {
   const {
     register,
     handleSubmit,
-    reset,
     setError,
     clearErrors,
     formState: { isSubmitting },
@@ -42,18 +41,6 @@ export function WebsiteUpdateForm() {
   });
 
   // Cập nhật form khi website data thay đổi
-  useEffect(() => {
-    if (website) {
-      const safeWebsite = website as UpdateWebsite;
-      reset({
-        facebook: safeWebsite.facebook || '',
-        phone_number: safeWebsite.phone_number || '',
-        messenger: safeWebsite.messenger || '',
-        instagram: safeWebsite.instagram || '',
-        tiktok: safeWebsite.tiktok || '',
-      });
-    }
-  }, [website, reset]);
 
   const onSubmit = (values: z.infer<typeof updateWebsiteFormSchema>) => {
     updateWebsite(

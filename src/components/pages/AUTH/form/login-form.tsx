@@ -3,34 +3,58 @@
 import { Button, Input } from '@/components';
 import { useAuthStore } from '@/store';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginFormSchema } from '@/utils';
 
 export default function LoginForm() {
   const { login, checkAuth } = useAuthStore();
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setIsSubmitting(true);
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
+    const { username, password } = values;
+
+    // Optional: Custom check (ex: password length < 8 thì throw để kiểm soát)
+    if (password.length < 8) {
+      setError('password', {
+        type: 'manual',
+        message: 'Password must be at least 8 characters.',
+      });
+      return;
+    }
 
     try {
       await login(username, password);
       await checkAuth();
 
       if (!useAuthStore.getState().isAuthenticated) {
-        setIsSubmitting(false);
+        setError('root', {
+          type: 'manual',
+          message: 'Invalid username or password',
+        });
         return;
       }
 
-      setTimeout(() => {
-        setIsSubmitting(false);
-        router.push('/admin');
-      }, 2000);
-    } catch {
-      setIsSubmitting(false);
+      router.push('/admin');
+    } catch (err) {
+      setError('root', {
+        type: 'manual',
+        message: 'Login failed. Please try again.',
+      });
     }
   };
 
@@ -42,20 +66,24 @@ export default function LoginForm() {
         </h2>
       </div>
 
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        {/* Username */}
         <div className="space-y-2">
-          <label className="text-sm text-gray-500" htmlFor="email">
+          <label className="text-sm text-gray-500" htmlFor="username">
             Username
           </label>
           <Input
             id="username"
             placeholder="VIA account"
             className="w-full p-2 border rounded-none"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            {...register('username')}
           />
+          {errors.username && (
+            <p className="text-sm text-red-500">{errors.username.message}</p>
+          )}
         </div>
 
+        {/* Password */}
         <div className="space-y-2">
           <label className="text-sm text-gray-500" htmlFor="password">
             Password
@@ -63,14 +91,24 @@ export default function LoginForm() {
           <Input
             id="password"
             type="password"
-            placeholder="password"
+            placeholder="Password"
             className="w-full p-2 border rounded-none"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register('password')}
           />
+          {errors.password && (
+            <p className="text-sm text-red-500">{errors.password.message}</p>
+          )}
         </div>
 
+        {/* Root error (login failed, etc.) */}
+        {errors.root?.message && (
+          <p className="text-sm text-red-500 text-center">
+            {errors.root.message}
+          </p>
+        )}
+
         <Button
+          type="submit"
           className="w-full font-bold rounded-none text-xl bg-black hover:bg-gray-600 text-white"
           disabled={isSubmitting}
         >

@@ -90,3 +90,14 @@ export enum WebsiteSuccess {
   CREATED_WEBSITE = 'Website created successfully.',
   DELETED_WEBSITE = 'Website deleted successfully.',
 }
+
+/**
+ * ==========================
+ *  @SUCCESS : Category Management Success
+ *  @DESCRIPTION :  This file contains success constants used in the category management system.
+ *  @VERSION 1.0.0
+ * ==========================
+ */
+export enum CategorySuccess {
+  UPDATED_NEWS_CATEGORY = 'News category updated successfully.',
+}

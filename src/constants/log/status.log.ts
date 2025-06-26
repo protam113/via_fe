@@ -10,3 +10,8 @@ export enum StatusLog {
   APPROVED = 'approve',
   REJECTED = 'reject',
 }
+
+export enum ExhibitionStatusLog {
+  Finished = 'finished',
+  Upcoming = 'upcoming',
+}

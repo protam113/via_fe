@@ -2,108 +2,52 @@
 
 import React, { useState } from 'react';
 import BackButton from '@/components/common/button/back-admin.button';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { CreateManagerData } from '@/types/types';
-import { toast } from 'sonner';
+import { Button, Input, Label } from '@/components';
 import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/wrappers/admin.container';
 import { useCreateManager } from '@/hooks/users/useUser';
 
+// Form validation schema
+import { employeeFormWithConfirmSchema } from '@/utils';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { EmployeeError } from '@/constants';
+import { Eye, EyeOff } from 'lucide-react';
+
+type FormData = z.infer<typeof employeeFormWithConfirmSchema>;
+
 const Page = () => {
   const { mutate: createManager } = useCreateManager();
-  const [managerData, setManagerData] = useState<CreateManagerData>({
-    username: '',
-    name: '',
-    email: '',
-    password: '',
-  });
-
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof CreateManagerData, string>>
-  >({});
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const validateForm = () => {
-    const newErrors: Partial<Record<keyof CreateManagerData, string>> = {};
-    let isValid = true;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(employeeFormWithConfirmSchema),
+  });
 
-    // Validate username
-    if (!managerData.username.trim()) {
-      newErrors.username = 'Username is required';
-      isValid = false;
-    }
-
-    // Validate name
-    if (!managerData.name.trim()) {
-      newErrors.name = 'Name is required';
-      isValid = false;
-    }
-
-    // Validate email
-    if (!managerData.email.trim()) {
-      newErrors.email = 'Email is required';
-      isValid = false;
-    } else if (!/\S+@\S+\.\S+/.test(managerData.email)) {
-      newErrors.email = 'Invalid email';
-      isValid = false;
-    }
-
-    // Validate password
-    if (!managerData.password.trim()) {
-      newErrors.password = 'Password is required';
-      isValid = false;
-    } else if (managerData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
-
-  const handleCreateManager = async () => {
-    if (!validateForm()) {
-      toast.error('Please fix the authentication error');
-      return;
-    }
-
+  const handleCreateManager = (values: FormData) => {
     setLoading(true);
+    const { confirmPassword, ...managerData } = values;
 
-    try {
-      await createManager(managerData);
-      // Reset state
-      setManagerData({
-        username: '',
-        name: '',
-        email: '',
-        password: '',
-      });
-      // Optionally navigate to another page
-      // router.push('/managers');
-    } catch (error) {
-      console.error(error);
-      // Error is already handled by the mutation hook
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setManagerData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    // Clear error when user types
-    if (errors[name as keyof CreateManagerData]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: undefined,
-      }));
-    }
+    createManager(managerData, {
+      onSuccess: () => {
+        reset();
+      },
+      onError: (error: any) => {
+        setError('root', {
+          type: 'manual',
+          message: error.message || EmployeeError.FAILED_CREATE_EMPLOYEE,
+        });
+      },
+      onSettled: () => setLoading(false),
+    });
   };
 
   return (
@@ -115,59 +59,136 @@ const Page = () => {
           desc="Enter the required information to create a new manager account. The role is set by default, so you just need to fill out the basic details."
         />
         <Button
-          onClick={handleCreateManager}
+          type="submit"
+          form="create-manager-form"
           disabled={loading}
           className="rounded-none"
         >
           {loading ? 'Creating...' : 'Create'}
         </Button>
       </div>
+
       <form
+        id="create-manager-form"
         className="flex flex-col space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleCreateManager();
-        }}
+        onSubmit={handleSubmit(handleCreateManager)}
       >
-        {[
-          { label: 'Uername', name: 'username' },
-          { label: 'Full name', name: 'name' },
-          { label: 'Email', name: 'email', type: 'email' },
-          { label: 'Password', name: 'password', type: 'password' },
-        ].map(({ label, name, type = 'text' }) => (
-          <div
-            key={name}
-            className="mt-4 grid grid-cols-[150px_1fr] items-center gap-4"
-          >
-            <Label className="text-right" htmlFor={name}>
-              {label}
-            </Label>
-            <div className="flex flex-col w-full">
-              <Input
-                id={name}
-                type={type}
-                name={name}
-                value={managerData[name as keyof CreateManagerData] as string}
-                onChange={handleInputChange}
-                required
-                placeholder={`Enter manager ${label.toLowerCase()}`}
-                className={`rounded-none ${
-                  errors[name as keyof CreateManagerData]
-                    ? 'border-red-500'
-                    : ''
-                }`}
-              />
-              {errors[name as keyof CreateManagerData] && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors[name as keyof CreateManagerData]}
-                </p>
-              )}
-            </div>
-          </div>
-        ))}
+        {/* Username */}
+        <FormField
+          label="Username"
+          name="username"
+          register={register}
+          error={errors.username?.message}
+        />
+
+        {/* Full name */}
+        <FormField
+          label="Full Name"
+          name="name"
+          register={register}
+          error={errors.name?.message}
+        />
+
+        {/* Email */}
+        <FormField
+          label="Email"
+          name="email"
+          type="email"
+          register={register}
+          error={errors.email?.message}
+        />
+
+        {/* Password */}
+        <PasswordField
+          label="Password"
+          name="password"
+          register={register}
+          error={errors.password?.message}
+          show={showPassword}
+          toggle={() => setShowPassword((p) => !p)}
+        />
+
+        {/* Confirm Password */}
+        <PasswordField
+          label="Confirm Password"
+          name="confirmPassword"
+          register={register}
+          error={errors.confirmPassword?.message}
+          show={showPassword}
+          toggle={() => setShowPassword((p) => !p)}
+        />
       </form>
     </AdminContainer>
   );
 };
 
 export default Page;
+
+// COMPONENT: Input field
+type FieldProps = {
+  label: string;
+  name: keyof FormData;
+  type?: string;
+  register: ReturnType<typeof useForm<FormData>>['register'];
+  error?: string;
+};
+
+const FormField = ({
+  label,
+  name,
+  type = 'text',
+  register,
+  error,
+}: FieldProps) => (
+  <div className="grid grid-cols-[150px_1fr] items-center gap-4">
+    <Label className="text-right" htmlFor={name}>
+      {label}
+    </Label>
+    <div className="flex flex-col w-full">
+      <Input
+        id={name}
+        type={type}
+        {...register(name)}
+        placeholder={`Enter ${label.toLowerCase()}`}
+        className={`rounded-none ${error ? 'border-red-500' : ''}`}
+      />
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+  </div>
+);
+
+// COMPONENT: Password field
+const PasswordField = ({
+  label,
+  name,
+  register,
+  error,
+  show,
+  toggle,
+}: FieldProps & {
+  show: boolean;
+  toggle: () => void;
+}) => (
+  <div className="grid grid-cols-[150px_1fr] items-center gap-4">
+    <Label className="text-right" htmlFor={name}>
+      {label}
+    </Label>
+    <div className="flex flex-col w-full relative">
+      <Input
+        id={name}
+        type={show ? 'text' : 'password'}
+        {...register(name)}
+        placeholder={`Enter ${label.toLowerCase()}`}
+        className={`rounded-none pr-10 ${error ? 'border-red-500' : ''}`}
+      />
+      <button
+        type="button"
+        onClick={toggle}
+        className="absolute right-3 top-2.5 text-gray-500 hover:text-black"
+      >
+        {show ? <EyeOff size={18} /> : <Eye size={18} />}
+      </button>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+  </div>
+);

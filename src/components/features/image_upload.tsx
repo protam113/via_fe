@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Image, Loader2, X } from 'lucide-react';
+import { Image, Loader2, X, Check } from 'lucide-react';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { cn } from '@/utils';
 import { usePresignMedia, useSubmitMedia } from '@/hooks';
@@ -20,6 +20,7 @@ export default function ImageUploadPreview({
   const [submitItem, setSubmitItem] = useState<SubmitItem | null>(null);
   const [uploadState, setUploadState] =
     useState<UploadState>(initialUploadState);
+  const [uploadCompleted, setUploadCompleted] = useState(false); // Add this state
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -30,6 +31,7 @@ export default function ImageUploadPreview({
   const resetUploadState = useCallback(() => {
     setUploadState(initialUploadState);
     setSubmitItem(null);
+    setUploadCompleted(false);
   }, []);
 
   useEffect(() => {
@@ -49,6 +51,9 @@ export default function ImageUploadPreview({
       return;
     }
 
+    // Reset upload completed state when selecting new file
+    setUploadCompleted(false);
+
     // Create preview URL
     const previewUrl = URL.createObjectURL(file);
 
@@ -58,6 +63,13 @@ export default function ImageUploadPreview({
       previewUrl,
       error: null,
     }));
+
+    // Dispatch custom event for file selection
+    window.dispatchEvent(
+      new CustomEvent('imageFileSelected', {
+        detail: { previewUrl },
+      })
+    );
 
     // Start presign process
     presignMedia(
@@ -127,7 +139,9 @@ export default function ImageUploadPreview({
           {
             onSuccess: (data) => {
               // Log the upload ID to console as requested
-              console.log('Upload ID:', uploadState.id);
+
+              setUploadCompleted(true);
+              setUploadState((prev) => ({ ...prev, uploading: false }));
 
               // Call optional callback
               if (onImageUploaded) {
@@ -137,11 +151,8 @@ export default function ImageUploadPreview({
                 );
               }
 
-              // Clean up and reset
-              if (uploadState.previewUrl) {
-                URL.revokeObjectURL(uploadState.previewUrl);
-              }
-              resetUploadState();
+              // Don't reset state immediately - let parent component handle it
+              // The parent component should reset when needed
             },
             onError: (error) => {
               console.error('Submit media error:', error);
@@ -224,7 +235,8 @@ export default function ImageUploadPreview({
           className={cn(
             'group relative flex cursor-pointer flex-col items-center gap-4 rounded-none border-2 border-dashed p-8 transition-all hover:bg-accent',
             isDragActive && 'border-primary bg-primary/5',
-            uploadState.error && 'border-destructive bg-destructive/5'
+            uploadState.error && 'border-destructive bg-destructive/5',
+            uploadCompleted && 'border-green-500 bg-green-50'
           )}
         >
           {uploadState.previewUrl ? (
@@ -244,29 +256,50 @@ export default function ImageUploadPreview({
                 >
                   <X className="h-4 w-4 text-white" />
                 </Button>
+
+                {/* Upload completed indicator */}
+                {uploadCompleted && (
+                  <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs flex items-center gap-1">
+                    <Check className="h-3 w-3" />
+                    Uploaded Successfully
+                  </div>
+                )}
               </div>
 
               <div className="space-y-4">
-                <div className="flex justify-end gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={handleRemove}
-                    disabled={uploadState.uploading}
-                    className="rounded-none"
-                  >
-                    Remove
-                  </Button>
-                  <Button
-                    onClick={handleUpload}
-                    disabled={uploadState.uploading || !uploadState.uploadUrl}
-                    className="rounded-none"
-                  >
-                    {uploadState.uploading && (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    {uploadState.uploading ? 'Uploading...' : 'Upload'}
-                  </Button>
-                </div>
+                {!uploadCompleted && (
+                  <div className="flex justify-end gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={handleRemove}
+                      disabled={uploadState.uploading}
+                      className="rounded-none"
+                    >
+                      Remove
+                    </Button>
+                    <Button
+                      onClick={handleUpload}
+                      disabled={uploadState.uploading || !uploadState.uploadUrl}
+                      className="rounded-none"
+                    >
+                      {uploadState.uploading && (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      )}
+                      {uploadState.uploading ? 'Uploading...' : 'Upload'}
+                    </Button>
+                  </div>
+                )}
+
+                {uploadCompleted && (
+                  <div className="text-center">
+                    <p className="text-sm text-green-600 font-medium">
+                      ✅ Upload completed successfully!
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      You can now save your changes or upload a different image.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
@@ -315,9 +348,11 @@ export default function ImageUploadPreview({
                 {uploadState.id}
               </code>
             </p>
-            <p className="text-xs text-green-600 mt-1">
-              ID will be logged to console when upload completes.
-            </p>
+            {!uploadCompleted && (
+              <p className="text-xs text-green-600 mt-1">
+                ID will be logged to console when upload completes.
+              </p>
+            )}
           </div>
         )}
       </div>

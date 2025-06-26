@@ -40,7 +40,7 @@ const fetchNewsList = async (
 
     // Call API
     const response = await handleAPI(
-      `${endpoints.news_list}${queryString ? `?${queryString}` : ''}`,
+      `${endpoints.newsList}${queryString ? `?${queryString}` : ''}`,
       'GET',
       null
     );
