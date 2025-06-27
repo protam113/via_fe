@@ -20,6 +20,7 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { ENV, ExhibitionsList } from '@/lib';
 import { ExhibitionTable } from '@/components/common/tables/exhibition.table';
+import { PushButton } from '@/components';
 
 export default function ExhibitionManager() {
   const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
@@ -84,7 +85,16 @@ export default function ExhibitionManager() {
   return (
     <>
       <AdminContainer>
-        <Heading name="Via art fair Page" desc="Manage your categories here" />
+        <div className="flex items-center justify-between mb-4">
+          <Heading
+            name="Via art fair Page"
+            desc="Manage your categories here"
+          />
+          <PushButton
+            href="/admin/via-art-fair/create-via-art-fair"
+            label="Create VIA Art Fair"
+          />
+        </div>
 
         <div className="md:flex col flex-col-2 md:flex-row justify-between items-center mb-6">
           <div className="flex items-center gap-4">

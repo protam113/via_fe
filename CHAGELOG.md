@@ -14,6 +14,20 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.2.2] - 2025-06-27
+
+### Added
+
+- Added api in via-art-fair page
+- Added banner apis , and added to hero components
+- Added create exhibition pages
+
+### Changed
+
+### Fixed
+
+---
+
 ## [1.2.2] - 2025-06-26
 
 ### Added

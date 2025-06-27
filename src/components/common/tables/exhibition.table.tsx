@@ -119,11 +119,11 @@ export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
                             `}
                           >
                             {exhibition.status === ExhibitionStatusLog.Upcoming
-                              ? 'Pending'
+                              ? 'Upcoming'
                               : exhibition.status ===
                                 ExhibitionStatusLog.Finished
-                              ? 'Approved'
-                              : 'Rejected'}
+                              ? 'Finished'
+                              : 'OnGoing'}
                           </span>
                         )}
 

@@ -12,7 +12,7 @@ import {
   SubmitItem,
 } from '@/types';
 
-export default function ImageUploadPreview({
+export default function ThumbnailUploadPreview({
   onImageUploaded,
   type = 'image',
 }: ImageUploadPreviewProps) {
@@ -20,7 +20,7 @@ export default function ImageUploadPreview({
   const [submitItem, setSubmitItem] = useState<SubmitItem | null>(null);
   const [uploadState, setUploadState] =
     useState<UploadState>(initialUploadState);
-  const [uploadCompleted, setUploadCompleted] = useState(false); // Add this state
+  const [uploadCompleted, setUploadCompleted] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -138,8 +138,6 @@ export default function ImageUploadPreview({
           },
           {
             onSuccess: (data) => {
-              // Log the upload ID to console as requested
-
               setUploadCompleted(true);
               setUploadState((prev) => ({ ...prev, uploading: false }));
 
@@ -150,9 +148,6 @@ export default function ImageUploadPreview({
                   uploadState.id!
                 );
               }
-
-              // Don't reset state immediately - let parent component handle it
-              // The parent component should reset when needed
             },
             onError: (error) => {
               console.error('Submit media error:', error);
@@ -225,7 +220,7 @@ export default function ImageUploadPreview({
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full mx-auto">
       <div className="relative">
         <div
           onDragEnter={handleDragEnter}
@@ -233,24 +228,26 @@ export default function ImageUploadPreview({
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           className={cn(
-            'group relative flex cursor-pointer flex-col items-center gap-4 rounded-none border-2 border-dashed p-8 transition-all hover:bg-accent',
+            'group relative flex cursor-pointer flex-col items-center gap-4 rounded-none border-2 border-dashed p-4 transition-all hover:bg-accent overflow-hidden',
+            // Điều chỉnh chiều cao dựa trên trạng thái
+            uploadState.previewUrl ? 'min-h-[300px]' : 'h-[200px]',
             isDragActive && 'border-primary bg-primary/5',
             uploadState.error && 'border-destructive bg-destructive/5',
             uploadCompleted && 'border-green-500 bg-green-50'
           )}
         >
           {uploadState.previewUrl ? (
-            <div className="w-full space-y-4">
-              <div className="relative">
+            <div className="w-full h-full flex flex-col">
+              <div className="relative flex-1 min-h-0">
                 <img
                   src={uploadState.previewUrl}
                   alt="Preview"
-                  className="mx-auto max-h-[400px] w-full object-contain rounded-none"
+                  className="w-full h-full object-contain rounded-none"
                 />
                 <Button
                   variant="destructive"
                   size="icon"
-                  className="absolute top-2 right-2 rounded-none"
+                  className="absolute top-2 right-2 rounded-none z-10"
                   onClick={handleRemove}
                   disabled={uploadState.uploading}
                 >
@@ -259,14 +256,15 @@ export default function ImageUploadPreview({
 
                 {/* Upload completed indicator */}
                 {uploadCompleted && (
-                  <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs flex items-center gap-1">
+                  <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-md text-xs flex items-center gap-1 z-10">
                     <Check className="h-3 w-3" />
                     Uploaded Successfully
                   </div>
                 )}
               </div>
 
-              <div className="space-y-4">
+              {/* Buttons section - nằm ở dưới */}
+              <div className="mt-4 space-y-4 flex-shrink-0">
                 {!uploadCompleted && (
                   <div className="flex justify-end gap-2">
                     <Button
@@ -332,7 +330,7 @@ export default function ImageUploadPreview({
           )}
 
           {uploadState.error && (
-            <div className="w-full">
+            <div className="w-full flex-shrink-0">
               <p className="text-sm text-destructive text-center">
                 {uploadState.error}
               </p>

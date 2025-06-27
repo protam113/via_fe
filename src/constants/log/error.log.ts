@@ -170,3 +170,7 @@ export enum ContactError {
   FAILED_SENT_CONTACT = 'Failed to send contact. Please try again.',
   CONTACT_ENDPOINT_NOT_DEFINED = 'Contact endpoint is not defined.',
 }
+
+export enum ExhibitionError {
+  FAILED_CREATED = 'Failed to create exhibition. Please try again.',
+}

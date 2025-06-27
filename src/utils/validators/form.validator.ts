@@ -149,17 +149,77 @@ export const categoryFormSchema = z.object({
 });
 
 export const exhibitionFormSchema = z.object({
-  title: zodIsNotEmptyString(ExhibitionWarning.WARNING_EXHIBITION_TITLE),
-  description: zodIsNotEmptyString(
-    ExhibitionWarning.WARNING_EXHIBITION_DESCRIPTION
-  ),
-  thumbnail_id: zodIsNotEmptyString(
-    ExhibitionWarning.WARNING_EXHIBITION_THUMBNAIL
-  ),
-  banner_id: zodIsNotEmptyString(ExhibitionWarning.WARNING_EXHIBITION_BANNER),
+  start_date: z
+    .string()
+    .nonempty(ExhibitionWarning.WARNING_EXHIBITION_START_DATE),
+  end_date: z.string().nonempty(ExhibitionWarning.WARNING_EXHIBITION_END_DATE),
+  thumbnail_id: z
+    .string()
+    .nonempty(ExhibitionWarning.WARNING_EXHIBITION_THUMBNAIL),
+  banner_id: z.string().nonempty(ExhibitionWarning.WARNING_EXHIBITION_BANNER),
+  status: z.string().nonempty(ExhibitionWarning.WARNING_EXHIBITION_STATUS),
+  category_id: z
+    .string()
+    .nonempty(ExhibitionWarning.WARNING_EXHIBITION_CATEGORY),
 
-  category_id: zodIsNotEmptyString(
-    ExhibitionWarning.WARNING_EXHIBITION_CATEGORY
-  ),
-  status: zodIsNotEmptyString(ExhibitionWarning.WARNING_EXHIBITION_STATUS),
+  companies: z
+    .array(
+      z.object({
+        name: z.string().nonempty('Company name is required'),
+        url: z.string().url('Company URL must be valid'),
+        image: z.string().nonempty('Company image is required'),
+      })
+    )
+    .optional(),
+
+  translations: z
+    .array(
+      z
+        .object({
+          language: z.string().nonempty(),
+          title: z.string(),
+          description: z.string(),
+          content: z.string(),
+          location: z.string(),
+          price: z.union([z.number(), z.nan()]),
+        })
+        .refine(
+          (data) => {
+            const hasAnyField =
+              data.title ||
+              data.description ||
+              data.content ||
+              data.location ||
+              data.price;
+            const allFieldsFilled =
+              data.title &&
+              data.description &&
+              data.content &&
+              data.location &&
+              typeof data.price === 'number';
+
+            return !hasAnyField || allFieldsFilled;
+          },
+          {
+            message:
+              'If you fill one field in a translation, you must fill all of them',
+          }
+        )
+    )
+    .refine(
+      (arr) => {
+        // Phải có ít nhất 1 translation đầy đủ
+        return arr.some(
+          (item) =>
+            item.title &&
+            item.description &&
+            item.content &&
+            item.location &&
+            typeof item.price === 'number'
+        );
+      },
+      {
+        message: 'At least one complete translation is required',
+      }
+    ),
 });

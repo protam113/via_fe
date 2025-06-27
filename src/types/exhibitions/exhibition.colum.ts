@@ -28,6 +28,6 @@ export const ExhibitionColumns = [
   {
     key: 'actions',
     label: '',
-    className: 'text-right w-[60px]',
+    className: 'text-right w-[80px] text-xs text-muted-foreground',
   },
 ];

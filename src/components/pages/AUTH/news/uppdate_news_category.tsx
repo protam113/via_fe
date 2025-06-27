@@ -17,7 +17,6 @@ import {
   Input,
 } from '@/components';
 import { Loader2 } from 'lucide-react';
-import { Icons } from '@/assets/icons/icons';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

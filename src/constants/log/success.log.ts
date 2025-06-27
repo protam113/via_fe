@@ -101,3 +101,7 @@ export enum WebsiteSuccess {
 export enum CategorySuccess {
   UPDATED_NEWS_CATEGORY = 'News category updated successfully.',
 }
+
+export enum ExhibiionSuccess {
+  CREATED = 'Exhibition created successfully.',
+}
