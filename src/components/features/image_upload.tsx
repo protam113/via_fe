@@ -150,9 +150,6 @@ export default function ImageUploadPreview({
                   uploadState.id!
                 );
               }
-
-              // Don't reset state immediately - let parent component handle it
-              // The parent component should reset when needed
             },
             onError: (error) => {
               console.error('Submit media error:', error);
@@ -287,17 +284,6 @@ export default function ImageUploadPreview({
                       )}
                       {uploadState.uploading ? 'Uploading...' : 'Upload'}
                     </Button>
-                  </div>
-                )}
-
-                {uploadCompleted && (
-                  <div className="text-center">
-                    <p className="text-sm text-green-600 font-medium">
-                      ✅ Upload completed successfully!
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      You can now save your changes or upload a different image.
-                    </p>
                   </div>
                 )}
               </div>

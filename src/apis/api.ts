@@ -62,12 +62,13 @@ const endpoints: Record<string, string | undefined> = {
   categories: process.env.NEXT_PUBLIC_CATEGORIES,
   category: process.env.NEXT_PUBLIC_CATEGORY,
   adminCategory: process.env.NEXT_PUBLIC_ADMIN_CATEGORY,
-  adminCategoryTranslation: process.env.NEXT_PUBLIC_ADMIN_CATEGORY_TRANSLATION,
+  adminCategoryCount: process.env.NEXT_PUBLIC_ADMIN_CATEGORY_COUNT,
   categoryEdit: process.env.NEXT_PUBLIC_UPDATE_CATEGORY,
 
   // === Contact ===
   contacts: process.env.NEXT_PUBLIC_CONTACTS,
   contact: process.env.NEXT_PUBLIC_CONTACT,
+  contactCount: process.env.NEXT_PUBLIC_CONTACT_COUNT,
 
   // === SEO ===
   seo: process.env.NEXT_PUBLIC_SEO,

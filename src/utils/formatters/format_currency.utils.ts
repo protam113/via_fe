@@ -1,7 +1,7 @@
 type Currency = 'VND' | 'USD';
 
 interface FormatCurrencyOptions {
-  locale?: string; // mặc định 'vi-VN' cho VND, 'en-US' cho USD
+  locale?: string;
   minimumFractionDigits?: number;
   maximumFractionDigits?: number;
 }
@@ -23,4 +23,21 @@ export function formatCurrency(
     minimumFractionDigits,
     maximumFractionDigits,
   });
+}
+
+export function formatCurrencyInput(value: number, currency: Currency): string {
+  const safe = isNaN(value) ? 0 : value;
+
+  return new Intl.NumberFormat(currency === 'USD' ? 'en-US' : 'vi-VN', {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: currency === 'USD' ? 2 : 0,
+    maximumFractionDigits: currency === 'USD' ? 2 : 0,
+  }).format(safe);
+}
+
+export function parseCurrencyInput(input: string | number): number {
+  const str = String(input);
+  const cleaned = str.replace(/[^\d.-]/g, '');
+  return Number.parseFloat(cleaned) || 0;
 }

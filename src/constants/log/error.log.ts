@@ -42,6 +42,7 @@ export enum CategoryError {
   NAME_REQUIRED = 'NAME_REQUIRED',
   CATEGORY_ALREADY_EXISTS = 'CATEGORY_ALREADY_EXISTS',
   ERROR_UPDATING_CATEGORY = 'Failed to update category',
+  ERROR_FETCHING_CATEGORY_COUNT = 'Error fetching category count:',
 }
 
 /**
@@ -169,6 +170,7 @@ export enum ContactError {
   ERROR_FETCHING_CONTACT_DATA = 'Error fetching contact data:',
   FAILED_SENT_CONTACT = 'Failed to send contact. Please try again.',
   CONTACT_ENDPOINT_NOT_DEFINED = 'Contact endpoint is not defined.',
+  ERROR_FETCHING_CONTACT_COUNT = 'Error fetching contact count data:',
 }
 
 export enum ExhibitionError {

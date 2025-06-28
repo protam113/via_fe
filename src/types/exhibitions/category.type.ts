@@ -49,6 +49,15 @@ export interface CategoryData {
   thumbnail: Thumbnail | null;
 }
 
+export interface CategoryCount {
+  title: string;
+  total_count: number;
+}
+
+export type CategoryCountData = {
+  data: CategoryCount[];
+};
+
 // ========================
 // End Category
 // ========================

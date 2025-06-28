@@ -14,6 +14,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.2.2] - 2025-06-28
+
+### Added
+
+- Added home page for 2 via
+- Added richtext to create exhibiton
+- Added statical contact & VIA
+- Added design for admin pages
+
+### Changed
+
+### Fixed
+
+---
+
 ## [1.2.2] - 2025-06-27
 
 ### Added

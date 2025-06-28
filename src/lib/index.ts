@@ -34,6 +34,9 @@ export * from './responses/websiteLib';
 // ExhibitionLib.ts
 export * from './responses/exhibitionLib';
 
+// BannerLib.ts
+export * from './responses/bannerLib';
+
 /**
  * ==========================
  *  @ROUTES

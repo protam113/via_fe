@@ -8,3 +8,12 @@ export interface Hero {
   heading?: string;
   backgroundImage?: string;
 }
+
+// Richtext
+
+export interface RichTextEditorProps {
+  className?: string;
+  initialContent?: string;
+  onContentChange?: (html: string, text: string) => void;
+  onChange?: (content: { html: string; text: string; json: any }) => void;
+}

@@ -1,66 +1,129 @@
 'use client';
 
+import { Icons } from '@/assets/icons/icons';
+import ViaCard from '@/components/common/cards/via-card';
 import SEO from '@/components/core/SEO';
-import ViaA from '@/components/pages/via-atelier/via-atelier.detail';
-import Image from 'next/image';
+import { ENV, ExhibitionsList } from '@/lib';
+import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
+import { Container } from 'lucide-react';
 
 const Page = () => {
+  const t = useTranslations('NewsPage');
+  const pathname = usePathname();
+  const locale = getLocaleFromPath(pathname) || 'vi';
+  const [currentPage, setCurrentPage] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [accumulatedExhibition, setAccumulatedExhibition] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const params = {
+    language: locale,
+    category_id: ENV.VIA_ATELIER_ID,
+    limit: 20,
+  };
+
+  const { exhibitions, isLoading, isError, pagination } = ExhibitionsList(
+    currentPage,
+    params,
+    0
+  );
+
+  useEffect(() => {
+    if (exhibitions && exhibitions.length > 0) {
+      if (currentPage === 1) {
+        setAccumulatedExhibition(exhibitions);
+      } else {
+        setAccumulatedExhibition((prev) => [...prev, ...exhibitions]);
+      }
+      setLoading(false);
+    }
+  }, [exhibitions, currentPage]);
+
+  const handleLoadMore = () => {
+    setLoading(true);
+    setTimeout(() => {
+      const nextPage = currentPage + 1;
+      if (nextPage > 0 && nextPage <= pagination.total_page) {
+        setCurrentPage(nextPage);
+      }
+      setLoading(false);
+      setAllLoaded(true);
+    }, 1500);
+  };
+
+  if (isLoading) {
+    return (
+      <Container>
+        <div className="flex flex-col items-center justify-center py-20 text-center text-gray-700">
+          <Icons.Loader2 className="animate-spin h-8 w-8 mb-4 text-gray-500" />
+          <p className="text-lg font-medium">
+            Loading the latest news for you...
+          </p>
+          <p className="text-sm text-gray-500 mt-2">Please wait a moment </p>
+        </div>
+      </Container>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Container>
+        <p className="text-red-main">Oops! Failed to load news.</p>
+      </Container>
+    );
+  }
+
   return (
     <>
       <SEO
         title="VIA Atelier"
         description="VIA brings cutting-edge web design and development services. Fast, sleek, and built for the future!"
       />
-      <main className="bg-black">
-        <div className="flex gap-6">
-          {/* Left Side - 3 Blocks */}
-          <div className="flex flex-col gap-4 w-20">
-            {[1, 2, 3].map((index) => (
-              <div
-                key={index}
-                className="group relative h-16 w-16 rounded-lg overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-600"></div>
-                <Image
-                  src="/placeholder.svg?height=64&width=64"
-                  alt={`Block ${index}`}
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <span className="text-white text-xs font-medium">
-                    Learn more
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+      <main>
+        <div
+          className="space-y-4 min-h-screen overflow-y-auto"
+          style={{
+            scrollbarWidth: 'none', // Firefox
+            msOverflowStyle: 'none', // IE
+          }}
+        >
+          <style jsx>{`
+            div::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
 
-          {/* Right Main Banner */}
-          <div className="flex-1">
-            <div className="group relative h-80 rounded-lg overflow-hidden cursor-pointer">
-              {/* Main Image */}
-              <Image
-                src="/placeholder.svg?height=320&width=600"
-                alt="Atelier 2026 Main Banner"
-                width={600}
-                height={320}
-                className="w-full h-full object-cover"
-              />
-
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="text-center">
-                  <button className="bg-white/20 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors duration-200">
-                    Learn more
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {accumulatedExhibition.map((item) => (
+            <ViaCard
+              key={item.id}
+              image={item.thumbnail.url}
+              alt={item.description}
+            />
+          ))}
         </div>
+        {!allLoaded && pagination.total_page > 1 && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={handleLoadMore}
+              disabled={loading}
+              className="px-8 py-3 rounded-none bg-gray-900 text-white font-medium transition-all duration-300
+                                     hover:bg-red-main hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-main/60 focus:ring-opacity-50
+                                     disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:scale-100"
+            >
+              {loading ? (
+                <span className="flex items-center">
+                  <Icons.Loader2 className="animate-spin mr-2 h-5 w-5" />
+                  LOADING...
+                </span>
+              ) : (
+                t('button')
+              )}
+            </button>
+          </div>
+        )}
       </main>
     </>
   );

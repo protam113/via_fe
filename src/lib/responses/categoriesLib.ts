@@ -1,5 +1,5 @@
-import { useCategoryList } from '@/hooks';
-import { Filters } from '@/types';
+import { useCategoryCountData, useCategoryList } from '@/hooks';
+import { CategoryCountData, Filters } from '@/types';
 
 // CategoryList.ts
 export const CategoryList = (
@@ -13,10 +13,7 @@ export const CategoryList = (
     refreshKey
   );
 
-  // Đảm bảo pagination luôn có giá trị mặc định
   const pagination = data?.pagination ?? { current_page: 1, total_page: 1 };
-
-  // Tính toán nextPage
 
   const categories = data?.result ?? [];
 
@@ -25,5 +22,17 @@ export const CategoryList = (
     isLoading,
     isError,
     pagination,
+  };
+};
+
+export const CategoryCountList = (refreshKey: number) => {
+  const { data, isLoading, isError } = useCategoryCountData(refreshKey);
+
+  const categoryCount = data?.data ?? []; // 💥 Lấy data từ response.data.data!
+
+  return {
+    categoryCount,
+    isLoading,
+    isError,
   };
 };

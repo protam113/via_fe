@@ -1,8 +1,13 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Input,
+  Button,
+} from '@/components';
 import {
   NODE_HANDLES_SELECTED_STYLE_CLASSNAME,
   isValidUrl,
@@ -17,11 +22,9 @@ import {
 } from '@tiptap/react';
 import { Image, Link, Upload, Loader2, X } from 'lucide-react';
 import { type FormEvent, useState, useRef } from 'react';
-import { cn } from '@/utils/helpers/utils';
-import { usePresignMedia, useSubmitMedia } from '@/hooks/media/useMedia';
-import { ImagePlaceholderOptions } from '@/types/props.type';
-import { UploadState } from '@/types/types.types';
-import { SubmitItem } from '@/types/types';
+import { cn } from '@/utils';
+import { usePresignMedia, useSubmitMedia } from '@/hooks';
+import { UploadState, SubmitItem, ImagePlaceholderOptions } from '@/types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

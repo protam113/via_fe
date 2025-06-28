@@ -5,6 +5,7 @@ import {
   CreateContactItem,
   Filters,
   ApprovedContact,
+  ContactCountData,
 } from '@/types';
 import { toast } from 'sonner';
 import { ContactError, ContactSuccess } from '@/constants';
@@ -151,4 +152,32 @@ const useUpdateContact = () => {
  * ========== END OF @HOOK useUpdateContact ==========
  */
 
-export { useContactList, useCreateContact, useUpdateContact };
+const fetchContactCount = async (): Promise<ContactCountData> => {
+  try {
+    // Call API
+    const response = await handleAPI(`${endpoints.contactCount}`, 'GET', null);
+
+    return response;
+  } catch (error) {
+    console.error(ContactError.ERROR_FETCHING_CONTACT_COUNT, error);
+    throw error;
+  }
+};
+
+/**
+ * Custom hook to get list of categories using React Query.
+ */
+const useContactCountData = (refreshKey: number) => {
+  return useQuery<ContactCountData, Error>({
+    queryKey: ['contactCountData', refreshKey],
+    queryFn: () => fetchContactCount(),
+    staleTime: process.env.NODE_ENV === 'development' ? 1000 : 300000,
+  });
+};
+
+export {
+  useContactList,
+  useCreateContact,
+  useUpdateContact,
+  useContactCountData,
+};

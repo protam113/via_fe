@@ -34,3 +34,7 @@ export interface ApprovedContact {
   status: string;
   ids: string[];
 }
+
+export interface ContactCountData {
+  data: number;
+}

@@ -100,3 +100,26 @@ export type ConfirmDialogProps = {
   confirmText?: string;
   cancelText?: string;
 };
+
+export const translationFields = [
+  { name: 'title', label: 'Title', placeholder: 'Enter title', type: 'input' },
+  {
+    name: 'location',
+    label: 'Location',
+    placeholder: 'Enter location',
+    type: 'input',
+  },
+  { name: 'price', label: 'Price', placeholder: 'Enter price', type: 'number' },
+  {
+    name: 'description',
+    label: 'Description',
+    placeholder: 'Enter description',
+    type: 'textarea',
+  },
+  {
+    name: 'content',
+    label: 'Content',
+    placeholder: 'Enter content',
+    type: 'richtext',
+  },
+];

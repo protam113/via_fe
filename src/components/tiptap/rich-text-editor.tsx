@@ -24,6 +24,8 @@ import SearchAndReplace from '@/components/tiptap/extensions/search-and-replace'
 import { TipTapFloatingMenu } from '@/components/tiptap/extensions/floating-menu';
 import { FloatingToolbar } from '@/components/tiptap/extensions/floating-toolbar';
 import { EditorToolbar } from './toolbars/editor-toolbar';
+import { RichTextEditorProps } from '@/types';
+import { useEffect } from 'react';
 
 const extensions = [
   StarterKit.configure({
@@ -75,31 +77,56 @@ const extensions = [
   Typography,
 ];
 
-export function RichTextEditorDemo({ className }: { className?: string }) {
+export function RichTextEditor({
+  className,
+  initialContent,
+  onContentChange,
+  onChange,
+}: RichTextEditorProps) {
   const editor = useEditor({
     immediatelyRender: false,
     extensions: extensions as Extension[],
-    content,
+    content: initialContent || content,
     editorProps: {
       attributes: {
         class: 'max-w-full focus:outline-none',
       },
     },
     onUpdate: ({ editor }) => {
-      // do what you want to do with output
-      // Update stats
-      // saving as text/json/hmtml
-      // const text = editor.getHTML();
-      console.log(editor.getText());
+      const html = editor.getHTML();
+      const text = editor.getText();
+      const json = editor.getJSON();
+
+      // Gọi callback để truyền data ra component cha
+      onContentChange?.(html, text);
+      onChange?.({ html, text, json });
     },
   });
+
+  // Method để component cha có thể lấy content bất kỳ lúc nào
+  const getContent = () => {
+    if (!editor) return { html: '', text: '', json: null };
+
+    return {
+      html: editor.getHTML(),
+      text: editor.getText(),
+      json: editor.getJSON(),
+    };
+  };
+
+  // Expose getContent method thông qua useImperativeHandle nếu cần
+  useEffect(() => {
+    if (editor && (window as any).editorRef) {
+      (window as any).editorRef.current = { getContent };
+    }
+  }, [editor]);
 
   if (!editor) return null;
 
   return (
     <div
       className={cn(
-        'relative max-h-[calc(100dvh-6rem)]  w-full overflow-hidden overflow-y-scroll border bg-card pb-[60px] sm:pb-0',
+        'relative max-h-[400px] w-full overflow-hidden overflow-y-scroll border bg-card pb-[60px] sm:pb-0',
         className
       )}
     >
@@ -108,19 +135,8 @@ export function RichTextEditorDemo({ className }: { className?: string }) {
       <TipTapFloatingMenu editor={editor} />
       <EditorContent
         editor={editor}
-        className=" min-h-[600px] w-full min-w-full cursor-text sm:p-6"
+        className="min-h-[400px] w-full min-w-full cursor-text sm:p-6"
       />
-      <button
-        onClick={() => {
-          if (!editor) return;
-          console.log('👉 HTML:', editor.getHTML());
-          console.log('👉 JSON:', editor.getJSON());
-          console.log('👉 Plain Text:', editor.getText());
-        }}
-        className="absolute bottom-4 right-4 rounded-lg bg-primary px-4 py-2 text-white shadow-md transition hover:bg-primary/90"
-      >
-        Lưu nội dung
-      </button>
     </div>
   );
 }

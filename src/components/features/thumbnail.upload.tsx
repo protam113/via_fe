@@ -287,17 +287,6 @@ export default function ThumbnailUploadPreview({
                     </Button>
                   </div>
                 )}
-
-                {uploadCompleted && (
-                  <div className="text-center">
-                    <p className="text-sm text-green-600 font-medium">
-                      ✅ Upload completed successfully!
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      You can now save your changes or upload a different image.
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
           ) : (
@@ -308,10 +297,10 @@ export default function ThumbnailUploadPreview({
                 accept="image/*"
                 onChange={handleFileChange}
                 className="hidden"
-                id="image-upload"
+                id="thumbnail-upload"
               />
               <label
-                htmlFor="image-upload"
+                htmlFor="thumbnail-upload"
                 className="flex cursor-pointer flex-col items-center gap-4 w-full"
               >
                 <div className="rounded-full bg-background p-4 shadow-sm transition-colors group-hover:bg-accent">

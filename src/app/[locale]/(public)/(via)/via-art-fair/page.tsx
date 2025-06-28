@@ -8,12 +8,12 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
+import { Container } from 'lucide-react';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
   const pathname = usePathname();
   const locale = getLocaleFromPath(pathname) || 'vi';
-  const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [allLoaded, setAllLoaded] = useState(false);
   const [accumulatedExhibition, setAccumulatedExhibition] = useState<any[]>([]);
@@ -22,7 +22,7 @@ const Page = () => {
   const params = {
     language: locale,
     category_id: ENV.VIA_ART_FAIR_ID,
-    limit: pageSize,
+    limit: 20,
   };
 
   const { exhibitions, isLoading, isError, pagination } = ExhibitionsList(
@@ -53,6 +53,29 @@ const Page = () => {
       setAllLoaded(true);
     }, 1500);
   };
+
+  if (isLoading) {
+    return (
+      <Container>
+        <div className="flex flex-col items-center justify-center py-20 text-center text-gray-700">
+          <Icons.Loader2 className="animate-spin h-8 w-8 mb-4 text-gray-500" />
+          <p className="text-lg font-medium">
+            Loading the latest news for you...
+          </p>
+          <p className="text-sm text-gray-500 mt-2">Please wait a moment </p>
+        </div>
+      </Container>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Container>
+        <p className="text-red-main">Oops! Failed to load news.</p>
+      </Container>
+    );
+  }
+
   return (
     <>
       <SEO
@@ -73,7 +96,7 @@ const Page = () => {
             }
           `}</style>
 
-          {exhibitions.map((item) => (
+          {accumulatedExhibition.map((item) => (
             <ViaCard
               key={item.id}
               image={item.thumbnail.url}

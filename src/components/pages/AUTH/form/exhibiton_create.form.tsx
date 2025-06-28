@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-
 import { useState } from 'react';
 import {
   Card,
@@ -11,34 +10,28 @@ import {
   CardTitle,
   Label,
   Button,
-  Input,
-  Textarea,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-  Badge,
 } from '@/components';
-import { Calendar } from '@/components/ui/calendar';
-import { CalendarIcon, Plus, X } from 'lucide-react';
-import { format } from 'date-fns';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { exhibitionFormSchema } from '@/utils';
-import { Companies, CreateExhibitionData } from '@/types';
+import { CreateExhibitionData } from '@/types';
 import { useCreateExhibition } from '@/hooks/exhibition/useExhibition';
 import { ExhibitionError } from '@/constants';
 import ImageUploadPreview from '@/components/features/image_upload';
 import ThumbnailUploadPreview from '@/components/features/thumbnail.upload';
+import { TranslationFields } from '@/components/common/tables/translationFields.table';
+import DateRangePicker from '@/components/common/options/DateRangePicker.option';
+import CompanyManager from '@/components/common/options/CompanyInputGroup.option';
 
 const statusOptions = [
   { value: 'upcoming', label: 'Upcoming' },
@@ -55,12 +48,6 @@ export default function EventForm({ category }: { category: string }) {
   const [uploadBannerKey, setUploadBannerKey] = useState(0);
 
   const { mutate: createEvent } = useCreateExhibition();
-
-  const [newCompany, setNewCompany] = useState<Companies>({
-    name: '',
-    url: '',
-    image: '',
-  });
 
   const form = useForm<z.infer<typeof exhibitionFormSchema>>({
     resolver: zodResolver(exhibitionFormSchema),
@@ -93,15 +80,6 @@ export default function EventForm({ category }: { category: string }) {
     },
   });
 
-  const {
-    fields: companyFields,
-    append: appendCompany,
-    remove: removeCompany,
-  } = useFieldArray({
-    control: form.control,
-    name: 'companies',
-  });
-
   const { fields: translationFields } = useFieldArray({
     control: form.control,
     name: 'translations',
@@ -128,25 +106,13 @@ export default function EventForm({ category }: { category: string }) {
     }
   };
 
-  const addCompany = () => {
-    if (newCompany.name.trim()) {
-      appendCompany({ ...newCompany });
-      setNewCompany({ name: '', url: '', image: '' });
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      addCompany();
-    }
-  };
-
   const handleThumbnailUploaded = (imageUrl: string, imageId: string) => {
+    console.log('THUMBNAIL uploaded:', { imageUrl, imageId });
     setValue('thumbnail_id', imageId);
   };
 
   const handleBannerUploaded = (imageUrl: string, imageId: string) => {
+    console.log('BANNER uploaded:', { imageUrl, imageId });
     setValue('banner_id', imageId);
   };
 
@@ -224,7 +190,7 @@ export default function EventForm({ category }: { category: string }) {
     };
 
     createEvent(exhibitionData, {
-      onSuccess: (data) => {
+      onSuccess: () => {
         setIsSubmitting(false);
         form.reset();
         setUploadThumbnailKey((prev) => prev + 1);
@@ -250,11 +216,11 @@ export default function EventForm({ category }: { category: string }) {
 
   return (
     <div className="w-full mx-auto p-6 space-y-6">
-      <Card>
+      <Card className="rounded-none">
         <CardHeader>
-          <CardTitle>Create Event</CardTitle>
+          <CardTitle>Create Exhibition</CardTitle>
           <CardDescription>
-            Fill in the event details with multilingual support
+            Fill in the exhibition details with multilingual support
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -270,81 +236,56 @@ export default function EventForm({ category }: { category: string }) {
                 <p className="text-red-800 text-sm">{errors.root.message}</p>
               </div>
             )}
-
-            {/* Date Selection */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label>Date Range</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start text-left font-normal"
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {watchedValues.start_date
-                        ? watchedValues.end_date
-                          ? `${format(
-                              new Date(watchedValues.start_date),
-                              'dd/MM/yyyy'
-                            )} - ${format(
-                              new Date(watchedValues.end_date),
-                              'dd/MM/yyyy'
-                            )}`
-                          : format(
-                              new Date(watchedValues.start_date),
-                              'dd/MM/yyyy'
-                            )
-                        : 'Select date range'}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="range"
-                      selected={{
-                        from: watchedValues.start_date
-                          ? new Date(watchedValues.start_date)
-                          : undefined,
-                        to: watchedValues.end_date
-                          ? new Date(watchedValues.end_date)
-                          : undefined,
+            <Card className="rounded-none">
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 space-y-6">
+                  {/* Date + Status */}
+                  <div className="md:col-span-1 space-y-4">
+                    <DateRangePicker
+                      value={{
+                        start_date: watchedValues.start_date,
+                        end_date: watchedValues.end_date,
                       }}
-                      onSelect={(range) => {
-                        console.log('Date range selected:', range);
-                        setValue(
-                          'start_date',
-                          range?.from?.toISOString() || ''
-                        );
-                        setValue('end_date', range?.to?.toISOString() || '');
+                      onChange={(range) => {
+                        setValue('start_date', range.start_date);
+                        setValue('end_date', range.end_date);
                       }}
-                      initialFocus
                     />
-                  </PopoverContent>
-                </Popover>
-              </div>
 
-              <div className="space-y-2">
-                <Label>Status</Label>
-                <Select
-                  value={watchedValues.status}
-                  onValueChange={(value) => {
-                    console.log('Status selected:', value);
-                    setValue('status', value);
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {statusOptions.map((status) => (
-                      <SelectItem key={status.value} value={status.value}>
-                        {status.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+                    <div className="space-y-2">
+                      <Label>Status</Label>
+                      <Select
+                        value={watchedValues.status}
+                        onValueChange={(value) => {
+                          console.log('Status selected:', value);
+                          setValue('status', value);
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-none">
+                          {statusOptions.map((status) => (
+                            <SelectItem
+                              key={status.value}
+                              value={status.value}
+                              className="rounded-none"
+                            >
+                              {status.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  {/* Company Manager chiếm 2/3 */}
+                  <div className="md:col-span-2">
+                    <CompanyManager form={form} />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Media IDs */}
             <div className="grid grid-cols-1 gap-4">
@@ -376,237 +317,37 @@ export default function EventForm({ category }: { category: string }) {
                 )}
               </div>
             </div>
-
+            {/* Thêm richtext từ probfile */}
             {/* Translations */}
             <div className="space-y-4">
               <Label className="text-lg font-semibold">Event Details</Label>
-              <p className="text-sm text-gray-600">
-                * At least one language title is required
-              </p>
-              <Tabs defaultValue="en" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 bg-gray-400">
-                  <TabsTrigger value="en">English</TabsTrigger>
-                  <TabsTrigger value="vn">Vietnamese</TabsTrigger>
+
+              <Tabs defaultValue="en" className="w-full rounded-none">
+                <TabsList className="grid w-full grid-cols-2 bg-gray-400 rounded-none">
+                  <TabsTrigger value="en" className="rounded-none">
+                    English
+                  </TabsTrigger>
+                  <TabsTrigger value="vn" className="rounded-none">
+                    Vietnamese
+                  </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="en" className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>Title (English)</Label>
-                      <Input
-                        value={getTranslationValue('en', 'title')}
-                        onChange={(e) =>
-                          updateTranslation('en', 'title', e.target.value)
-                        }
-                        placeholder="Enter English title"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Location (English)</Label>
-                      <Input
-                        value={getTranslationValue('en', 'location')}
-                        onChange={(e) =>
-                          updateTranslation('en', 'location', e.target.value)
-                        }
-                        placeholder="Enter location"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Description (English)</Label>
-                    <Textarea
-                      value={getTranslationValue('en', 'description')}
-                      onChange={(e) =>
-                        updateTranslation('en', 'description', e.target.value)
-                      }
-                      placeholder="Enter English description"
-                      rows={3}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Content (English)</Label>
-                    <Textarea
-                      value={getTranslationValue('en', 'content')}
-                      onChange={(e) =>
-                        updateTranslation('en', 'content', e.target.value)
-                      }
-                      placeholder="Enter English content"
-                      rows={5}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      value={getTranslationValue('en', 'price')}
-                      onChange={(e) =>
-                        updateTranslation(
-                          'en',
-                          'price',
-                          Number.parseFloat(e.target.value) || 0
-                        )
-                      }
-                      placeholder="Enter price"
-                    />
-                  </div>
+                <TabsContent value="en">
+                  <TranslationFields
+                    lang="en"
+                    getTranslationValue={getTranslationValue}
+                    updateTranslation={updateTranslation}
+                  />
                 </TabsContent>
 
-                <TabsContent value="vn" className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>Title (Vietnamese)</Label>
-                      <Input
-                        value={getTranslationValue('vn', 'title')}
-                        onChange={(e) =>
-                          updateTranslation('vn', 'title', e.target.value)
-                        }
-                        placeholder="Enter Vietnamese title"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Location (Vietnamese)</Label>
-                      <Input
-                        value={getTranslationValue('vn', 'location')}
-                        onChange={(e) =>
-                          updateTranslation('vn', 'location', e.target.value)
-                        }
-                        placeholder="Enter location"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Description (Vietnamese)</Label>
-                    <Textarea
-                      value={getTranslationValue('vn', 'description')}
-                      onChange={(e) =>
-                        updateTranslation('vn', 'description', e.target.value)
-                      }
-                      placeholder="Enter Vietnamese description"
-                      rows={3}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Content (Vietnamese)</Label>
-                    <Textarea
-                      value={getTranslationValue('vn', 'content')}
-                      onChange={(e) =>
-                        updateTranslation('vn', 'content', e.target.value)
-                      }
-                      placeholder="Enter Vietnamese content"
-                      rows={5}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Price</Label>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      value={getTranslationValue('vn', 'price')}
-                      onChange={(e) =>
-                        updateTranslation(
-                          'vn',
-                          'price',
-                          Number.parseFloat(e.target.value) || 0
-                        )
-                      }
-                      placeholder="Enter price"
-                    />
-                  </div>
+                <TabsContent value="vn">
+                  <TranslationFields
+                    lang="vn"
+                    getTranslationValue={getTranslationValue}
+                    updateTranslation={updateTranslation}
+                  />
                 </TabsContent>
               </Tabs>
-            </div>
-
-            {/* Companies Section */}
-            <div className="space-y-4">
-              <Label className="text-lg font-semibold">Companies</Label>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Add Company</CardTitle>
-                  <CardDescription>
-                    Press Enter to add or click the plus button
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Input
-                      placeholder="Company name"
-                      value={newCompany.name}
-                      onChange={(e) =>
-                        setNewCompany((prev) => ({
-                          ...prev,
-                          name: e.target.value,
-                        }))
-                      }
-                      onKeyPress={handleKeyPress}
-                    />
-                    <Input
-                      placeholder="Company URL"
-                      value={newCompany.url}
-                      onChange={(e) =>
-                        setNewCompany((prev) => ({
-                          ...prev,
-                          url: e.target.value,
-                        }))
-                      }
-                      onKeyPress={handleKeyPress}
-                    />
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="Image URL"
-                        value={newCompany.image}
-                        onChange={(e) =>
-                          setNewCompany((prev) => ({
-                            ...prev,
-                            image: e.target.value,
-                          }))
-                        }
-                        onKeyPress={handleKeyPress}
-                        className="flex-1"
-                      />
-                      <Button type="button" onClick={addCompany} size="icon">
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {companyFields.filter((company) => company.name.trim()).length >
-                0 && (
-                <div className="space-y-2">
-                  <Label>Added Companies</Label>
-                  <div className="flex flex-wrap gap-2">
-                    {companyFields.map((company, index) =>
-                      company.name.trim() ? (
-                        <Badge
-                          key={company.id}
-                          variant="secondary"
-                          className="flex items-center gap-2 px-3 py-1"
-                        >
-                          <span>{company.name}</span>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            className="h-4 w-4 p-0 hover:bg-destructive hover:text-destructive-foreground"
-                            onClick={() => removeCompany(index)}
-                          >
-                            <X className="h-3 w-3" />
-                          </Button>
-                        </Badge>
-                      ) : null
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
 
             {/* Submit Button */}
