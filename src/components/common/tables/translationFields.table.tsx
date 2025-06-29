@@ -6,6 +6,9 @@ import {
   parseCurrencyInput,
 } from '@/utils/formatters/format_currency.utils';
 import { RichTextEditor } from '@/components/tiptap/rich-text-editor';
+import { exhibitionFormSchema } from '@/utils';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { z } from 'zod';
 
 interface Props {
   lang: string;
@@ -15,6 +18,8 @@ interface Props {
     field: string,
     value: string | number
   ) => void;
+  errors: FieldErrors<z.infer<typeof exhibitionFormSchema>>;
+  register: UseFormRegister<z.infer<typeof exhibitionFormSchema>>;
 }
 
 export type TranslationField = {
@@ -24,10 +29,16 @@ export type TranslationField = {
   type: 'input' | 'number' | 'richtext' | 'textarea';
 };
 
+type TranslationFieldName = keyof z.infer<
+  typeof exhibitionFormSchema
+>['translations'][number];
+
 export function TranslationFields({
   lang,
   getTranslationValue,
   updateTranslation,
+  errors,
+  register,
 }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -44,7 +55,7 @@ export function TranslationFields({
             setDisplayValue(value);
           } else {
             const parsed = parseCurrencyInput(value);
-            setDisplayValue(formatCurrencyInput(parsed, currency)); // 🟢 show luôn số có ₫/$ từ đầu
+            setDisplayValue(formatCurrencyInput(parsed, currency));
           }
         }, [value]);
 
@@ -63,12 +74,22 @@ export function TranslationFields({
         const isFullWidth = field.type === 'richtext' || field.name === 'title';
         const colSpan = isFullWidth ? 'md:col-span-2' : '';
 
+        const translationIndex = lang === 'en' ? 0 : 1;
+
+        const fieldName = field.name as TranslationFieldName;
+
+        const fieldError = (errors?.translations?.[translationIndex] ?? {})[
+          fieldName
+        ];
+
         return (
           <div className={`space-y-2 ${colSpan}`} key={`${lang}-${field.name}`}>
             <Label>
               {field.label} ({lang === 'en' ? 'English' : 'Vietnamese'})
             </Label>
-
+            {fieldError?.message && (
+              <p className="text-red-500 text-sm">{fieldError.message}</p>
+            )}
             {field.type === 'input' || field.type === 'number' ? (
               <Input
                 value={displayValue}
@@ -111,8 +132,8 @@ export function TranslationFields({
                 initialContent={value}
                 onChange={(val) =>
                   updateTranslation(lang, field.name, val.html)
-                } // chỉ lấy html
-                className="w-full rounded-none"
+                }
+                className="w-full rounded-none cursor-text"
               />
             ) : null}
           </div>

@@ -12,6 +12,8 @@ import {
   Label,
 } from '@/components';
 import { format } from 'date-fns';
+import { toDate } from 'date-fns-tz';
+import { format as formatTz, toZonedTime } from 'date-fns-tz';
 
 type DateRange = {
   start_date: string;
@@ -37,22 +39,35 @@ export default function DateRangePicker({
 
   const handleSelect = (range?: { from?: Date; to?: Date }) => {
     const newVal: DateRange = {
-      start_date: range?.from ? format(range.from, 'yyyy-MM-dd') : '',
-      end_date: range?.to ? format(range.to, 'yyyy-MM-dd') : '',
+      start_date: range?.from
+        ? formatTz(
+            toZonedTime(range.from, 'Asia/Ho_Chi_Minh'),
+            "yyyy-MM-dd'T'00:00:00xxx"
+          )
+        : '',
+      end_date: range?.to
+        ? formatTz(
+            toZonedTime(range.to, 'Asia/Ho_Chi_Minh'),
+            "yyyy-MM-dd'T'00:00:00xxx"
+          )
+        : '',
     };
     setLocalValue(newVal);
     onChange(newVal);
   };
 
   const handleInputChange = (field: keyof DateRange, dateStr: string) => {
+    const date = new Date(dateStr);
+    const zoned = toZonedTime(date, 'Asia/Ho_Chi_Minh');
+    const isoDate = formatTz(zoned, "yyyy-MM-dd'T'00:00:00xxx");
+
     const newVal: DateRange = {
       ...localValue,
-      [field]: dateStr,
+      [field]: isoDate,
     };
     setLocalValue(newVal);
     onChange(newVal);
   };
-
   return (
     <div className="space-y-2">
       <Label className="text-lg font-semibold">{label}</Label>

@@ -16,17 +16,23 @@ const LangButton = () => {
   }, [pathname]);
 
   const handleLangChange = (lang: 'vi' | 'en') => {
-    if (isVietnamese === null) return; // avoid race condition
-    if (lang === 'vi' && !isVietnamese) {
-      const newPath = pathname.replace(/^\/en/, '');
-      router.push(`/vi${newPath.startsWith('/') ? newPath : '/' + newPath}`);
-    } else if (lang === 'en' && isVietnamese) {
-      const newPath = pathname.replace(/^\/vi/, '');
-      router.push(`/en${newPath.startsWith('/') ? newPath : '/' + newPath}`);
+    if (isVietnamese === null) return;
+
+    // ✅ Clean path (remove /vi or /en prefix)
+    const currentPath = pathname.replace(/^\/(en|vi)/, '');
+
+    // ✅ Nếu đang ở via-art-fair/[slug] → chuyển về "/[lang]"
+    const isViaArtFairDetail = /^\/via-art-fair\/[^/]+$/.test(currentPath);
+    const isViaAtelierDetail = /^\/via-atelier\/[^/]+$/.test(currentPath);
+
+    if (isViaArtFairDetail || isViaAtelierDetail) {
+      router.push(`/${lang}`);
+    } else {
+      router.push(`/${lang}${currentPath}`);
     }
   };
 
-  if (isVietnamese === null) return null; // hoặc loading skeleton cho đẹp
+  if (isVietnamese === null) return null;
 
   return (
     <div className="flex items-center gap-4 text-base lg:text-lg">

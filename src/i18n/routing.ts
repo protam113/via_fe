@@ -24,5 +24,13 @@ export const routing = defineRouting({
       en: '/news/[slug]',
       vi: '/tin-tuc/[slug]',
     },
+    '/via-art-fair/[slug]': {
+      en: '/via-art-fair/[slug]',
+      vi: '/via-art-fair/[slug]',
+    },
+    '/via-atelier/[slug]': {
+      en: '/via-atelier/[slug]',
+      vi: '/via-atelier/[slug]',
+    },
   },
 });

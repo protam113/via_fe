@@ -104,4 +104,5 @@ export enum CategorySuccess {
 
 export enum ExhibiionSuccess {
   CREATED = 'Exhibition created successfully.',
+  DETAIL = 'Get Exhibition detail successfully',
 }

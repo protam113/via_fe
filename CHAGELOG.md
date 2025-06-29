@@ -14,7 +14,24 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.2.2] - 2025-06-28
+## [1.2.4] - 2025-06-29
+
+### Added
+
+- Added via atelier detail
+- Added via art faor detail
+- Add VIA art fair detail design
+-
+
+### Changed
+
+### Fixed
+
+- Fixed language button
+
+---
+
+## [1.2.3] - 2025-06-28
 
 ### Added
 

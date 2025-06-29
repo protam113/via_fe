@@ -48,17 +48,17 @@ export default function ArtGalleryLayout() {
       {/* Sticky Text Panel */}
       <div className="w-full lg:w-2/5 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start p-8 lg:p-16 ">
         <CustomImage
-          src={'/img/via_banner.png'}
+          src="/icons/logo_intro.svg"
           alt="VIA HOME"
           fill
-          className="object-cover"
+          className="object-contain"
           sizes="(max-width: 768px) 100vw, 60vw"
         />
       </div>
 
       {/* Scrollable Image Gallery */}
       <div className="w-full lg:w-3/5 p-4 lg:p-8 ">
-        <div className="lg:mx-0 mb-8">
+        <div className="lg:mx-0 mb-8 min-h-screen">
           <h1 className="text-2xl md:text-24 tracking-tight uppercase mb-6">
             {t('title')}
           </h1>

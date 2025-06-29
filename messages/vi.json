@@ -65,5 +65,9 @@
   "NewsPage": {
     "title": "Tin Tức",
     "button": "Tải Thêm"
+  },
+
+  "Loading": {
+    "title": "Đang tải thông tin triển lãm..."
   }
 }

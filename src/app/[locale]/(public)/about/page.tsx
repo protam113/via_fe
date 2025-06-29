@@ -1,5 +1,4 @@
 import { Container } from '@/components';
-import EnhancedHeroBanner from '@/components/wrappers/enhanced-hero-banner';
 import ArtGalleryLayout from '@/components/pages/about/show.section';
 import SEO from '@/components/core/SEO';
 

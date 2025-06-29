@@ -126,7 +126,7 @@ export function RichTextEditor({
   return (
     <div
       className={cn(
-        'relative max-h-[400px] w-full overflow-hidden overflow-y-scroll border bg-card pb-[60px] sm:pb-0',
+        'relative max-h-[400px] w-full overflow-y-auto border bg-card pb-[60px] sm:pb-0',
         className
       )}
     >

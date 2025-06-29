@@ -37,8 +37,6 @@ export default function AdminBanner() {
     }
   }, [isHovered, banners]);
 
-  console.log('banners', banners);
-
   if (isLoading) return <div>Loading banners...</div>;
   if (isError) return <div>Failed to load banners.</div>;
   if (!banners.length) return <div>No banners available.</div>;

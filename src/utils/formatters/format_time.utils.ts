@@ -17,6 +17,14 @@ export function formatSmartDate(dateInput: string | Date): string {
   } else if (hoursAgo < 24) {
     return `${hoursAgo}h ago`;
   } else {
-    return format(date, 'yyyy/MM/dd');
+    return format(date, 'dd/MM/yyyy');
   }
+}
+
+export function formatDateOnly(dateInput: string | Date): string {
+  const date = new Date(dateInput);
+
+  if (!isValid(date)) return 'Invalid date';
+
+  return format(date, 'dd/MM/yyyy');
 }

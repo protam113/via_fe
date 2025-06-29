@@ -79,3 +79,22 @@ export interface CreateExhibitionData {
   companies: CreateCompanies[];
   translations: CreateTranslations[];
 }
+
+export interface ExibitionDetailResponse {
+  id: string;
+  title: string;
+  slug: string;
+  thumbnail: Thumbnail;
+  banner: Thumbnail;
+  description: string;
+  start_date: string | Date;
+  end_date: string | Date;
+  status: string;
+  companies: Companies[];
+  content: string;
+  location: string;
+}
+
+export interface ExhibitionCode {
+  code: string;
+}

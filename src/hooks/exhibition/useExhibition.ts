@@ -5,6 +5,8 @@ import {
   Filters,
   CreateExhibitionData,
   FetchBannerListResponse,
+  ExibitionDetailResponse,
+  ExhibitionCode,
 } from '@/types';
 import { toast } from 'sonner';
 import { logDebug } from '@/utils';
@@ -151,4 +153,69 @@ const useBannerList = (
   });
 };
 
-export { useExhibitionList, useCreateExhibition, useBannerList };
+const fetchExhibitionDetail = async (
+  exhibitionCode: ExhibitionCode,
+  slug: string,
+  filters: Filters
+): Promise<ExibitionDetailResponse> => {
+  try {
+    if (!slug) {
+      throw new Error('Slug is required');
+    }
+
+    const validFilters = Object.fromEntries(
+      Object.entries(filters)
+        .filter(([, value]) => value !== undefined && value !== '')
+        .map(([key, value]) => [key, String(value)])
+    );
+
+    // Create query string from filters
+    const queryString = new URLSearchParams({
+      ...validFilters,
+    }).toString();
+    if (!endpoints.exhibition) {
+      throw new Error('Exhibition endpoint is not defined');
+    }
+
+    const url = `${endpoints.exhibition.replace(':slug', slug)}${
+      queryString ? `?${queryString}` : ''
+    }`;
+
+    const response = await handleAPI(url, 'POST', exhibitionCode);
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching exhibition detail:', error);
+    throw error;
+  }
+};
+
+// Custom hook to get detail of category
+const useExhibitionDetail = (slug: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      exhibitionCode,
+      filters,
+    }: {
+      exhibitionCode: ExhibitionCode;
+      filters: Filters;
+    }) => {
+      return fetchExhibitionDetail(exhibitionCode, slug, filters);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['exhibitionDetail'] });
+    },
+    onError: (error) => {
+      console.error('Failed to fetch exhibition detail:', error);
+    },
+  });
+};
+
+export {
+  useExhibitionList,
+  useCreateExhibition,
+  useBannerList,
+  useExhibitionDetail,
+};

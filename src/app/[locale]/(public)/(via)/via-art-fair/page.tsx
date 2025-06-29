@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
-import { Container } from 'lucide-react';
+import CategoryCard from '@/components/common/cards/category.card';
+import { Container } from '@/components';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
@@ -82,48 +83,60 @@ const Page = () => {
         title="VIA Atelier"
         description="VIA brings cutting-edge web design and development services. Fast, sleek, and built for the future!"
       />
-      <main>
-        <div
-          className="space-y-4 min-h-screen overflow-y-auto"
-          style={{
-            scrollbarWidth: 'none', // Firefox
-            msOverflowStyle: 'none', // IE
-          }}
-        >
-          <style jsx>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
+      <main className="h-full min-h-screen flex items-stretch">
+        <Container className="flex flex-col md:flex-row gap-4 w-full">
+          <aside className="order-1 md:order-none w-full md:basis-1/5 md:min-w-[150px] md:max-w-[200px] flex flex-col justify-end">
+            <div className="ml-8">
+              <CategoryCard />
+            </div>
+          </aside>
+          <section className="order-2 md:order-none w-full md:flex-1 flex flex-col">
+            <div className="flex-grow">
+              <div
+                className="flex flex-col space-y-4 min-h-screen overflow-y-auto"
+                style={{
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                }}
+              >
+                <style jsx>{`
+                  div::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
 
-          {accumulatedExhibition.map((item) => (
-            <ViaCard
-              key={item.id}
-              image={item.thumbnail.url}
-              alt={item.description}
-            />
-          ))}
-        </div>
-        {!allLoaded && pagination.total_page > 1 && (
-          <div className="flex justify-center mt-12">
-            <button
-              onClick={handleLoadMore}
-              disabled={loading}
-              className="px-8 py-3 rounded-none bg-gray-900 text-white font-medium transition-all duration-300
+                {accumulatedExhibition.map((item) => (
+                  <ViaCard
+                    key={item.id}
+                    image={item.thumbnail.url}
+                    alt={item.description}
+                    slug={item.slug}
+                  />
+                ))}
+              </div>
+            </div>
+            {!allLoaded && pagination.total_page > 1 && (
+              <div className="flex justify-center mt-12">
+                <button
+                  onClick={handleLoadMore}
+                  disabled={loading}
+                  className="px-8 py-3 rounded-none bg-gray-900 text-white font-medium transition-all duration-300
                                      hover:bg-red-main hover:scale-105 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-main/60 focus:ring-opacity-50
                                      disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-gray-900 disabled:hover:scale-100"
-            >
-              {loading ? (
-                <span className="flex items-center">
-                  <Icons.Loader2 className="animate-spin mr-2 h-5 w-5" />
-                  LOADING...
-                </span>
-              ) : (
-                t('button')
-              )}
-            </button>
-          </div>
-        )}
+                >
+                  {loading ? (
+                    <span className="flex items-center">
+                      <Icons.Loader2 className="animate-spin mr-2 h-5 w-5" />
+                      LOADING...
+                    </span>
+                  ) : (
+                    t('button')
+                  )}
+                </button>
+              </div>
+            )}
+          </section>
+        </Container>
       </main>
     </>
   );

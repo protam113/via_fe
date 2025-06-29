@@ -2,7 +2,7 @@ import React from 'react';
 import CustomImage from '../design/image.component';
 import { Link } from '@/i18n/navigation';
 
-const ViaCard = ({
+const AtelierCard = ({
   image,
   alt,
   slug,
@@ -15,7 +15,7 @@ const ViaCard = ({
     <Link
       key={slug}
       href={{
-        pathname: '/via-art-fair/[slug]',
+        pathname: '/via-atelier/[slug]',
         params: { slug },
       }}
       className="group relative h-80 w-full rounded-none overflow-hidden cursor-pointer"
@@ -37,4 +37,4 @@ const ViaCard = ({
   );
 };
 
-export default ViaCard;
+export default AtelierCard;

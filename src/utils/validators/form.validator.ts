@@ -148,6 +148,14 @@ export const categoryFormSchema = z.object({
   thumbnail_id: zodIsNotEmptyString(CategoryWarning.WARNING_ID),
 });
 
+export const exhibitionDetailFormSchema = z.object({
+  code: z.string(),
+});
+
+export const exhibitionWithCodeRequiredSchema = z.object({
+  code: z.string().trim().min(1, 'Code không được để trống'),
+});
+
 export const exhibitionFormSchema = z.object({
   start_date: z
     .string()

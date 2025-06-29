@@ -65,5 +65,9 @@
   "NewsPage": {
     "title": "News",
     "button": "Load More"
+  },
+
+  "Loading": {
+    "title": "Loading exhibition information..."
   }
 }

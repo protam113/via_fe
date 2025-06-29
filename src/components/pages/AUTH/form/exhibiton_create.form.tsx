@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -36,13 +36,13 @@ import CompanyManager from '@/components/common/options/CompanyInputGroup.option
 const statusOptions = [
   { value: 'upcoming', label: 'Upcoming' },
   { value: 'ongoing', label: 'Ongoing' },
-  { value: 'completed', label: 'Completed' },
-  { value: 'cancelled', label: 'Cancelled' },
+  { value: 'finished', label: 'Finished' },
 ];
 
 export default function EventForm({ category }: { category: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const categoryId = category;
+  const errorRef = useRef<HTMLDivElement>(null);
 
   const [uploadThumnailKey, setUploadThumbnailKey] = useState(0);
   const [uploadBannerKey, setUploadBannerKey] = useState(0);
@@ -106,36 +106,54 @@ export default function EventForm({ category }: { category: string }) {
     }
   };
 
-  const handleThumbnailUploaded = (imageUrl: string, imageId: string) => {
-    console.log('THUMBNAIL uploaded:', { imageUrl, imageId });
+  const handleThumbnailUploaded = (imageId: string) => {
     setValue('thumbnail_id', imageId);
   };
 
-  const handleBannerUploaded = (imageUrl: string, imageId: string) => {
-    console.log('BANNER uploaded:', { imageUrl, imageId });
+  const handleBannerUploaded = (imageId: string) => {
     setValue('banner_id', imageId);
   };
 
   const onSubmit = (values: z.infer<typeof exhibitionFormSchema>) => {
-    console.log('=== FORM SUBMIT STARTED ===');
-    console.log('Submit values:', values);
-
     setIsSubmitting(true);
 
-    // Validation checks with logging
+    const errorsFound = [];
+
     if (!values.thumbnail_id) {
+      errorsFound.push('Thumbnail is required');
       form.setError('thumbnail_id', {
         type: 'manual',
         message: 'Thumbnail is required',
       });
-      setIsSubmitting(false);
-      return;
     }
 
     if (!values.banner_id) {
+      errorsFound.push('Banner is required');
       form.setError('banner_id', {
         type: 'manual',
         message: 'Banner is required',
+      });
+    }
+
+    if (!values.start_date || !values.end_date) {
+      errorsFound.push('Start and end date are required');
+    }
+
+    if (!values.status) {
+      errorsFound.push('Status is required');
+    }
+
+    const hasTitle = values.translations.some(
+      (t) => t.title && t.title.trim() !== ''
+    );
+    if (!hasTitle) {
+      errorsFound.push('Title is required in at least one language');
+    }
+
+    if (errorsFound.length > 0) {
+      form.setError('root', {
+        type: 'manual',
+        message: errorsFound.join(' | '),
       });
       setIsSubmitting(false);
       return;
@@ -214,6 +232,17 @@ export default function EventForm({ category }: { category: string }) {
     return translation?.[field as keyof typeof translation] || '';
   };
 
+  useEffect(() => {
+    if (Object.keys(errors).length > 0) {
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, 50); // Delay 50ms
+    }
+  }, [errors]);
+
   return (
     <div className="w-full mx-auto p-6 space-y-6">
       <Card className="rounded-none">
@@ -231,11 +260,18 @@ export default function EventForm({ category }: { category: string }) {
             className="space-y-6"
           >
             {/* Error Display */}
-            {errors.root && (
-              <div className="bg-red-50 border border-red-200 rounded-md p-4">
-                <p className="text-red-800 text-sm">{errors.root.message}</p>
+            {Object.keys(errors).length > 0 && (
+              <div
+                ref={errorRef}
+                className="bg-red-50 border border-red-200 rounded-md p-4 scroll-mt-28"
+              >
+                <p className="text-red-800 text-sm font-medium">
+                  Please check the form again, {Object.keys(errors).length}{' '}
+                  field(s) need to be fixed.
+                </p>
               </div>
             )}
+
             <Card className="rounded-none">
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 space-y-6">
@@ -251,6 +287,13 @@ export default function EventForm({ category }: { category: string }) {
                         setValue('end_date', range.end_date);
                       }}
                     />
+                    {(errors.start_date || errors.end_date) && (
+                      <p className="text-red-500 text-sm">
+                        {[errors.start_date?.message, errors.end_date?.message]
+                          .filter(Boolean)
+                          .join(' ')}
+                      </p>
+                    )}
 
                     <div className="space-y-2">
                       <Label>Status</Label>
@@ -337,6 +380,8 @@ export default function EventForm({ category }: { category: string }) {
                     lang="en"
                     getTranslationValue={getTranslationValue}
                     updateTranslation={updateTranslation}
+                    errors={errors}
+                    register={form.register}
                   />
                 </TabsContent>
 
@@ -345,6 +390,8 @@ export default function EventForm({ category }: { category: string }) {
                     lang="vn"
                     getTranslationValue={getTranslationValue}
                     updateTranslation={updateTranslation}
+                    errors={errors}
+                    register={form.register}
                   />
                 </TabsContent>
               </Tabs>
@@ -356,7 +403,6 @@ export default function EventForm({ category }: { category: string }) {
                 type="submit"
                 className="w-full md:w-auto"
                 disabled={isSubmitting}
-                onClick={() => console.log('Submit button clicked!')}
               >
                 {isSubmitting ? 'Creating...' : 'Create Event'}
               </Button>
