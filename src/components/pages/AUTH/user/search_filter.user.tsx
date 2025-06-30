@@ -12,7 +12,7 @@ import {
   RefreshButton,
 } from '@/components';
 import { ROUTES } from '@/lib';
-import { AdminUserProps } from '@/types';
+import type { AdminUserProps } from '@/types';
 import { Icons } from '@/assets/icons/icons';
 
 const SearchFilterBar: React.FC<AdminUserProps> = ({

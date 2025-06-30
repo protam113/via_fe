@@ -4,7 +4,7 @@ import type React from 'react';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { ImageIcon, X } from 'lucide-react';
-import { ImageViewerProps } from '@/types';
+import type { ImageViewerProps } from '@/types';
 import CustomImage from '../common/design/image.component';
 
 export default function ImageViewer({

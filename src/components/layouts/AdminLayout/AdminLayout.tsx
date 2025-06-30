@@ -1,6 +1,7 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 import { AppSidebar } from './app-sidebar';
 import { Separator } from '@/components/ui/separator';
 import {

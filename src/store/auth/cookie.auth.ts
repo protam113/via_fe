@@ -2,7 +2,7 @@
 // 📁 store/auth/cookie.auth.ts - OPTIMIZED VERSION
 // ==============================================
 
-import { CookieOptions } from '@/types';
+import type { CookieOptions } from '@/types';
 import { logDebug } from '@/utils/logger';
 
 export const CookieManager = {

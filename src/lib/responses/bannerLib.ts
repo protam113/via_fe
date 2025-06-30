@@ -1,5 +1,5 @@
 import { useBannerList } from '@/hooks/exhibition/useExhibition';
-import { Filters } from '@/types';
+import type { Filters } from '@/types';
 
 // BannerList.ts
 export const BannerList = (

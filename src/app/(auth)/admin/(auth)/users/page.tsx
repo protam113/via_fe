@@ -9,16 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
-import { Loader, Trash2, Filter, Plus, Search } from 'lucide-react';
-import { RefreshButton } from '@/components/common/button/refresh.button';
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from '@/components/ui/select';
+import { Loader } from 'lucide-react';
+
+
 import { AlertCircle } from 'lucide-react';
 import { CustomPagination } from '@/components/common/design/pagination';
 import AdminContainer from '@/components/wrappers/admin.container';
@@ -28,9 +21,6 @@ import { UserList } from '@/lib/responses/userLib';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Heading from '@/components/common/design/Heading';
 import { RoleList } from '@/lib/responses/roleLib';
-import { Input } from '@/components/ui/input';
-import PushButton from '@/components/common/button/push.button';
-import { ROUTES } from '@/lib/routes/routes';
 import SearchFilterBar from '@/components/pages/AUTH/user/search_filter.user';
 
 const Page = () => {

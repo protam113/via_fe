@@ -18,15 +18,15 @@ import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Hooks & Utils
 // Types
 import { NewsCategoryColumns } from '@/types';
-import { NewsCategoryTableProps } from '@/types/news/news_category.prob';
+import type { NewsCategoryTableProps } from '@/types/news/news_category.prob';
 import { newsCategoryDeleteFormSchema } from '@/utils';
 
 // Zod & React Hook Form
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDeleteNewsCategory } from '@/hooks';
-import { DeleteNewsCategoryData } from '@/types';
+import type { DeleteNewsCategoryData } from '@/types';
 import { NewsCategoryError } from '@/constants/log/error.log';
 import { ConfirmDialog } from '../design/ConfirmDialog';
 import UpdateNewsCategoryDialog from '@/components/pages/AUTH/news/uppdate_news_category';

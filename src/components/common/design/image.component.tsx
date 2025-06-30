@@ -1,4 +1,4 @@
-import { CustomImageProps } from '@/types';
+import type { CustomImageProps } from '@/types';
 import Image from 'next/image';
 
 export default function CustomImage({

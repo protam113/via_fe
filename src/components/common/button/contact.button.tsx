@@ -1,4 +1,4 @@
-import { IGetStartedButtonProps } from '@/types';
+import type { IGetStartedButtonProps } from '@/types';
 import { cn } from '@/utils';
 import Link from 'next/link';
 

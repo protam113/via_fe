@@ -2,7 +2,7 @@
 
 import CustomImage from '@/components/common/design/image.component';
 import { BannerList } from '@/lib';
-import { FetchBannerListResponse } from '@/types';
+import type { FetchBannerListResponse } from '@/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 

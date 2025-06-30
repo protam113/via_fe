@@ -16,7 +16,7 @@ const status = [
   { id: 'rejected', label: 'Rejected' },
 ];
 
-const SelectStatus = ({
+export const SelectStatus = ({
   selectedStatus = 'all', // Mặc định là 'pending' nếu không có giá trị
   onStatusChange,
 }: {
@@ -48,5 +48,3 @@ const SelectStatus = ({
     </div>
   );
 };
-
-export default SelectStatus;

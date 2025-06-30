@@ -1,5 +1,5 @@
 import { useUserList } from '@/hooks';
-import { Filters } from '@/types';
+import type { Filters } from '@/types';
 
 export const UserList = (
   currentPage: number,

@@ -4,7 +4,7 @@ import { Button, Input } from '@/components';
 import { useAuthStore } from '@/store';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema } from '@/utils';
 

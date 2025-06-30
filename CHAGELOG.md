@@ -14,6 +14,24 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.3.0] - 2025-06-30
+
+### Added
+
+- Added via atelier detail for admin
+- Added via art fair detail for admin
+- Add VIA art fair detail design
+
+### Changed
+
+- Format code
+
+### Fixed
+
+- Fixed create exhibitions created lagging
+
+---
+
 ## [1.2.4] - 2025-06-29
 
 ### Added

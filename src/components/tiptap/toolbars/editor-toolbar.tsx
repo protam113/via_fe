@@ -48,6 +48,10 @@ export const EditorToolbar = ({ editor }: { editor: Editor }) => {
                 <LinkToolbar />
                 <Separator orientation="vertical" className="mx-1 h-7" />
 
+                {/* Media & Styling Group */}
+                <ImagePlaceholderToolbar />
+                <Separator orientation="vertical" className="mx-1 h-7" />
+
                 {/* Lists & Structure Group */}
                 <BulletListToolbar />
                 <OrderedListToolbar />
@@ -56,10 +60,6 @@ export const EditorToolbar = ({ editor }: { editor: Editor }) => {
 
                 {/* Alignment Group */}
                 <AlignmentTooolbar />
-                <Separator orientation="vertical" className="mx-1 h-7" />
-
-                {/* Media & Styling Group */}
-                <ImagePlaceholderToolbar />
                 <Separator orientation="vertical" className="mx-1 h-7" />
 
                 <div className="flex-1" />

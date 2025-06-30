@@ -48,6 +48,7 @@ const LinkToolbar = React.forwardRef<HTMLButtonElement, ButtonProps>(
               asChild
             >
               <Button
+                type="button"
                 variant="ghost"
                 size="sm"
                 className={cn(

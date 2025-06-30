@@ -1,5 +1,5 @@
 import { SocialMediaIcon } from '@/assets/icons/icons';
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 export type UrlType = 'fb' | 'global' | 'ig' | 'tiktok';
 

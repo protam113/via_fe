@@ -64,7 +64,8 @@
 
   "NewsPage": {
     "title": "Tin Tức",
-    "button": "Tải Thêm"
+    "button": "Tải Thêm",
+    "view": "Xem Chi Tiết"
   },
 
   "Loading": {

@@ -21,10 +21,10 @@ import { Loader2 } from 'lucide-react';
 import { Icons } from '@/assets/icons/icons';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateNewsCategory } from '@/hooks';
-import { CreateNewsCategoryData, CreateNewsCategoryDialogProps } from '@/types';
+import type { CreateNewsCategoryData, CreateNewsCategoryDialogProps } from '@/types';
 import { NewsCategoryError } from '@/constants';
 import { newsCategoryFormSchema } from '@/utils';
 

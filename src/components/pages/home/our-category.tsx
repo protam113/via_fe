@@ -2,9 +2,9 @@ import CustomImage from '@/components/common/design/image.component';
 import { Separator } from '@/components';
 import Link from 'next/link';
 import { navItemsFeatured, CategoryList } from '@/lib';
-import Spinner from '@/components/loading/spinner';
+import { Spinner } from '@/components/loading/spinner';
 
-export default function FeaturedSection() {
+export function FeaturedSection() {
   const { categories, isLoading, isError } = CategoryList(
     1,
     { page_size: 3 },

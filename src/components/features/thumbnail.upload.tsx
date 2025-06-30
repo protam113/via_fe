@@ -5,11 +5,12 @@ import { Image, Loader2, X, Check } from 'lucide-react';
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { cn } from '@/utils';
 import { usePresignMedia, useSubmitMedia } from '@/hooks';
-import {
-  initialUploadState,
+import type {
   UploadState,
   ImageUploadPreviewProps,
-  SubmitItem,
+  SubmitItem} from '@/types';
+import {
+  initialUploadState
 } from '@/types';
 
 export default function ThumbnailUploadPreview({

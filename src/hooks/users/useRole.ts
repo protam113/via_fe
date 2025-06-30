@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { FetchRoleListResponse, RoleDetail, Filters } from '@/types';
+import type { FetchRoleListResponse, RoleDetail, Filters } from '@/types';
 import { endpoints, handleAPI } from '@/apis';
 import { RoleError } from '@/constants';
 

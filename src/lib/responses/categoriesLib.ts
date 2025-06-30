@@ -1,5 +1,5 @@
 import { useCategoryCountData, useCategoryList } from '@/hooks';
-import { CategoryCountData, Filters } from '@/types';
+import type { Filters } from '@/types';
 
 // CategoryList.ts
 export const CategoryList = (

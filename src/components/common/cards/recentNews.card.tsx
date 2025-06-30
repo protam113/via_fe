@@ -1,6 +1,5 @@
 'use client';
 
-import { Calendar } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton'; // nếu có dùng component này
 import { AlertCircle } from 'lucide-react';
 import { NewsList } from '@/lib';
@@ -78,12 +77,12 @@ export default function RecentNews() {
 
       {!isLoading && !isError && (
         <div className="mt-6">
-          <a
+          <Link
             href="/admin/news"
             className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-none text-gray-700 bg-white hover:bg-gray-50"
           >
             View all news
-          </a>
+          </Link>
         </div>
       )}
     </div>

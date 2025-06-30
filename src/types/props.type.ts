@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import type { TranslationField } from '@/components/common/tables/translationFields.table';
+import type { ReactNode } from 'react';
 
 export interface NoResultsFoundProps {
   title?: string;
@@ -101,7 +102,7 @@ export type ConfirmDialogProps = {
   cancelText?: string;
 };
 
-export const translationFields = [
+export const translationFields: TranslationField[] = [
   { name: 'title', label: 'Title', placeholder: 'Enter title', type: 'input' },
   {
     name: 'location',

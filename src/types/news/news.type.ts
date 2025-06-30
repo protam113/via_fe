@@ -1,5 +1,5 @@
 import type { Pagination } from '@/types';
-import { NewsCategoryList } from './news_category.type';
+import type { NewsCategoryList } from './news_category.type';
 
 /**
  * ==========================

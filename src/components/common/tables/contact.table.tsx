@@ -17,13 +17,14 @@ import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Hooks & Utils
 import { toast } from 'sonner';
 // Types
-import { ContactTableProps, ContactColumns, ApprovedContact } from '@/types';
+import type { ContactTableProps, ApprovedContact } from '@/types';
+import { ContactColumns } from '@/types';
 import { ArrowIcons } from '@/assets/icons/icons';
 import { useUpdateContact } from '@/hooks';
 
 // Zod & React Hook Form
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactError, ContactWarning, StatusLog } from '@/constants';
 import { contactFormSchema } from '@/utils';

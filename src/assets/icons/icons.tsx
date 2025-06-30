@@ -67,7 +67,6 @@ import {
   EyeOff,
   Plus,
 } from 'lucide-react';
-import Tiktok from './tiktok.svg';
 import {
   FaFacebookMessenger,
   FaTiktok,

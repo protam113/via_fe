@@ -3,7 +3,7 @@
 // ==============================================
 
 import { baseURL, endpoints } from '@/apis';
-import { AuthResponse } from '@/types';
+import type { AuthResponse } from '@/types';
 import { logDebug, logError } from '@/utils/logger';
 
 // 🔧 FIX: Convert class to object with methods for better compatibility

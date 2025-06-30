@@ -23,8 +23,8 @@ import {
 import { Image, Link, Upload, Loader2, X } from 'lucide-react';
 import { type FormEvent, useState, useRef } from 'react';
 import { cn } from '@/utils';
-import { usePresignMedia, useSubmitMedia } from '@/hooks';
-import { UploadState, SubmitItem, ImagePlaceholderOptions } from '@/types';
+import { usePresignMedia, useSubmitMedia, useSubmitRichText } from '@/hooks';
+import type { UploadState, SubmitItem, ImagePlaceholderOptions } from '@/types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -99,6 +99,7 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
   // API hooks
   const { mutate: presignMedia } = usePresignMedia();
   const { mutate: submitMedia } = useSubmitMedia();
+  const { mutate: submitRichtext } = useSubmitRichText();
 
   const resetUploadState = () => {
     setUploadState({
@@ -190,31 +191,51 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
       });
 
       if (uploadResponse.status === 201 || uploadResponse.status === 200) {
+        // Call submitMedia first
         submitMedia(
           {
             id: uploadState.id!,
             submitItem: submitItem!,
           },
-
           {
             onSuccess: (data) => {
-              // Insert image into editor
-              editor
-                .chain()
-                .focus()
-                .setImage({
-                  src: data?.url || uploadState.previewUrl!,
-                  alt: altText || uploadState.file?.name,
-                })
-                .run();
+              // After submitMedia succeeds, call submitRichtext
+              submitRichtext(
+                {
+                  id: uploadState.id!,
+                },
+                {
+                  onSuccess: () => {
+                    // Both API calls succeeded - insert image into editor
+                    editor
+                      .chain()
+                      .focus()
+                      .setImage({
+                        src: data?.url || uploadState.previewUrl!,
+                        alt: altText || uploadState.file?.name,
+                      })
+                      .run();
 
-              // Clean up and close
-              if (uploadState.previewUrl) {
-                URL.revokeObjectURL(uploadState.previewUrl);
-              }
-              resetUploadState();
-              setIsExpanded(false);
-              setAltText('');
+                    // Clean up and close
+                    if (uploadState.previewUrl) {
+                      URL.revokeObjectURL(uploadState.previewUrl);
+                    }
+                    resetUploadState();
+                    setIsExpanded(false);
+                    setAltText('');
+                  },
+                  onError: (error) => {
+                    console.error('Submit richtext error:', error);
+                    setUploadState((prev) => ({
+                      ...prev,
+                      uploading: false,
+                      error: `Failed to submit richtext: ${
+                        error?.message || 'Unknown error'
+                      }`,
+                    }));
+                  },
+                }
+              );
             },
             onError: (error) => {
               console.error('Submit media error:', error);
@@ -417,10 +438,10 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
                         accept="image/*"
                         onChange={handleFileChange}
                         className="hidden"
-                        id="image-upload"
+                        id="richtext-upload"
                       />
                       <label
-                        htmlFor="image-upload"
+                        htmlFor="richtext-upload"
                         className="flex cursor-pointer flex-col items-center gap-4"
                       >
                         <Upload className="h-8 w-8 text-muted-foreground" />

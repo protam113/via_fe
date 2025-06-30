@@ -1,5 +1,6 @@
-import { Pagination } from '../base/base.type';
-import { Thumbnail } from '../media/media.type';
+import type { Pagination } from '../base/base.type';
+import type { Thumbnail } from '../media/media.type';
+import type { Category } from './category.type';
 
 export interface Companies {
   name: string;
@@ -30,6 +31,7 @@ export interface ExhibitionData {
 export interface ExhibitionListData {
   id: string;
   slug: string;
+  title: string;
   description: string;
   thumbnail: Thumbnail;
   start_date: string | Date;
@@ -97,4 +99,17 @@ export interface ExibitionDetailResponse {
 
 export interface ExhibitionCode {
   code: string;
+}
+
+export interface ExibitionAdminDetailResponse {
+  id: string;
+  thumbnail: Thumbnail;
+  banner: Thumbnail;
+  start_date: string | Date;
+  end_date: string | Date;
+  status: string;
+  code: string;
+  category: Category;
+  companies: Companies[];
+  translations: Translations[];
 }

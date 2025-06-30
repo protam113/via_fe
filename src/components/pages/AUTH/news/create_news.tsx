@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
@@ -32,7 +32,7 @@ import { useCreateNews } from '@/hooks';
 import { NewsCategoryList } from '@/lib';
 import { newsFormSchema } from '@/utils';
 import { NewsError } from '@/constants';
-import { CreateNewsCategoryDialogProps, CreateNewsData } from '@/types';
+import type { CreateNewsCategoryDialogProps, CreateNewsData } from '@/types';
 
 export default function CreateNewsDialog({
   open,

@@ -6,10 +6,11 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { NewsList } from '@/lib';
+import type {
+  UrlType} from '@/components/common/options/news_icons';
 import {
   iconMap,
-  isValidUrlType,
-  UrlType,
+  isValidUrlType
 } from '@/components/common/options/news_icons';
 
 const Page = () => {

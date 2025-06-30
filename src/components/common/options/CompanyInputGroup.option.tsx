@@ -1,8 +1,8 @@
 'use client';
 
-import { Input, Button, Badge, Label } from '@/components';
+import { Input, Button, Label } from '@/components';
 import { Plus, X } from 'lucide-react';
-import { Companies } from '@/types';
+import type { Companies } from '@/types';
 import { useFieldArray } from 'react-hook-form';
 import type { UseFormReturn } from 'react-hook-form';
 import { useState } from 'react';

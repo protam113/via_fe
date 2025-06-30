@@ -32,5 +32,9 @@ export const routing = defineRouting({
       en: '/via-atelier/[slug]',
       vi: '/via-atelier/[slug]',
     },
+    '/via-prive/[slug]': {
+      en: '/via-prive/[slug]',
+      vi: '/via-prive/[slug]',
+    },
   },
 });

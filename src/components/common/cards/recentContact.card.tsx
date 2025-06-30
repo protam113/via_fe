@@ -4,6 +4,7 @@ import { ContactList } from '@/lib';
 import { Calendar } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton'; // nếu có dùng component này
 import { AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function RecentContact() {
   const params = {
@@ -64,12 +65,12 @@ export default function RecentContact() {
 
       {!isLoading && !isError && (
         <div className="mt-6">
-          <a
+          <Link
             href="/admin/contacts"
             className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-none text-gray-700 bg-white hover:bg-gray-50"
           >
             View all contacts
-          </a>
+          </Link>
         </div>
       )}
     </div>

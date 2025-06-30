@@ -10,7 +10,7 @@ import { useCreateManager } from '@/hooks/users/useUser';
 // Form validation schema
 import { employeeFormWithConfirmSchema } from '@/utils';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EmployeeError } from '@/constants';
 import { Eye, EyeOff } from 'lucide-react';

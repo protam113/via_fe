@@ -12,7 +12,6 @@ import {
   Label,
 } from '@/components';
 import { format } from 'date-fns';
-import { toDate } from 'date-fns-tz';
 import { format as formatTz, toZonedTime } from 'date-fns-tz';
 
 type DateRange = {

@@ -19,10 +19,13 @@ import {
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUpdateNewsCategory } from '@/hooks';
-import { CreateNewsCategoryData, UpdateNewsCategoryDialogProps } from '@/types';
+import type {
+  CreateNewsCategoryData,
+  UpdateNewsCategoryDialogProps,
+} from '@/types';
 import { NewsCategoryError } from '@/constants';
 import { newsCategoryFormSchema } from '@/utils';
 

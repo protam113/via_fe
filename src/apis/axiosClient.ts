@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
+import type { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import { baseURL } from './api';
-import { logDebug } from '@/utils/logger';
 
 /**
  * ==========================
@@ -30,14 +30,6 @@ export const handleAPI = async <T = any>(
   method: 'POST' | 'PATCH' | 'GET' | 'DELETE' = 'GET',
   data?: any
 ): Promise<T> => {
-  logDebug('⬆️ API REQUEST:', {
-    url: `${baseURL}${url}`,
-    method,
-    data: method !== 'GET' ? data : undefined,
-    params: method === 'GET' ? data : undefined,
-    timestamp: new Date().toISOString(),
-  });
-
   try {
     const apiInstance = serviceApi();
     const config: AxiosRequestConfig = {
@@ -52,19 +44,7 @@ export const handleAPI = async <T = any>(
       config.params = data;
     }
 
-    const startTime = Date.now();
     const response: AxiosResponse = await apiInstance(config);
-    const endTime = Date.now();
-
-    // Log successful response
-    logDebug('✅ API RESPONSE SUCCESS:', {
-      url: `${baseURL}${url}`,
-      method,
-      status: response.status,
-      statusText: response.statusText,
-      responseTime: `${endTime - startTime}ms`,
-      timestamp: new Date().toISOString(),
-    });
 
     return response.data;
   } catch (error) {

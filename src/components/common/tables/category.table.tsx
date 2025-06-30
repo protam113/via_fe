@@ -14,7 +14,8 @@ import {
 } from '@/components';
 
 import NoResultsFound from '@/components/common/design/NoResultsFound';
-import { CategoryColumns, CategoryTableProps } from '@/types';
+import type { CategoryTableProps } from '@/types';
+import { CategoryColumns } from '@/types';
 import { Icons } from '@/assets/icons/icons';
 import { truncateText } from '@/utils/helpers/truncate_text.helper';
 import { Skeleton } from '@/components/ui/skeleton';

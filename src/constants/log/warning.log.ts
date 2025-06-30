@@ -1,4 +1,3 @@
-import Exhibition from '@/components/common/cards/exhibition';
 
 /**
  * ==========================

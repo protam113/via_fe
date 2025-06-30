@@ -4,7 +4,7 @@
  * ==========================
  */
 
-import { NewsCategoryList } from './news_category.type';
+import type { NewsCategoryList } from './news_category.type';
 
 export interface NewsCategoryTableProps {
   news: NewsCategoryList[];

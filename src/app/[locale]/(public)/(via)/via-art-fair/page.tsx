@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CategoryCard from '@/components/common/cards/category.card';
 import { Container } from '@/components';
+import NoResultsFound from '@/components/common/design/NoResultsFound';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
@@ -105,14 +106,18 @@ const Page = () => {
                   }
                 `}</style>
 
-                {accumulatedExhibition.map((item) => (
-                  <ViaCard
-                    key={item.id}
-                    image={item.thumbnail.url}
-                    alt={item.description}
-                    slug={item.slug}
-                  />
-                ))}
+                {accumulatedExhibition.length === 0 ? (
+                  <NoResultsFound />
+                ) : (
+                  accumulatedExhibition.map((item) => (
+                    <ViaCard
+                      key={item.id}
+                      image={item.thumbnail.url}
+                      alt={item.description}
+                      slug={item.slug}
+                    />
+                  ))
+                )}
               </div>
             </div>
             {!allLoaded && pagination.total_page > 1 && (

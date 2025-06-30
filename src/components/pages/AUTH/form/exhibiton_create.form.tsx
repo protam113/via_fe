@@ -21,10 +21,9 @@ import {
   TabsTrigger,
 } from '@/components';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { exhibitionFormSchema } from '@/utils';
-import { CreateExhibitionData } from '@/types';
+import { exhibitionFormSchema, logDebug } from '@/utils';
 import { useCreateExhibition } from '@/hooks/exhibition/useExhibition';
 import { ExhibitionError } from '@/constants';
 import ImageUploadPreview from '@/components/features/image_upload';
@@ -32,6 +31,7 @@ import ThumbnailUploadPreview from '@/components/features/thumbnail.upload';
 import { TranslationFields } from '@/components/common/tables/translationFields.table';
 import DateRangePicker from '@/components/common/options/DateRangePicker.option';
 import CompanyManager from '@/components/common/options/CompanyInputGroup.option';
+import type { CreateExhibitionData } from '@/types';
 
 const statusOptions = [
   { value: 'upcoming', label: 'Upcoming' },
@@ -89,7 +89,7 @@ export default function EventForm({ category }: { category: string }) {
     watch,
     setValue,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = form;
   const watchedValues = watch();
 
@@ -106,11 +106,13 @@ export default function EventForm({ category }: { category: string }) {
     }
   };
 
-  const handleThumbnailUploaded = (imageId: string) => {
+  const handleThumbnailUploaded = (imageUrl: string, imageId: string) => {
+    logDebug('THUMBNAIL uploaded:', { imageUrl, imageId });
     setValue('thumbnail_id', imageId);
   };
 
-  const handleBannerUploaded = (imageId: string) => {
+  const handleBannerUploaded = (imageUrl: string, imageId: string) => {
+    logDebug('BANNER uploaded:', { imageUrl, imageId });
     setValue('banner_id', imageId);
   };
 

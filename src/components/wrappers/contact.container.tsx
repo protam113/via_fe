@@ -3,13 +3,13 @@
 import { useRef, useState } from 'react';
 import { Textarea, Input, Button } from '@/components';
 import SelectCountriesCombo from '@/components/common/options/contact_country.option';
-import { CreateContactItem } from '@/types';
+import type { CreateContactItem } from '@/types';
 import { useCreateContact } from '@/hooks';
 import { useTranslations } from 'next-intl';
 import { ComponentsIcons } from '@/assets/icons/icons';
 import { contactSentFormSchema } from '@/utils';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ContactError } from '@/constants';
 

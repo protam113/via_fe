@@ -1,5 +1,5 @@
 import { useWebsiteData } from '@/hooks';
-import { WebsiteData } from '@/types';
+import type { WebsiteData } from '@/types';
 
 export const WebsiteList = (refreshKey: number) => {
   const { data, isLoading, isError } = useWebsiteData(refreshKey);

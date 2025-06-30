@@ -19,10 +19,10 @@ import {
 import { Loader2, Upload, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useUpdateCategory, useUpdateNewsCategory } from '@/hooks';
-import { UpdateCategoryDialogProps, UpdateThumbnail } from '@/types';
+import { useUpdateCategory } from '@/hooks';
+import type { UpdateCategoryDialogProps, UpdateThumbnail } from '@/types';
 import { NewsCategoryError } from '@/constants';
 import { categoryFormSchema } from '@/utils';
 import ImageUploadPreview from '@/components/features/image_upload';

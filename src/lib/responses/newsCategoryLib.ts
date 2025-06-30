@@ -1,5 +1,5 @@
 import { useNewsCategoryList } from '@/hooks';
-import { Filters } from '@/types';
+import type { Filters } from '@/types';
 
 // NewsCategoryList.ts
 export const NewsCategoryList = (

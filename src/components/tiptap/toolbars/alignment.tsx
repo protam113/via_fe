@@ -106,7 +106,12 @@ export const AlignmentTooolbar = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <DropdownMenuTrigger disabled={isDisabled} asChild>
-            <Button variant="ghost" size="sm" className="h-8 w-max font-normal">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="h-8 w-max font-normal"
+            >
               <span className="mr-2">
                 {alignmentOptions[findIndex(currentTextAlign())]?.icon}
               </span>

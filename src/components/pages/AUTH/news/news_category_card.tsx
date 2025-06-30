@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { NewsCategoryList } from '@/lib';
-import { CategoryCardProps, NewsCategoryRespone } from '@/types';
+import type { CategoryCardProps, NewsCategoryRespone } from '@/types';
 
 const NewsCategoryCard: React.FC<CategoryCardProps> = ({
   onCategorySelect,

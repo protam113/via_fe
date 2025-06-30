@@ -4,7 +4,6 @@ import { ComponentsIcons } from '@/assets/icons/icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -17,7 +16,6 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 // import { useAuthStore } from '@/store/authStore';
-import Link from 'next/link';
 
 export function NavUser({
   user,

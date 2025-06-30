@@ -1,5 +1,5 @@
 import { useRoleList } from '@/hooks';
-import { Filters } from '@/types';
+import type { Filters } from '@/types';
 
 export const RoleList = (
   currentPage: number,

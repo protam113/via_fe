@@ -1,8 +1,8 @@
 // components/Loading.tsx
 import { Loader2 } from 'lucide-react';
-import { AdminLoadingProps } from '@/types';
+import type { AdminLoadingProps } from '@/types';
 
-const AdminLoading: React.FC<AdminLoadingProps> = ({
+export const AdminLoading: React.FC<AdminLoadingProps> = ({
   size = 32,
   message = 'Loading...',
   className = '',
@@ -16,5 +16,3 @@ const AdminLoading: React.FC<AdminLoadingProps> = ({
     </div>
   );
 };
-
-export default AdminLoading;

@@ -1,4 +1,4 @@
-import { ContactCountData, Filters } from '@/types';
+import type { ContactCountData, Filters } from '@/types';
 import { useContactCountData, useContactList } from '@/hooks';
 
 // ContactList.ts

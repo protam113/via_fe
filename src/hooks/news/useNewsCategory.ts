@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
+import type {
   Filters,
   FetchNewsCategoryListResponse,
   CreateNewsCategoryData,

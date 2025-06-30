@@ -4,28 +4,9 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
-  const [location, setLocation] = useState<string>('Đang lấy vị trí...');
   const [currentTime, setCurrentTime] = useState<string>('');
 
   useEffect(() => {
-    // Lấy vị trí
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          setLocation(
-            `Lat: ${latitude.toFixed(2)}, Lng: ${longitude.toFixed(2)}`
-          );
-        },
-        (err) => {
-          console.error('Không thể lấy vị trí:', err);
-          setLocation('Không xác định vị trí');
-        }
-      );
-    } else {
-      setLocation('Trình duyệt không hỗ trợ định vị');
-    }
-
     // Lấy giờ hệ thống theo thời gian thực
     const interval = setInterval(() => {
       const now = new Date();
@@ -53,10 +34,6 @@ export default function Footer() {
           {/* Thay phần info bằng đồng hồ */}
           <div className="flex flex-col md:flex-row items-center gap-4">
             <span>Time: {currentTime}</span>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <span>{location}</span>
           </div>
         </div>
       </div>

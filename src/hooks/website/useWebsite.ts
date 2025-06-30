@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endpoints, handleAPI } from '@/apis';
 import { toast } from 'sonner';
 import { logDebug } from '@/utils';
-import { WebsiteData, UpdateWebsite } from '@/types';
+import type { WebsiteData, UpdateWebsite } from '@/types';
 import { WebsiteError, WebsiteSuccess } from '@/constants';
 
 /**

@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input';
 import { ENV, ExhibitionsList } from '@/lib';
 import { ExhibitionTable } from '@/components/common/tables/exhibition.table';
 import { PushButton } from '@/components';
+import ViaAtelierPost from '@/components/common/tables/viaAtelier.table';
 
 export default function ExhibitionManager() {
   const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
@@ -85,12 +86,13 @@ export default function ExhibitionManager() {
   return (
     <>
       <AdminContainer>
+        <ViaAtelierPost />
         <div className="flex items-center justify-between mb-4">
           <Heading name="Via Atelier Page" desc="Manage your categories here" />
 
           <PushButton
             href="/admin/via-atelier/create-via-atelier"
-            label="Create VIA Art Fair"
+            label="Create VIA Atelier"
           />
         </div>
 
@@ -167,6 +169,7 @@ export default function ExhibitionManager() {
             exhibitions={exhibitions}
             isLoading={isLoading}
             isError={isError}
+            type="via-atelier"
           />
         </div>
         <CustomPagination

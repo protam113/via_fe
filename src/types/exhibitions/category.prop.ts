@@ -1,4 +1,4 @@
-import { Category, CategoryData } from '@/types';
+import type { Category, CategoryData } from '@/types';
 
 /**
  * ==========================

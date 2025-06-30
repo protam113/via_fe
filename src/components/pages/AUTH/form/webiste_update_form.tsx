@@ -1,7 +1,7 @@
 'use client';
 
 import { WebsiteList } from '@/lib';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Input,
   Label,
@@ -11,12 +11,11 @@ import {
   CardFooter,
   Button,
 } from '@/components';
-import { UpdateWebsite } from '@/types';
 import { useUpdateWebsite } from '@/hooks';
-import AdminLoading from '@/components/loading/loading.components';
+import { AdminLoading } from '@/components/loading/loading.components';
 import { updateWebsiteFormSchema } from '@/utils';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export function WebsiteUpdateForm() {

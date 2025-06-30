@@ -9,14 +9,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  Checkbox,
   Button,
 } from '@/components';
 
 import { Skeleton } from '@/components/ui/skeleton';
 import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Types
-import { NewsColumns, NewsTableProps } from '@/types';
+import type { NewsTableProps } from '@/types';
+import { NewsColumns } from '@/types';
 import { Icons } from '@/assets/icons/icons';
 
 import { useDeleteNews } from '@/hooks';

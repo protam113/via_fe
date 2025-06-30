@@ -4,7 +4,7 @@
  * ==========================
  */
 
-import { NewsList } from './news.type';
+import type { NewsList } from './news.type';
 
 export interface NewsTableProps {
   news: NewsList[];

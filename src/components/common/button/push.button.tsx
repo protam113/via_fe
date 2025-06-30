@@ -2,7 +2,7 @@
 
 // components/button/PushButton.tsx
 import { useRouter } from 'next/navigation';
-import { PushButtonProps } from '@/types';
+import type { PushButtonProps } from '@/types';
 import { ArrowIcons } from '@/assets/icons/icons';
 import { Button } from '@/components/ui/button';
 

@@ -1,4 +1,4 @@
-import { ImageProps } from 'next/image';
+import type { ImageProps } from 'next/image';
 
 export interface CustomImageProps extends Omit<ImageProps, 'src' | 'alt'> {
   imageKey?: string;

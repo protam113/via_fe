@@ -1,5 +1,5 @@
-import { useExhibitionList } from '@/hooks/exhibition/useExhibition';
-import { Filters } from '@/types';
+import { useExhibitionAdminDetail, useExhibitionList } from '@/hooks';
+import type { ExibitionAdminDetailResponse, Filters } from '@/types';
 
 // ExhibitionsList.ts
 export const ExhibitionsList = (
@@ -22,5 +22,17 @@ export const ExhibitionsList = (
     isLoading,
     isError,
     pagination,
+  };
+};
+
+export const ExhibitionAdminDetailData = (id: string, refreshKey: number) => {
+  const { data, isLoading, isError } = useExhibitionAdminDetail(id, refreshKey);
+
+  const blog = data ?? ({} as Partial<ExibitionAdminDetailResponse>);
+
+  return {
+    blog,
+    isLoading,
+    isError,
   };
 };

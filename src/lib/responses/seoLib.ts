@@ -1,5 +1,5 @@
 import { useSeoData } from '@/hooks';
-import { SeoData } from '@/types';
+import type { SeoData } from '@/types';
 
 export const SeoList = (refreshKey: number) => {
   const { data, isLoading, isError } = useSeoData(refreshKey);

@@ -3,9 +3,7 @@
 import DashboardStats from '@/components/common/cards/DashboardStats.card';
 import RecentContact from '@/components/common/cards/recentContact.card';
 import RecentNews from '@/components/common/cards/recentNews.card';
-import SelectCountriesSimple from '@/components/common/options/select.option';
 import AdminBanner from '@/components/features/admin_hero';
-import ImageUploadPreview from '@/components/features/image_upload';
 import { useAuthStore } from '@/store/auth/store.auth';
 import React from 'react';
 
@@ -23,10 +21,6 @@ const Page = () => {
           <RecentNews />
           <RecentContact />
         </div>
-        <p>Hello {userInfo?.name}!</p>
-
-        <SelectCountriesSimple />
-        <ImageUploadPreview type="thumbnail" />
       </main>
     </div>
   );

@@ -1,4 +1,4 @@
-import { ContainerProps } from '@/types';
+import type { ContainerProps } from '@/types';
 import { cn } from '@/utils';
 
 export default function AdminContainer({

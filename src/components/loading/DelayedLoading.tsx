@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import LoadingScreen from './loading-screen';
 
-export default function DelayedLoading({
-  duration = 2000, // default to 2s
+export function DelayedLoading({
+  duration = 2000,
   onComplete,
 }: {
   duration?: number;

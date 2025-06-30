@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { SubmitItem, PresignItem } from '@/types';
-import { toast } from 'sonner';
+import type { SubmitItem, PresignItem } from '@/types';
 import { endpoints, handleAPI } from '@/apis';
-import { EndpointsError, MediaError, MediaSuccess } from '@/constants';
+import { EndpointsError, MediaError } from '@/constants';
 
 /**
  * ==========================
@@ -78,7 +77,7 @@ const useSubmitMedia = () => {
       return SubmitPresign(submitItem, id);
     },
     onSuccess: () => {
-      toast.success(MediaSuccess.SUBMITTED_MEDIA);
+      // toast.success(MediaSuccess.SUBMITTED_MEDIA);
       queryClient.invalidateQueries({ queryKey: ['mediaSubmit'] });
     },
     onError: (error: any) => {
@@ -113,7 +112,7 @@ const useSubmitRichText = () => {
       return SubmitRichText(id);
     },
     onSuccess: () => {
-      toast.success(MediaSuccess.SUBMITTED_MEDIA);
+      // toast.success(MediaSuccess.SUBMITTED_MEDIA);
       queryClient.invalidateQueries({ queryKey: ['richtextSubmit'] });
     },
     onError: (error: any) => {

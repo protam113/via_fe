@@ -22,3 +22,6 @@ export * from './news/useNews';
 
 // Website
 export * from './website/useWebsite';
+
+// Exhibition
+export * from './exhibition/useExhibition';

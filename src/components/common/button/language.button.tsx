@@ -18,14 +18,13 @@ const LangButton = () => {
   const handleLangChange = (lang: 'vi' | 'en') => {
     if (isVietnamese === null) return;
 
-    // ✅ Clean path (remove /vi or /en prefix)
     const currentPath = pathname.replace(/^\/(en|vi)/, '');
 
-    // ✅ Nếu đang ở via-art-fair/[slug] → chuyển về "/[lang]"
     const isViaArtFairDetail = /^\/via-art-fair\/[^/]+$/.test(currentPath);
     const isViaAtelierDetail = /^\/via-atelier\/[^/]+$/.test(currentPath);
+    const isViaPriveDetail = /^\/via-prive\/[^/]+$/.test(currentPath);
 
-    if (isViaArtFairDetail || isViaAtelierDetail) {
+    if (isViaArtFairDetail || isViaAtelierDetail || isViaPriveDetail) {
       router.push(`/${lang}`);
     } else {
       router.push(`/${lang}${currentPath}`);

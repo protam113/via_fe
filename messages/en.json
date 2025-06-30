@@ -64,7 +64,8 @@
 
   "NewsPage": {
     "title": "News",
-    "button": "Load More"
+    "button": "Load More",
+    "view": "View Detail"
   },
 
   "Loading": {

@@ -3,12 +3,9 @@
 import { useExhibitionDetail } from '@/hooks/exhibition/useExhibition';
 import { Name } from '@/lib';
 import { useParams, usePathname } from 'next/navigation';
-import { exhibitionDetailFormSchema, formatDateOnly } from '@/utils';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { formatDateOnly } from '@/utils';
 import { useEffect, useState } from 'react';
-import { ExhibitionCode, ExibitionDetailResponse } from '@/types';
+import type { ExhibitionCode, ExibitionDetailResponse } from '@/types';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
 import { Container } from '@/components';

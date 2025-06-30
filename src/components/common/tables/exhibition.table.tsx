@@ -15,7 +15,8 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import NoResultsFound from '@/components/common/design/NoResultsFound';
 
-import { ExhibitionColumns, ExhibitionTableProps } from '@/types';
+import type { ExhibitionTableProps } from '@/types';
+import { ExhibitionColumns } from '@/types';
 import { Icons } from '@/assets/icons/icons';
 import { truncateText } from '@/utils/helpers/truncate_text.helper';
 import ImageViewer from '@/components/features/image_viewer';
@@ -23,12 +24,15 @@ import { useState } from 'react';
 import UpdateCategoryDialog from '@/components/pages/AUTH/form/category_update.form';
 import { formatSmartDate } from '@/utils';
 import { ExhibitionStatusLog } from '@/constants';
+import { useRouter } from 'next/navigation';
 
 export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
   exhibitions,
   isLoading,
   isError,
+  type,
 }) => {
+  const router = useRouter();
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [editingCategory, setEditingCAtegory] = useState<
     (typeof exhibitions)[0] | null
@@ -129,6 +133,29 @@ export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
 
                         {col.key === 'actions' ? (
                           <div className="flex justify-end gap-2">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => {
+                                // redirect hoặc mở dialog tùy type
+                                if (type === 'via-art-fair') {
+                                  router.push(
+                                    `/admin/via-art-fair/${exhibition.id}`
+                                  );
+                                } else if (type === 'via-atelier') {
+                                  router.push(
+                                    `/admin/via-atelier/${exhibition.id}`
+                                  );
+                                } else {
+                                  router.push(
+                                    `/admin/via-prive/${exhibition.id}`
+                                  );
+                                }
+                              }}
+                            >
+                              <Icons.Eye className="h-4 w-4" />
+                              <span className="sr-only">Detail</span>
+                            </Button>
                             <Button
                               variant="outline"
                               size="icon"

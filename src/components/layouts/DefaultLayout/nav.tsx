@@ -5,7 +5,7 @@ import CustomImage from '@/components/common/design/image.component';
 import LangButton from '@/components/common/button/language.button';
 import { X } from 'lucide-react';
 import { navItems, navItemsMobile, navItemsSec } from '@/lib';
-import NewsDropdown from './news.nav';
+import { NewsDropdown } from './news.nav';
 import { routeMap } from '@/lib/routes/routeMap.routes';
 
 export function Navbar() {

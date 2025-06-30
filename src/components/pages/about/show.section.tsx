@@ -5,7 +5,7 @@ import { useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import CustomImage from '@/components/common/design/image.component';
 
-export default function ArtGalleryLayout() {
+export function ArtGalleryLayout() {
   const t = useTranslations('AboutPage');
   const bullets1 = [
     t('introduction.section1.bullets.0'),

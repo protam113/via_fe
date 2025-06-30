@@ -1,8 +1,9 @@
-// eslint.config.mjs
-
 import { FlatCompat } from '@eslint/eslintrc';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import unusedImports from 'eslint-plugin-unused-imports';
+import tsParser from '@typescript-eslint/parser';
+import eslintPluginTs from '@typescript-eslint/eslint-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,20 +16,32 @@ const env = process.env.NODE_ENV || 'development';
 
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
-  // Next.js & TypeScript recommended rules
+  {
+    ignores: [
+      '.next',
+      'node_modules',
+      'eslint.config.mjs',
+      'postcss.config.mjs',
+    ],
+  },
+
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
 
   {
-    // ✅ Xác định môi trường ngôn ngữ
+    plugins: {
+      'unused-imports': unusedImports,
+      '@typescript-eslint': eslintPluginTs,
+    },
+
     languageOptions: {
-      parser: '@typescript-eslint/parser',
+      parser: tsParser,
       parserOptions: {
         project: './tsconfig.json',
         tsconfigRootDir: __dirname,
         sourceType: 'module',
         ecmaVersion: 'latest',
         ecmaFeatures: {
-          jsx: true, // Cho phép JSX
+          jsx: true,
         },
       },
     },
@@ -52,17 +65,22 @@ export default [
         },
       ],
 
-      '@typescript-eslint/no-explicit-any': 'off', // Need to check before production
-      '@typescript-eslint/no-unused-vars': [
+      'unused-imports/no-unused-imports': 'warn',
+
+      'unused-imports/no-unused-vars': [
         'warn',
         {
-          argsIgnorePattern: '^_',
+          vars: 'all',
           varsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
         },
       ],
+
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off', // 👈 Off để tránh xung đột, dùng plugin thay thế
       '@typescript-eslint/consistent-type-imports': 'error',
-      'import/no-default-export': 'error',
+      'import/no-default-export': 'off',
       'react/react-in-jsx-scope': 'off',
     },
   },

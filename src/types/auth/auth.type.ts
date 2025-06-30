@@ -1,4 +1,4 @@
-import { RoleInfo } from '@/types';
+import type { RoleInfo } from '@/types';
 
 /**
  * ==========================

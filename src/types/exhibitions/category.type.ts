@@ -14,7 +14,6 @@ export interface Category {
   title: string;
   slug: string;
   thumbnail: Thumbnail | null;
-  description: string;
 }
 
 export interface FetchCategoryListResponse {

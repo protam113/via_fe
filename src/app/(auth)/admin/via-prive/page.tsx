@@ -12,7 +12,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components';
 
 import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/wrappers/admin.container';
@@ -20,6 +20,8 @@ import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { ENV, ExhibitionsList } from '@/lib';
 import { ExhibitionTable } from '@/components/common/tables/exhibition.table';
+import { PushButton } from '@/components';
+import ViaPrivePost from '@/components/common/tables/viaPrive.table';
 
 export default function ExhibitionManager() {
   const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
@@ -42,6 +44,7 @@ export default function ExhibitionManager() {
     params,
     refreshKey
   );
+
   const handlePageSizeChange = (value: string) => {
     const newSize = parseInt(value, 10);
     setPageSize(newSize);
@@ -84,8 +87,15 @@ export default function ExhibitionManager() {
   return (
     <>
       <AdminContainer>
-        <Heading name="Via Prive Page" desc="Manage your categories here" />
+        <ViaPrivePost />
+        <div className="flex items-center justify-between mb-4">
+          <Heading name="Via Prive Page" desc="Manage your categories here" />
 
+          <PushButton
+            href="/admin/via-prive/create-via-prive"
+            label="Create VIA Art Fair"
+          />
+        </div>
         <div className="md:flex col flex-col-2 md:flex-row justify-between items-center mb-6">
           <div className="flex items-center gap-4">
             <div className="relative w-full md:w-64">
@@ -159,6 +169,7 @@ export default function ExhibitionManager() {
             exhibitions={exhibitions}
             isLoading={isLoading}
             isError={isError}
+            type="via-prive"
           />
         </div>
         <CustomPagination

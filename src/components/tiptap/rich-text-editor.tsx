@@ -24,7 +24,7 @@ import SearchAndReplace from '@/components/tiptap/extensions/search-and-replace'
 import { TipTapFloatingMenu } from '@/components/tiptap/extensions/floating-menu';
 import { FloatingToolbar } from '@/components/tiptap/extensions/floating-toolbar';
 import { EditorToolbar } from './toolbars/editor-toolbar';
-import { RichTextEditorProps } from '@/types';
+import type { RichTextEditorProps } from '@/types';
 import { useEffect } from 'react';
 
 const extensions = [
@@ -126,7 +126,7 @@ export function RichTextEditor({
   return (
     <div
       className={cn(
-        'relative max-h-[400px] w-full overflow-y-auto border bg-card pb-[60px] sm:pb-0',
+        'relative max-h-[600px] w-full overflow-y-auto border bg-card pb-[60px] sm:pb-0',
         className
       )}
     >
@@ -135,7 +135,7 @@ export function RichTextEditor({
       <TipTapFloatingMenu editor={editor} />
       <EditorContent
         editor={editor}
-        className="min-h-[400px] w-full min-w-full cursor-text sm:p-6"
+        className="min-h-[600px] w-full min-w-full cursor-text sm:p-6"
       />
     </div>
   );

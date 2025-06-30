@@ -24,10 +24,10 @@ import {
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUpdateNews } from '@/hooks';
-import { UpdateNewsData, UpdateNewsDialogProps } from '@/types';
+import type { UpdateNewsData, UpdateNewsDialogProps } from '@/types';
 import { NewsCategoryError } from '@/constants';
 import { updateNewsFormSchema } from '@/utils';
 import { NewsCategoryList } from '@/lib';

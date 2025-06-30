@@ -2,11 +2,11 @@
 
 import CustomImage from '@/components/common/design/image.component';
 import { BannerList } from '@/lib/responses/bannerLib';
-import { FetchBannerListResponse } from '@/types';
+import type { FetchBannerListResponse } from '@/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-export default function GradientBanner() {
+export function GradientBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 

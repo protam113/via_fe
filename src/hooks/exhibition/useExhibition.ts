@@ -1,15 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { endpoints, handleAPI } from '@/apis';
-import {
+import type {
   FetchExhibitionListResponse,
   Filters,
   CreateExhibitionData,
   FetchBannerListResponse,
   ExibitionDetailResponse,
   ExhibitionCode,
+  ExibitionAdminDetailResponse,
 } from '@/types';
 import { toast } from 'sonner';
-import { logDebug } from '@/utils';
 import { ExhibiionSuccess, ExhibitionError } from '@/constants';
 
 /**
@@ -213,9 +213,45 @@ const useExhibitionDetail = (slug: string) => {
   });
 };
 
+const fetchExhibitionAdminDetail = async (
+  id: string
+): Promise<ExibitionAdminDetailResponse> => {
+  try {
+    // Check if slug is valid
+    if (!id) {
+      throw new Error('Id is required');
+    }
+    // Check if endpoint is valid
+    if (!endpoints.exhibitionAdmin) {
+      throw null;
+    }
+    // Call API
+    const response = await handleAPI(
+      `${endpoints.exhibitionAdmin.replace(':id', id)}`,
+      'GET',
+      null
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching blog detail:', error);
+    throw error;
+  }
+};
+
+// Custom hook to get detail of category
+const useExhibitionAdminDetail = (id: string, refreshKey: number) => {
+  return useQuery<ExibitionAdminDetailResponse, Error>({
+    queryKey: ['exhibitionAdminDetail', id, refreshKey],
+    queryFn: () => fetchExhibitionAdminDetail(id),
+    enabled: !!id,
+    staleTime: process.env.NODE_ENV === 'development' ? 1000 : 300000,
+  });
+};
+
 export {
   useExhibitionList,
   useCreateExhibition,
   useBannerList,
   useExhibitionDetail,
+  useExhibitionAdminDetail,
 };

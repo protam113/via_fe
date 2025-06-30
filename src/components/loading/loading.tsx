@@ -1,9 +1,9 @@
 // components/Loading.tsx
 import { Loader2 } from 'lucide-react';
-import { AdminLoadingProps } from '@/types';
+import type { AdminLoadingProps } from '@/types';
 import Container from '../wrappers/container';
 
-const LoadingSpin: React.FC<AdminLoadingProps> = ({
+export const LoadingSpin: React.FC<AdminLoadingProps> = ({
   size = 32,
   message = 'Loading...',
   className = '',
@@ -17,5 +17,3 @@ const LoadingSpin: React.FC<AdminLoadingProps> = ({
     </Container>
   );
 };
-
-export default LoadingSpin;

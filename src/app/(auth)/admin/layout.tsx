@@ -34,7 +34,7 @@ export default function AuthProtectedLayout({
     verifyAuth();
 
     return () => {
-      isMounted = false; // Prevent state updates after unmount
+      isMounted = false;
     };
   }, [checkAuth]);
 

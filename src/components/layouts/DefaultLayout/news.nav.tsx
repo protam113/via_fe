@@ -6,13 +6,12 @@ import { Link } from '@/i18n/navigation';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-export default function NewsDropdown() {
+export function NewsDropdown() {
   const pathname = usePathname();
   const [isHovered, setIsHovered] = useState(false);
-  const [pageSize, setPageSize] = useState(10);
 
   const params = {
-    limit: pageSize,
+    page_size: 10,
   };
 
   const { newsCategories, isLoading, isError } = NewsCategoryList(1, params, 0);

@@ -5,10 +5,11 @@ import { Badge, Container } from '@/components';
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { NewsList } from '@/lib';
+import type {
+  UrlType} from '@/components/common/options/news_icons';
 import {
   iconMap,
-  isValidUrlType,
-  UrlType,
+  isValidUrlType
 } from '@/components/common/options/news_icons';
 
 const Page = () => {

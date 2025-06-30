@@ -1,7 +1,6 @@
 'use client';
 
 import { Icons } from '@/assets/icons/icons';
-import ViaCard from '@/components/common/cards/via-card';
 import SEO from '@/components/core/SEO';
 import { ENV, ExhibitionsList } from '@/lib';
 import { useEffect, useState } from 'react';
@@ -11,6 +10,7 @@ import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CategoryCard from '@/components/common/cards/category.card';
 import { Container } from '@/components';
 import AtelierCard from '@/components/common/cards/atelier.card';
+import NoResultsFound from '@/components/common/design/NoResultsFound';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
@@ -106,14 +106,18 @@ const Page = () => {
                   }
                 `}</style>
 
-                {accumulatedExhibition.map((item) => (
-                  <AtelierCard
-                    key={item.id}
-                    image={item.thumbnail.url}
-                    alt={item.description}
-                    slug={item.slug}
-                  />
-                ))}
+                {accumulatedExhibition.length === 0 ? (
+                  <NoResultsFound />
+                ) : (
+                  accumulatedExhibition.map((item) => (
+                    <AtelierCard
+                      key={item.id}
+                      image={item.thumbnail.url}
+                      alt={item.description}
+                      slug={item.slug}
+                    />
+                  ))
+                )}
               </div>
             </div>
             {!allLoaded && pagination.total_page > 1 && (

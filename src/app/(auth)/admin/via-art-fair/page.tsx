@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input';
 import { ENV, ExhibitionsList } from '@/lib';
 import { ExhibitionTable } from '@/components/common/tables/exhibition.table';
 import { PushButton } from '@/components';
+import ViaPost from '@/components/common/tables/via.table';
 
 export default function ExhibitionManager() {
   const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
@@ -85,6 +86,7 @@ export default function ExhibitionManager() {
   return (
     <>
       <AdminContainer>
+        <ViaPost />
         <div className="flex items-center justify-between mb-4">
           <Heading
             name="Via art fair Page"
@@ -169,6 +171,7 @@ export default function ExhibitionManager() {
             exhibitions={exhibitions}
             isLoading={isLoading}
             isError={isError}
+            type="via-art-fair"
           />
         </div>
         <CustomPagination

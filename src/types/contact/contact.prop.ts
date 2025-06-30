@@ -4,7 +4,7 @@
  * ==========================
  */
 
-import { ContactList } from './contact.type';
+import type { ContactList } from './contact.type';
 
 export interface ContactTableProps {
   contacts: ContactList[];
