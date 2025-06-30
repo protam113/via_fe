@@ -1,6 +1,6 @@
 'use client';
 
-import AdminLoading from '@/components/loading/loading.components';
+import { AdminLoading } from '@/components/loading/loading.components';
 import { useAuthStore } from '@/store/auth/store.auth';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';

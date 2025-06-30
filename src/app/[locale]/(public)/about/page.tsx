@@ -1,5 +1,5 @@
 import { Container } from '@/components';
-import ArtGalleryLayout from '@/components/pages/about/show.section';
+import { ArtGalleryLayout } from '@/components/pages/about/show.section';
 import SEO from '@/components/core/SEO';
 
 const Page = () => {

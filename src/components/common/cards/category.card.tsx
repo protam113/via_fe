@@ -2,7 +2,7 @@ import React from 'react';
 import CustomImage from '../design/image.component';
 import { Icons } from '@/assets/icons/icons';
 import { navItemsFeatured, CategoryList } from '@/lib';
-import Spinner from '@/components/loading/spinner';
+import { Spinner } from '@/components/loading/spinner';
 import Link from 'next/link';
 
 const CategoryCard = () => {

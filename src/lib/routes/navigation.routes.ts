@@ -24,25 +24,25 @@ export const Name = {
 };
 
 export const navItems = [
-  { name: Name.ABOUT_US, path: ROUTES.ABOUT, routeKey: 'about' },
-];
+  { name: Name.ABOUT_US, path: '/about', routeKey: 'about' },
+] as const;
 
 export const navItemsMobile = [
-  { name: Name.ABOUT_US, path: ROUTES.ABOUT },
-  { name: Name.VIA_ART_FAIR, path: ROUTES.VIA_ART_FAIR.ROOT },
-  { name: Name.VIA_ATELIER, path: ROUTES.VIA_ATELIER.ROOT },
-  { name: Name.VIA_PRIVE, path: ROUTES.VIA_PRIVE.ROOT },
-];
+  { name: Name.ABOUT_US, path: '/about' },
+  { name: Name.VIA_ART_FAIR, path: '/via-art-fair' },
+  { name: Name.VIA_ATELIER, path: '/via-atelier' },
+  { name: Name.VIA_PRIVE, path: '/via-prive' },
+] as const;
 
 export const navItemsSec = [
-  { name: Name.CONTACT, path: ROUTES.CONTACT, routeKey: 'contact' },
-];
+  { name: Name.CONTACT, path: '/contact-us', routeKey: 'contact' },
+] as const;
 
 export const navItemsFeatured = [
-  { id: ENV.VIA_ART_FAIR_ID, path: ROUTES.VIA_ART_FAIR.ROOT },
-  { id: ENV.VIA_ATELIER_ID, path: ROUTES.VIA_ATELIER.ROOT },
-  { id: ENV.VIA_PRIVE_ID, path: ROUTES.VIA_PRIVE.ROOT },
-];
+  { id: ENV.VIA_ART_FAIR_ID, path: '/via-art-fair' },
+  { id: ENV.VIA_ATELIER_ID, path: '/via-atelier' },
+  { id: ENV.VIA_PRIVE_ID, path: '/via-prive' },
+] as const;
 
 export const AdminSidebar = {
   navMain: [

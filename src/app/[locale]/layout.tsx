@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { Tektur } from 'next/font/google';
-import DelayedLoading from '@/components/loading/DelayedLoading';
+import { DelayedLoading } from '@/components/loading/DelayedLoading';
 import { Toaster } from 'sonner';
 import Script from 'next/script';
 import ReactQueryProvider from '../../provider/ReactQueryProvider';

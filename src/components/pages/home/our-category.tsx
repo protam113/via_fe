@@ -1,8 +1,8 @@
 import CustomImage from '@/components/common/design/image.component';
 import { Separator } from '@/components';
-import Link from 'next/link';
 import { navItemsFeatured, CategoryList } from '@/lib';
 import { Spinner } from '@/components/loading/spinner';
+import { Link } from '@/i18n/navigation';
 
 export function FeaturedSection() {
   const { categories, isLoading, isError } = CategoryList(
@@ -33,7 +33,9 @@ export function FeaturedSection() {
             return (
               <Link
                 key={navItem.id}
-                href={navItem.path}
+                href={{
+                  pathname: navItem.path,
+                }}
                 className="block w-full"
               >
                 <div className="group w-full flex items-center justify-between rounded-lg p-4 transition-all duration-200 hover:shadow-md">

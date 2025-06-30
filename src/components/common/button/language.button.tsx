@@ -18,6 +18,7 @@ const LangButton = () => {
   const handleLangChange = (lang: 'vi' | 'en') => {
     if (isVietnamese === null) return;
 
+    // ✅ Clean path (remove /vi or /en prefix)
     const currentPath = pathname.replace(/^\/(en|vi)/, '');
 
     const isViaArtFairDetail = /^\/via-art-fair\/[^/]+$/.test(currentPath);

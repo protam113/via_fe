@@ -65,7 +65,7 @@ export { default as DefaultLayout } from './layouts/DefaultLayout/layout';
  * ==========================
  */
 
-export { default as DelayedLoading } from './loading/DelayedLoading';
+export * from './loading/DelayedLoading';
 export * from './loading/loading-screen';
 export * from './loading/loading.components';
 

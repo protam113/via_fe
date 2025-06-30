@@ -4,12 +4,9 @@ import DashboardStats from '@/components/common/cards/DashboardStats.card';
 import RecentContact from '@/components/common/cards/recentContact.card';
 import RecentNews from '@/components/common/cards/recentNews.card';
 import AdminBanner from '@/components/features/admin_hero';
-import { useAuthStore } from '@/store/auth/store.auth';
 import React from 'react';
 
 const Page = () => {
-  const userInfo = useAuthStore((state) => state.userInfo);
-
   return (
     <div className="container mx-auto ">
       <main className="flex-grow container mx-auto px-4 py-8">

@@ -5,7 +5,7 @@ import { useParams, usePathname } from 'next/navigation';
 import { formatDateOnly } from '@/utils';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
-import LoadingSpin from '@/components/loading/loading';
+import { LoadingSpin } from '@/components/loading/loading';
 
 import {
   Container,

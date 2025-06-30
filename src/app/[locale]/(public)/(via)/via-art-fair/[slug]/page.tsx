@@ -9,7 +9,7 @@ import type { ExhibitionCode, ExibitionDetailResponse } from '@/types';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
 import { Container } from '@/components';
-import LoadingSpin from '@/components/loading/loading';
+import { LoadingSpin } from '@/components/loading/loading';
 
 export default function Page() {
   const { slug } = useParams();

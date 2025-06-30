@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import CustomImage from '@/components/common/design/image.component';
 import LangButton from '@/components/common/button/language.button';
@@ -7,6 +6,7 @@ import { X } from 'lucide-react';
 import { navItems, navItemsMobile, navItemsSec } from '@/lib';
 import { NewsDropdown } from './news.nav';
 import { routeMap } from '@/lib/routes/routeMap.routes';
+import { Link } from '@/i18n/navigation';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -45,7 +45,9 @@ export function Navbar() {
               return (
                 <Link
                   key={item.name}
-                  href={item.path}
+                  href={{
+                    pathname: item.path,
+                  }}
                   className={`
         relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out
         ${
@@ -106,7 +108,9 @@ export function Navbar() {
               return (
                 <Link
                   key={item.name}
-                  href={item.path}
+                  href={{
+                    pathname: item.path,
+                  }}
                   className={`
          relative px-3 py-1 text-lg font-medium transition-all duration-300 ease-in-out
         ${

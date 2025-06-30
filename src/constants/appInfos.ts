@@ -1,25 +1,18 @@
 import type { Metadata, Viewport } from 'next';
 
 export const appInfo = {
-  // Đường dẫn tới logo chính của app (hiển thị favicon, sharing, PWA...)
   logo: '/logo.svg',
 
-  // Tiêu đề của ứng dụng, nên ngắn gọn và chứa từ khóa chính thương hiệu
   title: 'VIA',
 
-  // Mô tả ngắn gọn về ứng dụng, nên chứa keyword SEO chính. Dưới 160 ký tự để hiển thị đẹp trên Google.
   description: 'app description',
 
-  // Domain chính thức của web app, dùng cho canonical URL, meta tag...
-  domain: 'app domain',
+  domain: 'http://localhost:3000/',
 
-  // Ảnh mặc định khi share link lên mạng xã hội (Open Graph image)
   ogImage: '/logo.svg',
 
-  // Màu chủ đạo cho trình duyệt, ảnh hưởng đến màu status bar trên mobile (PWA)
   themeColor: '#ffffff',
 
-  // Danh sách keyword giúp tăng độ phủ SEO. Ưu tiên viết đúng chính tả, có cả phiên bản viết hoa - viết thường - dấu/không dấu nếu cần.
   keywords: [
     'VietNam International Art Fair',
     'VIA',

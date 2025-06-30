@@ -18,7 +18,7 @@ import { RefreshButton } from '@/components/common/button/refresh.button';
 import { CustomPagination } from '@/components/common/design/pagination';
 import Heading from '@/components/common/design/Heading';
 import AdminContainer from '@/components/wrappers/admin.container';
-import SelectStatus from '@/components/pages/AUTH/contact/selectStatus';
+import { SelectStatus } from '@/components/pages/AUTH/contact/selectStatus';
 import { ContactTable } from '@/components/common/tables/contact.table';
 
 export default function ContactManager() {
