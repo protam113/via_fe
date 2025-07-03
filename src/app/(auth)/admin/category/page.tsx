@@ -25,13 +25,11 @@ export default function CategoryManager() {
   const [refreshKey, setRefreshKey] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [selectedType, setSelectedType] = useState<string>();
   // Search states
   const [searchQuery, setSearchQuery] = useState('');
   const [actualSearchQuery, setActualSearchQuery] = useState('');
 
   const params = {
-    ...(selectedType !== 'all' && { type: selectedType }),
     title: actualSearchQuery || undefined,
     limit: pageSize,
   };
@@ -45,12 +43,6 @@ export default function CategoryManager() {
     const newSize = parseInt(value, 10);
     setPageSize(newSize);
     setCurrentPage(1);
-  };
-
-  // State for the form
-  const handleTypeChange = (value: string) => {
-    setSelectedType(value);
-    setRefreshKey((prev) => prev + 1);
   };
 
   const handlePageChange = (page: number) => {

@@ -1,12 +1,8 @@
 // TranslationUpdateFields.tsx
 'use client';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  AdminTranslations,
-  translationFields,
-  UpdateBottomExhibitionData,
-  UpdateTranslationData,
-} from '@/types';
+import { useEffect, useMemo, useState } from 'react';
+import type { AdminTranslations, UpdateTranslationData } from '@/types';
+import { translationFields } from '@/types';
 import { Label, Textarea, Input } from '@/components';
 import {
   formatCurrencyInput,
@@ -17,8 +13,7 @@ import { exhibitionUpdateBottomSchema } from '@/utils';
 import type { z } from 'zod';
 import { useUpdateTranslationExhibiton } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, UseFormReturn, Controller } from 'react-hook-form';
-import { debounce } from './translationFields.table';
+import { useForm, Controller } from 'react-hook-form';
 
 type Currency = 'USD' | 'VND';
 

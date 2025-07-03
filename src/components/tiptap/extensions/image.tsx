@@ -86,23 +86,17 @@ function TiptapImage(props: NodeViewProps) {
   const [imageUrl, setImageUrl] = useState('');
   const [altText, setAltText] = useState(node.attrs.alt || '');
 
-  const {
-    previewUrl,
-    fileInputRef,
-    handleFileChange,
-    handleRemove,
-    uploading,
-    error,
-  } = useImageUpload({
-    onUpload: (imageUrl) => {
-      updateAttributes({
-        src: imageUrl,
-        alt: altText || fileInputRef.current?.files?.[0]?.name,
-      });
-      handleRemove();
-      setOpenedMore(false);
-    },
-  });
+  const { fileInputRef, handleFileChange, handleRemove, uploading, error } =
+    useImageUpload({
+      onUpload: (imageUrl) => {
+        updateAttributes({
+          src: imageUrl,
+          alt: altText || fileInputRef.current?.files?.[0]?.name,
+        });
+        handleRemove();
+        setOpenedMore(false);
+      },
+    });
 
   function handleResizingPosition({
     e,

@@ -17,7 +17,7 @@ import {
   Input,
   Textarea,
 } from '@/components';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,7 +27,6 @@ import { exhibitionAddTranslationFormSchema } from '@/utils';
 import { Spinner } from '@/components/loading/spinner';
 import { NewsCategoryError } from '@/constants';
 import { RichTextEditor } from '@/components/tiptap/rich-text-editor';
-import { debounce } from './translationFields.table';
 
 export default function AddTranslationDialog({
   open,

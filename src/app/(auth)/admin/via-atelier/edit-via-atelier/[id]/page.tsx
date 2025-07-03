@@ -14,8 +14,8 @@ import {
 } from '@/components';
 import { TranslationUpdateFields } from '@/components/common/tables/translationUpdate.table';
 import { UpdateEventHeadForm } from '@/components/pages/AUTH/form/exhibition_update.form';
-import { ENV, ExhibitionAdminDetailData, ROUTES } from '@/lib';
-import { UpdateHeadExhibitionData } from '@/types';
+import { ENV, ExhibitionAdminDetailData } from '@/lib';
+import type { UpdateHeadExhibitionData } from '@/types';
 import { useParams } from 'next/navigation';
 import React from 'react';
 
@@ -60,7 +60,6 @@ const Page = () => {
           category={categoryId}
           exhibition={blog as UpdateHeadExhibitionData}
           postId={blog.id}
-          href={ROUTES.ADMIN_VIA_ATELIER.ROOT}
         />
 
         {/* update body */}

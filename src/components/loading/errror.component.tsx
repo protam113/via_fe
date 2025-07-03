@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import type { FC } from 'react';
 import Container from '@/components/wrappers/container';
 import type { BannerErrorProps } from '@/types';
 

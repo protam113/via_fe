@@ -218,7 +218,6 @@ export function TranslationFields({
   getTranslationValue,
   updateTranslation,
   errors,
-  register,
 }: Props) {
   const currency = useMemo(
     () => (lang === 'en' ? 'USD' : 'VND') as Currency,

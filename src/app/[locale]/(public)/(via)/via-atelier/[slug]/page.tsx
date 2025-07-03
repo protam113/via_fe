@@ -9,7 +9,6 @@ import type { ExhibitionCode, ExibitionDetailResponse } from '@/types';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
 import { Container, Separator, LoadingSpin } from '@/components';
-import BackButton from '@/components/common/button/back-admin.button';
 import CompanyComponent from '@/components/common/cards/gallery-carousel.card';
 import ExhibitionRegisterForm from '@/components/wrappers/register_atelier.contact';
 import BackMainButton from '@/components/common/button/back-main.button';

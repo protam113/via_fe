@@ -45,7 +45,7 @@ export default function ContactManager() {
     ...(selectedStatus !== 'all' && { status: selectedStatus }),
     page_size: pageSize,
     name: actualSearchQuery.name || undefined,
-    phone: actualSearchQuery.phone || undefined,
+    phone_number: actualSearchQuery.phone || undefined,
     email: actualSearchQuery.email || undefined,
   };
 

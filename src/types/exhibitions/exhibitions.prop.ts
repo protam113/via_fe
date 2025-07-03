@@ -15,7 +15,6 @@ export interface UpdateExhibitionDialogProps {
   postId: string;
   exhibition: UpdateHeadExhibitionData;
   category: string;
-  href: string;
 }
 
 export interface UpdateTranslationDialogProps {

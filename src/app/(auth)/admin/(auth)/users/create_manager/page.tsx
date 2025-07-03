@@ -33,7 +33,7 @@ const Page = () => {
 
   const handleCreateManager = (values: FormData) => {
     setLoading(true);
-    const { confirmPassword, ...managerData } = values;
+    const { confirmPassword: _confirmPassword, ...managerData } = values;
 
     createManager(managerData, {
       onSuccess: () => {

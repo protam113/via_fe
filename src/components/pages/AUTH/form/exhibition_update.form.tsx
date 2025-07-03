@@ -13,8 +13,7 @@ import {
 } from '@/components';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { exhibitionUpdateHeadSchema, logDebug } from '@/utils';
+import type { exhibitionUpdateHeadSchema } from '@/utils';
 import { useUpdateExhibiton } from '@/hooks';
 import { ExhibitionError } from '@/constants';
 import ImageUploadPreview from '@/components/features/image_upload';
@@ -32,7 +31,6 @@ export function UpdateEventHeadForm({
   category,
   exhibition,
   postId,
-  href,
 }: UpdateExhibitionDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const categoryId = category;
@@ -83,14 +81,12 @@ export function UpdateEventHeadForm({
   const watchedValues = watch();
 
   const handleThumbnailUploaded = (imageUrl: string, imageId: string) => {
-    logDebug('THUMBNAIL uploaded:', { imageUrl, imageId });
     setValue('thumbnail_id', imageId);
     setNewThumbnailUrl(imageUrl);
     setUploadThumbnailKey((prev) => prev + 1);
   };
 
   const handleBannerUploaded = (imageUrl: string, imageId: string) => {
-    logDebug('BANNER uploaded:', { imageUrl, imageId });
     setValue('banner_id', imageId);
     setNewBannerUrl(imageUrl);
     setUploadBannerKey((prev) => prev + 1);

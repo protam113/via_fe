@@ -76,7 +76,7 @@ export const ImagePlaceholder = Node.create<ImagePlaceholderOptions>({
 });
 
 function ImagePlaceholderComponent(props: NodeViewProps) {
-  const { editor, extension, selected } = props;
+  const { editor, selected } = props;
   const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<'upload' | 'url'>('upload');
   const [url, setUrl] = useState('');

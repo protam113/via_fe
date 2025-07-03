@@ -13,6 +13,13 @@ import {
   Checkbox,
   AdminContainer,
   NoResultsFound,
+  RefreshButton,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectItem,
+  SelectContent,
+  Input,
 } from '@/components';
 import { Skeleton } from '@/components/ui/skeleton';
 // Hooks & Utils
@@ -32,6 +39,7 @@ import { contactFormSchema } from '@/utils';
 import { ConfirmDialog } from '../design/ConfirmDialog';
 import { ContactList } from '@/lib';
 import { CustomPagination } from '../design/pagination';
+import { SelectStatus } from '@/components/pages/AUTH/contact/selectStatus';
 
 export const PriveContactTable = ({
   exhibition_id,
@@ -42,6 +50,16 @@ export const PriveContactTable = ({
   const [refreshKey, setRefreshKey] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+  const [searchQuery, setSearchQuery] = useState({
+    name: '',
+    phone: '',
+    email: '',
+  });
+  const [actualSearchQuery, setActualSearchQuery] = useState({
+    name: '',
+    phone: '',
+    email: '',
+  });
 
   const [expandedRows, setExpandedRows] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,6 +71,11 @@ export const PriveContactTable = ({
 
   const params = {
     exhibition_id: exhibition_id,
+    ...(selectedStatus !== 'all' && { status: selectedStatus }),
+    page_size: pageSize,
+    name: actualSearchQuery.name || undefined,
+    phone_number: actualSearchQuery.phone || undefined,
+    email: actualSearchQuery.email || undefined,
   };
 
   const { contacts, isLoading, isError, pagination } = ContactList(
@@ -119,6 +142,16 @@ export const PriveContactTable = ({
     }));
   };
 
+  const handleRefresh = () => {
+    setRefreshKey((prev) => prev + 1);
+  };
+
+  const handlePageSizeChange = (value: string) => {
+    const newSize = parseInt(value, 10);
+    setPageSize(newSize);
+    setCurrentPage(1);
+  };
+
   if (isLoading) {
     return (
       <AdminContainer>
@@ -141,121 +174,201 @@ export const PriveContactTable = ({
     );
   }
 
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setActualSearchQuery({
+        name: searchQuery.name.trim(),
+        phone: searchQuery.phone.trim(),
+        email: searchQuery.email.trim(),
+      });
+      setCurrentPage(1);
+    }
+  };
+
+  // Clear search function
+  const handleClearSearch = () => {
+    setSearchQuery({ name: '', phone: '', email: '' });
+    setActualSearchQuery({ name: '', phone: '', email: '' });
+    setCurrentPage(1);
+  };
+
   return (
     <>
-      <div className=" border">
-        {selectedIds.length > 0 && (
-          <div className="flex justify-end items-center gap-3 p-4">
-            <span className="text-sm text-muted-foreground">
-              {selectedIds.length} selected
-            </span>
-
-            <Button
-              variant="destructive"
-              onClick={() => setConfirmAction({ type: 'REJECT', open: true })}
-              disabled={isSubmitting}
-              className="rounded-none"
-            >
-              Reject
-            </Button>
-
-            <Button
-              variant="default"
-              onClick={() => setConfirmAction({ type: 'APPROVE', open: true })}
-              disabled={isSubmitting}
-              className="rounded-none"
-            >
-              Approve
-            </Button>
-          </div>
-        )}
-
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-gray-300">
-              {ContactColumns.map((col) => (
-                <TableHead key={col.key} className={col.className}>
-                  {col.label}
-                </TableHead>
-              ))}
-              <TableHead>
-                <div className="flex items-center gap-2">
-                  <p className="mr-2">Select All</p>
-                  <Checkbox
-                    className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 border-gray-600 text-white"
-                    ref={(el) => {
-                      if (el && 'indeterminate' in el) {
-                        el.indeterminate =
-                          selectedIds.length > 0 &&
-                          selectedIds.length < contacts.length;
-                      }
-                    }}
-                    checked={
-                      contacts.length > 0 &&
-                      contacts.every((c) => selectedIds.includes(c.id))
+      <div>
+        <div className="md:flex col flex-col-2 md:flex-row justify-between items-center mb-6">
+          <div className="flex items-center gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {['name', 'phone', 'email'].map((field) => (
+                <div key={field} className="relative w-full">
+                  <Icons.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input
+                    placeholder={`Search ${field} (Enter)`}
+                    className="pl-10 pr-8"
+                    value={searchQuery[field as keyof typeof searchQuery]}
+                    onChange={(e) =>
+                      setSearchQuery((prev) => ({
+                        ...prev,
+                        [field]: e.target.value,
+                      }))
                     }
-                    onCheckedChange={(checked) => {
-                      if (checked) {
-                        setSelectedIds(contacts.map((c) => c.id));
-                      } else {
-                        setSelectedIds([]);
-                      }
-                    }}
+                    onKeyDown={handleSearchKeyDown}
                   />
+                  {searchQuery[field as keyof typeof searchQuery] && (
+                    <button
+                      onClick={handleClearSearch}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {isError ? (
-              <TableRow>
-                <TableCell
-                  colSpan={ContactColumns.length + 1}
-                  className="text-center"
-                >
-                  <NoResultsFound />
-                </TableCell>
+              ))}
+            </div>
+            <RefreshButton onClick={handleRefresh} />
+            <div className="flex items-center gap-4">
+              <span className="text-16 font-semibold">Show:</span>
+              <Select
+                onValueChange={handlePageSizeChange}
+                defaultValue={String(pageSize)}
+              >
+                <SelectTrigger className="w-[80px]">
+                  <SelectValue placeholder={pageSize} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-16 font-semibold">Status:</span>
+
+              <SelectStatus
+                selectedStatus={selectedStatus}
+                onStatusChange={(value) => setSelectedStatus(value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className=" border">
+          {selectedIds.length > 0 && (
+            <div className="flex justify-end items-center gap-3 p-4">
+              <span className="text-sm text-muted-foreground">
+                {selectedIds.length} selected
+              </span>
+
+              <Button
+                variant="destructive"
+                onClick={() => setConfirmAction({ type: 'REJECT', open: true })}
+                disabled={isSubmitting}
+                className="rounded-none"
+              >
+                Reject
+              </Button>
+
+              <Button
+                variant="default"
+                onClick={() =>
+                  setConfirmAction({ type: 'APPROVE', open: true })
+                }
+                disabled={isSubmitting}
+                className="rounded-none"
+              >
+                Approve
+              </Button>
+            </div>
+          )}
+
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-300">
+                {ContactColumns.map((col) => (
+                  <TableHead key={col.key} className={col.className}>
+                    {col.label}
+                  </TableHead>
+                ))}
+                <TableHead>
+                  <div className="flex items-center gap-2">
+                    <p className="mr-2">Select All</p>
+                    <Checkbox
+                      className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 border-gray-600 text-white"
+                      ref={(el) => {
+                        if (el && 'indeterminate' in el) {
+                          el.indeterminate =
+                            selectedIds.length > 0 &&
+                            selectedIds.length < contacts.length;
+                        }
+                      }}
+                      checked={
+                        contacts.length > 0 &&
+                        contacts.every((c) => selectedIds.includes(c.id))
+                      }
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setSelectedIds(contacts.map((c) => c.id));
+                        } else {
+                          setSelectedIds([]);
+                        }
+                      }}
+                    />
+                  </div>
+                </TableHead>
               </TableRow>
-            ) : isLoading ? (
-              Array.from({ length: 5 }).map((_, index) => (
-                <TableRow key={index}>
-                  {ContactColumns.map((col) => (
-                    <TableCell key={col.key} className={col.className}>
-                      <Skeleton className="h-4 w-full" />
-                    </TableCell>
-                  ))}
-                  <TableCell>
-                    <Skeleton className="h-4 w-4 rounded" />
+            </TableHeader>
+            <TableBody>
+              {isError ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={ContactColumns.length + 1}
+                    className="text-center"
+                  >
+                    <NoResultsFound />
                   </TableCell>
                 </TableRow>
-              ))
-            ) : contacts.length > 0 ? (
-              contacts.map((contact, index) => (
-                <React.Fragment key={contact.id}>
-                  <TableRow className="border-b transition-all duration-200">
+              ) : isLoading ? (
+                Array.from({ length: 5 }).map((_, index) => (
+                  <TableRow key={index}>
                     {ContactColumns.map((col) => (
                       <TableCell key={col.key} className={col.className}>
-                        {col.key === 'number' && index + 1}
-                        {col.key === 'detail' && (
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => toggleRowExpansion(contact.id)}
-                            className="h-8 w-8"
-                          >
-                            {expandedRows[contact.id] ? (
-                              <ArrowIcons.ArrowLeft className="h-4 w-4" />
-                            ) : (
-                              <ArrowIcons.ChevronRight className="h-4 w-4" />
-                            )}
-                          </Button>
-                        )}
-                        {col.key === 'name' && contact.name}
-                        {col.key === 'email' && contact.email}
-                        {col.key === 'phone_number' && contact.phone_number}
-                        {col.key === 'status' && (
-                          <span
-                            className={`px-2 py-1 rounded-none text-2xs font-medium
+                        <Skeleton className="h-4 w-full" />
+                      </TableCell>
+                    ))}
+                    <TableCell>
+                      <Skeleton className="h-4 w-4 rounded" />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : contacts.length > 0 ? (
+                contacts.map((contact, index) => (
+                  <React.Fragment key={contact.id}>
+                    <TableRow className="border-b transition-all duration-200">
+                      {ContactColumns.map((col) => (
+                        <TableCell key={col.key} className={col.className}>
+                          {col.key === 'number' && index + 1}
+                          {col.key === 'detail' && (
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => toggleRowExpansion(contact.id)}
+                              className="h-8 w-8"
+                            >
+                              {expandedRows[contact.id] ? (
+                                <ArrowIcons.ArrowLeft className="h-4 w-4" />
+                              ) : (
+                                <ArrowIcons.ChevronRight className="h-4 w-4" />
+                              )}
+                            </Button>
+                          )}
+                          {col.key === 'name' && contact.name}
+                          {col.key === 'email' && contact.email}
+                          {col.key === 'phone_number' && contact.phone_number}
+                          {col.key === 'status' && (
+                            <span
+                              className={`px-2 py-1 rounded-none text-2xs font-medium
       ${
         contact.status === StatusLog.PENDING
           ? 'bg-yellow-100 text-yellow-800'
@@ -264,102 +377,102 @@ export const PriveContactTable = ({
           : 'bg-red-100 text-red-800'
       }
     `}
-                          >
-                            {contact.status === StatusLog.PENDING
-                              ? 'Pending'
-                              : contact.status === StatusLog.APPROVED
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </span>
-                        )}
+                            >
+                              {contact.status === StatusLog.PENDING
+                                ? 'Pending'
+                                : contact.status === StatusLog.APPROVED
+                                ? 'Approved'
+                                : 'Rejected'}
+                            </span>
+                          )}
+                        </TableCell>
+                      ))}
+                      <TableCell>
+                        {contact.status === StatusLog.PENDING ? (
+                          <Checkbox
+                            className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 border-gray-600 text-white"
+                            checked={selectedIds.includes(contact.id)}
+                            onCheckedChange={(checked) => {
+                              setSelectedIds((prev) =>
+                                checked
+                                  ? [...prev, contact.id]
+                                  : prev.filter((id) => id !== contact.id)
+                              );
+                            }}
+                          />
+                        ) : null}
                       </TableCell>
-                    ))}
-                    <TableCell>
-                      {contact.status === StatusLog.PENDING ? (
-                        <Checkbox
-                          className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600 border-gray-600 text-white"
-                          checked={selectedIds.includes(contact.id)}
-                          onCheckedChange={(checked) => {
-                            setSelectedIds((prev) =>
-                              checked
-                                ? [...prev, contact.id]
-                                : prev.filter((id) => id !== contact.id)
-                            );
-                          }}
-                        />
-                      ) : null}
-                    </TableCell>
-                  </TableRow>
+                    </TableRow>
 
-                  {expandedRows[contact.id] && (
-                    <TableRow className="bg-muted/50">
-                      <TableCell
-                        colSpan={ContactColumns.length + 1}
-                        className="p-0"
-                      >
-                        <div className="p-4">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                              <h4 className="text-sm font-medium mb-2">
-                                Contact Details
-                              </h4>
-                              <div className="space-y-2 text-sm">
-                                <div>
-                                  <span className="font-medium">Name:</span>{' '}
-                                  {contact.name}
-                                </div>
-                                <div>
-                                  <span className="font-medium">Email:</span>{' '}
-                                  {contact.email}
-                                </div>
-                                <div>
-                                  <span className="font-medium">Tel:</span>{' '}
-                                  {contact.phone_number}
-                                </div>
-                              </div>
-                            </div>
-                            <div>
+                    {expandedRows[contact.id] && (
+                      <TableRow className="bg-muted/50">
+                        <TableCell
+                          colSpan={ContactColumns.length + 1}
+                          className="p-0"
+                        >
+                          <div className="p-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div>
-                                <span className="font-medium">Location:</span>{' '}
-                                {contact.location}
+                                <h4 className="text-sm font-medium mb-2">
+                                  Contact Details
+                                </h4>
+                                <div className="space-y-2 text-sm">
+                                  <div>
+                                    <span className="font-medium">Name:</span>{' '}
+                                    {contact.name}
+                                  </div>
+                                  <div>
+                                    <span className="font-medium">Email:</span>{' '}
+                                    {contact.email}
+                                  </div>
+                                  <div>
+                                    <span className="font-medium">Tel:</span>{' '}
+                                    {contact.phone_number}
+                                  </div>
+                                </div>
                               </div>
-                              <h4 className="text-sm font-medium mb-2">
-                                Message
-                              </h4>
-                              <div className="p-3 bg-muted rounded-md text-sm">
-                                {contact.message || (
-                                  <span className="text-muted-foreground italic">
-                                    No message provided
-                                  </span>
-                                )}
+                              <div>
+                                <div>
+                                  <span className="font-medium">Location:</span>{' '}
+                                  {contact.location}
+                                </div>
+                                <h4 className="text-sm font-medium mb-2">
+                                  Message
+                                </h4>
+                                <div className="p-3 bg-muted rounded-md text-sm">
+                                  {contact.message || (
+                                    <span className="text-muted-foreground italic">
+                                      No message provided
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={ContactColumns.length + 1}
-                  className="text-center"
-                >
-                  <NoResultsFound />
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-        <CustomPagination
-          currentPage={currentPage}
-          totalPage={pagination.total_page}
-          onPageChange={handlePageChange}
-        />
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={ContactColumns.length + 1}
+                    className="text-center"
+                  >
+                    <NoResultsFound />
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <CustomPagination
+            currentPage={currentPage}
+            totalPage={pagination.total_page}
+            onPageChange={handlePageChange}
+          />
+        </div>
       </div>
-
       <ConfirmDialog
         open={confirmAction.open}
         setOpen={(open) => setConfirmAction((prev) => ({ ...prev, open }))}

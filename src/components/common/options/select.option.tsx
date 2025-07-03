@@ -20,7 +20,7 @@ const SelectCountriesCombo = () => {
     name: string;
     iso2: string;
   } | null>(null);
-
+  console.error(selectedCountry);
   const debouncedInput = useDebounce(inputValue, 300);
 
   const filteredCountries = useMemo(() => {

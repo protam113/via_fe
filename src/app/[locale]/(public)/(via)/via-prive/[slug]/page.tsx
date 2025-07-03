@@ -22,7 +22,6 @@ import {
   LoadingSpin,
 } from '@/components';
 import CompanyComponent from '@/components/common/cards/gallery-carousel.card';
-import BackButton from '@/components/common/button/back-admin.button';
 import BackMainButton from '@/components/common/button/back-main.button';
 
 export default function Page() {

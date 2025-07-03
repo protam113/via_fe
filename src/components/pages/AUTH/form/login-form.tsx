@@ -51,6 +51,7 @@ export default function LoginForm() {
 
       router.push('/admin');
     } catch (err) {
+      console.error('Login error:', err);
       setError('root', {
         type: 'manual',
         message: 'Login failed. Please try again.',

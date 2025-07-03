@@ -65,10 +65,10 @@ export default [
         },
       ],
 
-      'unused-imports/no-unused-imports': 'warn',
+      'unused-imports/no-unused-imports': 'error',
 
       'unused-imports/no-unused-vars': [
-        'warn',
+        'error',
         {
           vars: 'all',
           varsIgnorePattern: '^_',
@@ -77,8 +77,8 @@ export default [
         },
       ],
 
+      '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off', // 👈 Off để tránh xung đột, dùng plugin thay thế
       '@typescript-eslint/consistent-type-imports': 'error',
       'import/no-default-export': 'off',
       'react/react-in-jsx-scope': 'off',

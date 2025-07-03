@@ -201,10 +201,6 @@ const Page = () => {
                     </TableRow>
                   ) : users && users.length > 0 ? (
                     users.map((employee) => {
-                      const isProtectedRole = ['admin'].includes(
-                        employee.role?.toLowerCase()
-                      );
-
                       return (
                         <TableRow
                           key={employee.id}
