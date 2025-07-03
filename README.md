@@ -4,15 +4,20 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## 🖼️ Project Banner & UI Preview
 
+## 🔖 Version
+
+> Current: `v1.0.0`  
+> Last update: `2025-07-03`
+
 ### 🏞️ Banner
 
-![Banner](https://github.com/user-attachments/assets/a1ec00fc-183b-42a8-8b61-a769e38f4654)
+![Banner](/public/desc/banner1.png)
 
 ### ✨ UI Screenshots
 
-| Instagram Post #2                                                                                      | Instagram Post #4                                                                                      |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| ![Instagram post - 2](https://github.com/user-attachments/assets/00c8d692-715d-4f1c-bb8d-889db1f1272d) | ![Instagram post - 4](https://github.com/user-attachments/assets/d6ce352e-4431-46c3-87de-7099da475596) |
+| Instagram Post #2                               | Instagram Post #4                               |
+| ----------------------------------------------- | ----------------------------------------------- |
+| ![Instagram post - 2](/public/desc/banner3.png) | ![Instagram post - 4](/public/desc/banner2.png) |
 
 ---
 
