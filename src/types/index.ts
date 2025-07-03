@@ -11,6 +11,7 @@ export * from './auth/user.type';
 export * from './auth/role.type';
 export * from './auth/auth.type';
 export * from './contact/contact.type';
+export * from './contact/register.type';
 export * from './exhibitions/category.type';
 export * from './seo/seo.type';
 export * from './website/website.type';

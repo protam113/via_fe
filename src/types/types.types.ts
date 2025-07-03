@@ -17,3 +17,9 @@ export interface RichTextEditorProps {
   onContentChange?: (html: string, text: string) => void;
   onChange?: (content: { html: string; text: string; json: any }) => void;
 }
+
+export interface BannerErrorProps {
+  locale?: string;
+  onRetry: () => void;
+  message?: string;
+}

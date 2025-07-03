@@ -1,9 +1,11 @@
 'use client';
 
-import { AdminLoading } from '@/components/loading/loading.components';
-import { useAuthStore } from '@/store/auth/store.auth';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { AdminLoading } from '@/components';
+import { AuthWarning } from '@/constants';
+import { ROUTES } from '@/lib';
+import { useAuthStore } from '@/store';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 export default function AuthProtectedLayout({
@@ -12,8 +14,8 @@ export default function AuthProtectedLayout({
   children: React.ReactNode;
 }) {
   const userInfo = useAuthStore((state) => state.userInfo);
-  const loading = useAuthStore((state) => state.loading); // nếu có trạng thái loading
-  const isAuthenticated = !!userInfo; // kiểm tra userInfo có tồn tại
+  const loading = useAuthStore((state) => state.loading);
+  const isAuthenticated = !!userInfo;
   const router = useRouter();
   const [authChecked, setAuthChecked] = useState(false);
 
@@ -22,7 +24,7 @@ export default function AuthProtectedLayout({
 
     const verifyAuth = async () => {
       try {
-        // Giả định checkAuth là function nào đó bạn gọi khi login — bỏ nếu không cần
+        // Assume checkAuth is some function you call when logging in — leave it off if not needed
         // await checkAuth();
         if (isMounted) setAuthChecked(true);
       } catch (error) {
@@ -41,8 +43,8 @@ export default function AuthProtectedLayout({
   useEffect(() => {
     if (authChecked) {
       if (!isAuthenticated || userInfo?.role.slug !== 'admin') {
-        toast.error('You do not have permission to access this page!');
-        router.replace('/admin');
+        toast.error(AuthWarning.AUTH_PERMISTION);
+        router.replace(ROUTES.DASHBOARD);
       }
     }
   }, [authChecked, isAuthenticated, userInfo, router]);

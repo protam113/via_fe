@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination';
+} from '@/components';
 import type { PaginationProps } from '@/types';
 
 export const CustomPagination = ({

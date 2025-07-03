@@ -14,6 +14,34 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.4.0] - 2025-07-03 [final]
+
+### Added
+
+-
+
+### Changed
+
+- Format code, optimized
+
+### Fixed
+
+---
+
+## [1.3.1] - 2025-07-01
+
+### Added
+
+- Added hook delete exhibition
+
+### Changed
+
+- Optimized code
+
+### Fixed
+
+- ***
+
 ## [1.3.0] - 2025-06-30
 
 ### Added

@@ -10,19 +10,26 @@ import {
   TableHeader,
   TableRow,
   Button,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  Badge,
+  NoResultsFound,
 } from '@/components';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Types
 import type { NewsTableProps } from '@/types';
 import { NewsColumns } from '@/types';
-import { Icons } from '@/assets/icons/icons';
+import { Icons, SocialMediaIcon } from '@/assets/icons/icons';
 
 import { useDeleteNews } from '@/hooks';
 import { ConfirmDialog } from '../design/ConfirmDialog';
 import UpdateNewsDialog from '@/components/pages/AUTH/news/update_news';
 import Link from 'next/link';
+import { truncateText } from '@/utils/helpers/truncate_text.helper';
+import type { UrlType } from '../options/news_icons';
+import { iconMap, isValidUrlType } from '../options/news_icons';
 
 export const NewsTable: React.FC<NewsTableProps> = ({
   news,
@@ -100,18 +107,52 @@ export const NewsTable: React.FC<NewsTableProps> = ({
                         {col.key === 'number' && index + 1}
                         {col.key === 'title' && news.title}
                         {col.key === 'url' && (
-                          <Link
-                            href={news.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <span className="text-blue-600 underline hover:text-blue-800">
-                              {news.url}
-                            </span>
-                          </Link>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Link
+                                href={news.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <span className="text-blue-600 underline hover:text-blue-800">
+                                  {truncateText(news.url, 40)}
+                                </span>
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>{news.url}</TooltipContent>
+                          </Tooltip>
                         )}
-                        {col.key === 'url_type' && news.url_type}
-                        {col.key === 'type' && news.type}
+                        {col.key === 'url_type' && (
+                          <span className="cursor-pointer">
+                            {isValidUrlType(news.url_type) ? (
+                              iconMap[news.url_type as UrlType]
+                            ) : (
+                              <SocialMediaIcon.TbWorld />
+                            )}
+                          </span>
+                        )}
+                        {col.key === 'type' && (
+                          <div className="inline-flex gap-1">
+                            {news.type === 'hot' && (
+                              <Badge
+                                variant="destructive"
+                                className="bg-red-main text-white text-xs px-2 py-1"
+                              >
+                                HOT
+                              </Badge>
+                            )}
+
+                            {news.type === 'popular' && (
+                              <Badge
+                                variant="destructive"
+                                className="bg-purple-600 text-white text-xs px-2 py-1"
+                              >
+                                POPULAR
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+
                         {col.key === 'category' && news.category.title}
                       </TableCell>
                     ))}

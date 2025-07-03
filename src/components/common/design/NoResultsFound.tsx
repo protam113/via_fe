@@ -1,7 +1,7 @@
 import type { NoResultsFoundProps } from '@/types';
 import { Frown } from 'lucide-react';
 
-export default function NoResultsFound({
+export function NoResultsFound({
   title = 'Whoops, no results',
   message = 'We could not find any search results. Please try again later.',
 }: NoResultsFoundProps) {

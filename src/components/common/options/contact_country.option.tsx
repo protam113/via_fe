@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import countries from '@/data/countries.json';
+import type { CountryType } from '@/types';
 
 function useDebounce(value: string, delay = 300) {
   const [debounced, setDebounced] = useState(value);
@@ -11,12 +12,6 @@ function useDebounce(value: string, delay = 300) {
   }, [value, delay]);
   return debounced;
 }
-
-type CountryType = {
-  id: number;
-  name: string;
-  iso2: string;
-};
 
 const SelectCountriesCombo = ({
   selectedCountryId,
@@ -73,7 +68,6 @@ const SelectCountriesCombo = ({
     setInputValue(country.name);
     setIsOpen(false);
 
-    // Gọi onChange ngay lập tức
     onChange(country);
   };
 
@@ -82,7 +76,6 @@ const SelectCountriesCombo = ({
     setInputValue(value);
     setIsOpen(true);
 
-    // Nếu input rỗng, clear selection
     if (value === '') {
       onChange(null);
     }
@@ -106,7 +99,7 @@ const SelectCountriesCombo = ({
       {isOpen && (
         <ul className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded border bg-white shadow-lg">
           {filteredCountries.length === 0 ? (
-            <li className="p-2 text-gray-500">Không tìm thấy quốc gia</li>
+            <li className="p-2 text-gray-500">Country not found</li>
           ) : (
             filteredCountries.map((country) => (
               <li

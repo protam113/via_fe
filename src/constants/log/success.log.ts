@@ -12,6 +12,18 @@ export enum ContactSuccess {
 
 /**
  * ==========================
+ *  @SUCCESS : Register Management Success
+ *  @DESCRIPTION :  This file contains success constants used in the register management system.
+ *  @VERSION 1.0.0
+ * ==========================
+ */
+export enum RegisterSuccess {
+  DELETED = 'Delete subscriber successfully.',
+  SENDED = 'Registration for next term successful.',
+}
+
+/**
+ * ==========================
  *  @SUCCESS : Media Management Success
  *  @DESCRIPTION :  This file contains success constants used in the media management system.
  *  @VERSION 1.0.0

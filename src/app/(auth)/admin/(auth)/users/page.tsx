@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+
+// UI Components
 import {
   Table,
   TableBody,
@@ -8,22 +10,26 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Loader } from 'lucide-react';
-
-
-import { AlertCircle } from 'lucide-react';
+  AdminContainer,
+  Heading,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Button,
+  AdminLoading,
+} from '@/components';
 import { CustomPagination } from '@/components/common/design/pagination';
-import AdminContainer from '@/components/wrappers/admin.container';
-import { UserList } from '@/lib/responses/userLib';
-// import { useDeleteManager } from '@/hooks/auth/useManager';
-// import ConfirmDialog from '@/components/design/Dialog';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Heading from '@/components/common/design/Heading';
-import { RoleList } from '@/lib/responses/roleLib';
+import { ConfirmDialog } from '@/components/common/design/ConfirmDialog';
 import SearchFilterBar from '@/components/pages/AUTH/user/search_filter.user';
+import { Icons } from '@/assets/icons/icons';
+
+// Hooks data
+import { UserList, RoleList } from '@/lib';
+import { useDeleteUser } from '@/hooks';
 
 const Page = () => {
+  // State for pagination, filtering, and data refresh
   const [refreshKey, setRefreshKey] = useState(0);
   const [selectedRole, setSelectedRole] = useState<string>();
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +37,10 @@ const Page = () => {
   // Search states
   const [searchQuery, setSearchQuery] = useState('');
   const [actualSearchQuery, setActualSearchQuery] = useState('');
+
+  // State for dialog
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [selectManager, setSelectManager] = useState<string>();
 
   //   Roles Data
   const {
@@ -50,24 +60,21 @@ const Page = () => {
     refreshKey
   );
 
-  //   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  //   const [selectManager, setSelectManager] = useState<string>();
+  const { mutate: deleteManager } = useDeleteUser();
 
-  //   const { mutate: deleteManager } = useDeleteManager();
+  const handleDeleteClick = (id: string) => {
+    setSelectManager(id);
+    setDeleteDialogOpen(true);
+  };
 
-  //   const handleDeleteClick = (id: string) => {
-  //     setSelectManager(id);
-  //     setDeleteDialogOpen(true);
-  //   };
-
-  //   const handleDeleteConfirm = () => {
-  //     if (selectManager) {
-  //       deleteManager(selectManager);
-  //       setSelectManager(undefined);
-  //       setDeleteDialogOpen(false);
-  //       setRefreshKey((prev) => prev + 1);
-  //     }
-  //   };
+  const handleDeleteConfirm = () => {
+    if (selectManager) {
+      deleteManager(selectManager);
+      setSelectManager(undefined);
+      setDeleteDialogOpen(false);
+      setRefreshKey((prev) => prev + 1);
+    }
+  };
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= pagination.total_page) {
@@ -178,7 +185,7 @@ const Page = () => {
                     <TableRow>
                       <TableCell colSpan={6} className="h-64">
                         <div className="flex justify-center items-center h-full">
-                          <Loader className="w-8 h-8 animate-spin text-blue-500" />
+                          <AdminLoading />
                         </div>
                       </TableCell>
                     </TableRow>
@@ -188,7 +195,7 @@ const Page = () => {
                         colSpan={6}
                         className="text-center text-gray-500"
                       >
-                        <AlertCircle className="h-5 w-5 inline-block text-red-500" />{' '}
+                        <Icons.AlertCircle className="h-5 w-5 inline-block text-red-500" />
                         Error loading user data.
                       </TableCell>
                     </TableRow>
@@ -227,7 +234,16 @@ const Page = () => {
                           </TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end gap-2">
-                              {/* Action buttons would go here */}
+                              {employee.role?.toLowerCase() === 'manager' && (
+                                <Button
+                                  variant="outline"
+                                  size="icon"
+                                  className="bg-red-main hover:bg-red-main"
+                                  onClick={() => handleDeleteClick(employee.id)}
+                                >
+                                  <Icons.Trash className="h-4 w-4 text-white" />
+                                </Button>
+                              )}
                             </div>
                           </TableCell>
                         </TableRow>
@@ -263,13 +279,13 @@ const Page = () => {
         </Card>
       </AdminContainer>
 
-      {/* <ConfirmDialog
+      <ConfirmDialog
         open={deleteDialogOpen}
-        onOpenChange={setDeleteDialogOpen}
-        question="Bạn có chắc không?"
-        description="Không thể hoàn tác hành động này. Thao tác này sẽ xóa vĩnh viễn người quản lý."
+        setOpen={setDeleteDialogOpen}
+        title="Are you sure?"
+        description="This action cannot be undone. This will permanently delete the manager."
         onConfirm={handleDeleteConfirm}
-      /> */}
+      />
     </>
   );
 };

@@ -70,5 +70,15 @@
 
   "Loading": {
     "title": "Loading exhibition information..."
+  },
+
+  "NotFound": {
+    "title": "Oh no! This page doesn’t exist.",
+    "desc1": "The link you followed might be broken or the page may have been removed.",
+    "desc2": "But don’t worry, there’s still a lot of awesome stuff waiting for you!"
+  },
+
+  "Via": {
+    "register": "Register for VIA Atelier next season"
   }
 }

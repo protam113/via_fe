@@ -3,9 +3,9 @@
 import type React from 'react';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { ImageIcon, X } from 'lucide-react';
 import type { ImageViewerProps } from '@/types';
 import CustomImage from '../common/design/image.component';
+import { Icons } from '@/assets/icons/icons';
 
 export default function ImageViewer({
   src,
@@ -106,7 +106,7 @@ export default function ImageViewer({
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
           <div className="bg-white/90 rounded-full p-3 transform scale-90 group-hover:scale-100 transition-transform duration-200">
-            <ImageIcon className="w-6 h-6 text-gray-700" />
+            <Icons.ImageIcon className="w-6 h-6 text-gray-700" />
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function ImageViewer({
             onClick={closeModal}
             className="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 transition-colors duration-200"
           >
-            <X className="w-6 h-6 text-gray-700" />
+            <Icons.X className="w-6 h-6 text-gray-700" />
           </button>
 
           {/* Enlarged Image Container */}

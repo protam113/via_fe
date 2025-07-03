@@ -10,14 +10,15 @@ import type {
 import { handleAPI, endpoints } from '@/apis';
 import { toast } from 'sonner';
 import { NewsError, NewsSuccess, NewsWarning } from '@/constants';
+import { buildQueryParams } from '@/utils';
 
 /**
  * ==========================s
- * 📌 @HOOK useCategoryList
+ * 📌 @HOOK useNewsList
  * ==========================
  *
- * @desc Custom hook to get list of categories
- * @returns {Category[]} List of categories
+ * @desc Custom hook to get list of news
+ * @returns {News[]} List of news
  */
 
 const fetchNewsList = async (
@@ -25,18 +26,7 @@ const fetchNewsList = async (
   filters: Filters
 ): Promise<FetchNewsListResponse> => {
   try {
-    // Check if endpoint is valid
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
-
-    // Create query string from filters
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
+    const queryString = buildQueryParams(filters, pageParam);
 
     // Call API
     const response = await handleAPI(
@@ -47,7 +37,7 @@ const fetchNewsList = async (
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching news categories list:', error);
+    console.error(NewsError.ERROR_FETCHING_LIST, error);
     throw error;
   }
 };
@@ -69,19 +59,18 @@ const useNewsList = (
 };
 
 /**
- * ========== END OF @HOOK useCategoriesList ==========
+ * ========== END OF @HOOK useNewsList ==========
  */
 
 /**
  * ==========================
- * 📌 @HOOK useCreateCategory
+ * 📌 @HOOK useCreateNews
  * ==========================
-Create role
  **/
 
 const CreateNews = async (newNews: CreateNewsData) => {
   try {
-    const response = await handleAPI(`${endpoints.news_list}`, 'POST', newNews);
+    const response = await handleAPI(`${endpoints.newsList}`, 'POST', newNews);
     return response.data;
   } catch (error: any) {
     throw new Error(
@@ -106,6 +95,16 @@ const useCreateNews = () => {
     },
   });
 };
+
+/**
+ * ========== END OF @HOOK useCreateNews ==========
+ */
+
+/**
+ * ==========================
+ * 📌 @HOOK useUpdateNews
+ * ==========================
+ **/
 
 const EditNews = async (updateNews: UpdateNewsData, postId: string) => {
   try {
@@ -145,8 +144,14 @@ const useUpdateNews = () => {
 };
 
 /**
- * ========== END OF @HOOK useCreateCategory ==========
+ * ========== END OF @HOOK useUpdateNews ==========
  */
+
+/**
+ * ==========================
+ * 📌 @HOOK useDeleteNews
+ * ==========================
+ **/
 
 const DeleteNews = async (newsId: string) => {
   try {
@@ -180,5 +185,9 @@ const useDeleteNews = () => {
     },
   });
 };
+
+/**
+ * ========== END OF @HOOK useDeleteNews ==========
+ */
 
 export { useNewsList, useCreateNews, useDeleteNews, useUpdateNews };

@@ -1,11 +1,9 @@
 'use client';
 
 import { ExhibitionAdminDetailData } from '@/lib';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { formatDateOnly } from '@/utils';
-import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
-import { LoadingSpin } from '@/components/loading/loading';
 
 import {
   Container,
@@ -13,30 +11,20 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  NoResultsFound,
+  LoadingSpin,
 } from '@/components';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 import BackButton from '@/components/common/button/back-admin.button';
 
 export default function Page() {
   const { id } = useParams();
   const postId = Array.isArray(id) ? id[0] : id || '';
 
-  const pathname = usePathname();
-  const locale = getLocaleFromPath(pathname) || 'vi';
-
   const { blog, isLoading, isError } = ExhibitionAdminDetailData(postId, 0);
 
   // UI - Loading & Error
   if (isLoading) {
-    return (
-      <LoadingSpin
-        message={
-          locale === 'vi'
-            ? 'Đang tải thông tin triển lãm...'
-            : 'Loading exhibition information...'
-        }
-      />
-    );
+    return <LoadingSpin message={'Loading exhibition information...'} />;
   }
 
   if (isError || !blog) {
@@ -58,8 +46,6 @@ export default function Page() {
 
     return (
       <div key={lang}>
-        {' '}
-        {/* ✅ fix chỗ này */}
         <h2 className="text-4xl md:text-3xl font-bold text-gray-900">
           {t.title}
         </h2>

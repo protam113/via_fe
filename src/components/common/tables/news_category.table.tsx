@@ -11,10 +11,10 @@ import {
   TableHeader,
   TableRow,
   Checkbox,
+  NoResultsFound,
 } from '@/components';
 
 import { Skeleton } from '@/components/ui/skeleton';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Hooks & Utils
 // Types
 import { NewsCategoryColumns } from '@/types';

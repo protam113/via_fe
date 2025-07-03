@@ -1,11 +1,11 @@
 'use client';
 
 import { Input, Button, Label } from '@/components';
-import { Plus, X } from 'lucide-react';
 import type { Companies } from '@/types';
 import { useFieldArray } from 'react-hook-form';
 import type { UseFormReturn } from 'react-hook-form';
 import { useState } from 'react';
+import { Icons } from '@/assets/icons/icons';
 
 export default function CompanyManager({ form }: { form: UseFormReturn<any> }) {
   const [newCompany, setNewCompany] = useState<Companies>({
@@ -72,7 +72,7 @@ export default function CompanyManager({ form }: { form: UseFormReturn<any> }) {
             size="icon"
             className="rounded-none"
           >
-            <Plus className="h-4 w-4" />
+            <Icons.Plus className="h-4 w-4" />
           </Button>
         </div>
       </div>
@@ -88,23 +88,37 @@ export default function CompanyManager({ form }: { form: UseFormReturn<any> }) {
               No companies added yet.
             </p>
           ) : (
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {companyFields.map((company, index) =>
                 company.name.trim() ? (
                   <div
                     key={company.id}
-                    className="flex items-center bg-black text-white rounded-none px-3 py-1 text-sm shadow-sm hover:bg-gray-800 transition"
+                    className="relative rounded-xl overflow-hidden border bg-white shadow-sm"
                   >
-                    <span className="pr-2">{company.name}</span>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="h-5 w-5 p-0 rounded-none hover:bg-gray-800 hover:text-white"
-                      onClick={() => remove(index)}
-                    >
-                      <X className="h-3 w-3" />
-                    </Button>
+                    {/* Hình ảnh công ty */}
+                    <div className="w-full h-[80px] relative flex justify-center items-center overflow-hidden rounded-xl">
+                      <img
+                        src={company.image}
+                        alt={company.name}
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+
+                    {/* Tên + nút xoá */}
+                    <div className="flex items-center justify-between px-3 py-2">
+                      <span className="text-sm font-medium truncate">
+                        {company.name}
+                      </span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="h-5 w-5 p-0 rounded-none hover:bg-gray-100"
+                        onClick={() => remove(index)}
+                      >
+                        <Icons.X className="h-3 w-3 text-gray-600" />
+                      </Button>
+                    </div>
                   </div>
                 ) : null
               )}

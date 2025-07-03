@@ -2,9 +2,7 @@
 
 import { Icons } from '@/assets/icons/icons';
 import { ENV, ExhibitionsList } from '@/lib';
-import { Container, PushButton } from '@/components';
 import CustomImage from '@/components/common/design/image.component';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 import { useState } from 'react';
 import {
   Select,
@@ -12,9 +10,12 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  Heading,
+  NoResultsFound,
+  Container,
+  PushButton,
 } from '@/components';
 import { PriveContactTable } from './priveContact.table';
-import Heading from '../design/Heading';
 
 const ViaPrivePost = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en');

@@ -11,6 +11,7 @@ import type {
 } from '@/types';
 import { toast } from 'sonner';
 import { ExhibiionSuccess, ExhibitionError } from '@/constants';
+import { buildQueryParams } from '@/utils';
 
 /**
  * ==============
@@ -26,18 +27,7 @@ const fetchExhibitionList = async (
   filters: Filters
 ): Promise<FetchExhibitionListResponse> => {
   try {
-    // Check if endpoint is valid
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
-
-    // Create query string from filters
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
+    const queryString = buildQueryParams(filters, pageParam);
 
     // Call API
     const response = await handleAPI(
@@ -48,7 +38,7 @@ const fetchExhibitionList = async (
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching exhibitions list:', error);
+    console.error(ExhibitionError.FAILED_LIST, error);
     throw error;
   }
 };
@@ -110,18 +100,7 @@ const fetchfetchBannerList = async (
   filters: Filters
 ): Promise<FetchBannerListResponse> => {
   try {
-    // Check if endpoint is valid
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
-
-    // Create query string from filters
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
+    const queryString = buildQueryParams(filters, pageParam);
 
     // Call API
     const response = await handleAPI(
@@ -132,7 +111,7 @@ const fetchfetchBannerList = async (
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching exhibitions list:', error);
+    console.error(ExhibitionError.FAILED_BANNER_LIST, error);
     throw error;
   }
 };
@@ -160,7 +139,7 @@ const fetchExhibitionDetail = async (
 ): Promise<ExibitionDetailResponse> => {
   try {
     if (!slug) {
-      throw new Error('Slug is required');
+      throw new Error(ExhibitionError.SLUG_NULL);
     }
 
     const validFilters = Object.fromEntries(
@@ -173,8 +152,9 @@ const fetchExhibitionDetail = async (
     const queryString = new URLSearchParams({
       ...validFilters,
     }).toString();
+
     if (!endpoints.exhibition) {
-      throw new Error('Exhibition endpoint is not defined');
+      throw new Error(ExhibitionError.ENDPOINT);
     }
 
     const url = `${endpoints.exhibition.replace(':slug', slug)}${
@@ -185,7 +165,7 @@ const fetchExhibitionDetail = async (
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching exhibition detail:', error);
+    console.error(ExhibitionError.DETAILED, error);
     throw error;
   }
 };
@@ -208,7 +188,7 @@ const useExhibitionDetail = (slug: string) => {
       queryClient.invalidateQueries({ queryKey: ['exhibitionDetail'] });
     },
     onError: (error) => {
-      console.error('Failed to fetch exhibition detail:', error);
+      console.error(ExhibitionError.DETAILED, error);
     },
   });
 };
@@ -219,7 +199,7 @@ const fetchExhibitionAdminDetail = async (
   try {
     // Check if slug is valid
     if (!id) {
-      throw new Error('Id is required');
+      throw new Error(ExhibitionError.ID_NULL);
     }
     // Check if endpoint is valid
     if (!endpoints.exhibitionAdmin) {
@@ -233,7 +213,7 @@ const fetchExhibitionAdminDetail = async (
     );
     return response.data;
   } catch (error) {
-    console.error('Error fetching blog detail:', error);
+    console.error(ExhibitionError.ADMIN_DETAILED, error);
     throw error;
   }
 };
@@ -248,10 +228,44 @@ const useExhibitionAdminDetail = (id: string, refreshKey: number) => {
   });
 };
 
+// Custom hook to delete exhibition
+
+const DeleteExhibition = async (postId: string) => {
+  try {
+    if (!endpoints.exhibitionEdit) {
+      throw new Error(ExhibitionError.ENDPOINT);
+    }
+
+    const response = await handleAPI(
+      `${endpoints.exhibitionEdit.replace(':id', postId)}`,
+      'DELETE'
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message || ExhibitionError.DELETED);
+  }
+};
+
+const useDeleteExhibition = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: DeleteExhibition,
+    onSuccess: () => {
+      toast.success('pl==ok');
+      queryClient.invalidateQueries({ queryKey: ['exhibitionList'] });
+    },
+    onError: (error: any) => {
+      toast.error(error.message || ExhibitionError.DELETED);
+    },
+  });
+};
+
 export {
   useExhibitionList,
   useCreateExhibition,
   useBannerList,
   useExhibitionDetail,
   useExhibitionAdminDetail,
+  useDeleteExhibition,
 };

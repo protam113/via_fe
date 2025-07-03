@@ -7,6 +7,8 @@
  */
 
 export * from './helpers/utils';
+export * from './helpers/get_local_path.helper';
+export * from './helpers/query.helper';
 
 /**
  * ==========================
@@ -17,7 +19,8 @@ export * from './helpers/utils';
  */
 
 export * from './formatters/format_time.utils';
-export * from './formatters/format_time.utils';
+export * from './formatters/format_currency.utils';
+export * from './helpers/truncate_text.helper';
 
 /**
  * ==========================

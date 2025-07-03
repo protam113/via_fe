@@ -15,8 +15,8 @@ import {
 import { NavService } from './nav-services';
 import { NavSupport } from './nav-support';
 import { NavAdmin } from './nav-admin';
-import { useAuthStore } from '@/store/auth/store.auth';
-import { AdminSidebar } from '@/lib/routes/navigation.routes';
+import { useAuthStore } from '@/store';
+import { AdminSidebar } from '@/lib';
 import { NavNews } from './nav-news';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

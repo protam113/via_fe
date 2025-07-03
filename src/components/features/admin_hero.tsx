@@ -5,6 +5,8 @@ import { BannerList } from '@/lib';
 import type { FetchBannerListResponse } from '@/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { AdminLoading } from '../loading/loading.components';
+import { NoResultsFound } from '../common/design/NoResultsFound';
 
 export default function AdminBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -37,9 +39,9 @@ export default function AdminBanner() {
     }
   }, [isHovered, banners]);
 
-  if (isLoading) return <div>Loading banners...</div>;
+  if (isLoading) return <AdminLoading />;
   if (isError) return <div>Failed to load banners.</div>;
-  if (!banners.length) return <div>No banners available.</div>;
+  if (!banners.length) return <NoResultsFound />;
 
   return (
     <div className="w-full mx-auto">

@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogAction,
-} from '@/components/ui/alert-dialog';
+} from '@/components';
 import type { ConfirmDialogProps } from '@/types';
 
 export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({

@@ -8,9 +8,8 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CategoryCard from '@/components/common/cards/category.card';
-import { Container } from '@/components';
+import { Container, NoResultsFound } from '@/components';
 import AtelierCard from '@/components/common/cards/atelier.card';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 
 const Page = () => {
   const t = useTranslations('NewsPage');

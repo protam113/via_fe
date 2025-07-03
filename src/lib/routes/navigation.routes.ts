@@ -23,6 +23,12 @@ export const Name = {
   ADMIN_NEWS: 'News',
 };
 
+/**
+ * ==========================
+ *  @NAVIGATION_ROUTES
+ * ==========================
+ */
+
 export const navItems = [
   { name: Name.ABOUT_US, path: '/about', routeKey: 'about' },
 ] as const;
@@ -43,6 +49,12 @@ export const navItemsFeatured = [
   { id: ENV.VIA_ATELIER_ID, path: '/via-atelier' },
   { id: ENV.VIA_PRIVE_ID, path: '/via-prive' },
 ] as const;
+
+/**
+ * ==========================
+ *  @END_NAVIGATION_ROUTES
+ * ==========================
+ */
 
 export const AdminSidebar = {
   navMain: [
@@ -97,11 +109,6 @@ export const AdminSidebar = {
       url: ROUTES.ADMIN_VIA_PRIVE.ROOT,
       icon: ComponentsIcons.Package,
     },
-    // {
-    //   title: 'Dự Án',
-    //   url: '/admin/project',
-    //   icon: ComponentsIcons.SquareChartGantt,
-    // },
   ],
   navSupport: [
     {
@@ -112,20 +119,20 @@ export const AdminSidebar = {
   ],
 };
 
-export const categories = [
-  {
-    id: 1,
-    name: Name.VIA_ART_FAIR,
-    path: ROUTES.VIA_ART_FAIR.ROOT,
-  },
-  {
-    id: 2,
-    name: Name.VIA_ATELIER,
-    path: ROUTES.VIA_ATELIER.ROOT,
-  },
-  {
-    id: 3,
-    name: Name.VIA_PRIVE,
-    path: ROUTES.VIA_PRIVE.ROOT,
-  },
-];
+// export const categories = [
+//   {
+//     id: 1,
+//     name: Name.VIA_ART_FAIR,
+//     path: ROUTES.VIA_ART_FAIR.ROOT,
+//   },
+//   {
+//     id: 2,
+//     name: Name.VIA_ATELIER,
+//     path: ROUTES.VIA_ATELIER.ROOT,
+//   },
+//   {
+//     id: 3,
+//     name: Name.VIA_PRIVE,
+//     path: ROUTES.VIA_PRIVE.ROOT,
+//   },
+// ];

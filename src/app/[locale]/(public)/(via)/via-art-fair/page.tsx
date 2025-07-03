@@ -10,12 +10,15 @@ import { usePathname } from 'next/navigation';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CategoryCard from '@/components/common/cards/category.card';
 import { Container } from '@/components';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
+import { NoResultsFound } from '@/components';
+import { LoadingSpin } from '@/components/loading/loading';
+import BannerError from '@/components/loading/errror.component';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
   const pathname = usePathname();
   const locale = getLocaleFromPath(pathname) || 'vi';
+  const [refreshKey, setRefreshKey] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [allLoaded, setAllLoaded] = useState(false);
   const [accumulatedExhibition, setAccumulatedExhibition] = useState<any[]>([]);
@@ -30,7 +33,7 @@ const Page = () => {
   const { exhibitions, isLoading, isError, pagination } = ExhibitionsList(
     currentPage,
     params,
-    0
+    refreshKey
   );
 
   useEffect(() => {
@@ -59,22 +62,17 @@ const Page = () => {
   if (isLoading) {
     return (
       <Container>
-        <div className="flex flex-col items-center justify-center py-20 text-center text-gray-700">
-          <Icons.Loader2 className="animate-spin h-8 w-8 mb-4 text-gray-500" />
-          <p className="text-lg font-medium">
-            Loading the latest news for you...
-          </p>
-          <p className="text-sm text-gray-500 mt-2">Please wait a moment </p>
-        </div>
+        <LoadingSpin message=" Loading the latest via for you..." />
       </Container>
     );
   }
 
   if (isError) {
     return (
-      <Container>
-        <p className="text-red-main">Oops! Failed to load news.</p>
-      </Container>
+      <BannerError
+        locale={locale}
+        onRetry={() => setRefreshKey((prev) => prev + 1)}
+      />
     );
   }
 

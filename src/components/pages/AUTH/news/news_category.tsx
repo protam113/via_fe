@@ -11,16 +11,17 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  Input,
+  AdminContainer,
+  Heading,
 } from '@/components';
 
 //Components
-import Heading from '@/components/common/design/Heading';
-
-import AdminContainer from '@/components/wrappers/admin.container';
 import { NewsCategoryTable } from '@/components/common/tables/news_category.table';
 import { NewsCategoryList } from '@/lib';
 
 import CreateNewsCategoryDialog from './create_news_category';
+import { Icons } from '@/assets/icons/icons';
 
 export default function NewsCategory() {
   const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
@@ -28,8 +29,13 @@ export default function NewsCategory() {
   const [pageSize, setPageSize] = useState(10);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
+  // Search states
+  const [searchQuery, setSearchQuery] = useState('');
+  const [actualSearchQuery, setActualSearchQuery] = useState('');
+
   const params = {
-    limit: pageSize,
+    page_size: pageSize,
+    title: actualSearchQuery,
   };
 
   const { newsCategories, isLoading, isError, pagination } = NewsCategoryList(
@@ -55,6 +61,22 @@ export default function NewsCategory() {
     setRefreshKey((prev) => prev + 1);
   };
 
+  // Handle search on Enter key press
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setActualSearchQuery(searchQuery.trim());
+      setCurrentPage(1);
+    }
+  };
+
+  // Clear search function
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    setActualSearchQuery('');
+    setCurrentPage(1);
+  };
+
   return (
     <>
       <AdminContainer>
@@ -69,7 +91,26 @@ export default function NewsCategory() {
             onSuccess={() => setRefreshKey((prev) => prev + 1)}
           />
         </div>
-        <div className="md:flex col flex-col-2 md:flex-row justify-between items-center mb-6">
+        <div className="md:flex col flex-col-2 md:flex-row items-center mb-6">
+          <div className="relative w-full md:w-64">
+            <Icons.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Search title (Press Enter)"
+              className="pl-10 pr-8 rounded-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+            />
+            {/* Clear search button */}
+            {searchQuery && (
+              <button
+                onClick={handleClearSearch}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
+          </div>
           <div className="flex items-center gap-4">
             <RefreshButton onClick={handleRefresh} />
             <div className="flex items-center gap-4">

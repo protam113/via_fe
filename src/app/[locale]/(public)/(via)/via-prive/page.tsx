@@ -7,9 +7,8 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CategoryCard from '@/components/common/cards/category.card';
-import { Container } from '@/components';
+import { Container, NoResultsFound } from '@/components';
 import CustomImage from '@/components/common/design/image.component';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 import ExhibitionContactForm from '@/components/wrappers/exhibition_contact.wrapper';
 import { Link } from '@/i18n/navigation';
 

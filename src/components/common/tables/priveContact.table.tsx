@@ -12,9 +12,9 @@ import {
   TableRow,
   Checkbox,
   AdminContainer,
+  NoResultsFound,
 } from '@/components';
 import { Skeleton } from '@/components/ui/skeleton';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 // Hooks & Utils
 import { toast } from 'sonner';
 // Types
@@ -105,7 +105,7 @@ export const PriveContactTable = ({
       onError: (error: any) => {
         form.setError('root', {
           type: 'manual',
-          message: error.message || ContactError.FAILED_UPDATE_CONTACT,
+          message: error.message || ContactError.FAILED_UPDATE,
         });
         setIsSubmitting(false);
       },

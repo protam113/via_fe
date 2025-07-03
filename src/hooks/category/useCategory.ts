@@ -8,6 +8,7 @@ import type {
 } from '@/types';
 import { CategoryError, CategorySuccess } from '@/constants';
 import { toast } from 'sonner';
+import { buildQueryParams } from '@/utils';
 
 /**
  * ==========================
@@ -23,18 +24,7 @@ const fetchCategoriesList = async (
   filters: Filters
 ): Promise<FetchCategoryListResponse> => {
   try {
-    // Check if endpoint is valid
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
-
-    // Create query string from filters
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
+    const queryString = buildQueryParams(filters, pageParam);
 
     // Call API
     const response = await handleAPI(
@@ -45,7 +35,7 @@ const fetchCategoriesList = async (
 
     return response.data;
   } catch (error) {
-    console.error(CategoryError.ERROR_FETCHING_CATEGORY_LIST, error);
+    console.error(CategoryError.ERROR_FETCHING_LIST, error);
     throw error;
   }
 };
@@ -102,7 +92,7 @@ const useUpdateCategory = () => {
     },
     onSuccess: () => {
       toast.success(CategorySuccess.UPDATED_NEWS_CATEGORY);
-      queryClient.invalidateQueries({ queryKey: ['newsCategoryList'] });
+      queryClient.invalidateQueries({ queryKey: ['categoryList'] });
     },
   });
 };
@@ -118,14 +108,11 @@ const fetchCategoryCount = async (): Promise<CategoryCountData> => {
 
     return response;
   } catch (error) {
-    console.error(CategoryError.ERROR_FETCHING_CATEGORY_COUNT, error);
+    console.error(CategoryError.COUNTED, error);
     throw error;
   }
 };
 
-/**
- * Custom hook to get list of categories using React Query.
- */
 const useCategoryCountData = (refreshKey: number) => {
   return useQuery<CategoryCountData, Error>({
     queryKey: ['categoryCountData', refreshKey],

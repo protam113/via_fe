@@ -4,11 +4,7 @@ import type { ReactNode } from 'react';
 import React from 'react';
 import { AppSidebar } from './app-sidebar';
 import { Separator } from '@/components/ui/separator';
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components';
 import Footer from './adminFooter';
 
 interface DefaultLayoutProps {

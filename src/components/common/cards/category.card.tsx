@@ -3,7 +3,7 @@ import CustomImage from '../design/image.component';
 import { Icons } from '@/assets/icons/icons';
 import { navItemsFeatured, CategoryList } from '@/lib';
 import { Spinner } from '@/components/loading/spinner';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 const CategoryCard = () => {
   const { categories, isLoading, isError } = CategoryList(
@@ -28,7 +28,9 @@ const CategoryCard = () => {
             return (
               <Link
                 key={navItem.id}
-                href={navItem.path}
+                href={{
+                  pathname: navItem.path,
+                }}
                 className="group relative h-14 w-14 md:w-16 md:h-16 lg:h-22 lg:w-22 overflow-hidden cursor-pointer"
               >
                 <div className="absolute inset-0" />
@@ -37,7 +39,7 @@ const CategoryCard = () => {
                   alt={category.title}
                   width={100}
                   height={100}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <Icons.EyeIcon className="text-white" />

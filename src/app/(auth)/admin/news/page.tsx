@@ -13,16 +13,20 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/components/ui/select';
-import Heading from '@/components/common/design/Heading';
-import AdminContainer from '@/components/wrappers/admin.container';
+  Heading,
+  AdminContainer,
+  Button,
+  Input,
+} from '@/components';
+
 import { NewsList } from '@/lib';
 import { NewsTable } from '@/components/common/tables/news.table';
+
+import { Icons } from '@/assets/icons/icons';
+
 import NewsCategory from '@/components/pages/AUTH/news/news_category';
 import NewsCategoryCard from '@/components/pages/AUTH/news/news_category_card';
 import CreateNewsDialog from '@/components/pages/AUTH/news/create_news';
-import { Button } from '@/components/ui/button';
-import { Icons } from '@/assets/icons/icons';
 
 export default function Page() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -31,8 +35,13 @@ export default function Page() {
   const [pageSize, setPageSize] = useState(10);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
+  // Search states
+  const [searchQuery, setSearchQuery] = useState('');
+  const [actualSearchQuery, setActualSearchQuery] = useState('');
+
   const params = {
-    category_id: selectedCategory ?? undefined,
+    category_slug: selectedCategory ?? undefined,
+    title: actualSearchQuery || undefined,
     limit: pageSize,
   };
 
@@ -45,7 +54,7 @@ export default function Page() {
   const handlePageSizeChange = (value: string) => {
     const newSize = parseInt(value, 10);
     setPageSize(newSize);
-    setCurrentPage(1); // Reset về trang đầu tiên khi đổi số lượng
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page: number) => {
@@ -56,7 +65,23 @@ export default function Page() {
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
-    setRefreshKey((prev) => prev + 1); // Refresh data manually
+    setRefreshKey((prev) => prev + 1);
+  };
+
+  // Handle search on Enter key press
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setActualSearchQuery(searchQuery.trim());
+      setCurrentPage(1);
+    }
+  };
+
+  // Clear search function
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    setActualSearchQuery('');
+    setCurrentPage(1);
   };
 
   return (
@@ -77,7 +102,26 @@ export default function Page() {
           </Button>
         </div>
         <NewsCategoryCard onCategorySelect={setSelectedCategory} />
-        <div className="md:flex col flex-col-2 md:flex-row justify-between items-center mb-6">
+        <div className="md:flex col flex-col-2 md:flex-row  items-center mb-6">
+          <div className="relative w-full md:w-64">
+            <Icons.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Search title (Press Enter)"
+              className="pl-10 pr-8 rounded-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+            />
+            {/* Clear search button */}
+            {searchQuery && (
+              <button
+                onClick={handleClearSearch}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
+          </div>
           <div className="flex items-center gap-4">
             <RefreshButton onClick={handleRefresh} />
             <div className="flex items-center gap-4">

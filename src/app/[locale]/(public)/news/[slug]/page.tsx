@@ -1,17 +1,16 @@
 'use client';
 
 import { Icons, SocialMediaIcon } from '@/assets/icons/icons';
-import { Badge, Container } from '@/components';
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
 import { NewsList } from '@/lib';
-import type {
-  UrlType} from '@/components/common/options/news_icons';
+import type { UrlType } from '@/components/common/options/news_icons';
 import {
   iconMap,
-  isValidUrlType
+  isValidUrlType,
 } from '@/components/common/options/news_icons';
+import { LoadingSpin, NoResultsFound, Badge, Container } from '@/components';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
@@ -60,7 +59,7 @@ const Page = () => {
   if (isLoading) {
     return (
       <Container>
-        <p>Loading news...⏳</p>
+        <LoadingSpin />
       </Container>
     );
   }
@@ -72,6 +71,8 @@ const Page = () => {
       </Container>
     );
   }
+
+  if (!accumulatedNews.length) return <NoResultsFound />;
 
   return (
     <Container>

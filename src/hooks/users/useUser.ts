@@ -7,6 +7,7 @@ import type {
 } from '@/types';
 import { toast } from 'sonner';
 import { EmployeeError, EmployeeSuccess } from '@/constants';
+import { buildQueryParams } from '@/utils';
 
 /**
  * ==========================
@@ -22,16 +23,7 @@ const fetchUserList = async (
   filters: Filters
 ): Promise<FetchManagerListResponse> => {
   try {
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
-
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
+    const queryString = buildQueryParams(filters, pageParam);
 
     const response = await handleAPI(
       `${endpoints.users}${queryString ? `?${queryString}` : ''}`,

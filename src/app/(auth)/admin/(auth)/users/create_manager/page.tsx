@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import BackButton from '@/components/common/button/back-admin.button';
-import { Button, Input, Label } from '@/components';
-import Heading from '@/components/common/design/Heading';
-import AdminContainer from '@/components/wrappers/admin.container';
+import { AdminContainer, Heading, Button, Input, Label } from '@/components';
+import { Icons } from '@/assets/icons/icons';
+
 import { useCreateManager } from '@/hooks/users/useUser';
 
 // Form validation schema
@@ -13,7 +13,6 @@ import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EmployeeError } from '@/constants';
-import { Eye, EyeOff } from 'lucide-react';
 
 type FormData = z.infer<typeof employeeFormWithConfirmSchema>;
 
@@ -186,7 +185,7 @@ const PasswordField = ({
         onClick={toggle}
         className="absolute right-3 top-2.5 text-gray-500 hover:text-black"
       >
-        {show ? <EyeOff size={18} /> : <Eye size={18} />}
+        {show ? <Icons.EyeOff size={18} /> : <Icons.Eye size={18} />}
       </button>
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>

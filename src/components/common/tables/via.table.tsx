@@ -2,9 +2,7 @@
 
 import { Icons } from '@/assets/icons/icons';
 import { ENV, ExhibitionsList } from '@/lib';
-import { Container, PushButton } from '@/components';
 import CustomImage from '@/components/common/design/image.component';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 import { useState } from 'react';
 import {
   Select,
@@ -12,8 +10,11 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  NoResultsFound,
+  Heading,
+  Container,
+  PushButton,
 } from '@/components';
-import Heading from '../design/Heading';
 
 const ViaPost = () => {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
@@ -21,7 +22,7 @@ const ViaPost = () => {
 
   const params = {
     language: selectedLanguage,
-    category_id: ENV.VIA_PRIVE_ID,
+    category_id: ENV.VIA_ART_FAIR_ID,
     page_size: 1,
   };
 

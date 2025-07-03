@@ -1,3 +1,13 @@
+/**
+ * ==========================
+ *  @ERRORS : Auth Management Errors
+ *  @DESCRIPTION :  This file contains error constants used in the auth management system.
+ *  @VERSION 1.0.0
+ * ==========================
+ */
+export enum AuthWarning {
+  AUTH_PERMISTION = 'You do not have permission to access this page!',
+}
 
 /**
  * ==========================

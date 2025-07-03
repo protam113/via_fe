@@ -25,3 +25,6 @@ export * from './website/useWebsite';
 
 // Exhibition
 export * from './exhibition/useExhibition';
+
+// Register
+export * from './contact/useRegister';

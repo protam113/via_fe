@@ -9,6 +9,7 @@ import type {
 } from '@/types';
 import { toast } from 'sonner';
 import { ContactError, ContactSuccess } from '@/constants';
+import { buildQueryParams } from '@/utils';
 
 /**
  * ==========================
@@ -24,20 +25,8 @@ const fetchContactList = async (
   filters: Filters
 ): Promise<FetchContactListResponse> => {
   try {
-    // Check if endpoint is valid
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
+    const queryString = buildQueryParams(filters, pageParam);
 
-    // Create query string from filters
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
-
-    // Call API
     const response = await handleAPI(
       `${endpoints.contacts}${queryString ? `?${queryString}` : ''}`,
       'GET',
@@ -46,7 +35,7 @@ const fetchContactList = async (
 
     return response.data;
   } catch (error) {
-    console.error(ContactError.ERROR_FETCHING_CONTACT_LIST, error);
+    console.error(ContactError.ERROR_FETCHING_LIST, error);
     throw error;
   }
 };
@@ -70,11 +59,11 @@ const useContactList = (
 /**
  * ========== END OF @HOOK useContactsList ==========
  */
+
 /**
  * ==========================
  * 📌 @HOOK useCreateContact
  * ==========================
-Create role
  **/
 
 const CreateContact = async (newContact: CreateContactItem) => {
@@ -128,7 +117,7 @@ const ApprovedContactList = async (contactIds: ApprovedContact) => {
     return response.data;
   } catch (error: any) {
     throw new Error(
-      error?.response?.data?.message || ContactError.FAILED_UPDATE_CONTACT
+      error?.response?.data?.message || ContactError.FAILED_UPDATE
     );
   }
 };
@@ -143,7 +132,7 @@ const useUpdateContact = () => {
       queryClient.invalidateQueries({ queryKey: ['contactList'] });
     },
     onError: (error: any) => {
-      toast.error(error.message || ContactError.FAILED_UPDATE_CONTACT);
+      toast.error(error.message || ContactError.FAILED_UPDATE);
     },
   });
 };
@@ -154,19 +143,15 @@ const useUpdateContact = () => {
 
 const fetchContactCount = async (): Promise<ContactCountData> => {
   try {
-    // Call API
     const response = await handleAPI(`${endpoints.contactCount}`, 'GET', null);
 
     return response;
   } catch (error) {
-    console.error(ContactError.ERROR_FETCHING_CONTACT_COUNT, error);
+    console.error(ContactError.COUNTED, error);
     throw error;
   }
 };
 
-/**
- * Custom hook to get list of categories using React Query.
- */
 const useContactCountData = (refreshKey: number) => {
   return useQuery<ContactCountData, Error>({
     queryKey: ['contactCountData', refreshKey],

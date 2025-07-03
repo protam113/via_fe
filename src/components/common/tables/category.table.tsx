@@ -11,9 +11,9 @@ import {
   TableHeader,
   TableRow,
   Button,
+  NoResultsFound,
 } from '@/components';
 
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 import type { CategoryTableProps } from '@/types';
 import { CategoryColumns } from '@/types';
 import { Icons } from '@/assets/icons/icons';

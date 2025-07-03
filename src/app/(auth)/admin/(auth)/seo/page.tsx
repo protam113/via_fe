@@ -1,11 +1,13 @@
-import AdminContainer from '@/components/wrappers/admin.container';
-import Heading from '@/components/common/design/Heading';
+import { Heading, AdminContainer } from '@/components';
 import { SeoSettingsForm } from '@/components/pages/AUTH/seo/updateSeoForm';
 
 const Page = () => {
   return (
     <AdminContainer>
-      <Heading name="SEO Page" desc="Manage your seo website here" />
+      <Heading
+        name="SEO Page"
+        desc="Manage and update your website's SEO information below"
+      />
 
       <SeoSettingsForm />
     </AdminContainer>

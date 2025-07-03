@@ -103,6 +103,9 @@ const endpoints: Record<string, string | undefined> = {
 
   // === Via Art Fair ===
   website: process.env.NEXT_PUBLIC_WEBSITE,
+
+  // === Register notify ===
+  registerNotify: process.env.NEXT_PUBLIC_REGISTER_NOTIFY,
 };
 
 export { baseURL, endpoints };

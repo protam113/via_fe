@@ -30,17 +30,17 @@ export default function NotFound() {
           style={{ animationDelay: '0.8s', animationDuration: '0.8s' }}
         >
           <Link
-            href="/"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-main px-6 py-3 font-medium text-black transition-colors hover:bg-[#b1ef62] hover:scale-105 transform  md:transition-transform duration-300 animate-pulse-subtle"
+            href="/admin"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-red-main px-6 py-3 font-medium text-black transition-colors hover:bg-[#b1ef62] hover:scale-105 transform  md:transition-transform duration-300 animate-pulse-subtle"
           >
             BACK TO HOMEPAGE
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            href="/services"
+            href="/login"
             className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-300 px-6 py-3 font-medium transition-colors hover:bg-gray-100 hover:scale-105 transform md:transition-transform duration-300"
           >
-            SEE OUR SERVICES
+            Login
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

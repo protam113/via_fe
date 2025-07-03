@@ -1,10 +1,7 @@
 import type { ContainerProps } from '@/types';
 import { cn } from '@/utils';
 
-export default function AdminContainer({
-  children,
-  className,
-}: ContainerProps) {
+export function AdminContainer({ children, className }: ContainerProps) {
   return (
     <main
       className={cn(

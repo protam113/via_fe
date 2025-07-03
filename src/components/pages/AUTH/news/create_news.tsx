@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -41,12 +41,14 @@ export default function CreateNewsDialog({
 }: CreateNewsCategoryDialogProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // ✅ Fetch categories
   const { newsCategories, isLoading, isError } = NewsCategoryList(
     1,
     { limit: 20 },
     0
   );
 
+  // ✅ Form
   const form = useForm<z.infer<typeof newsFormSchema>>({
     resolver: zodResolver(newsFormSchema),
     defaultValues: {
@@ -58,12 +60,13 @@ export default function CreateNewsDialog({
     },
   });
 
+  // ✅ Mutation
   const { mutate: createNews } = useCreateNews();
 
-  const handleCreateCategory = (values: z.infer<typeof newsFormSchema>) => {
+  const handleCreate = (values: z.infer<typeof newsFormSchema>) => {
     setIsSubmitting(true);
 
-    const newsData: CreateNewsData = {
+    const payload: CreateNewsData = {
       title: values.title,
       url: values.url,
       url_type: values.url_type,
@@ -71,11 +74,12 @@ export default function CreateNewsDialog({
       category_id: values.category_id,
     };
 
-    createNews(newsData, {
+    createNews(payload, {
       onSuccess: () => {
-        onSuccess?.();
-        setOpen(false);
         form.reset();
+        setOpen(false);
+        setIsSubmitting(false); // 🔥 Fix stuck loading
+        onSuccess?.();
       },
       onError: (error: any) => {
         form.setError('root', {
@@ -87,6 +91,7 @@ export default function CreateNewsDialog({
     });
   };
 
+  // ✅ Reset form when dialog is closed
   useEffect(() => {
     if (!open) {
       form.reset();
@@ -99,26 +104,37 @@ export default function CreateNewsDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px] rounded-none bg-white">
         <DialogHeader>
-          <DialogTitle>Create New Category</DialogTitle>
+          <DialogTitle>Create New News</DialogTitle>
           <DialogDescription>
-            Fill in the details for the new category.
+            Fill in the details for the new news item.
           </DialogDescription>
         </DialogHeader>
+
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleCreateCategory)}>
+          <form
+            onSubmit={form.handleSubmit(handleCreate)}
+            className="space-y-6"
+          >
+            {/* Title */}
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter news category title" {...field} />
+                    <Input
+                      placeholder="Enter news title"
+                      {...field}
+                      className="rounded-none"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            {/* URL */}
             <FormField
               control={form.control}
               name="url"
@@ -126,34 +142,100 @@ export default function CreateNewsDialog({
                 <FormItem>
                   <FormLabel>URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter URL" {...field} />
+                    <Input
+                      placeholder="Enter URL"
+                      {...field}
+                      className="rounded-none"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="url_type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL Type</FormLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select URL type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="fb">Facebook</SelectItem>
-                      <SelectItem value="link">Web</SelectItem>
-                      <SelectItem value="ig">Instagram</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
+            <div className="flex gap-4">
+              {/* URL Type */}
+              <div className="w-1/2">
+                <FormField
+                  control={form.control}
+                  name="url_type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>URL Type</FormLabel>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue
+                              placeholder="Select URL type"
+                              className="rounded-none"
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="rounded-none">
+                          <SelectItem value="fb" className="rounded-none">
+                            Facebook
+                          </SelectItem>
+                          <SelectItem value="link" className="rounded-none">
+                            Website
+                          </SelectItem>
+                          <SelectItem value="ig" className="rounded-none">
+                            Instagram
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              {/* Type */}
+              <div className="w-1/2">
+                {/* Category */}
+                <FormField
+                  control={form.control}
+                  name="category_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        disabled={isLoading || isError}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent className="max-h-[120px] overflow-y-auto">
+                          {isLoading ? (
+                            <SelectItem value="" disabled>
+                              Loading...
+                            </SelectItem>
+                          ) : isError ? (
+                            <SelectItem value="" disabled>
+                              Error loading categories
+                            </SelectItem>
+                          ) : (
+                            newsCategories?.map((cat: any) => (
+                              <SelectItem key={cat.id} value={cat.id}>
+                                {cat.title}
+                              </SelectItem>
+                            ))
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
             <FormField
               control={form.control}
               name="type"
@@ -176,45 +258,7 @@ export default function CreateNewsDialog({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="category_id"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    disabled={isLoading || isError}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {isLoading ? (
-                        <SelectItem value="" disabled>
-                          Loading...
-                        </SelectItem>
-                      ) : isError ? (
-                        <SelectItem value="" disabled>
-                          Data loading error
-                        </SelectItem>
-                      ) : (
-                        newsCategories?.map((category: any) => (
-                          <SelectItem key={category.id} value={category.id}>
-                            {category.title}
-                          </SelectItem>
-                        ))
-                      )}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            {/* Submit */}
             <DialogFooter>
               <div className="flex mt-6 gap-4">
                 <Button type="submit" disabled={isSubmitting}>

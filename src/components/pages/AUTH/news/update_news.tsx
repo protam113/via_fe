@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components';
-import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
@@ -31,6 +30,7 @@ import type { UpdateNewsData, UpdateNewsDialogProps } from '@/types';
 import { NewsCategoryError } from '@/constants';
 import { updateNewsFormSchema } from '@/utils';
 import { NewsCategoryList } from '@/lib';
+import { Spinner } from '@/components/loading/spinner';
 
 export default function UpdateNewsDialog({
   news,
@@ -54,7 +54,6 @@ export default function UpdateNewsDialog({
       category_id: news.category.id || '',
     },
   });
-  const isDirty = form.formState.isDirty;
 
   useEffect(() => {
     if (news) {
@@ -111,7 +110,10 @@ export default function UpdateNewsDialog({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleUpdateNews)}>
+          <form
+            onSubmit={form.handleSubmit(handleUpdateNews)}
+            className="space-y-6"
+          >
             <FormField
               control={form.control}
               name="title"
@@ -138,28 +140,76 @@ export default function UpdateNewsDialog({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="url_type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL Type</FormLabel>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select url type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="fb">Facebook</SelectItem>
-                      <SelectItem value="link">Web</SelectItem>
-                      <SelectItem value="ig">Instagram</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex gap-4">
+              {/* URL Type */}
+              <div className="w-1/2">
+                <FormField
+                  control={form.control}
+                  name="url_type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>URL Type</FormLabel>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select url type" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="fb">Facebook</SelectItem>
+                          <SelectItem value="link">Web</SelectItem>
+                          <SelectItem value="ig">Instagram</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <FormField
+                control={form.control}
+                name="category_id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      disabled={isLoading || isError} // disable khi loading hoặc lỗi
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="max-h-[120px] overflow-y-auto">
+                        {isLoading ? (
+                          <SelectItem value="" disabled>
+                            Loading...
+                          </SelectItem>
+                        ) : isError ? (
+                          <SelectItem value="" disabled>
+                            Data loading error
+                          </SelectItem>
+                        ) : (
+                          newsCategories?.map((category: any) => (
+                            <SelectItem key={category.id} value={category.id}>
+                              {category.title}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
               name="type"
@@ -182,50 +232,10 @@ export default function UpdateNewsDialog({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="category_id"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    disabled={isLoading || isError} // disable khi loading hoặc lỗi
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category type" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {isLoading ? (
-                        <SelectItem value="" disabled>
-                          Loading...
-                        </SelectItem>
-                      ) : isError ? (
-                        <SelectItem value="" disabled>
-                          Data loading error
-                        </SelectItem>
-                      ) : (
-                        newsCategories?.map((category: any) => (
-                          <SelectItem key={category.id} value={category.id}>
-                            {category.title}
-                          </SelectItem>
-                        ))
-                      )}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <DialogFooter>
               <div className="flex mt-6 gap-4">
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  )}
+                  {isSubmitting && <Spinner size={4} />}
                   {isSubmitting ? 'Updating...' : 'Update News'}
                 </Button>
               </div>

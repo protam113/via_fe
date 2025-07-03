@@ -64,18 +64,14 @@ export default function UpdateCategoryDialog({
 
   const { mutate: updateNewsCategory } = useUpdateCategory();
 
-  // Handle image upload completion
   const handleImageUploaded = (imageUrl: string, uploadId: string) => {
-    // Store the new thumbnail ID
     setNewThumbnailId(uploadId);
 
-    // Update form with the new thumbnail_id
     form.setValue('thumbnail_id', uploadId, {
       shouldDirty: true,
       shouldValidate: true,
     });
 
-    // Keep the preview URL - use imageUrl if available, otherwise keep existing preview
     if (imageUrl) {
       setNewImagePreview(imageUrl);
     }
@@ -88,7 +84,6 @@ export default function UpdateCategoryDialog({
     setShowUploader(true);
   };
 
-  // Listen for file selection in ImageUploadPreview component
   useEffect(() => {
     const handleFileSelection = (event: CustomEvent) => {
       if (event.detail && event.detail.previewUrl) {
@@ -159,8 +154,6 @@ export default function UpdateCategoryDialog({
       return newImagePreview;
     }
     if (hasNewImage && newThumbnailId) {
-      // If we have uploaded a new image but no preview URL,
-      // we might need to construct the URL or use a placeholder
       return category.thumbnail?.url || '/logo.svg';
     }
     return category.thumbnail?.url || '/logo.svg';

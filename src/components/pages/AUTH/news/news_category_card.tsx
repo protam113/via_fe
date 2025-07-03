@@ -51,9 +51,9 @@ const NewsCategoryCard: React.FC<CategoryCardProps> = ({
           {newsCategories.map((category: NewsCategoryRespone) => (
             <button
               key={category.id}
-              onClick={() => handleCategoryClick(category.id)}
+              onClick={() => handleCategoryClick(category.slug)}
               className={`pb-4 px-1 ${
-                selectedCategory === category.id
+                selectedCategory === category.slug
                   ? 'text-primary border-b-2 border-primary font-medium'
                   : 'text-gray-600 hover:text-gray-900'
               }`}

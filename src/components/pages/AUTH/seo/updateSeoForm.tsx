@@ -11,10 +11,11 @@ import {
   CardContent,
   CardFooter,
   Button,
+  AdminLoading,
+  NoResultsFound,
 } from '@/components';
 import type { UpdateSeo } from '@/types';
 import { useUpdateSeo } from '@/hooks';
-import { AdminLoading } from '@/components/loading/loading.components';
 import { Icons } from '@/assets/icons/icons';
 
 // Form validation schema
@@ -106,12 +107,8 @@ export function SeoSettingsForm() {
   };
 
   if (isLoading) return <AdminLoading message="Loading.." />;
-  if (isError)
-    return (
-      <div className="text-center text-red-500 py-10">
-        Failed to load SEO settings.
-      </div>
-    );
+
+  if (isError) return <NoResultsFound />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

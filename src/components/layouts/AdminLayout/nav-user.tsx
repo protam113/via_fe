@@ -1,21 +1,19 @@
 'use client';
 
 import { ComponentsIcons } from '@/assets/icons/icons';
+
 import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from '@/components/ui/sidebar';
-// import { useAuthStore } from '@/store/authStore';
+} from '@/components';
 
 export function NavUser({
   user,

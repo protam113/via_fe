@@ -1,15 +1,15 @@
 'use client';
 
 import { type LucideIcon } from 'lucide-react';
-
-import { Collapsible, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
+  Collapsible,
+  CollapsibleTrigger,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
+} from '@/components';
 import Link from 'next/link';
 
 export function NavSupport({

@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import CustomImage from '@/components/common/design/image.component';
 import LangButton from '@/components/common/button/language.button';
-import { X } from 'lucide-react';
 import { navItems, navItemsMobile, navItemsSec } from '@/lib';
 import { NewsDropdown } from './news.nav';
 import { routeMap } from '@/lib/routes/routeMap.routes';
 import { Link } from '@/i18n/navigation';
+import { Icons } from '@/assets/icons/icons';
 
 export function Navbar() {
   const pathname = usePathname();
@@ -153,7 +153,7 @@ export function Navbar() {
               className="flex items-center text-sm font-medium"
               onClick={toggleMobileMenu}
             >
-              CLOSE <X className="ml-1" size={18} />
+              CLOSE <Icons.X className="ml-1" size={18} />
             </button>
           </div>
 

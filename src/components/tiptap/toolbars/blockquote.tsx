@@ -3,7 +3,7 @@
 import { TextQuote } from 'lucide-react';
 import React from 'react';
 
-import { Button, type ButtonProps } from '@/components/ui/button';
+import { Button, type ButtonProps } from '@/components';
 import {
   Tooltip,
   TooltipContent,

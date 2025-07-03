@@ -66,6 +66,8 @@ import {
   Eye,
   EyeOff,
   Plus,
+  AlertCircle,
+  ImageIcon,
 } from 'lucide-react';
 import {
   FaFacebookMessenger,
@@ -89,6 +91,8 @@ export const Icons = {
   Plus,
   Eye,
   EyeOff,
+  AlertCircle,
+  ImageIcon,
 };
 
 export const ArrowIcons = {

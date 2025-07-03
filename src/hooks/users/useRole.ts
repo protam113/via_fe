@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import type { FetchRoleListResponse, RoleDetail, Filters } from '@/types';
 import { endpoints, handleAPI } from '@/apis';
 import { RoleError } from '@/constants';
+import { buildQueryParams } from '@/utils';
 
 /**
  * ==========================
@@ -17,16 +18,7 @@ const fetchRoleList = async (
   filters: Filters
 ): Promise<FetchRoleListResponse> => {
   try {
-    const validFilters = Object.fromEntries(
-      Object.entries(filters).filter(
-        ([, value]) => value !== undefined && value !== ''
-      )
-    );
-
-    const queryString = new URLSearchParams({
-      page: pageParam.toString(),
-      ...validFilters,
-    }).toString();
+    const queryString = buildQueryParams(filters, pageParam);
 
     // Gọi API
     const response = await handleAPI(
@@ -48,7 +40,7 @@ const useRoleList = (
   return useQuery<FetchRoleListResponse, Error>({
     queryKey: ['roleList', page, filters, refreshKey],
     queryFn: () => fetchRoleList(page, filters),
-    enabled: page > 0, // Bật query nếu page hợp lệ
+    enabled: page > 0,
     staleTime: 60000,
   });
 };

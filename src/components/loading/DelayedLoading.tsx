@@ -22,6 +22,5 @@ export function DelayedLoading({
 
   if (done) return null;
 
-  // 👇 Use the prop directly — not some undefined variable
   return <LoadingScreen onLoadingComplete={onComplete ?? (() => {})} />;
 }

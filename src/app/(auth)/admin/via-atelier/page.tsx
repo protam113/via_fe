@@ -12,16 +12,16 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from '@/components/ui/select';
+  Heading,
+  AdminContainer,
+  Input,
+  PushButton,
+} from '@/components';
 
-import Heading from '@/components/common/design/Heading';
-import AdminContainer from '@/components/wrappers/admin.container';
-import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { ENV, ExhibitionsList } from '@/lib';
 import { ExhibitionTable } from '@/components/common/tables/exhibition.table';
-import { PushButton } from '@/components';
 import ViaAtelierPost from '@/components/common/tables/viaAtelier.table';
+import { Icons } from '@/assets/icons/icons';
 
 export default function ExhibitionManager() {
   const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
@@ -99,7 +99,7 @@ export default function ExhibitionManager() {
         <div className="md:flex col flex-col-2 md:flex-row justify-between items-center mb-6">
           <div className="flex items-center gap-4">
             <div className="relative w-full md:w-64">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Icons.Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <Input
                 placeholder="Search title (Press Enter)"
                 className="pl-10 pr-8 rounded-none"

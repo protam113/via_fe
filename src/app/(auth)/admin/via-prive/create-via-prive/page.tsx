@@ -1,7 +1,6 @@
-import { AdminContainer } from '@/components';
+import { AdminContainer, Heading } from '@/components';
 import BackButton from '@/components/common/button/back-admin.button';
-import Heading from '@/components/common/design/Heading';
-import EventForm from '@/components/pages/AUTH/form/exhibiton_create.form';
+import { EventForm } from '@/components/pages/AUTH/form/exhibiton_create.form';
 import { ENV } from '@/lib';
 import React from 'react';
 

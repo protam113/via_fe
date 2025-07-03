@@ -56,6 +56,37 @@ export const contactFormSchema = z.object({
   ids: z.array(z.string()).min(1, ContactWarning.IDS_REQUIRED),
 });
 
+// This schema is used for sending contact form
+export const contactSentFormSchema = z.object({
+  name: zodIsNotEmptyString(ContactWarning.NAME_REQUIRED),
+
+  email: z
+    .string()
+    .min(1, ContactWarning.EMAIL_REQUIRED)
+    .email('Invalid email format'),
+
+  phone_number: zodIsNotEmptyString(ContactWarning.PHONE_NUMBER_REQUIRED),
+
+  message: zodIsNotEmptyString(ContactWarning.MESSAGE_REQUIRED),
+
+  location: zodIsNotEmptyString(ContactWarning.LOCATION_REQUIRED),
+});
+
+export const deleteRegisterFormSchema = z.object({
+  ids: z.array(z.string()).min(1, ContactWarning.IDS_REQUIRED),
+});
+
+export const registerFormSchema = z.object({
+  name: zodIsNotEmptyString(ContactWarning.NAME_REQUIRED),
+
+  email: z
+    .string()
+    .min(1, ContactWarning.EMAIL_REQUIRED)
+    .email('Invalid email format'),
+
+  phone_number: zodIsNotEmptyString(ContactWarning.PHONE_NUMBER_REQUIRED),
+});
+
 // ==================== ✅ END CONTACT SCHEMA ====================
 
 // This schema is used for updateting website information
@@ -77,22 +108,6 @@ export const updateWebsiteFormSchema = z.object({
     .string()
     .min(1, WebsiteWarning.WARNING_WEBSITE_MESSENGER)
     .optional(),
-});
-
-// This schema is used for sending contact form
-export const contactSentFormSchema = z.object({
-  name: zodIsNotEmptyString(ContactWarning.NAME_REQUIRED),
-
-  email: z
-    .string()
-    .min(1, ContactWarning.EMAIL_REQUIRED)
-    .email('Invalid email format'),
-
-  phone_number: zodIsNotEmptyString(ContactWarning.PHONE_NUMBER_REQUIRED),
-
-  message: zodIsNotEmptyString(ContactWarning.MESSAGE_REQUIRED),
-
-  location: zodIsNotEmptyString(ContactWarning.LOCATION_REQUIRED),
 });
 
 // This schema is used for SEO form validation

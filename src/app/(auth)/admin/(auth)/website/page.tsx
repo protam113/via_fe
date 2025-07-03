@@ -1,5 +1,4 @@
-import AdminContainer from '@/components/wrappers/admin.container';
-import Heading from '@/components/common/design/Heading';
+import { Heading, AdminContainer } from '@/components';
 import { WebsiteUpdateForm } from '@/components/pages/AUTH/form/webiste_update_form';
 
 const Page = () => {

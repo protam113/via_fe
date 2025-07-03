@@ -1,7 +1,7 @@
 'use client';
 
 import { useExhibitionDetail } from '@/hooks/exhibition/useExhibition';
-import { Name } from '@/lib';
+import { Name, ROUTES } from '@/lib';
 import { useParams, usePathname } from 'next/navigation';
 import { formatDateOnly } from '@/utils';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,8 @@ import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
 import { Container } from '@/components';
 import { LoadingSpin } from '@/components/loading/loading';
+import CompanyComponent from '@/components/common/cards/gallery-carousel.card';
+import BackMainButton from '@/components/common/button/back-main.button';
 
 export default function Page() {
   const { slug } = useParams();
@@ -107,6 +109,7 @@ export default function Page() {
 
   return (
     <Container className="min-h-screen ">
+      <BackMainButton href={ROUTES.VIA_ART_FAIR.ROOT} title="Back" />
       {/* Header Section */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-8">
@@ -153,6 +156,9 @@ export default function Page() {
           <div
             dangerouslySetInnerHTML={{ __html: exhibitionDetailData.content }}
           />
+        </div>
+        <div className="mx-auto">
+          <CompanyComponent companies={exhibitionDetailData.companies} />
         </div>
       </div>
     </Container>

@@ -1,18 +1,29 @@
 'use client';
 
 import CustomImage from '@/components/common/design/image.component';
+import { NoResultsFound, LoadingSpin } from '@/components';
 import { BannerList } from '@/lib/responses/bannerLib';
 import type { FetchBannerListResponse } from '@/types';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { getLocaleFromPath } from '@/utils';
+import { usePathname } from 'next/navigation';
+import BannerError from '@/components/loading/errror.component';
 
 export function GradientBanner() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const pathname = usePathname();
 
+  const locale = getLocaleFromPath(pathname) || 'vi';
   const params = {};
+  const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
 
-  const { banners: rawBanners, isLoading, isError } = BannerList(1, params, 0);
+  const {
+    banners: rawBanners,
+    isLoading,
+    isError,
+  } = BannerList(1, params, refreshKey);
 
   const banners = Array.isArray(rawBanners)
     ? (rawBanners as FetchBannerListResponse[])
@@ -37,9 +48,18 @@ export function GradientBanner() {
     }
   }, [isHovered, banners]);
 
-  if (isLoading) return <div>Loading banners...</div>;
-  if (isError) return <div>Failed to load banners.</div>;
-  if (!banners.length) return <div>No banners available.</div>;
+  if (isLoading) return <LoadingSpin />;
+
+  if (isError) {
+    return (
+      <BannerError
+        locale={locale}
+        onRetry={() => setRefreshKey((prev) => prev + 1)}
+      />
+    );
+  }
+
+  if (!banners.length) return <NoResultsFound />;
 
   return (
     <div className="w-full mx-auto">

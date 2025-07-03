@@ -75,7 +75,7 @@ export default function ExhibitionContactForm({
   };
 
   return (
-    <div ref={formRef} className=" mx-auto">
+    <div ref={formRef} className="mx-auto">
       {/* Right side - Contact Form */}
       <div className="space-y-6">
         <form

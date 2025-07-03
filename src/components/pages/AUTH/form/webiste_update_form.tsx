@@ -1,7 +1,6 @@
 'use client';
 
-import { WebsiteList } from '@/lib';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Input,
   Label,
@@ -10,9 +9,15 @@ import {
   CardContent,
   CardFooter,
   Button,
+  AdminLoading,
+  NoResultsFound,
 } from '@/components';
+
+// Hooks data
 import { useUpdateWebsite } from '@/hooks';
-import { AdminLoading } from '@/components/loading/loading.components';
+import { WebsiteList } from '@/lib';
+
+// Form
 import { updateWebsiteFormSchema } from '@/utils';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
@@ -27,6 +32,7 @@ export function WebsiteUpdateForm() {
     handleSubmit,
     setError,
     clearErrors,
+    reset,
     formState: { isSubmitting },
   } = useForm<z.infer<typeof updateWebsiteFormSchema>>({
     resolver: zodResolver(updateWebsiteFormSchema),
@@ -38,6 +44,17 @@ export function WebsiteUpdateForm() {
       tiktok: '',
     },
   });
+  useEffect(() => {
+    if (website) {
+      reset({
+        facebook: website.facebook || '',
+        messenger: website.messenger || '',
+        instagram: website.instagram || '',
+        tiktok: website.tiktok || '',
+        phone_number: website.phone_number || '',
+      });
+    }
+  }, [website, reset]);
 
   // Cập nhật form khi website data thay đổi
 
@@ -60,12 +77,7 @@ export function WebsiteUpdateForm() {
 
   if (isLoading) return <AdminLoading message="Loading.." />;
 
-  if (isError)
-    return (
-      <div className="text-center text-red-500 py-10">
-        Failed to load Website settings.
-      </div>
-    );
+  if (isError) return <NoResultsFound />;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

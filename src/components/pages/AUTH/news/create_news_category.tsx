@@ -24,7 +24,10 @@ import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateNewsCategory } from '@/hooks';
-import type { CreateNewsCategoryData, CreateNewsCategoryDialogProps } from '@/types';
+import type {
+  CreateNewsCategoryData,
+  CreateNewsCategoryDialogProps,
+} from '@/types';
 import { NewsCategoryError } from '@/constants';
 import { newsCategoryFormSchema } from '@/utils';
 
@@ -56,8 +59,9 @@ export default function CreateNewsCategoryDialog({
     createNewsCategory(categoryData, {
       onSuccess: () => {
         onSuccess?.();
-        setOpen(false);
         form.reset();
+        setOpen(false);
+        setIsSubmitting(false);
       },
       onError: (error: any) => {
         form.setError('root', {
@@ -72,12 +76,10 @@ export default function CreateNewsCategoryDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="rounded-none">
-          <Icons.Plus className="mr-2 h-4 w-4" />
-          Create New Category
-        </Button>
-      </DialogTrigger>
+      <Button className="rounded-none" onClick={() => setOpen(true)}>
+        <Icons.Plus className="mr-2 h-4 w-4" />
+        Create New Category
+      </Button>
       <DialogContent className="sm:max-w-[425px] rounded-none bg-white">
         <DialogHeader>
           <DialogTitle>Create New Category</DialogTitle>

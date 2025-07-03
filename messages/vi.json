@@ -70,5 +70,15 @@
 
   "Loading": {
     "title": "Đang tải thông tin triển lãm..."
+  },
+
+  "NotFound": {
+    "title": "Ôi không! Trang này không tồn tại.",
+    "desc1": "Liên kết bạn truy cập có thể đã sai hoặc trang đã bị xóa.",
+    "desc2": "Nhưng đừng lo, vẫn còn rất nhiều điều tuyệt vời đang chờ bạn khám phá!"
+  },
+
+  "Via": {
+    "register": "Đăng ký VIA Atelier mùa sau"
   }
 }

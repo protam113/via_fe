@@ -11,9 +11,9 @@ import {
   TableHeader,
   TableRow,
   Button,
+  NoResultsFound,
 } from '@/components';
 import { Skeleton } from '@/components/ui/skeleton';
-import NoResultsFound from '@/components/common/design/NoResultsFound';
 
 import type { ExhibitionTableProps } from '@/types';
 import { ExhibitionColumns } from '@/types';
@@ -25,6 +25,8 @@ import UpdateCategoryDialog from '@/components/pages/AUTH/form/category_update.f
 import { formatSmartDate } from '@/utils';
 import { ExhibitionStatusLog } from '@/constants';
 import { useRouter } from 'next/navigation';
+import { useDeleteExhibition } from '@/hooks';
+import { ConfirmDialog } from '../design/ConfirmDialog';
 
 export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
   exhibitions,
@@ -33,10 +35,31 @@ export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
   type,
 }) => {
   const router = useRouter();
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [editingCategory, setEditingCAtegory] = useState<
     (typeof exhibitions)[0] | null
   >(null);
+
+  const { mutate: deletePost } = useDeleteExhibition();
+
+  const handleOpenConfirm = (id: string) => {
+    setSelectedPostId(id);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!selectedPostId) return;
+    deletePost(selectedPostId, {
+      onSuccess: () => {
+        setConfirmOpen(false);
+        setSelectedPostId(null);
+      },
+      onError: () => {},
+    });
+  };
 
   return (
     <>
@@ -167,6 +190,14 @@ export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
                               <Icons.Pencil className="h-4 w-4" />
                               <span className="sr-only">Edit</span>
                             </Button>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className="bg-red-main hover:bg-red-main"
+                              onClick={() => handleOpenConfirm(exhibition.id)}
+                            >
+                              <Icons.Trash className="h-4 w-4 text-white" />
+                            </Button>
                           </div>
                         ) : null}
                       </TableCell>
@@ -202,6 +233,16 @@ export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
           }}
         />
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        setOpen={setConfirmOpen}
+        title="Delete selected exhibition?"
+        description="This action cannot be undone. Are you sure you want to delete the selected exhibition?"
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmDelete}
+      />
     </>
   );
 };

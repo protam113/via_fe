@@ -1,15 +1,18 @@
 'use client';
 
 import { useExhibitionDetail } from '@/hooks/exhibition/useExhibition';
-import { Name } from '@/lib';
+import { Name, ROUTES } from '@/lib';
 import { useParams, usePathname } from 'next/navigation';
 import { formatDateOnly } from '@/utils';
 import { useEffect, useState } from 'react';
 import type { ExhibitionCode, ExibitionDetailResponse } from '@/types';
 import { getLocaleFromPath } from '@/utils/helpers/get_local_path.helper';
 import CustomImage from '@/components/common/design/image.component';
-import { Container } from '@/components';
-import { LoadingSpin } from '@/components/loading/loading';
+import { Container, Separator, LoadingSpin } from '@/components';
+import BackButton from '@/components/common/button/back-admin.button';
+import CompanyComponent from '@/components/common/cards/gallery-carousel.card';
+import ExhibitionRegisterForm from '@/components/wrappers/register_atelier.contact';
+import BackMainButton from '@/components/common/button/back-main.button';
 
 export default function Page() {
   const { slug } = useParams();
@@ -107,6 +110,8 @@ export default function Page() {
 
   return (
     <Container className="min-h-screen ">
+      <BackMainButton href={ROUTES.VIA_ATELIER.ROOT} title="Back" />
+
       {/* Header Section */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-8">
@@ -143,7 +148,7 @@ export default function Page() {
         </div>
 
         {/* Description Section */}
-        <div className="mx-auto">
+        <div>
           <p className="text-gray-700 leading-relaxed text-justify">
             {exhibitionDetailData.description}
           </p>
@@ -153,6 +158,20 @@ export default function Page() {
           <div
             dangerouslySetInnerHTML={{ __html: exhibitionDetailData.content }}
           />
+        </div>
+        <div className="mt-4">
+          <CompanyComponent companies={exhibitionDetailData.companies} />
+        </div>
+
+        <Separator className="h-px bg-gray-500 mb-4 mt-4" />
+
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+            {locale === 'vi'
+              ? 'Đăng ký VIA Atelier mùa sau'
+              : 'Register for VIA Atelier next seasons'}
+          </h1>
+          <ExhibitionRegisterForm />
         </div>
       </div>
     </Container>

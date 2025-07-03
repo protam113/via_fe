@@ -6,6 +6,8 @@ import { NewsList } from '@/lib';
 import { iconMap, isValidUrlType } from '../options/news_icons';
 import { SocialMediaIcon } from '@/assets/icons/icons';
 import Link from 'next/link';
+import { Tooltip, TooltipTrigger, TooltipContent } from '@/components';
+import { truncateText } from '@/utils/helpers/truncate_text.helper';
 
 export default function RecentNews() {
   const params = {
@@ -58,15 +60,20 @@ export default function RecentNews() {
                     <p className="text-sm text-gray-500">{contact.url_type}</p>
                   </div>
                   <div>
-                    <Link
-                      href={contact.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span className="text-blue-600 underline text-sm hover:text-blue-800">
-                        {contact.url}
-                      </span>
-                    </Link>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href={contact.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="text-blue-600 underline hover:text-blue-800">
+                            {truncateText(contact.url, 40)}
+                          </span>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent>{contact.url}</TooltipContent>
+                    </Tooltip>
                   </div>
                 </div>
               </li>

@@ -24,7 +24,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import type { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { exhibitionFormSchema, logDebug } from '@/utils';
-import { useCreateExhibition } from '@/hooks/exhibition/useExhibition';
+import { useCreateExhibition } from '@/hooks';
 import { ExhibitionError } from '@/constants';
 import ImageUploadPreview from '@/components/features/image_upload';
 import ThumbnailUploadPreview from '@/components/features/thumbnail.upload';
@@ -39,7 +39,7 @@ const statusOptions = [
   { value: 'finished', label: 'Finished' },
 ];
 
-export default function EventForm({ category }: { category: string }) {
+export function EventForm({ category }: { category: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const categoryId = category;
   const errorRef = useRef<HTMLDivElement>(null);
@@ -275,30 +275,35 @@ export default function EventForm({ category }: { category: string }) {
             )}
 
             <Card className="rounded-none">
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 space-y-6">
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 space-y-6">
+                <div className="grid grid-cols-1 gap-6">
                   {/* Date + Status */}
-                  <div className="md:col-span-1 space-y-4">
-                    <DateRangePicker
-                      value={{
-                        start_date: watchedValues.start_date,
-                        end_date: watchedValues.end_date,
-                      }}
-                      onChange={(range) => {
-                        setValue('start_date', range.start_date);
-                        setValue('end_date', range.end_date);
-                      }}
-                    />
-                    {(errors.start_date || errors.end_date) && (
-                      <p className="text-red-500 text-sm">
-                        {[errors.start_date?.message, errors.end_date?.message]
-                          .filter(Boolean)
-                          .join(' ')}
-                      </p>
-                    )}
+                  <div className="md:col-span-1 flex flex-col md:flex-row gap-4">
+                    <div className="flex-1 min-w-[220px]">
+                      <DateRangePicker
+                        value={{
+                          start_date: watchedValues.start_date,
+                          end_date: watchedValues.end_date,
+                        }}
+                        onChange={(range) => {
+                          setValue('start_date', range.start_date);
+                          setValue('end_date', range.end_date);
+                        }}
+                      />
+                      {(errors.start_date || errors.end_date) && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {[
+                            errors.start_date?.message,
+                            errors.end_date?.message,
+                          ]
+                            .filter(Boolean)
+                            .join(' ')}
+                        </p>
+                      )}
+                    </div>
 
-                    <div className="space-y-2">
-                      <Label>Status</Label>
+                    <div className="flex-1 min-w-[150px] space-y-2">
+                      <Label className="text-lg font-semibold">Status</Label>
                       <Select
                         value={watchedValues.status}
                         onValueChange={(value) => {
@@ -329,13 +334,30 @@ export default function EventForm({ category }: { category: string }) {
                     <CompanyManager form={form} />
                   </div>
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="banner" className="text-lg font-semibold">
+                    Banner
+                  </Label>
+                  <ImageUploadPreview
+                    key={uploadBannerKey}
+                    type="banner"
+                    onImageUploaded={handleBannerUploaded}
+                  />
+                  {errors.banner_id && (
+                    <p className="text-red-500 text-sm">
+                      {errors.banner_id.message}
+                    </p>
+                  )}
+                </div>
               </CardContent>
             </Card>
 
             {/* Media IDs */}
             <div className="grid grid-cols-1 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="thumbnail">Thumbnail</Label>
+                <Label htmlFor="thumbnail" className="text-lg font-semibold">
+                  Thumbnail
+                </Label>
                 <ThumbnailUploadPreview
                   key={uploadThumnailKey}
                   type="thumbnail"
@@ -344,20 +366,6 @@ export default function EventForm({ category }: { category: string }) {
                 {errors.thumbnail_id && (
                   <p className="text-red-500 text-sm">
                     {errors.thumbnail_id.message}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="banner">Banner</Label>
-                <ImageUploadPreview
-                  key={uploadBannerKey}
-                  type="banner"
-                  onImageUploaded={handleBannerUploaded}
-                />
-                {errors.banner_id && (
-                  <p className="text-red-500 text-sm">
-                    {errors.banner_id.message}
                   </p>
                 )}
               </div>

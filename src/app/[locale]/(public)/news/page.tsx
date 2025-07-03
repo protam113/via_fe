@@ -1,16 +1,15 @@
 'use client';
 
 import { Icons, SocialMediaIcon } from '@/assets/icons/icons';
-import { Badge, Container } from '@/components';
 import React, { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { NewsList } from '@/lib';
-import type {
-  UrlType} from '@/components/common/options/news_icons';
+import type { UrlType } from '@/components/common/options/news_icons';
 import {
   iconMap,
-  isValidUrlType
+  isValidUrlType,
 } from '@/components/common/options/news_icons';
+import { LoadingSpin, NoResultsFound, Badge, Container } from '@/components';
 
 const Page = () => {
   const t = useTranslations('NewsPage');
@@ -55,13 +54,7 @@ const Page = () => {
   if (isLoading) {
     return (
       <Container>
-        <div className="flex flex-col items-center justify-center py-20 text-center text-gray-700">
-          <Icons.Loader2 className="animate-spin h-8 w-8 mb-4 text-gray-500" />
-          <p className="text-lg font-medium">
-            Loading the latest news for you...
-          </p>
-          <p className="text-sm text-gray-500 mt-2">Please wait a moment </p>
-        </div>
+        <LoadingSpin message=" Loading the latest news for you..." />
       </Container>
     );
   }
@@ -69,10 +62,12 @@ const Page = () => {
   if (isError) {
     return (
       <Container>
-        <p className="text-red-main">Oops! Failed to load news.</p>
+        <NoResultsFound />
       </Container>
     );
   }
+
+  if (!accumulatedNews.length) return <NoResultsFound />;
 
   return (
     <Container>
@@ -89,7 +84,12 @@ const Page = () => {
 
         <div className="divide-y divide-gray-200">
           {accumulatedNews.map((item) => (
-            <a key={item.id} target="_blank" rel="noopener noreferrer">
+            <a
+              key={item.id}
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div className="flex items-center gap-3 py-3 px-4 transition-all duration-200 hover:bg-gray-100 hover:shadow-sm hover:scale-[1.01] cursor-pointer">
                 <span className="text-gray-600">•</span>
 
