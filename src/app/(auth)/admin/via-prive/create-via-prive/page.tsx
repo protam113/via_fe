@@ -1,7 +1,7 @@
 import { AdminContainer, Heading } from '@/components';
 import BackButton from '@/components/common/button/back-admin.button';
 import { EventForm } from '@/components/pages/AUTH/form/exhibiton_create.form';
-import { ENV } from '@/lib';
+import { ENV, ROUTES } from '@/lib';
 import React from 'react';
 
 const Page = () => {
@@ -13,7 +13,7 @@ const Page = () => {
         <BackButton />
       </div>
       <section>
-        <EventForm category={categoryId} />
+        <EventForm category={categoryId} href={ROUTES.ADMIN_VIA_PRIVE.ROOT} />
       </section>
     </AdminContainer>
   );

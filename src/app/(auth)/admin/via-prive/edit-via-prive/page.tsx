@@ -9,7 +9,7 @@ const Page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace(ROUTES.ADMIN_VIA_ART_FAIR.ROOT);
+    router.replace(ROUTES.ADMIN_VIA_PRIVE.ROOT);
   }, [router]);
 
   return null;

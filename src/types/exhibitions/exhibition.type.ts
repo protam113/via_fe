@@ -17,9 +17,19 @@ export interface Translations {
   price: number;
 }
 
+export interface AdminTranslations {
+  id: string;
+  title: string;
+  language: string;
+  description: string;
+  content: string;
+  location: string;
+  price: number;
+}
+
 export interface ExhibitionData {
-  start_date: string | Date;
-  end_date: string | Date;
+  start_date: string;
+  end_date: string;
   thumbnail_id: string;
   banner_id: string;
   status: string;
@@ -34,8 +44,8 @@ export interface ExhibitionListData {
   title: string;
   description: string;
   thumbnail: Thumbnail;
-  start_date: string | Date;
-  end_date: string | Date;
+  start_date: string;
+  end_date: string;
   status: string;
   companies: Companies[];
   translations: [];
@@ -95,6 +105,7 @@ export interface ExibitionDetailResponse {
   companies: Companies[];
   content: string;
   location: string;
+  price: string;
 }
 
 export interface ExhibitionCode {
@@ -111,5 +122,47 @@ export interface ExibitionAdminDetailResponse {
   code: string;
   category: Category;
   companies: Companies[];
-  translations: Translations[];
+  translations: AdminTranslations[];
+}
+
+export interface UpdateExhibitionData {
+  start_date: string;
+  end_date: string;
+  thumbnail_id?: string;
+  banner_id?: string;
+  status?: string;
+  category_id?: string;
+  companies?: CreateCompanies[];
+}
+
+export interface UpdateHeadExhibitionData {
+  start_date: string;
+  end_date: string;
+  thumbnail: Thumbnail;
+  banner: Thumbnail;
+  status: string;
+  category_id: string;
+  companies: Companies[];
+}
+
+export interface UpdateBottomExhibitionData {
+  translations: AdminTranslations;
+}
+
+export interface UpdateTranslationData {
+  title: string;
+  description: string;
+  content: string;
+  location: string;
+  price: string | number;
+}
+
+export interface AddTranslationData {
+  exhibition_id: string;
+  language: string;
+  title: string;
+  description: string;
+  content: string;
+  location: string;
+  price: string | number;
 }

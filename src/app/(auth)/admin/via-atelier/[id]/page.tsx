@@ -13,14 +13,26 @@ import {
   TabsTrigger,
   NoResultsFound,
   LoadingSpin,
+  Button,
 } from '@/components';
 import BackButton from '@/components/common/button/back-admin.button';
+import { useState } from 'react';
+import AddeTranslationDialog from '@/components/common/tables/add_translation.table';
+import { Icons } from '@/assets/icons/icons';
 
 export default function Page() {
   const { id } = useParams();
   const postId = Array.isArray(id) ? id[0] : id || '';
+  const [refreshKey, setRefreshKey] = useState(0); // State to refresh data
+  const [selectedLanguage, setSelectedLanguage] = useState<'en' | 'vn' | null>(
+    null
+  );
 
-  const { blog, isLoading, isError } = ExhibitionAdminDetailData(postId, 0);
+  const { blog, isLoading, isError } = ExhibitionAdminDetailData(
+    postId,
+    refreshKey
+  );
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   // UI - Loading & Error
   if (isLoading) {
@@ -46,6 +58,7 @@ export default function Page() {
 
     return (
       <div key={lang}>
+        {' '}
         <h2 className="text-4xl md:text-3xl font-bold text-gray-900">
           {t.title}
         </h2>
@@ -63,51 +76,89 @@ export default function Page() {
   };
 
   return (
-    <Container className="gap-4">
-      <div className="mb-8">
-        <BackButton />
-      </div>
-      {/* Banner Image */}
-      <div className="relative w-full h-96 md:h-[500px] mb-8 overflow-hidden">
-        <CustomImage
-          src={blog.banner?.url || ''}
-          alt={'Banner'}
-          fill
-          className="object-cover"
-        />
-      </div>
-      {/* Date & additional info */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-8">
-          <div>
-            <p>
-              {(blog?.start_date && formatDateOnly(blog.start_date)) || '—'} -{' '}
-              {(blog?.end_date && formatDateOnly(blog.end_date)) || '—'}
-            </p>
+    <>
+      <Container className="gap-4">
+        <div className="mb-8">
+          <BackButton />
+        </div>
+        {/* Banner Image */}
+        <div className="relative w-full h-96 md:h-[500px] mb-8 overflow-hidden">
+          <CustomImage
+            src={blog.banner?.url || ''}
+            alt={'Banner'}
+            fill
+            className="object-cover"
+          />
+        </div>
+        {/* Date & additional info */}
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-8">
+            <div>
+              <p>
+                {(blog?.start_date && formatDateOnly(blog.start_date)) || '—'} -{' '}
+                {(blog?.end_date && formatDateOnly(blog.end_date)) || '—'}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      {/* Tabs with translations */}
-      <Tabs
-        defaultValue={hasEN ? 'en' : hasVN ? 'vn' : ''}
-        className="w-full rounded-none"
-      >
-        <TabsList className="grid w-full grid-cols-2 bg-gray-400 rounded-none">
-          {hasEN && (
-            <TabsTrigger value="en" className="rounded-none">
-              English
-            </TabsTrigger>
-          )}
-          {hasVN && (
-            <TabsTrigger value="vn" className="rounded-none">
-              Vietnamese
-            </TabsTrigger>
-          )}
-        </TabsList>
+        {/* Tabs with translations */}
+        <Tabs
+          defaultValue={hasEN ? 'en' : hasVN ? 'vn' : ''}
+          className="w-full rounded-none"
+        >
+          <TabsList className="grid w-full grid-cols-2 bg-gray-400 rounded-none">
+            {hasEN && (
+              <TabsTrigger value="en" className="rounded-none">
+                English
+              </TabsTrigger>
+            )}
+            {hasVN && (
+              <TabsTrigger value="vn" className="rounded-none">
+                Vietnamese
+              </TabsTrigger>
+            )}
+          </TabsList>
+          <div className="mt-6 space-y-4">
+            {!hasEN && (
+              <Button
+                onClick={() => {
+                  setSelectedLanguage('en');
+                  setIsCreateDialogOpen(true);
+                }}
+                className="rounded-none"
+              >
+                <Icons.Plus className="mr-2 h-4 w-4" />
+                Add English Translation
+              </Button>
+            )}
 
-        {hasEN && <TabsContent value="en">{renderContent('en')}</TabsContent>}
-        {hasVN && <TabsContent value="vn">{renderContent('vn')}</TabsContent>}
-      </Tabs>
-    </Container>
+            {!hasVN && (
+              <Button
+                onClick={() => {
+                  setSelectedLanguage('vn');
+                  setIsCreateDialogOpen(true);
+                }}
+                className="rounded-none"
+              >
+                <Icons.Plus className="mr-2 h-4 w-4" />
+                Add Vietnamese Translation
+              </Button>
+            )}
+          </div>
+          {hasEN && <TabsContent value="en">{renderContent('en')}</TabsContent>}
+          {hasVN && <TabsContent value="vn">{renderContent('vn')}</TabsContent>}
+        </Tabs>
+      </Container>
+
+      {blog?.id && selectedLanguage && (
+        <AddeTranslationDialog
+          open={isCreateDialogOpen}
+          setOpen={setIsCreateDialogOpen}
+          onSuccess={() => setRefreshKey((prev) => prev + 1)}
+          language={selectedLanguage}
+          postId={blog.id}
+        />
+      )}
+    </>
   );
 }

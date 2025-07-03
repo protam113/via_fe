@@ -231,7 +231,6 @@ export const exhibitionFormSchema = z.object({
     )
     .refine(
       (arr) => {
-        // Phải có ít nhất 1 translation đầy đủ
         return arr.some(
           (item) =>
             item.title &&
@@ -245,4 +244,97 @@ export const exhibitionFormSchema = z.object({
         message: 'At least one complete translation is required',
       }
     ),
+});
+
+export const exhibitionUpdateHeadSchema = z
+  .object({
+    start_date: z
+      .string()
+      .nonempty(ExhibitionWarning.WARNING_EXHIBITION_START_DATE),
+    end_date: z
+      .string()
+      .nonempty(ExhibitionWarning.WARNING_EXHIBITION_END_DATE),
+    thumbnail_id: z
+      .string()
+      .nonempty(ExhibitionWarning.WARNING_EXHIBITION_THUMBNAIL),
+    banner_id: z.string().nonempty(ExhibitionWarning.WARNING_EXHIBITION_BANNER),
+    status: z.string().nonempty(ExhibitionWarning.WARNING_EXHIBITION_STATUS),
+    category_id: z
+      .string()
+      .nonempty(ExhibitionWarning.WARNING_EXHIBITION_CATEGORY),
+    companies: z
+      .array(
+        z.object({
+          name: z.string().nonempty('Company name is required'),
+          url: z.string().url('Company URL must be valid'),
+          image: z.string().nonempty('Company image is required'),
+        })
+      )
+      .optional(),
+  })
+  .partial();
+
+export const exhibitionUpdateBottomSchema = z.object({
+  translations: z
+    .array(
+      z
+        .object({
+          language: z.string().nonempty(),
+          title: z.string().optional(),
+          description: z.string().optional(),
+          content: z.string().optional(),
+          location: z.string().optional(),
+          price: z.union([z.number(), z.nan()]).optional(),
+        })
+        .refine(
+          (data) => {
+            const hasAnyField =
+              !!data.title ||
+              !!data.description ||
+              !!data.content ||
+              !!data.location ||
+              typeof data.price === 'number';
+
+            const allFieldsFilled =
+              !!data.title &&
+              !!data.description &&
+              !!data.content &&
+              !!data.location &&
+              typeof data.price === 'number';
+
+            return !hasAnyField || allFieldsFilled;
+          },
+          {
+            message:
+              'If you fill one field in a translation, you must fill all of them',
+          }
+        )
+    )
+    .refine(
+      (arr) =>
+        arr.some(
+          (item) =>
+            !!item.title &&
+            !!item.description &&
+            !!item.content &&
+            !!item.location &&
+            typeof item.price === 'number'
+        ),
+      {
+        message: 'At least one complete translation is required',
+      }
+    )
+    .optional(),
+});
+
+export const exhibitionAddTranslationFormSchema = z.object({
+  exhibition_id: zodIsNotEmptyString('EROR'),
+  language: zodIsNotEmptyString('EROR'),
+  title: zodIsNotEmptyString('EROR'),
+  description: zodIsNotEmptyString('EROR'),
+  content: zodIsNotEmptyString('EROR'),
+  location: zodIsNotEmptyString('EROR'),
+  price: z.string().refine((val) => !isNaN(Number(val)), {
+    message: 'Price must be a number',
+  }),
 });

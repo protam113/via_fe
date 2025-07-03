@@ -189,4 +189,6 @@ export enum ExhibitionError {
   DELETED = 'There was an error deleting the exhibition. ',
   ID_NULL = 'Id is required',
   SLUG_NULL = 'Slug is required',
+  ADD_TRANSLATE = 'Failed to add translation exhibition. Please try again.',
+  UPDATED_TRANSLATION = 'Failed to update translation exhibition. Please try again.',
 }

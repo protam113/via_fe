@@ -183,8 +183,20 @@ export const ExhibitionTable: React.FC<ExhibitionTableProps> = ({
                               variant="outline"
                               size="icon"
                               onClick={() => {
-                                setEditingCAtegory(exhibition);
-                                setIsUpdateDialogOpen(true);
+                                // redirect hoặc mở dialog tùy type
+                                if (type === 'via-art-fair') {
+                                  router.push(
+                                    `/admin/via-art-fair/edit-via-art-fair/${exhibition.id}`
+                                  );
+                                } else if (type === 'via-atelier') {
+                                  router.push(
+                                    `/admin/via-atelier/${exhibition.id}`
+                                  );
+                                } else {
+                                  router.push(
+                                    `/admin/via-prive/${exhibition.id}`
+                                  );
+                                }
                               }}
                             >
                               <Icons.Pencil className="h-4 w-4" />

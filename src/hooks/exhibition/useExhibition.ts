@@ -8,6 +8,9 @@ import type {
   ExibitionDetailResponse,
   ExhibitionCode,
   ExibitionAdminDetailResponse,
+  UpdateExhibitionData,
+  UpdateTranslationData,
+  AddTranslationData,
 } from '@/types';
 import { toast } from 'sonner';
 import { ExhibiionSuccess, ExhibitionError } from '@/constants';
@@ -261,6 +264,142 @@ const useDeleteExhibition = () => {
   });
 };
 
+/**
+ * ==========================
+ * 📌 @HOOK useUpdateExhibiton
+ * ==========================
+ **/
+
+const EditExhibition = async (
+  updatePost: UpdateExhibitionData,
+  postId: string
+) => {
+  try {
+    if (!endpoints.exhibitionEdit) {
+      throw null;
+    }
+
+    const url = endpoints.exhibitionEdit.replace(':id', postId);
+
+    const response = await handleAPI(url, 'PATCH', updatePost);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || ExhibitionError.UPDATED_TRANSLATION
+    );
+  }
+};
+
+const useUpdateExhibiton = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      updatePost,
+      postId,
+    }: {
+      updatePost: UpdateExhibitionData;
+      postId: string;
+    }) => {
+      return EditExhibition(updatePost, postId);
+    },
+    onSuccess: () => {
+      // update
+      toast.success(ExhibiionSuccess.UPDATE_DETAIL);
+      queryClient.invalidateQueries({ queryKey: ['exhibitionList'] });
+    },
+  });
+};
+
+/**
+ * ========== END OF @HOOK useUpdateExhibiton ==========
+ */
+
+/**
+ * ==========================
+ * 📌 @HOOK useUpdateExhibiton
+ * ==========================
+ **/
+
+const EditTranslationExhibition = async (
+  updatePost: UpdateTranslationData,
+  postId: string
+) => {
+  try {
+    if (!endpoints.exhibitionEditTranslation) {
+      throw null;
+    }
+
+    const url = endpoints.exhibitionEditTranslation.replace(':id', postId);
+
+    const response = await handleAPI(url, 'PATCH', updatePost);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || ExhibitionError.UPDATED_TRANSLATION
+    );
+  }
+};
+
+const useUpdateTranslationExhibiton = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      updatePost,
+      postId,
+    }: {
+      updatePost: UpdateTranslationData;
+      postId: string;
+    }) => {
+      return EditTranslationExhibition(updatePost, postId);
+    },
+    onSuccess: () => {
+      // update
+      toast.success(ExhibiionSuccess.UPDATED_TRANSLATION);
+      queryClient.invalidateQueries({ queryKey: ['exhibitionList'] });
+    },
+  });
+};
+
+/**
+ * ========== END OF @HOOK useUpdateExhibiton ==========
+ */
+
+const AddTranslationExhibition = async (addTranslation: AddTranslationData) => {
+  try {
+    const response = await handleAPI(
+      `${endpoints.exhibitionTranslation}`,
+      'POST',
+      addTranslation
+    );
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || ExhibitionError.ADD_TRANSLATE
+    );
+  }
+};
+
+const useAddTranslationExhibiton = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      addTranslation,
+    }: {
+      addTranslation: AddTranslationData;
+    }) => {
+      return AddTranslationExhibition(addTranslation);
+    },
+    onSuccess: () => {
+      // update
+      toast.success(ExhibiionSuccess.ADD_TRANSLATION);
+      queryClient.invalidateQueries({ queryKey: ['exhibitionList'] });
+    },
+  });
+};
+
 export {
   useExhibitionList,
   useCreateExhibition,
@@ -268,4 +407,7 @@ export {
   useExhibitionDetail,
   useExhibitionAdminDetail,
   useDeleteExhibition,
+  useUpdateExhibiton,
+  useUpdateTranslationExhibiton,
+  useAddTranslationExhibiton,
 };

@@ -1,6 +1,6 @@
 import { AdminContainer, PushButton, Heading } from '@/components';
 import { EventForm } from '@/components/pages/AUTH/form/exhibiton_create.form';
-import { ENV } from '@/lib';
+import { ENV, ROUTES } from '@/lib';
 import React from 'react';
 
 const Page = () => {
@@ -14,7 +14,10 @@ const Page = () => {
         <Heading name="Via art fair Page" desc="Manage your categories here" />
       </div>
       <section>
-        <EventForm category={categoryId} />
+        <EventForm
+          category={categoryId}
+          href={ROUTES.ADMIN_VIA_ART_FAIR.ROOT}
+        />
       </section>
     </AdminContainer>
   );

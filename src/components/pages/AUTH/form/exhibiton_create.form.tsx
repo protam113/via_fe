@@ -32,6 +32,7 @@ import { TranslationFields } from '@/components/common/tables/translationFields.
 import DateRangePicker from '@/components/common/options/DateRangePicker.option';
 import CompanyManager from '@/components/common/options/CompanyInputGroup.option';
 import type { CreateExhibitionData } from '@/types';
+import { useRouter } from 'next/navigation';
 
 const statusOptions = [
   { value: 'upcoming', label: 'Upcoming' },
@@ -39,11 +40,17 @@ const statusOptions = [
   { value: 'finished', label: 'Finished' },
 ];
 
-export function EventForm({ category }: { category: string }) {
+export function EventForm({
+  category,
+  href,
+}: {
+  category: string;
+  href: string;
+}) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const categoryId = category;
   const errorRef = useRef<HTMLDivElement>(null);
-
+  const router = useRouter();
   const [uploadThumnailKey, setUploadThumbnailKey] = useState(0);
   const [uploadBannerKey, setUploadBannerKey] = useState(0);
 
@@ -215,7 +222,7 @@ export function EventForm({ category }: { category: string }) {
         form.reset();
         setUploadThumbnailKey((prev) => prev + 1);
         setUploadBannerKey((prev) => prev + 1);
-        alert('Event created successfully!');
+        router.push(href);
       },
       onError: (error) => {
         setIsSubmitting(false);

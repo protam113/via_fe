@@ -117,4 +117,7 @@ export enum CategorySuccess {
 export enum ExhibiionSuccess {
   CREATED = 'Exhibition created successfully.',
   DETAIL = 'Get Exhibition detail successfully',
+  ADD_TRANSLATION = 'Exhibition added translation successfully.',
+  UPDATED_TRANSLATION = 'Exhibition updated translation successfully.',
+  UPDATE_DETAIL = 'Exhibition updated successfully.',
 }

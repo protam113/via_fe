@@ -17,6 +17,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - Added Docker
+- Added edite exhibition
+- Added create more translation
+- Add edit translation
 
 ### Changed
 
