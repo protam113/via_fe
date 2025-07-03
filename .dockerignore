@@ -1,0 +1,7 @@
+node_modules
+.git
+.next
+README.md
+.next/cache
+Dockerfile
+docker-compose.yml

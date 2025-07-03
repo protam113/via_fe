@@ -6,8 +6,6 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Create 3 Via admin page
-
 ### Fixed
 
 ### Removed
@@ -18,7 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
--
+- Added Docker
 
 ### Changed
 
